@@ -1,0 +1,76 @@
+@import 'http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+.sidemenu .accordion{
+	background: transparent;
+	border-color: transparent;
+	}
+
+	.sidemenu .accordion .panel-title{
+   		 color: white;
+	}
+
+	.sidemenu .accordion .accordion-header{
+    background: #2F3089;
+    color: white;
+    }
+
+    .sidemenu .accordion .accordion-body{
+        background: #2F3089;
+        color: #8aa4af;
+    }
+    .sidemenu .accordion .accordion-header-selected{
+        background: #2F3089;
+    }
+
+    .sidemenu .tree-node-hover{
+        background: #F5F5F5;
+        
+        margin-left: 1px;
+        border-radius: 5px;
+        margin-bottom: 1px;
+        color: #8aa4af;
+    }
+    .sidemenu .tree-node-selected{
+        background: #F5F5F5;
+        margin-left: 1px;
+        border-radius: 5px;
+        margin-bottom: 1px;
+        color: #8aa4af;
+    }
+
+    .sidemenu .accordion-header .panel-icon{
+        font-size: 14px;
+    }
+    .sidemenu .accordion-header .panel-tool{
+        display: none;
+    }
+
+.sidemenu .accordion-header::after,
+.sidemenu .tree-node-nonleaf::after{
+    display: inline-block;
+    vertical-align: top;
+    border-style: solid;
+    transform:rotate(45deg);
+    width: 4px;
+    height: 4px;
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 0 1px 1px 0;
+}
+.sidemenu .accordion-header-selected::after{
+    transform:rotate(-135deg);
+}
+.sidemenu .tree-node-nonleaf::after{
+    transform:rotate(-135deg);
+}
+.sidemenu .tree-node-nonleaf-collapsed::after{
+    transform:rotate(45deg);
+}
+.sidemenu-collapsed .accordion-header::after{
+    display: none;
+}
+.sidemenu-tooltip .accordion{
+    border-color: #2F3089;
+}

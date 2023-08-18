@@ -1,0 +1,30 @@
+.alignleft {
+	float: left;
+}
+
+.aligncenter {
+  float: left;
+  text-align:center;
+  width:33.33333%;
+}
+.alignright {
+	float: right;
+}
+
+
+
+#left {
+  float: left;
+  text-align: left;
+  padding-right: 10px;
+}
+
+#center {
+  text-align: center;
+}
+
+#right {
+  float: right;
+  text-align: right;
+  padding-left: 10px;
+}

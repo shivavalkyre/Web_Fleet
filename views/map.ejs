@@ -1,0 +1,177 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>.: Polisi Lalu Lintas :.</title>
+        <link rel="icon" href="/img/gp3.png" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="/themes/gray/easyui.css">
+        <link rel="stylesheet" type="text/css" href="/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <link rel="stylesheet" type="text/css" href="/css/monitor.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/css/navpanel.css"> -->
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <!-- <script type="text/javascript" src="/js/home.js"></script> -->
+        <!-- <script type="text/javascript" src="/js/monitor.js"></script> -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript" src="/js/rotate_icon.js"></script>
+        <script type="text/javascript" src="/js/markers_car.js"></script>  
+        <link rel="stylesheet" href="/css/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <link href="https://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%=apikey%>"></script>
+        <script src="/js/markerclusterer.js"></script>
+        <script type="text/javascript" src="/js/data.js"></script>
+        <!-- <script type="text/javascript" src="/js/monitor_map.js"></script> -->
+    </head>
+    <body>  
+        <div style="padding:5px 0;">
+            <a id="btn1" href="#" class="easyui-linkbutton">100</a>
+            <a id="btn2" href="#" class="easyui-linkbutton">50</a>
+            <a id="btn3" href="#" class="easyui-linkbutton">20</a>
+            <span id="jml"></span>
+        </div>
+        <div id="googleMap" style="width: 100%;height: 94%;"></div>  
+
+        <script type="text/javascript" src="/js/monitor_map.js"></script>
+        <script>
+            
+            InitializeMap()
+            var markers = [];
+            var t1
+            var t2
+            var t3
+
+
+             $('#btn1').bind('click', function(){
+                
+                InitializeMap()
+                // var markers = [];
+                $('#jml').text('100')
+                data100()
+               
+             });
+
+
+
+             $('#btn2').bind('click', function(){
+                InitializeMap()
+                // var markers = [];
+                $('#jml').text('50')
+                data50()
+                
+             });
+
+             $('#btn3').bind('click', function(){
+                InitializeMap()
+                // var markers = [];
+                $('#jml').text('20')
+                data20()
+             });
+
+             function data100(){
+                //clearInterval(t1)
+                clearInterval(t2)
+                clearInterval(t3)
+
+                t1= setInterval(function(){
+                deleteMarkers()
+                for (var i = 0; i < 100; i++) {
+                var dataPhoto = data.photos[i];
+                console.log('data:' + dataPhoto)
+                console.log('lat:' + dataPhoto.latitude)
+                console.log('lng:' + dataPhoto.longitude)
+                var latLng = new google.maps.LatLng(dataPhoto.latitude,
+                    dataPhoto.longitude);
+                // console.log(latLng)
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map:map,
+                });
+                markers.push(marker);
+                }
+                console.log('marker length:'+ markers.length)
+                var markerCluster = new MarkerClusterer(map, markers);
+                },4000)
+                
+             }
+
+             function data50(){
+
+                clearInterval(t1)
+                //clearInterval(t2)
+                clearInterval(t3)
+
+                t2= setInterval(function(){  
+                deleteMarkers()
+                for (var i = 0; i < 50; i++) {
+                var dataPhoto = data.photos[i];
+                console.log('data:' + dataPhoto)
+                console.log('lat:' + dataPhoto.latitude)
+                console.log('lng:' + dataPhoto.longitude)
+                var latLng = new google.maps.LatLng(dataPhoto.latitude,
+                    dataPhoto.longitude);
+                // console.log(latLng)
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map:map,
+                });
+                markers.push(marker);
+                }
+                console.log('marker length:'+ markers.length)
+                var markerCluster = new MarkerClusterer(map, markers);
+                },3000)
+                
+             }
+
+             function data20(){
+                
+                clearInterval(t1)
+                clearInterval(t2)
+                //clearInterval(t3)
+                
+                t3= setInterval(function(){
+                deleteMarkers()
+                for (var i = 0; i < 20; i++) {
+                var dataPhoto = data.photos[i];
+                console.log('data:' + dataPhoto)
+                console.log('lat:' + dataPhoto.latitude)
+                console.log('lng:' + dataPhoto.longitude)
+                var latLng = new google.maps.LatLng(dataPhoto.latitude,
+                    dataPhoto.longitude);
+                // console.log(latLng)
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map:map,
+                });
+                markers.push(marker);
+                }
+                console.log('marker length:'+ markers.length)
+                var markerCluster = new MarkerClusterer(map, markers);
+                },2000)
+                
+             }
+
+             function setMapOnAll(map) {
+                for (var i = 0; i < markers.length; i++) 
+                    {
+                        console.log('markers: ' + i)
+                        markers[i].setMap(map);
+                    }
+             }
+
+             async function clearMarkers() {
+                await setMapOnAll(null);
+             }
+
+             function deleteMarkers() {
+                clearMarkers();
+                markers = [];
+             }
+        </script>
+    </body>
+</html>

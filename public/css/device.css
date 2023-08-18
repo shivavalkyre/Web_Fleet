@@ -1,0 +1,88 @@
+.datagrid-header-row, .datagrid-row{
+    height:40px;
+}
+.datagrid-header .datagrid-cell{
+    font-weight: bold;
+    font-family: 'Poppins';
+}
+
+/* .lines-no .datagrid-body td{
+    border-right:1px solid transparent;
+    border-bottom:1px solid transparent;
+ 
+} */
+.lines-both .datagrid-body td{
+    border-radius: 10px;
+}
+
+.datagrid-row-selected {
+    background: #436AAC;
+    color: white;
+  }
+
+.cls1,.cls1:hover,.cls1>.panel-header{
+	/* border-color: red; */
+	/* background: red; */
+    border-radius: 20px;
+
+}
+.cls1>.panel-body{
+	
+    border-radius: 20px;
+}
+
+.vl {
+    border-left: 1px solid #EDEDED;
+    margin-left: 140px;
+    height: 300px;
+  }
+/* .cls1>.dialog-toolbar,.cls1>.dialog-button{
+	/* border-color: red; */
+	/* background: red; */
+/* } */ 
+
+.dropbtn {
+    background-color: transparent;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: -30px;
+    margin-right: 25px;
+  }
+  
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: transparent;
+  }
+  
+  .dropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 0;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown a:hover {
+    background-color: #436AAC;
+    color:white
+}
+  
+  .show {display: block;}

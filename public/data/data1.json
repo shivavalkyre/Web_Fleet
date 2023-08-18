@@ -1,0 +1,4 @@
+{"total":2,"rows":[
+    {"id":5,"task":"Membersihkan rambu 'STOP' di SDN 01","task_date":"2023-07-07","task_time":"11:00:00","task_address":"SDN 01","task_lat":"106.00080780","task_lon":"71.07807070","task_status":null,"task_type":null,"userid":2,"user_lat":"106.00080780","user_lon":"71.07807070","vehicleid":"TJZT48V500W22071001544","vehicle_lat":"106.00080780","vehicle_lon":"71.07807070","createdAt":"2023-07-09T02:52:38.000Z","updatedAt":"2023-07-09T02:52:38.000Z","no":1},
+    {"id":6,"task":"Merapikan Rute Perjalanan","task_date":"2023-07-31","task_time":"08:46:04.00","task_address":"SDN 02","task_lat":"106.00080780","task_lon":"71.07807070","task_status":null,"task_type":null,"userid":null,"user_lat":"106.00080780","user_lon":"71.07807070","vehicleid":"TJZT48V500W22071001544","vehicle_lat":"106.00080780","vehicle_lon":"71.07807070","createdAt":"2023-07-31T08:46:51.000Z","updatedAt":null,"no":2}
+]}

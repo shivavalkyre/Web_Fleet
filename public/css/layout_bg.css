@@ -1,0 +1,10 @@
+body { 
+			background-image: url("../img/drink_coffe.jpg") ;
+			background-position: center center;
+			background-repeat:  no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+			background-color: #999;
+
+			
+}

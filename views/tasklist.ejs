@@ -1,0 +1,313 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>.: Polisi Lalu Lintas :.</title>
+        <link rel="icon" href="/img/gp3.png" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="/themes/gray/easyui.css">
+        <link rel="stylesheet" type="text/css" href="/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <link rel="stylesheet" type="text/css" href="/css/home.css">
+        <link rel="stylesheet" type="text/css" href="/css/tasklist.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/css/navpanel.css"> -->
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <!-- <script type="text/javascript" src="/js/home.js"></script> -->
+        <script type="text/javascript" src="/js/tasklist.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!-- <link rel="stylesheet" href="/css/idx.css"> -->
+        <link rel="stylesheet" href="/css/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link href="https://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%=apikey%>&libraries=places"></script>
+        
+
+    </head>
+    <body>    
+        <div id="mini_me" style="width:30px;height:30px;text-align: center; font-weight: 100; margin: 8px 0 0 230px;position: absolute;z-index: 2;cursor: pointer;"><img id="img_mini_me" src="/img/mini.png"/></div>   
+        <div id="cc" class="easyui-layout" style="width:100%;height:650px;background: transparent;z-index: 1;">
+            <!-- <div data-options="region:'north'" style="height:50px;border-color: #fff;background-color:#fff;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+            <div style="width:211px;height:100%;background-color: #FAFAFA;">AA</div>
+            </div> -->
+            
+            <div data-options="region:'center'"  style="background-color: white;">
+                <div style="background: white;width: 100%;height:60px;margin-top: -12px;position: absolute;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                       
+                            <div id="title_page" style="margin-left: 30px;margin-top: 20px;color: #45464E;font-family:'Open Sans Condensed';font-size: 20; font-weight: 600;line-height: 28px;height: 28px;width:100px;border: 0px solid red;">Penugasan</div>
+                            <div style ="width:16px;height: 16px; margin-top: -25px; margin-left: 80%;"><img src="/img/notification.png" width="16" height="16"/> </div>
+                            <div id="username" style ="width:16px;height: 16px; margin-top: -25px; margin-left: 85%;font-family: 'Poppins';font-size: 18;font-weight: 400;color: #404040;">Admin</div>
+                            <div id="level" style ="width:60px;height: 18px; margin-top: 10px; margin-left: 85%;font-family: 'Poppins';font-size: 10;font-weight: 400;color: #404040;text-align: center;">Super Admin</div>
+                            <div style="width: 32;height: 32;margin-top: -40px; margin-left: 91%;"><img src="/img/profile 1.png" width="32" height="32" /></div>
+                            <!-- <div style="margin-top: -30px;margin-left: 93%;"> -->
+                                <div class="dropdown">
+                                    <button onclick="myFunction()" class="dropbtn"><img src="/img/vector (6).png" width="15" height="9"/></button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                    <a href="#home">Home</a>
+                                    <a href="#about">About</a>
+                                    <a href="#contact">Contact</a>
+                                    </div>
+                                </div>
+                            <!-- </div> -->
+
+                            <div style="margin-bottom: 15px;"></div>
+                        
+                            <div id="cc_monitor" class="easyui-layout" style="width:98%;height:580px;background: white;border-radius: 8px;margin-top: 10px;margin-left:10px;position: fixed;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                                <div data-options="region:'center'"  style="background-color: white;border-color: white;">
+                                    <div class="easyui-panel" style="padding:20px;border: none;">
+                                        <input class="easyui-combobox"  prompt="Urutkan" data-options="data: [
+                                        {value:'asc',text:'ASC',iconCls:'icon-add'},
+                                        {value:'desc',text:'DESC',iconCls:'icon-remove'}],editable: true, panelHeight: 'auto'" style="width:200px;background-color: #F6F6F6;height: 40px;"/>
+                                        <input id="status_filter" class="easyui-combobox"  prompt="Status Task" data-options="showItemIcon: true,
+                                        data: [
+                                            {value:'in progress',text:' In Progress',iconCls:'icon-inprogress'},
+                                            {value:'overdue',text:' Overdue',iconCls:'icon-overdue'},
+                                            {value:'in complete',text:' In Complete',iconCls:'icon-incomplete'},
+                                            {value:'complete',text:' Complete',iconCls:'icon-complete'},
+                                        ],
+                                        formatter: cbformatItem,
+                                        editable: true,
+                                        panelHeight: 'auto'" style="width:200px;background-color: #F6F6F6;height: 40px;"/>
+                                        <!-- <input class="easyui-textbox" prompt="Cari" style="width:200px;height: 40px;"/> -->
+                                        <a href="#" class="easyui-linkbutton" iconWidth="28" data-options="iconCls:'icon-search2',plain:true" style="width: 40px;height: 40px;background-color: #436AAC;"></a>
+                                    </div>
+
+                                    <div class="easyui-panel" style="padding:10px;border: none;">
+                                        <div style="float:right;margin-bottom: 10px;">
+                                            <a href="#" id="tambah_tugas" class="easyui-linkbutton" style="height: 40px; background: #436AAC; color: white;font-family: 'Poppins';" onclick="tambah_data()">Tambah Tugas</a>
+                                        </div>
+                                        <table id="dg" class="easyui-datagrid"  style="width:100%;height:400px;border:none;border-color: transparent;font-family: 'Poppins';"
+                                            data-options="singleSelect:true,striped:true,nowrap:false,pagination:true,collapsible:true,url:'/tasklist/read',border:false,fitcolumn:true">
+
+                                            <thead data-options="frozen:true">
+                                                <tr>
+                                                    <th data-options="field:'task_status',width:120,align:'center',formatter:formatField" >Status</th>
+                                                    <th data-options="field:'status',width:120,align:'center',formatter:formatAction">Action</th>
+                                                    <th data-options="field:'no',width:30">No</th>
+                                                    <th data-options="field:'task',width:250">Tugas</th>
+                                                </tr>
+                                            </thead>
+
+                                            <thead>
+                                            <tr>
+                                                <th data-options="field:'id',width:50,align:'center'" hidden style="font-family: 'Poppins';">No</th>
+                                                <th data-options="field:'task_address',width:250,align:'left'">Lokasi</th>
+                                                <th data-options="field:'task_lat',width:100,align:'center'">Lat</th>
+                                                <th data-options="field:'task_lon',width:100,align:'center'">Lng</th>
+                                                <th data-options="field:'task_date',width:90,align:'center'">Tanggal</th>
+                                                <th data-options="field:'task_time',width:80,align:'center'">Waktu</th>
+                                                <th data-options="field:'vehicleid',width:180,align:'left'">Vehicle ID</th>
+                                                <th data-options="field:'vehicle_lat',width:110,align:'center'">Vehicle Lat</th>
+                                                <th data-options="field:'vehicle_lon',width:110,align:'center'">Vehicle Lng</th>
+                                                <th data-options="field:'users.username',width:100,align:'center'">User</th>
+                                                <th data-options="field:'user_lat',width:100,align:'center'">User Lat</th>
+                                                <th data-options="field:'user_lon',width:100,align:'center'">User Lng</th>
+                                                <th data-options="field:'desc',width:100,align:'center'">Desc</th>
+                                                <th data-options="field:'path',width:100,align:'center'">Path</th>
+                                                <th data-options="field:'filename',width:100,align:'center'">Filename</th>
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+
+                                    
+                                    
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    
+                </div>
+                <!-- Haloo -->
+            </div>
+        <div data-options="region:'west',split:false"  style="width:250px;border-color: transparent;background:transparent;background-color: #FAFAFA;">
+			<!-- <div id="sm" class="easyui-sidemenu" data-options="data:data" style="margin-left: 0px;width:208px;border-color: none;background: transparent;"></div> -->
+			<div style="Margin:30px 0 0 20px"><img src="/img/logo_polisi.png" width="60px" height="60px"></div>
+            <div style="Margin:-50px 0 0 90px"><img src="/img/polisi.png" width="50px" height="20px"></div>
+            <div style="Margin:10px 0 50px 90px"><img src="/img/lalu lintas.png" width="120px" height="20px"></div>
+
+        
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="dashboard" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-dashboard',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Dashboard()" >Dashboard</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="monitor" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:true,iconCls:'icon-monitor',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Monitor()">Pantauan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="device" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Device()">Device</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="vehicle" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Vehicle()">Kendaraan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Tasklist()">Penugasan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="alert" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-bell',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Notifikasi()">Notifikasi</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="report" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-document',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Laporan()">Laporan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="setting" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-setting1',size:'middle'" style="height: 40px;width: 100%;text-align: left;" >Pengaturan</a>
+                </div>
+                <div style="margin-top:200px;margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="logout" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-logout',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="logout()" >Logout</a>
+                </div>
+		</div>
+        </div>
+
+        <div id="w" class="easyui-window"  data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false,closable:false,noheader:true,border:'thin'" style="width:500px;height:320px;padding:10px;">
+           <div style="font-family: 'Poppins';font-size: 14px;font-weight: 900;">View Task</div>
+           <hr style="width: 480px;margin-top:10px;margin-left:0px;">
+            
+           <div class="easyui-panel" style="padding:5px;border:none">
+                <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Judul Task</div>
+                <div id="view_task1" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+            </div>
+
+            <div style="margin:10px 0;"></div>
+            <div class="easyui-panel" style="padding:5px;background-color: #F7F8FA;border-radius: 5px;border:none">
+                <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Waktu</div>
+                <div id="view_task2" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+           </div>
+
+           <div style="margin:10px 0;"></div>
+           <div class="easyui-panel" style="padding:5px;border:none">
+               <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Lokasi</div>
+               <div id="view_task3" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+          </div>
+
+          <div style="margin:10px 0;"></div>
+          <div class="easyui-panel" style="padding:5px;background-color: #F7F8FA;border-radius: 5px;border:none">
+              <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Tanggal</div>
+              <div id="view_task4" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+         </div>
+
+         <div style="margin:10px 0;"></div>
+         <div class="easyui-panel" style="padding:5px;border:none">
+             <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Status</div>
+             <div id="view_task5" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+        </div>
+
+        <hr id="hr_parent" style="width: 480px;margin-top:10px;margin-left:0px;">
+
+        <div style="margin:10px 0;"></div>
+
+        <div id="parent_view_task6" class="easyui-panel" style="padding:5px;border:none">
+            <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Dokumentasi</div>
+            <div id="view_task6" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+       </div>
+
+       <div id="parent_view_task7" class="easyui-panel" style="padding:5px;background-color: #F7F8FA;border-radius: 5px;border:none">
+            <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Keterangan</div>
+            <div id="view_task7" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+        </div>
+        
+        <hr id="hr_bottom" style="width: 480px;margin-top:10px;margin-left:0px;">
+        
+        <div id="w_toolbar" style="float:right;margin-top: -5px;">
+            <a id="close_view_task" href="#" class="easyui-linkbutton" data-options="plain:false" style="height: 35px;border-color: #436AAC;background-color: white;background: white;color: #436AAC;width: 80px;" onclick="javascript:$('#w').window('close')">Tutup</a>
+            <a id="edit_view_task" href="#" class="easyui-linkbutton" data-options="plain:true" style="height: 35px;background-color: #436AAC;color: white;width: 80px;" onclick="edit_data()">Edit</a>
+        </div>
+        </div>
+
+        <div id="w_tambah" class="easyui-window"  data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false,closable:false,noheader:true,border:'thin'" style="width:400px;height:630px;padding:10px;">
+            <div id="form_title" style="font-family: 'Poppins';font-size: 14px;font-weight: 900;">Tambah Tugas</div>
+            <hr style="width: 380px;margin-top:10px;margin-left:0px;">
+
+            <form id="ff" method="post" enctype="multipart/form-data" style="padding:10px">
+            <div id="tt" class="easyui-tabs" data-options="plain:true,narrow:true" style="width:100%;height:510px;margin-top: -20px;margin-bottom: 10px;">
+                <div title="Input" style="padding:10px">
+                    <div id="div_taskid" style="margin-bottom:0px">
+                        <input id="t_task_id" class="easyui-textbox" name="id" style="width:100%" data-options="label:'Tugas:'">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input id="t_task" class="easyui-textbox" name="task" style="width:100%" data-options="label:'Tugas:'">
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <input id="t_address" class="easyui-textbox" name="task_address" style="width:100%" data-options="label:'Alamat:'">
+                    </div>
+                   <div style="margin-bottom:10px;">Lokasi:</div>
+                    <div style="margin-bottom:10px;margin-top: -25px;border-radius: 10px;">
+                        <!-- <input id="t_address" class="easyui-textbox" name="task_address" style="width:100%" data-options="label:'Lokasi:'"> -->
+                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                        <div id="googleMap" style="width: 78%;height: 30%;margin-left: 80px;border-radius: 5px;"></div>
+                    </div>
+                    <div style="margin-bottom:10px;margin-left: 80px;">
+                        <input id="t_lat" class="easyui-textbox" data-options="prompt:'Lat',readonly:true" name="task_lat" style="width:45%;float:left">
+                        <input id="t_lon" class="easyui-textbox" data-options="prompt:'Lng',readonly:true" name="task_lon" style="width:45%;float:right">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input id="t_tanggal" class="easyui-datebox" name="task_date" style="width:100%" data-options="label:'Tanggal:',formatter:myformatter,parser:myparser">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input id="t_time" class="easyui-textbox" name="task_time" style="width:100%" data-options="label:'Waktu'">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input id="t_status" class="easyui-combobox" name="task_status" data-options="showItemIcon: true,label:'Status',
+                                            data: [
+                                                {value:'In Progress',text:' In Progress',iconCls:'icon-inprogress'},
+                                                {value:'Overdue',text:' Overdue',iconCls:'icon-overdue'},
+                                                {value:'In Complete',text:' In Complete',iconCls:'icon-incomplete',selected:true},
+                                                {value:'Complete',text:' Complete',iconCls:'icon-complete'},
+                                            ],
+                                            formatter: cbformatItem,
+                                            editable: true,
+                                            panelHeight: 'auto'" style="width:100%;background-color: #F6F6F6;height: 30px;"/>
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <select id= "t_deviceid" class="easyui-combogrid" style="width:100%" name="vehicleid" data-options="
+                        panelWidth: 250,
+                        idField: 'vehicleid',
+                        textField: 'vehicleid',
+                        url: '/vehicle/read/all',
+                        method: 'post',
+                        columns: [[
+                            {field:'vehicleid',title:'Vehicle ID',width:80},
+                        ]],
+                        fitColumns: true,
+                        label: 'Vehicle ID:',
+                        labelPosition: 'left'
+                    ">
+                    </select>
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input id="t_user" class="easyui-combobox" name="userid" style="width:100%;" data-options="
+                        url:'/user',
+                        method:'get',
+                        valueField:'id',
+                        textField:'username',
+                        label: 'User'
+                        ">
+                    </div>
+                </div>
+                <div title="Dokumen" style="padding:10px">
+                    <div style="margin-bottom:20px">
+                        <!-- <input class="easyui-filebox" label="Dokumentasi:" labelPosition="top"  data-options="prompt:'Pilih File...'" style="width:100%"> -->
+                        <div style="float:left;font-weight: 900;">Dokumentasi</div>
+                        <div style="margin-top: -10px;visibility: hidden;"><input type="file" name="myFile" id='myFile' ></div>
+                        <div style="float:right;color:#1DA7B4;cursor:pointer;margin-top: -40px;" onclick="myFile()"><img src="/img/upload.png" width="" height=""/>Upload File</div>
+                        <div id="upload_content" style="border:0px solid red;font-family: 'Poppins';font-weight: 900;color:red"></div>
+                    </div>
+                    <div style="margin-bottom:20px;margin-top: 10px;">
+                        <div style="font-weight: 900;">Keterangan</div>
+                        <input class="easyui-textbox"  multiline="true" name="desc" value="This TextBox will allow the user to enter multiple lines of text." style="width:100%;height:120px">
+                    </div>
+                </div>
+            </div>
+            <div style="margin-bottom:10px;float:right">
+                <a id="close_view_task" href="#" class="easyui-linkbutton" data-options="plain:false" style="height: 35px;border-color: #436AAC;background-color: white;background: white;color: #436AAC;width: 80px;" onclick="javascript:$('#w_tambah').window('close')">Batal</a>
+                <a id="edit_view_task" href="#" class="easyui-linkbutton" data-options="plain:true" style="height: 35px;background-color: #436AAC;color: white;width: 80px;" onclick="simpan_data()">Simpan</a>
+            </div>
+            </form>
+            
+        </div>
+        
+       
+        <script type="text/javascript" src="/js/tasklist_bottom.js"></script>
+        <script type="text/javascript" src="/js/tasklist_map.js"></script>
+    </body>
+    </html>

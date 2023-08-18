@@ -1,0 +1,914 @@
+
+var gmarkers = []
+var gmarkers_waypoint = []
+var markerCluster
+var infowindow
+var infowindow_waypoint
+var waypts = [];
+var directionsService = new google.maps.DirectionsService();
+var directionsRenderer = new google.maps.DirectionsRenderer();
+var historyMarker = []
+var startLocation = null;
+var endLocation = null;
+var route = null
+
+
+
+// smoot moving
+var numDeltas = 100;
+var delay = 1; //milliseconds
+var i = 0;
+var deltaLat;
+var deltaLng;
+var position
+
+// Initialize Map =====================================================================
+
+function InitializeMap() {
+    //alert('Start');
+    // map = null
+    waypts = []
+    gmarkers = []
+    directionsRenderer.setMap(null);
+    removeMarkerWaypoint(gmarkers_waypoint,gmarkers_waypoint.length)
+
+    var mapProp= {
+    center:new google.maps.LatLng(-6.200000,106.816666),
+    zoom:10,
+    disableDefaultUI: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [{
+        "featureType": "landscape",
+        "stylers": [{
+            "saturation": -100
+        }, {
+            "lightness": 65
+        }, {
+            "visibility": "on"
+        }]
+    }, {
+        "featureType": "poi",
+        "stylers": [{
+            "saturation": -100
+        }, {
+            "lightness": 51
+        }, {
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "road.highway",
+        "stylers": [{
+            "saturation": -100
+        }, {
+            "visibility": "simplified"
+        }]
+    }, {
+        "featureType": "road.arterial",
+        "stylers": [{
+            "saturation": -100
+        }, {
+            "lightness": 30
+        }, {
+            "visibility": "on"
+        }]
+    }, {
+        "featureType": "road.local",
+        "stylers": [{
+            "saturation": -100
+        }, {
+            "lightness": 40
+        }, {
+            "visibility": "on"
+        }]
+    }, {
+        "featureType": "transit",
+        "stylers": [{
+            "saturation": -100
+        }, {
+            "visibility": "simplified"
+        }]
+    }, {
+        "featureType": "administrative.province",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [{
+            "visibility": "on"
+        }, {
+            "lightness": -25
+        }, {
+            "saturation": -100
+        }]
+    }, {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [{
+            "hue": "#ffff00"
+        }, {
+            "lightness": -25
+        }, {
+            "saturation": -97
+        }]
+    }]
+    };
+    map = null
+    map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    // map.setZoom(3)
+
+    // markerCluster = new MarkerClusterer(map, [], {
+    //     imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+    //   });
+
+    // directionsRenderer.setMap(map);
+}
+
+// Initialize Map =====================================================================
+
+// ReInitialize Map
+
+function ReInitializeMap(map,gmarkers){
+    
+    deleteMarkers()
+    removeMarkerWaypointAll(gmarkers_waypoint,gmarkers_waypoint.length)
+    map = null
+    directionsRenderer.setMap(map)
+    InitializeMap()
+}
+
+// Add New Marker =====================================================================
+
+function addMarker(location,heading,cars_info) {
+   
+    
+    // console.log('Add Marker ==============================================================================')
+    console.log('Location: ' + location)
+    // console.log('heading: ' + heading)
+
+    var svgIcon = getMarkerSVG(heading)
+    
+
+    var homer = {
+        anchor: new google.maps.Point(16, 16),
+        url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon),
+        scale: 2,
+        anchor: new google.maps.Point(0, 40),
+      }
+    // //   var $markerImage = document.querySelector('.markerImage'),
+    // //   markerImageSvg = $markerImage.innerHTML && '';
+    
+        var contentString = `<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'">`+ cars_info.vehicleUid +`</div>`
+        contentString += `<div style="height:30px;margin-top:-10px;text-align:center;font-family:'Poppins';">`+ cars_info.speed + ' ('+ cars_info.deviceStatus +')' +`</div>`
+
+    
+        const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+      });
+
+
+    var marker = new google.maps.Marker({
+        position: location,
+        icon: homer,
+        map: map
+    });
+
+    marker.addListener("click", () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+        });
+      })
+
+    return [marker,infowindow]
+
+    
+    
+}
+
+
+function addMarkerTracking(location,heading,cars_info) {
+   
+    console.log('heading: ' + heading)
+    console.log('loction:'  + location)
+    var marker
+    
+        var contentString = `<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'">`+ cars_info.vehicleUid+`</div>`
+        contentString += `<div style="height:30px;margin-top:-10px;text-align:center;font-family:'Poppins';">`+ cars_info.speed + ' ('+ cars_info.deviceStatus +')' +`</div>`
+
+    
+        infowindow = new google.maps.InfoWindow({
+        content: contentString,
+      });
+
+
+    
+
+    for (i=0;i<=1;i++){
+        if (i==0){
+            var svgIcon = getMarkerSVGArrow(heading)
+            marker = new google.maps.Marker({
+                position: location,
+                icon: {
+                    url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon),
+                    scale: 1,
+                    anchor: new google.maps.Point(0, 0),
+                  },
+                  zIndex: 100,
+                map: map
+            });
+        }else{
+            var svgIcon = getMarkerSVG(heading)
+            marker = new google.maps.Marker({
+                position: location,
+                icon: {
+                    url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon),
+                    scale: 1,
+                    anchor: new google.maps.Point(0, 0),
+                  },
+                  zIndex: 200,
+                map: map
+            });
+        }
+        gmarkers.push(marker)
+    }
+    
+
+    
+
+
+
+    marker.addListener("click", () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+        });
+      })
+
+      
+      map.setZoom(16)
+      
+
+    return [marker,infowindow]
+
+    
+    
+}
+// add Marker Waypoint
+function addMarkerWaypoint(latlng,cars_info){
+
+    console.log('Create Marker')
+    console.log('Cars_Info: ' + cars_info)
+    
+    var contentString = `<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'">`+ cars_info.updateJam +`</div>`
+    contentString += `<div style="height:30px;margin-top:-10px;text-align:center;font-family:'Poppins';">`+ cars_info.speed  +`</div>`
+
+    console.log ('contentString: '+ contentString)
+    console.log('latlng:'+ latlng)
+
+          var marker_waypoint = new google.maps.Marker({
+            position: latlng,
+            icon: '/img/highway.png',
+            map: map
+          });
+
+        //   gmarkers.push(marker);
+        //   alert(marker)
+        gmarkers_waypoint.push(marker_waypoint)
+
+        const infowindow = new google.maps.InfoWindow({
+            content: contentString,
+          });
+
+          google.maps.event.addListener(marker_waypoint, 'click', function() {
+            infowindow.open(map, marker_waypoint);
+          });
+
+          
+          
+
+    return marker_waypoint
+}
+// Create Icon
+
+var CreateIconRes = async function(path,heading){
+      console.log('path: '+path)
+      var res = await  RotateIcon
+            .makeIcon(
+                path,width=60,height=60)
+            .setRotation({deg: heading})
+            .getUrl()
+
+     console.log(res)
+      return res
+}
+
+// Clear Marker =======================================================================
+
+
+// function ClearAllMarker(){
+//     console.log('gmarkers length: '+ gmarkers.length)
+//     deleteMarkers()
+// }
+
+// Remove Marker ======================================================================
+
+function deleteMarkers() {
+    console.log('process delete markers')
+    clearMarkers();
+    gmarkers = [];
+ }
+
+ function clearMarkers() {
+    setMapOnAll(null);
+ }
+
+function setMapOnAll(req) {
+    console.log('marker length: ' + gmarkers.length)
+    console.log('start process delete markers')
+    
+    if (gmarkers.length >0){
+        for (var i = 0; i < gmarkers.length-1; i++) 
+        {
+            console.log('markers: ' + i)
+            var lat = gmarkers[i].getPosition().lat();
+            var lng = gmarkers[i].getPosition().lng();
+            console.log('lat:'+ lat)
+            console.log('lng:'+ lng)
+            gmarkers[i].setMap(req);
+        }
+    }
+    console.log('finish process delete markers')
+ }
+
+
+
+
+
+function removeMarkerWaypoint(){
+
+    // for (var it in gmarkers_waypoint) {
+    //     markerCluster.removeMarker(it);
+    //     // gmarkers[it].setVisible(false);
+    // }
+   
+    console.log('gmarkersLengthWaypoint',gmarkers_waypoint.length)
+    // gmarkers_waypoint[0].setMap(null)
+
+     for (i=0;i<gmarkers_waypoint.length;i++){
+        if (i==0){
+            gmarkers_waypoint[0].setMap(null);
+            gmarkers_waypoint.splice(0,1)
+            break;
+        }
+     }
+       
+   
+}
+
+function removeMarkerWaypointAll(gmarkerswaypoint,gmarkersLength){
+
+    // for (var it in gmarkers_waypoint) {
+    //     markerCluster.removeMarker(it);
+    //     // gmarkers[it].setVisible(false);
+    // }
+    console.log('gmarkersLength',gmarkersLength)
+    console.log('gmarkersLengthWaypoint',gmarkers_waypoint.length)
+
+     for (i=0;i<gmarkerswaypoint.length;i++){
+        gmarkers_waypoint[i].setMap(null);
+        console.log('here remove yes')
+     }
+       
+   gmarkers_waypoint.length = 0
+   gmarkers_waypoint = []
+
+}
+
+function transition(result,heading,cars_info,locs){
+    k = 0;
+    deltaLat = (result[0] - position[0])/numDeltas;
+    deltaLng = (result[1] - position[1])/numDeltas;
+
+    console.log('deltaLat:'+ deltaLat)
+    console.log('deltaLng:'+ deltaLng)
+    // console.log(1,cars_info)
+    console.log(2,cars_info)
+    moveMarker(heading,cars_info, locs);
+}
+
+function moveMarker(heading, cars_info,locs){
+    position[0] += deltaLat;
+    position[1] += deltaLng;
+
+    console.log(3,locs)
+
+    var latlng = new google.maps.LatLng(position[0], position[1]);
+    // marker.setTitle("Latitude:"+position[0]+" | Longitude:"+position[1]);
+    setMarkerAnchor(heading,cars_info,locs)
+    // gmarkers[0].setIcon(homer1)
+    gmarkers[0].setPosition(latlng)
+    // gmarkers[1].setIcon(homer2)
+    gmarkers[1].setPosition(latlng)
+    // marker.setPosition(latlng);
+
+    
+
+    if(k!=numDeltas){
+        k++;
+        setTimeout(moveMarker(heading,cars_info,locs), delay);
+    }
+    
+   
+    
+}
+
+function setMarkerAnchor(heading,cars_info,locs){
+
+    var svgIcon1 = getMarkerSVGArrow(parseInt(heading))
+    var svgIcon2 = getMarkerSVG(parseInt(heading))
+
+    // console.log(cars_info)
+        var img
+
+        if (cars_info.deviceStatus == 'bergerak'){
+            img = "/img/moving.png"
+        }else if(cars_info.deviceStatus == 'diam'){
+            img = "/img/moving_stop.png"
+        }else if(cars_info.deviceStatus == 'offline'){
+            img = "/img/moving_offline.png"
+        }
+
+
+    var contentString =`<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'"> <img src='`+ img +`' width="24" height="24"'/>` + ' ('+ cars_info.deviceStatus +')' + `</div>`
+    contentString += `<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'">`+ cars_info.licensePlate +`</div>`
+    contentString += `<div style="height:30px;margin-top:-10px;text-align:center;font-family:'Poppins';">`+ cars_info.speed  +`</div>`
+    
+    
+    // console.log(svgIcon)
+    var homer1 ={
+        url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1)
+      }
+
+    var homer2 ={
+        url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon2)
+      }
+
+
+    if (heading == 0 && heading == 360){
+                gmarkers[0].setOptions({
+                    icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+                    anchor: new google.maps.Point(80,80)
+                }
+                });
+    }else if(heading >0 && heading <= 5){
+            gmarkers[0].setOptions({
+                icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+                anchor: new google.maps.Point(80,80)
+            }
+            });
+    }else if(heading >5 && heading<=10){
+            gmarkers[0].setOptions({
+                icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+                anchor: new google.maps.Point(80,80)
+            }
+            });
+    }else if(heading>10 && heading <= 15){
+            gmarkers[0].setOptions({
+                icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+                anchor: new google.maps.Point(80,80)
+            }
+            });
+    }else if(heading >15 && heading <= 20){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(75,80)
+        }
+        });
+    }else if( heading>20 && heading<=25){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading>25 && heading <= 30){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading >30 && heading<=35){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >35 && heading<=40){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading >40 && heading <=45){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>45 && heading<=50){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(70,80)
+        }
+        });
+    }else if (heading >50 && heading <= 55){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>55 && heading<= 60){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading>60 && heading <= 65){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >65 && heading <= 70){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 70 && heading <=75){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading > 75 && heading <=80){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>80 && heading <=85){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading >85 && heading <= 90){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >90 && heading<=95){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>95 && heading <=100){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(75,75)
+        }
+        });
+    }else if (heading> 100 && heading <=105){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 105 && heading <= 110){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>110 && heading<=115){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >115 && heading <= 120){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>120 && heading <= 125){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 130 && heading <= 135){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 135 && heading <= 140){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>140 && heading <=145){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >145 && heading <=150){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading>150 && heading <=155){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    } else if (heading>155 && heading <= 160){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 160 && heading <= 165){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 165 && heading <= 170){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >170 && heading <= 175){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(75,80)
+        }
+        });
+    }else if(heading >175 && heading <= 180){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >180 && heading <=185){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 185 && heading <=190){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(75,80)
+        }
+        });
+    }else if (heading > 190 && heading <= 195){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading>195 && heading <= 200){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(75,80)
+        }
+        });
+    }else if (heading >200 && heading <= 205){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>205 && heading <=210){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 210 && heading <= 215){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(65,70)
+        }
+        });
+    }else if(heading >215 && heading <=220){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading >220 && heading <=225){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >225 && heading <= 230){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >230 && heading<=235){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 235 && heading <= 240){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading >240 && heading <=245){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >245 && heading <= 250){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading > 250 && heading <=255 ){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 255 && heading <= 260){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+        
+    }else if (heading >265 && heading <= 270){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 270 && heading <= 275){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 275 && heading <= 280){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 280 && heading <= 285){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 285 && heading <= 290){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading > 290 && heading <=295) {
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading >295 && heading<=300){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >300 && heading <=305){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+       
+    }else if (heading >310 && heading <=315){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >315 && heading <= 320){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading>320 && heading<=325){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading>325 && heading<=330){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >330 && heading <= 335){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if(heading > 335 && heading <=340){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >340 && heading <= 345){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >345 && heading<= 350){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >350 && heading <= 355){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }else if (heading >355 && heading<=360){
+        gmarkers[0].setOptions({
+            icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
+            anchor: new google.maps.Point(80,80)
+        }
+        });
+    }
+    
+    gmarkers[1].setOptions({
+        icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon2),
+            anchor: new google.maps.Point(16,16)
+        }
+        
+    });
+
+    infowindow.setContent(contentString);
+}
+
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}

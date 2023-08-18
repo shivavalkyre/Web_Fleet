@@ -1,0 +1,420 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>.: Polisi Lalu Lintas :.</title>
+        <link rel="icon" href="/img/gp3.png" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="/themes/gray/easyui.css">
+        <link rel="stylesheet" type="text/css" href="/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/css/home.css"> -->
+        <link rel="stylesheet" type="text/css" href="/css/monitor.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/css/navpanel.css"> -->
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <!-- <script type="text/javascript" src="/js/home.js"></script> -->
+        <script type="text/javascript" src="/js/monitor.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript" src="/js/rotate_icon.js"></script>
+        <script type="text/javascript" src="/js/markers_car.js"></script>  
+        <link rel="stylesheet" href="/css/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <link href="https://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%=apikey%>"></script>
+        <script src="/js/markerclusterer.js"></script>
+    </head>
+    <body>  
+        <div id="mini_me" style="width:30px;height:30px;text-align: center; font-weight: 100; margin: 8px 0 0 230px;position: absolute;z-index: 2;cursor: pointer;"><img id="img_mini_me" src="/img/mini.png"/></div>   
+        <div id="cc" class="easyui-layout" style="width:100%;height:650px;background: transparent;z-index: 1;">
+            <div data-options="region:'west',split:false"  style="width:250px;border-color: transparent;background:transparent;background-color: #FAFAFA;">
+                <div style="Margin:30px 0 0 20px"><img src="/img/logo_polisi.png" width="60px" height="60px"></div>
+                <div style="Margin:-50px 0 0 90px"><img src="/img/polisi.png" width="50px" height="20px"></div>
+                <div style="Margin:10px 0 50px 90px"><img src="/img/lalu lintas.png" width="120px" height="20px"></div>
+
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="dashboard" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-dashboard-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Dashboard()" >Dashboard</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="monitor" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:true,iconCls:'icon-monitor',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Monitor()">Pantauan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Device()">Device</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Vehicle()">Kendaraan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Tasklist()">Penugasan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="alert" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-bell',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Notifikasi()">Notifikasi</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="report" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-document',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Laporan()">Laporan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="setting" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-setting1',size:'middle'" style="height: 40px;width: 100%;text-align: left;" >Pengaturan</a>
+                </div>
+                <div style="margin-top:200px;margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="logout" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-logout',size:'middle'" style="height: 40px;width: 100%;text-align: left;" >Logout</a>
+                </div>
+            
+            </div>
+
+            <div data-options="region:'center'"  style="background-color: white;border:none">
+                <div style="background: white;width: 100%;height:60px;margin-top: -12px;position: absolute;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                    <div id="title_page" style="margin-left: 30px;margin-top: 20px;color: #45464E;font-family:'Open Sans Condensed';font-size: 20; font-weight: 600;line-height: 28px;height: 28px;width:100px;border: 0px solid red;">Pantauan</div>
+                    <div style ="width:16px;height: 16px; margin-top: -25px; margin-left: 80%;"><img src="/img/notification.png" width="16" height="16"/></div>
+                    <div id="username" style ="width:16px;height: 16px; margin-top: -25px; margin-left: 84%;font-family: 'Poppins';font-size: 18;font-weight: 400;color: #404040;">Admin</div>
+                    <div id="level" style ="width:60px;height: 18px; margin-top: 10px; margin-left: 84%;font-family: 'Poppins';font-size: 10;font-weight: 400;color: #404040;text-align: center;">Super Admin</div>
+                    <div style="width: 32;height: 32;margin-top: -40px; margin-left: 91%;"><img src="/img/profile 1.png" width="32" height="32" /></div>
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn"><img src="/img/vector (6).png" width="15" height="9"/></button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="#home">Home</a>
+                            <a href="#about">About</a>
+                            <a href="#contact">Contact</a>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Content -->
+            <div id="cc_monitor" class="easyui-layout" style="width:98.5%;height:90%;background: white;border-radius: 8px;margin-top: 60px;margin-left:10px;position: fixed;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                <div data-options="region:'west',split:false"  style="width:320px;background:white;border:none;">
+                    <div class="easyui-panel" style="padding:5px;text-align: center;border:none;margin-bottom: 5px;position: fixed;">
+                        <a id="Semua" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1',plain:true,selected:true" style="height: 40px;width:60px;border:1px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);" onclick="semua()"> <p id="semua_value" style="margin-top: 10px;margin-bottom: 20px;"> 0  </p><p style="margin-top: -25px;height: 20px;font-size: 10px;"> Semua </p> </a>
+                        <a id="Bergerak" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1',plain:true" style="height: 40px;width:60px;border:1px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)" onclick="bergerak()"> <p id="bergerak_value" style="margin-top: 10px;margin-bottom: 20px;"> 0  </p><p style="margin-top: -25px;height: 20px;font-size: 10px;"> Bergerak </p> </a>
+                        <a id="Diam" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1',plain:true" style="height: 40px;width:60px;border:1px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)" onclick="diam()"> <p id="diam_value" style="margin-top: 10px;margin-bottom: 20px;"> 0  </p><p style="margin-top: -25px;height: 20px;font-size: 10px;"> Diam </p> </a>
+                        <a id="Offline" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1',plain:true" style="height: 40px;width:60px;border:1px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)" onclick="offline()"> <p id="offline_value" style="margin-top: 10px;margin-bottom: 20px;"> 0  </p><p style="margin-top: -25px;height: 20px;font-size: 10px;"> Offline </p> </a>
+                        <div style="margin-left:-5px;margin-top: 10px;">
+                            <input id="usearch" class="easyui-textbox"  prompt="Search" iconWidth="28" data-options="iconCls:'icon-search1',iconAlign:'left',buttonAlign:'right',buttonIcon:'icon-setting'" style="width:90%;height:40px;padding:10px;background-color: #F6F6F6;font-family:'Open Sans';">
+                        </div>
+                    </div>
+
+                    <div style="overflow: auto;margin-left: 10px;">
+                        <div id="live_monitor" style="margin-top: 110px;"></div>
+                   </div>
+
+                </div>
+                
+                <div data-options="region:'center'"  style="background-color: white;width:100%;height: auto;">
+                    <div id="googleMap" style="width: 100%;height: 100%;"></div>
+                    <!-- Live Box -->
+                    <div id="live_box" style="width: 250px;height:585px;z-index:2;margin-top: -585px;position:relative;background: #F5F8FFD9;float:right;visibility: hidden;">
+                        <div style="margin:10 0 0 10;width: 100%;height: 16px;font-size: 16px;font-weight: bolder;color: black;font-family: 'Poppins';">Statistik Kendaraan</div>
+                        <div id="close_live_box" style="margin-left: 220px;margin-top:-15;cursor: pointer;" onclick="close_live_box()"><img src="/img/close_small.png"></div>
+                        <div style="width:230px;height: 40px;background: white;margin-left: 10px;border-radius: 8px;margin-top: 30px;">
+                            <div id="vehicle_status" style="padding-top: 10px; padding-left:50px; font-size: 14px;font-weight: bold;color: black;font-family: 'Poppins';">Bergerak</div>
+                            <div  style="margin-top: -23px;padding-left: 10px;"><img id="img_status" src="/img/moving.png" width="24" height="24"/></div>
+                        </div>
+                        <div style="width:230px;height: 320px;background: white;margin-left: 10px;border-radius: 8px;margin-top: 20px;">
+                            <div style="width: 100px;margin-left: 10px;padding-top: 20px;font-weight: 800;font-family: 'Poppins';">
+                                Alamat
+                            </div>
+                            <div id="vehicle_address_live" style="width: 90%;margin-left: 10px;padding-top: 10px;font-size: 10px;text-align: justify;text-justify: inter-word;font-family: 'Poppins';">
+                                Jl. Kedoya RayaNo 15-56 RT.8/RW7, Kedoya Utara Kec. Kb Jeruk, Kota Jakarta Barat Daerah Khusus Ibukota 11520, Indonesia
+                            </div>
+                            <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -10px;font-weight: 800;font-family: 'Poppins';">
+                                Update Time
+                            </div>
+                            <div id="vehicle_time_live" style="padding-left: 10px;padding-top: 10px;font-size: 10px;font-size: 10px;margin-bottom: 10px;font-family: 'Poppins';">7/12/2023 1:20 PM WIB</div>
+                            <hr>
+                            <div>
+                                <div style="margin-top: 10px;border:0px solid red;height: 20px;">
+                                    <div style="float: left;padding-left: 10px;font-family: 'Poppins';font-weight: 800;">Kecepatan</div>
+                                    <div id="vehicle_speed_live" style="float: right;padding-right: 10px;font-family: 'Poppins';">16 Km/h</div>
+                                </div>
+                                <div style="margin-top: 10px;border:0px solid red;height: 20px;font-family: 'Poppins';">
+                                    <div style="float: left;padding-left: 10px;font-weight: 800;">Tegangan Accu</div>
+                                    <div  style="float: right;padding-right: 10px;font-family: 'Poppins';">
+                                        <div style="float: right; width: 50px; background: #C1F1C8;border-radius: 20px;font-weight: lighter;text-align: center;font-family: 'Poppins';">
+                                            <span id="vehicle_voltage" style="color: #28A138;font-family: 'Poppins';">12.5V </span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-top: 10px;border:0px solid red;height: 20px;">
+                                    <div style="float: left;padding-left: 10px;font-weight: 800;">Jarak</div>
+                                    <div id="vehicle_distance" style="float: right;padding-right: 10px;">16 Km</div>
+                                </div>
+                                <div style="margin-top: 10px;border:0px solid red;height: 20px;">
+                                    <div style="float: left;padding-left: 10px;font-weight: 800;">Heading</div>
+                                    <div id="vehicle_heading" style="float: right;padding-right: 10px;">16 degree</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                           
+                    </div>
+                    <!-- History Box -->
+                    <div id="history_box" style="width: 100%;height:100px;z-index:3;margin-top: -100px;position:relative;background: #F5F8FFD9;visibility: hidden;">
+                        <div style="margin-left: 10px;margin-top: 20px;background: #436AAC;border-radius: 8px;width: 435px;height: 70px;position: fixed;">
+                            <div style="margin-left: 10px;margin-top: 5px;margin-bottom: 5px;color: white;font-weight: 900;">
+                                Waktu Mulai
+                            </div>
+                            <div style="margin-left: 10px;margin-top: 5px;">
+                                <input id="dt1" class="easyui-datetimebox" data-options="formatter: mydtformatter,parser:mydtparser, 
+                                onSelect: function(value)
+                                {
+                                  var c = $('#dt1').datetimebox('calendar');
+                                  var t = $('#dt1').datetimebox('spinner');
+  
+                                  var day = c.calendar('options').current;
+  
+                                  var time = t.timespinner('getValue');
+                                  
+                                  var y = day.getFullYear();
+                                  var m = day.getMonth()+1;
+                                  var d = day.getDate();
+                                  var myday = String(y) +'-'+String(m<10?('0'+m):m)+'-'+ String(d<10?('0'+d):d);
+                                 
+                                  var mydate = myday + ' ' + time ;
+                                  var dt =  mydate.toString()
+
+                                  $('#dt1').datetimebox('setValue',dt);
+                                  $('#dt1').datetimebox('hidePanel');  
+                                 
+  
+                                  }" style="width:150px;">
+                            </div>
+        
+                            <div style="margin-left: 170px;margin-top:-50px;margin-bottom: 5px;color: white;font-weight: 900;">
+                                Waktu Berakhir
+                            </div>
+                            <div style="margin-left: 170px;margin-top: 5px;">
+                                <input id="dt2" class="easyui-datetimebox" data-options="formatter: mydtformatter,parser: mydtparser,
+                                onSelect: function(value)
+                                {
+                                  var c = $('#dt2').datetimebox('calendar');
+                                  var t = $('#dt2').datetimebox('spinner');
+  
+                                  var day = c.calendar('options').current;
+  
+                                  var time = t.timespinner('getValue');
+                                  var y = day.getFullYear();
+                                  var m = day.getMonth()+1;
+                                  var d = day.getDate();
+                                  var myday = String(y) +'-'+String(m<10?('0'+m):m)+'-'+ String(d<10?('0'+d):d);
+                                 
+                                  var mydate = myday + ' ' + time  ;
+                                  
+                                  var dt =  mydate.toString()
+
+                                  $('#dt2').datetimebox('setValue',dt);
+                                  $('#dt2').datetimebox('hidePanel'); 
+  
+                                
+  
+                                  }" style="width:150px;">
+                            </div>
+
+                            <div style="margin-left: 325px;margin-top: -29px;font-family: 'Poppins';">
+                                <div> <a href="#" class="easyui-linkbutton" style="width:100px;height: 30px; border-color: #436AAC;color: #436AAC;" onclick="cari_riwayat()">Cari</a></div>
+                            </div>
+                            
+                        </div>
+        
+                        <div style="margin-left: 480px;margin-top: 20px;background: #436AAC;border-radius: 8px;width: 25%;height: 70px;position: fixed;">
+                            <div id="track_time" style="float: left;width: 100px;border: 0px solid red;margin-top: 25px;margin-left: 10px;color: white;font-weight: 900;">
+                                13:48
+                            </div>
+                            <div id="track_date" style="width: 100px;height:20px;margin-top: -10px;margin-left: 10px; border: 0px solid red;font-size: 10px; font-weight: lighter; color: white;">
+                                29/06/2023
+                            </div>
+                            <div style="text-align: center;width: 78px;border: 0px solid red;margin-left: calc(50% - 50px);margin-top: 15px;">
+                                <div style="text-align: center;">
+                                    <div id="play" style="width: 24px; width: 24px; border: 0px solid red;cursor: pointer;" onclick="play()">
+                                        <img src="/img/play.png" width="24" height="24" />
+                                    </div>
+                                    <div id="pause" style="width: 24px; width: 24px; border: 0px solid red;margin-top: -19px; margin-left: 26px;cursor: pointer;" onclick="pause()">
+                                        <img src="/img/pause-circle.png" width="24" height="24" />
+                                    </div>
+                                    <div id ="stop" style="width: 24px; width: 24px; border: 0px solid red;margin-top: -19px; margin-left: 52px;cursor: pointer;" onclick="stop()">
+                                        <img src="/img/stop-circle.png" width="24" height="24" />
+                                    </div>
+                                </div>
+                               
+                                
+                            </div>
+
+                            <div style="float: right;margin-top: -23px;width: 100px;border: 0px solid red;margin-right: 10px;">
+                                <a id="g3_1" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g3',plain:true,selected:true" style="border-radius: 100%;width:30px;height: 30px;border:1px solid white;" ><span style="font-size: 9px;">10x</span></a>
+                                <a id="g3_2" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g3',plain:true"  style="border-radius: 100%;width: 30px;height: 30px;border:1px solid white;" ><span style="font-size: 9px;">30x</span></a>    
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- History Box Table -->
+
+                    <div id="history_box_table" style="width: 100%;height:150px;z-index:4;margin-top: -251px;position:relative;background: #F5F8FFD9;visibility: visible;text-align: center;visibility: hidden;">
+                        <div style="margin-left: 10px;">
+                            <table id="dg" class="easyui-datagrid" title="Riwayat" style="width:530px;height:160px;"
+                                data-options="singleSelect:true,fitColumns:true">
+                            <thead>
+                                <tr>
+                                    <th data-options="field:'no',width:50,align:'center'">No</th>
+                                    <th data-options="field:'heading',width:80,align:'center'">Heading</th>
+                                    <th data-options="field:'speed',width:100,align:'center'">Speed</th>
+                                    <th data-options="field:'latitude',width:120,align:'center'">Latitude</th>
+                                    <th data-options="field:'longitude',width:120,align:'center'">Longitude</th>
+                                    <th data-options="field:'tanggal',width:270,align:'center'">Tanggal</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        </div>
+                        
+                    </div>
+
+                    <div id="close_history" style="width:68px;height:68px;margin-top: -200px;position:relative;border:0px solid red;z-index:5;text-align: center;cursor: pointer;visibility: hidden;" onclick="close_riwayat()">
+                        <img src="/img/close_history.png" width="68" height="68"/>
+                    </div>
+
+                    <!-- Detail Box -->
+
+                    <div id="detail_box" style="width: 250px;height:580px;z-index:2;margin-top: -580px;position:relative;background: #F5F8FFD9;float:right;visibility: hidden;">
+                        <div style="margin:10 0 0 10;width: 100%;height: 16px;font-size: 16px;font-weight: bolder;color: black;font-family: 'Poppins';">Detail</div>
+                        <div id="close_detail_box" style="margin-left: 220px;margin-top:-15;cursor: pointer;" onclick="close_detail_box()"><img src="/img/close_small.png"></div>
+                        <div style="width: 100%;text-align: center;margin-top: 10px;">
+                                <img id="img_kendaraan" src="/img/mazda.png" width="125" height="65"/>
+                        </div>
+                        <div style="width:230px;height: 40px;background: white;margin-left: 10px;border-radius: 8px;margin-top: 20px;">
+                            <div id="vehicle_status_detail" style="padding-top: 10px; padding-left:50px; font-size: 14px;font-weight: bold;color: black;font-family: 'Poppins';">Bergerak</div>
+                            <div  style="margin-top: -23px;padding-left: 10px;"><img id="img_status_detail" src="/img/moving.png" width="24" height="24"/></div>
+                        </div>
+                        <div style="width:230px;height: 160px;background: white;margin-left: 10px;border-radius: 8px;margin-top: 10px;">
+                            <div style="width: 100px;margin-left: 10px;padding-top: 10px;font-size: 11px;font-weight: 800;font-family: 'Poppins';">
+                                Alamat
+                            </div>
+                            <div id="vehicle_address_detail" style="width: 90%;margin-left: 10px;padding-top: 5px;font-size: 10px;text-align: justify;text-justify: inter-word">
+                                Jl. Kedoya RayaNo 15-56 RT.8/RW7, Kedoya Utara Kec. Kb Jeruk, Kota Jakarta Barat Daerah Khusus Ibukota 11520, Indonesia
+                            </div>
+                            <hr style="width: 200px;margin-left:15px;">
+                            <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-weight: bold;font-family: 'Poppins';">
+                                Koordinat
+                            </div>
+                            <div id="koordinat" style="padding-left: 10px;padding-top: 5px;font-size: 11px;font-family:'Poppins';height: 30px;">6o35’1.18”S,106o53’37,55”N</div>
+                        </div>
+
+                        <div style="overflow: auto;width:230px;height: 230px;background: white;margin-left: 10px;border-radius: 8px;margin-top: 10px;">
+                            <div style="position: fixed;margin-top: 0px;width: 230px;background-color: white;border-radius: 8px;">
+                                <div style="width: 100px;margin-left: 10px;padding-top: 10px;font-size: 11px;font-weight: 800;font-family: 'Poppins';">
+                                    Detail Kendaraan
+                                </div>
+                                <div style="width: 40px;margin-left: 180px;margin-top:-25px;padding-top: 10px;font-size: 11px;font-weight: 800;font-family: 'Poppins';text-align: right;cursor: pointer;">
+                                   <img src="/img/edit.png" width="20" height="18"/>
+                                </div>
+                                <div style="margin-top: -10px;cursor: pointer;"><hr style="width: 200px;margin-left:15px;"></div>
+                            </div>
+
+
+                           
+                            <div style="margin-top: 45px;">
+                           
+                                <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                    Merk Kendaraan
+                                 </div>
+                                 <div id="merk_kendaraan" style="width: 80px;margin-left: 140px;padding-top: 15px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';color: #0F0F0F;margin-bottom: 10px;text-align: right;">
+                                    Mazda
+                                  </div>
+                                  <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Tipe Kendaraan
+                                  </div>
+                                  <div id="tipe_kendaraan" style="width: 80px;margin-left: 140px;padding-top: 15px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';color: #0F0F0F;margin-bottom: 10px;text-align: right;">
+                                     Mobil Listrik
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Merk Perangkat
+                                  </div>
+                                  <div id="merk_perangkat" style="width: 80px;margin-left: 140px;padding-top: 15px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';color: #0F0F0F;margin-bottom: 10px;text-align: right;">
+                                     Samsung
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Tipe Perangkat
+                                  </div>
+                                  <div id="tipe_perangkat" style="width: 80px;margin-left: 140px;padding-top: 15px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';color: #0F0F0F;margin-bottom: 10px;text-align: right;">
+                                     Android
+                                   </div>
+                                   <div style="width: 120px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Kondisi Kendaraan
+                                  </div>
+                                  <div id="kondisi_kendaraan" style="width: 40px;height:20px;margin-left: 180px;margin-top: -15px;margin-bottom: 10px;font-size: 11px;font-family: 'Poppins';color: #28A138;background-color: #28A1381A;text-align: center;vertical-align: middle;border-radius: 8px;">
+                                     Baik
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Power Status
+                                  </div>
+                                  <div id="power_status" style="width: 40px;height:20px;margin-left: 180px;margin-top: -15px;margin-bottom: 10px;font-size: 11px;font-family: 'Poppins';color: #28A138;background-color: #28A1381A;text-align: center;vertical-align: middle;border-radius: 8px;">
+                                     On
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     IGN Status
+                                  </div>
+                                  <div id="ign_status" style="width: 40px;height:20px;margin-left: 180px;margin-top: -15px;margin-bottom: 10px;font-size: 11px;font-family: 'Poppins';color: #28A138;background-color: #28A1381A;text-align: center;vertical-align: middle;border-radius: 8px;">
+                                     On
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Baterai Level
+                                  </div>
+                                  <div id="baterai_level" style="width: 40px;height:20px;margin-left: 180px;margin-top: -15px;margin-bottom: 10px;font-size: 11px;font-family: 'Poppins';color: #28A138;background-color: #28A1381A;text-align: center;vertical-align: middle;border-radius: 8px;">
+                                     75%
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Kondisi Jaringan
+                                  </div>
+                                  <div id="kondisi_jaringan" style="width: 60px;height:20px;margin-left: 160px;margin-top: -15px;margin-bottom: 10px;font-size: 11px;font-family: 'Poppins';color: #E93426;background-color: #E934261A;text-align: center;vertical-align: middle;border-radius: 8px;">
+                                    Terputus
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Kecepatan
+                                  </div>
+                                  <div id="kecepatan_kendaraan" style="width: 80px;height:20px;margin-left: 140px;margin-top: -15px;margin-bottom: 10px;font-size: 11px;font-family: 'Poppins';color: #28A138;background-color: #28A1381A;text-align: center;vertical-align: middle;border-radius: 8px;">
+                                     32 Km/h
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Waktu Operasi
+                                  </div>
+                                  <div id="lama_waktu_operasi" style="width: 80px;margin-left: 140px;padding-top: 15px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';color: #0F0F0F;margin-bottom: 10px;text-align: right;">
+                                     04:21:14
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Lokasi Terakhir
+                                  </div>
+                                  <div id="lokasi_terakhir" style="width: 180px;margin-left: 40px;padding-top: 15px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';color: #0F0F0F;margin-bottom: 10px;text-align: right;">
+                                     -6.196204, 106.828666
+                                   </div>
+                                   <div style="width: 100px;margin-left: 10px;padding-top: 20px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';">
+                                     Update Terakhir
+                                  </div>
+                                  <div id="waktu_terakhir_update" style="width: 80px;margin-left: 140px;padding-top: 15px;margin-top: -30px;font-size: 11px;font-family: 'Poppins';color: #0F0F0F;margin-bottom: 10px;text-align: right;">
+                                     04:21:14
+                                   </div>
+                            </div>
+                           
+                        </div>
+                           
+                    </div>
+
+                    <!-- Other -->
+
+                </div>
+            
+            </div>
+
+
+
+
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/js/markers_arrow.js"></script>  
+        <script type="text/javascript" src="/js/monitor_bottom.js"></script>
+        <script type="text/javascript" src="/js/monitor_process_data.js"></script>
+        <script type="text/javascript" src="/js/monitor_map.js"></script>
+    </body>
+</html>

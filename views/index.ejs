@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>.: Polisi Lalu Lintas :.</title>
+        <link rel="icon" href="/img/gp3.png" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="/themes/gray/easyui.css">
+        <link rel="stylesheet" type="text/css" href="/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/css/navpanel.css"> -->
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!-- <script type="text/javascript" src="/js/home.js"></script> -->
+        <script type="text/javascript" src="/js/main.js"></script>
+        <link rel="stylesheet" href="/css/idx.css">
+        <link rel="stylesheet" href="/css/w3.css">
+    
+       
+    </head>
+    <body>        
+        
+        <div class="easyui-layout" style="width:100%;height:100%;">
+            <div data-options="region:'west'" style="width:40%;border:false;">
+                <div class="div_polisi_left">
+                    <img class= "img_polisi_left" src="/img/polisi.png"/>
+                </div>
+                <div class="div_lalu_lintas_left">
+                    <img class= "img_lalu_lintas_left" src="/img/lalu lintas.png"/>
+                </div>
+                <div class="div_logo_polisi_left">
+                    <img class= "img_logo_polisi_left" src="/img/logo_polisi.png"/>
+                </div>
+                <div class="div_selamat_datang_kembali">
+                    Selamat Datang Kembali
+                </div>
+                <div class="div_masuk_ke_aplikasi">
+                    Masuk ke Aplikasi
+                </div>
+
+
+                <div class="div_form">
+                    <center>
+                        <div class="easyui-panel" style="width:400px;padding:50px 60px;border:none;">
+                            <form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
+                            <div style="margin-bottom:20px">
+                                <input id ="uname" class="easyui-textbox" prompt="Username" iconWidth="28" data-options="required:true,missingMessage:'Harap diisi!',err:err,iconCls:'icon-profile',iconAlign:'left'" style="width:100%;height:45px;padding:10px;background-color: #F6F6F6;font-family:'Open Sans';">
+                            </div>
+                            <div style="margin-bottom:20px">
+                                <input id="upass" class="easyui-passwordbox"  prompt="Password" iconWidth="28" data-options="required:true,validateOnCreate:false,missingMessage:'Harap diisi!',err:err,iconCls:'icon-password',iconAlign:'left',buttonAlign:'right',buttonIcon:'icon-eye_off',showEye: false" style="width:100%;height:45px;padding:10px;background-color: #F6F6F6;font-family:'Open Sans';">
+                            </div>
+                            </form>
+                            <div class="div_lupa_password">
+                                <a href="http://example.com" class="fill-div"> Lupa Password?</a>
+                            </div>
+                            <div style="margin-bottom:20px">
+                                <a href="#" class="easyui-linkbutton c8" style="width:100%;height:45px;background: #436AAC; font-weight: 700;font-family:'Open Sans';" onclick="submitForm()">Login</a>
+                            </div>
+                            <div id="message" class="div_message"></div> 
+                        </div>
+                        
+                    </center>
+                   
+                </div>
+                
+                
+            </div>
+
+            <div data-options="region:'center'" style="width:60%;border:false;">
+               
+                
+                    <img class= "img" src="/img/b1.png"/>
+                    <div class="div_selamat_datang">Selamat Datang</div>
+                    <div class="div_polisi_lalu_lintas">Polisi Lalu Lintas</div>
+                    <div class="div_content">Website Kepolisian Republik Indonesia sektor Lalu Lintas yang Tugasnya adalah Menyelenggarakan peran dan fungsi pelaksanaan teknis keamanan, keselamatan, ketertiban & kelancaran lalu lintas meliputi analisis dampak lalu lintas, kerjasama di bidang lalu lintas dan koordinasi dengan instansi terkait; Serta melaksanakan audit dan pengkajian lalu lintas untuk pengendalian mutu dan kualitasnya.</div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/js/main_body.js"></script>
+    </body>
+    </html>

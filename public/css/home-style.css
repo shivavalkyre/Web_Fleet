@@ -1,0 +1,75 @@
+
+body { 
+			background-image: url("../img/img2.jpg") ;
+			background-position: center center;
+			background-repeat:  no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+			background-color: #999;
+
+			
+}
+/* For mobile devices */
+@media only screen and (max-width: 767px) {
+  body {
+    /* The file size of this background image is 93% smaller
+     * to improve page load speed on mobile internet connections */
+    background-image: url(../img/img1_mobile.png);
+  }
+	}
+
+.demo-page{
+	
+	background-image: url("../img/drink_coffe.jpg") ;
+	
+}
+.content{
+	
+	background-image: url("../img/drink_coffe.jpg") ;
+	
+}
+	
+.button {
+    background-color: #DCDCDC; 
+    border: none;
+    color: white;
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    
+    cursor: pointer;
+	height:25px;
+	width:80px;
+	margin-left:74%;
+}
+
+.button2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #DCDCDC;
+}
+.ff {
+	opacity:0.65;
+	margin-left:60%;
+	width:550;
+	
+	
+}
+.logo {
+	position: fixed;
+	margin-left:69%;
+	margin-top:15%;
+	
+}
+.dvLoading {
+background:url(http://loadinggif.com/images/image-selection/36.gif) no-repeat center center;
+height: 100px;
+width: 100px;
+position: fixed;
+left: 50%;
+top: 50%;
+margin: -25px 0 0 -25px;
+z-index: 1000;
+}
