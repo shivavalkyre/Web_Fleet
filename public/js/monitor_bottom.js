@@ -220,7 +220,7 @@ function detail(e){
     $('#cc_monitor').layout('resize');
     $('#detail_box').css('visibility','visible')
     current_section = 'detail'
-    // processing_data(current_section,sclId,'semua',false,null)
+    processing_data(current_section,sclId,'semua',false,null)
     // alert(current_section)
 }
 
@@ -355,13 +355,13 @@ function mydtformatter(date)
     var menit = d.getMinutes()
     var detik = d.getSeconds()
 
-    if (jam.length == 1){
+    if (jam< 10){
         jam = "0" + jam 
     }
-    if (menit.length==1){
+    if (menit<10){
         menit = "0" + menit 
     }
-    if(detik==1){
+    if(detik<10){
         detik = "0" + detik
     }
 
@@ -536,4 +536,21 @@ function FormatedTime(d){
 
     var tgl_baru =  jam + ':' + menit + ':' + detik + ' WIB'
     return tgl_baru
+}
+
+
+function secondsToHms(d) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+
+    // var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    // var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    // var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    var hDisplay = h
+    var mDisplay = m
+    var sDisplay = s
+
+    return hDisplay + ':' + mDisplay + ':' + sDisplay; 
 }
