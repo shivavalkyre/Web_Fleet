@@ -286,7 +286,7 @@ async function CreateData(){
        
       };
 
-    let res1 = await axios.post("http://localhost:3002/api/patern/latest_status",postData,config)
+    let res1 = await axios.post("http://147.139.144.120:3002/api/patern/latest_status",postData,config)
     .then((response) => {
         // console.log(response.data)
         var status = response.data.status
@@ -428,7 +428,7 @@ function CreateDataSelected(mode){
        
       };
 
-      axios.post("http://localhost:3002/api/patern/latest_status",postData,config)
+      axios.post("http://147.139.144.120:3002/api/patern/latest_status",postData,config)
       .then((response) => {
           // console.log(response.data)
           var status = response.data.status
@@ -579,7 +579,7 @@ async function CreateDataSearch(param){
        
       };
 
-      let res1 = await axios.post("http://localhost:3002/api/patern/latest_status",postData,config)
+      let res1 = await axios.post("http://147.139.144.120:3002/api/patern/latest_status",postData,config)
       .then((response) => {
           // console.log(response.data)
           var status = response.data.status
@@ -710,7 +710,7 @@ var getAddress = async (location) => {
 
 
       
-  var url = "http://localhost:3002/api/patern/asset_address/"+lat +"/" + lng
+  var url = "http://147.139.144.120:3002/api/patern/asset_address/"+lat +"/" + lng
     // console.log(url)
   var resp =  await axios.get(url,config)
     .then((response) => { 
@@ -757,7 +757,7 @@ function process_live_tracking(sclId){
             timeout: 10000
           };
           
-        var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
+        var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
         // console.log(url)
         axios.get(url,config)
         .then((response) => {
