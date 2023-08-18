@@ -376,6 +376,7 @@ async function CreateData(){
            
 
                 var cars_info = {
+                    no:i,
                     licensePlate : licensePlate,
                     vehicleUid: vehicleUid,
                     deviceStatus : status,
@@ -1245,8 +1246,19 @@ async function cari_riwayat(){
         j++
      }
 
+     var new_data = []
+     var k=1
+
+     for (i=0;i<= data.length-1;i++){
+        if (data[i].speed>0){
+            data[i].no = k
+            new_data.push(data[i])
+            k++
+        }
+     }
+
     $('#dg').datagrid({
-        data: data
+        data: new_data
     })
 
     data_riwayat =  $('#dg').datagrid('getRows')
@@ -1284,8 +1296,29 @@ function play(){
 
     var data_length = data_riwayat.length
 
+    
+
+
+
     if (data_length>0){
         console.log('data_length:' + data_length)
+        // draw polylines
+        for (i=0;i<=data_length-1;i++){
+            console.log(data_riwayat[i])
+            var location = {lat:data_riwayat[i].latitude,lng:data_riwayat[i].longitude}
+            drivingPlanCoordinates.push(location)
+        }
+        
+         var drivingPath = new google.maps.Polyline({
+                path: drivingPlanCoordinates,
+                geodesic: true,
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+              });
+            drivingPath.setMap(map);
+            arr_drivingPath.push(drivingPath)
+
         // alert(prev_row_index_selected)
         console.log('row_index_selected:'+ row_index_selected)
         console.log('data.length: ' + data_length)
@@ -1341,9 +1374,18 @@ function pause(){
     
     arr_tout = []
 
+    for (i=0; i<= arr_drivingPath.length-1;i++){
+        arr_drivingPath[i].setMap(null)
+    }
+    arr_drivingPath=[]
+
+    drivingPlanCoordinates =[]
+
     $('#dg').datagrid('unselectAll')
     $('#dg').datagrid('scrollTo',row_index_selected)
     $('#dg').datagrid('selectRow',row_index_selected)
+    
+
 }
 
 function stop(){
@@ -1484,23 +1526,23 @@ function doSetTimeout(i) {
             var latlng = new google.maps.LatLng(cars_info.latitude,cars_info.longitude);
             map.panTo(latlng)
 
-            console.log('draw polylines')
-            var loc_prev = { lat: prev_history_latitude, lng: prev_history_longitude }
-            drivingPlanCoordinates.push(loc_prev)
-            var loc_current = {lat: cars_info.latitude, lng: cars_info.longitude}
-            drivingPlanCoordinates.push(loc_current)
+            // console.log('draw polylines')
+            // var loc_prev = { lat: prev_history_latitude, lng: prev_history_longitude }
+            // drivingPlanCoordinates.push(loc_prev)
+            // var loc_current = {lat: cars_info.latitude, lng: cars_info.longitude}
+            // drivingPlanCoordinates.push(loc_current)
             
 
-            var drivingPath = new google.maps.Polyline({
-                path: drivingPlanCoordinates,
-                geodesic: true,
-                strokeColor: "#FF0000",
-                strokeOpacity: 1.0,
-                strokeWeight: 2,
-              });
+            // var drivingPath = new google.maps.Polyline({
+            //     path: drivingPlanCoordinates,
+            //     geodesic: true,
+            //     strokeColor: "#FF0000",
+            //     strokeOpacity: 1.0,
+            //     strokeWeight: 2,
+            //   });
               
-              drivingPath.setMap(map);
-              arr_drivingPath.push(drivingPath)
+            //   drivingPath.setMap(map);
+            //   arr_drivingPath.push(drivingPath)
 
             prev_history_latitude = cars_info.latitude
             prev_history_longitude = cars_info.longitude
