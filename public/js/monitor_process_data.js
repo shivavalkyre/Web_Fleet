@@ -1052,7 +1052,7 @@ function process_live_detail (sclId){
             timeout: 10000
           };
           
-        var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
+        var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
         axios.get(url,config)
         .then((response) => {
             var status = response.data.status
