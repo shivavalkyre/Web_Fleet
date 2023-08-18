@@ -229,7 +229,7 @@ function close_detail_box(){
     $('#cc_monitor').layout('resize');
     $('#detail_box').css('visibility','hidden')
     current_section = 'pantau'
-    // processing_data(current_section,null,'semua',false,null)
+    processing_data(current_section,null,prev_mode,false,null)
     // alert(current_section)
 }
 
