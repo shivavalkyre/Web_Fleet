@@ -161,7 +161,7 @@ function addMarker(location,heading,cars_info) {
     
         var contentString = `<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'">`+ cars_info.vehicleUid +`</div>`
         contentString += `<div style="height:30px;margin-top:-10px;text-align:center;font-family:'Poppins';">`+ cars_info.speed + ' ('+ cars_info.deviceStatus +')' +`</div>`
-
+        contentString +=  `<div id="options`+ i +`" style="margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> | <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" onclick="riwayat(this)">Riwayat</a> | <a href="#" id="detail`+ i +`" style="text-decoration: none;"onclick="detail(this)">Detail</a></div>`
     
         const infowindow = new google.maps.InfoWindow({
         content: contentString,
