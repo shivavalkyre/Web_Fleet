@@ -183,6 +183,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param){
         clearInterval(t3)
 
         deleteMarkers()
+        process_live_detail(sclId)
 
         t4 = setInterval(function() {
             process_live_detail(sclId)
@@ -1037,6 +1038,152 @@ function process_live_tracking(sclId){
 
     },1000)
    
+}
+
+
+// live detail
+function process_live_detail (sclId){
+    setTimeout(function(){
+        var token = sessionStorage.getItem("token")
+        const config = {
+            headers:{
+              'token': token
+            },
+            timeout: 10000
+          };
+          
+        var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
+        axios.get(url,config)
+        .then((response) => {
+            var status = response.data.status
+            var data = response.data.data
+            console.log(status)
+            if (status == true){
+                // console.log(data[0])
+                // console.log('gmarkers pre live: ' + gmarkers.length)
+                // console.log('gmarkerswaypoint pre live: ' + gmarkers_waypoint.length)
+
+                if (gmarkers.length == 2) {
+                    var prev_latitude = gmarkers[0].getPosition().lat()
+                    var prev_longitude = gmarkers[0].getPosition().lng()
+                    position = [prev_latitude,prev_longitude]
+                }else{
+                    //RemoveMarker(gmarkers)
+                    // console.log('gmarkers after live: ' + gmarkers.length)
+                    removeMarkerWaypointAll(gmarkers_waypoint,gmarkers_waypoint.length) 
+                }
+
+                var validLatitude = data[0].validLatitude
+                var validLongitude = data[0].validLongitude
+                var vehicleUid = data[0].vehicleUid
+                var licensePlate = data[0].vehicleLicensePlate
+                var speed = data[0].vehicleSpeed[0].value + ' ' + data[0].vehicleSpeed[0].unit
+                var operating_time = secondsToHms (data[0].operatingTime[0].value)
+                $('#lama_waktu_operasi').text(operating_time)
+                var deviceStatus = ''
+                var heading = data[0].heading
+                var img = ''
+
+                if(data[0].deviceStatus == 'moving'){
+                    img = "/img/moving.png"
+                    deviceStatus ='bergerak'
+                }else if(data[0].deviceStatus == 'stopped'){
+                    img = "/img/moving_stop.png"
+                    deviceStatus = 'diam'
+                }else if (data[0].deviceStatus == 'offline'){
+                    img = "/img/moving_offline.png"
+                    deviceStatus='offline'
+                }
+
+                prevSpeed =  $('#vehicle_speed_live').text()
+                prevStatus = $('#vehicle_status').text()
+
+                // console.log('deviceStatus: '+ deviceStatus)
+                var location = {lat:validLatitude,lng:validLongitude}
+                getAddress(location).then( result => {
+                    $('#vehicle_address_live').text(result)  
+                    $('#vehicle_address_detail').text(result)
+                    // console.log('update address')  
+                })
+
+                var dms_lat = deg_to_dms(validLatitude)
+                var dms_lon = deg_to_dms(validLongitude)
+                var koordinat = dms_lat + ' , ' + dms_lon
+                var lokasi_terakhir = validLatitude +',' + validLongitude
+
+                // console.log('update speed:' + speed)
+                $('#vehicle_status').text(deviceStatus)
+                $('#vehicle_status_detail').text(deviceStatus)
+                $('#vehicle_speed_live').text(speed)
+                $('#kecepatan_kendaraan').text(speed)
+                $('#vehicle_heading').text(heading + ' degree')
+                $('#img_status').attr("src",img)
+                $('#img_status_detail').attr("src",img)
+                $('#lokasi_terakhir').text(lokasi_terakhir);
+                $('#koordinat').text(koordinat)
+                var utcSeconds = data[0].updateTime;
+                var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                d.setUTCSeconds(utcSeconds);
+                var strDate = FormatedDate(d)
+                var strTime = FormatedTime(d)
+
+                $('#waktu_terakhir_update').text(strTime)
+
+                $('#vehicle_time_live').text(strDate)
+
+                 var cars_info = {
+                                licensePlate : licensePlate,
+                                vehicleUid : vehicleUid,
+                                deviceStatus : deviceStatus,
+                                speed: speed,
+                                heading:heading,
+                                updateTime:strDate,
+                                updateJam: strTime      
+                }
+
+
+                if (gmarkers.length == 2){
+                    // console.log('translation')
+                    // if (validLatitude!= prev_latitude && validLongitude != prev_longitude){
+                        // ClearAllMarker()
+                        // var resp = addMarkerTracking(latlng,heading,cars_info)
+                        var result = [validLatitude,validLongitude]
+                        var locs = {
+                            prevLatitude: prev_latitude,
+                            prevLongitude: prev_longitude,
+                            currLatitude: validLatitude,
+                            currLongitude: validLongitude
+                        }
+
+                        // console.log(1,locs)
+
+                        // if (prev_latitude != validLatitude || prev_longitude != validLongitude){
+                            var range = distance(prev_latitude,prev_longitude,validLatitude,validLongitude)
+                           
+                            if (range>0){
+                                transition(result,heading,cars_info,locs)
+                            }else{
+                                setMarkerAnchor(heading,cars_info,locs)
+                            }
+                           
+                        // }
+                    // }
+            }else if (gmarkers.length == 0){
+                var latlng = new google.maps.LatLng(validLatitude,validLongitude);
+                var resp = addMarkerTracking(latlng,heading,cars_info)
+                map.panTo(latlng);
+            }
+                                
+
+
+            }
+        }).catch((error) => {
+            
+            console.error(error)
+            // AssetStatusCount()
+        });
+
+    },1000)
 }
 
 // function cari_riwayat
