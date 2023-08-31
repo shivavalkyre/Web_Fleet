@@ -16,7 +16,7 @@ var route = null
 
 // smoot moving
 var numDeltas = 100;
-var delay = 1; //milliseconds
+var delay = 10; //milliseconds
 var i = 0;
 var deltaLat;
 var deltaLng;
@@ -37,84 +37,85 @@ function InitializeMap() {
     zoom:10,
     disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    styles: [{
-        "featureType": "landscape",
-        "stylers": [{
-            "saturation": -100
-        }, {
-            "lightness": 65
-        }, {
-            "visibility": "on"
-        }]
-    }, {
-        "featureType": "poi",
-        "stylers": [{
-            "saturation": -100
-        }, {
-            "lightness": 51
-        }, {
-            "visibility": "off"
-        }]
-    }, {
-        "featureType": "road.highway",
-        "stylers": [{
-            "saturation": -100
-        }, {
-            "visibility": "simplified"
-        }]
-    }, {
-        "featureType": "road.arterial",
-        "stylers": [{
-            "saturation": -100
-        }, {
-            "lightness": 30
-        }, {
-            "visibility": "on"
-        }]
-    }, {
-        "featureType": "road.local",
-        "stylers": [{
-            "saturation": -100
-        }, {
-            "lightness": 40
-        }, {
-            "visibility": "on"
-        }]
-    }, {
-        "featureType": "transit",
-        "stylers": [{
-            "saturation": -100
-        }, {
-            "visibility": "simplified"
-        }]
-    }, {
-        "featureType": "administrative.province",
-        "stylers": [{
-            "visibility": "off"
-        }]
-    }, {
-        "featureType": "water",
-        "elementType": "labels",
-        "stylers": [{
-            "visibility": "on"
-        }, {
-            "lightness": -25
-        }, {
-            "saturation": -100
-        }]
-    }, {
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [{
-            "hue": "#ffff00"
-        }, {
-            "lightness": -25
-        }, {
-            "saturation": -97
-        }]
-    }]
+    // styles: [{
+    //     "featureType": "landscape",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "lightness": 65
+    //     }, {
+    //         "visibility": "on"
+    //     }]
+    // }, {
+    //     "featureType": "poi",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "lightness": 51
+    //     }, {
+    //         "visibility": "off"
+    //     }]
+    // }, {
+    //     "featureType": "road.highway",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "visibility": "simplified"
+    //     }]
+    // }, {
+    //     "featureType": "road.arterial",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "lightness": 30
+    //     }, {
+    //         "visibility": "on"
+    //     }]
+    // }, {
+    //     "featureType": "road.local",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "lightness": 40
+    //     }, {
+    //         "visibility": "on"
+    //     }]
+    // }, {
+    //     "featureType": "transit",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "visibility": "simplified"
+    //     }]
+    // }, {
+    //     "featureType": "administrative.province",
+    //     "stylers": [{
+    //         "visibility": "off"
+    //     }]
+    // }, {
+    //     "featureType": "water",
+    //     "elementType": "labels",
+    //     "stylers": [{
+    //         "visibility": "on"
+    //     }, {
+    //         "lightness": -25
+    //     }, {
+    //         "saturation": -100
+    //     }]
+    // }, {
+    //     "featureType": "water",
+    //     "elementType": "geometry",
+    //     "stylers": [{
+    //         "hue": "#ffff00"
+    //     }, {
+    //         "lightness": -25
+    //     }, {
+    //         "saturation": -97
+    //     }]
+    // }]
     };
     map = null
+    // map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
     map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
     // map.setZoom(3)
 
@@ -158,11 +159,26 @@ function addMarker(location,heading,cars_info) {
       }
     // //   var $markerImage = document.querySelector('.markerImage'),
     // //   markerImageSvg = $markerImage.innerHTML && '';
-    
-        var contentString = `<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'">`+ cars_info.vehicleUid +`</div>`
-        contentString += `<div style="height:30px;margin-top:-10px;text-align:center;font-family:'Poppins';">`+ cars_info.speed + ' ('+ cars_info.deviceStatus +')' +`</div>`
-        contentString +=  `<div><a href="#" id="live`+ cars_info.no +`" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> | <a href="#" id="riwayat`+ cars_info.no +`" style="text-decoration: none;" onclick="riwayat(this)">Riwayat</a> | <a href="#" id="detail`+ cars_info.no +`" style="text-decoration: none;"onclick="detail(this)">Detail</a></div>`
-    
+
+        console.log('cars_info:' + cars_info)
+
+        var contentString =`<div style="width:265px">`
+        contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ cars_info.vehicleUid +`</div></div>`
+        contentString += `<div style="height:30px;margin-top:5px;text-align:left;font-size:12px;font-family:'Poppins';">Status</div>`
+        contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+        contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ cars_info.deviceStatus + `</div>`
+        contentString += `<div style="height:30px;margin-top:-15px;text-align:left;font-family:'Poppins';font-size:12px;">Last Update</div>`
+        contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+        contentString += `<div style="height:30px;width:180px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.last_update + `</div>`
+        contentString += `<div style="height:30px;margin-top:-15px;text-align:left;font-family:'Poppins';font-size:12px;">Speed</div>`
+        contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+        contentString += `<div style="height:30px;width:80px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.speed + `</div>`
+        contentString +=  `<div style="width:100%;font-size:10px;font-family:'Poppins';margin-left:45px;height:15px;margin-bottom:10px;" ><a href="#" id="live`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="live_tracking_marker('`+ cars_info.sclId +`')">Live Tracking</a>  &nbsp;| &nbsp;  <a href="#" id="riwayat`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="riwayat_marker('`+ cars_info.sclId +`')">Riwayat</a>  &nbsp;| &nbsp;  <a href="#" id="detail`+ cars_info.no +`" class="info" style="text-decoration: none;">Chat</a></div>`
+        // contentString +=  `<div style="width:100%;font-size:10px;font-family:'Poppins';margin-left:45px;height:15px;margin-bottom:10px;" ><a href="#" id="live`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="live_tracking_marker('`+ cars_info.sclId +`')">Live Tracking</a>  &nbsp;| &nbsp;  <a href="#" id="riwayat`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="riwayat_marker('`+ cars_info.sclId +`')">Riwayat</a>  &nbsp;| &nbsp;  <a href="#" id="detail`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="detail_marker('`+ cars_info.sclId +`')">Detail</a></div>`
+        contentString +=  `</div>`
+        // ' ('+ cars_info.deviceStatus +')'
+        // console.log('contentString',contentString)
+
         const infowindow = new google.maps.InfoWindow({
         content: contentString,
       });
@@ -178,7 +194,7 @@ function addMarker(location,heading,cars_info) {
         infowindow.open({
           anchor: marker,
           map,
-        });
+        })
       })
 
     return [marker,infowindow]
@@ -388,6 +404,7 @@ function removeMarkerWaypointAll(gmarkerswaypoint,gmarkersLength){
 
 function transition(result,heading,cars_info,locs){
     k = 0;
+    console.log(result[0])
     deltaLat = (result[0] - position[0])/numDeltas;
     deltaLng = (result[1] - position[1])/numDeltas;
 
@@ -456,7 +473,7 @@ function setMarkerAnchor(heading,cars_info,locs){
       }
 
 
-    if (heading == 0 && heading == 360){
+    if (heading == 0 ){
                 gmarkers[0].setOptions({
                     icon: { url:'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon1),
                     anchor: new google.maps.Point(80,80)

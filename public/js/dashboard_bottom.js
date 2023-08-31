@@ -27,6 +27,11 @@ function Dashboard(){
         selected:false
     });
 
+    $('#chat').linkbutton({
+        iconCls: 'icon-chat-black',
+        selected:false
+    });
+
     $('#alert').linkbutton({
         iconCls: 'icon-bell-black',
         selected:false
@@ -79,6 +84,9 @@ function Device(){
     
 }
 
+function Petugas (){
+    window.location='petugas';  
+}
 
 function Tasklist(){
     //alert('tasklist')
@@ -128,6 +136,10 @@ function Tasklist(){
     window.location='tasklist';
 }
 
+function Chat(){
+    window.location="chat"
+}
+
 function Notifikasi(){
     $('#dashboard').linkbutton({
         iconCls: 'icon-dashboard-black',
@@ -140,6 +152,21 @@ function Notifikasi(){
     });
     $('#tasklist').linkbutton({
         iconCls: 'icon-tasklist-black',
+        selected:false
+    });
+
+    $('#tasklist').linkbutton({
+        iconCls: 'icon-chat-black',
+        selected:false
+    });
+
+    $('#chat').linkbutton({
+        iconCls: 'icon-chat-black',
+        selected:false
+    });
+
+    $('#chat').linkbutton({
+        iconCls: 'icon-chat-black',
         selected:false
     });
 

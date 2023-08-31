@@ -39,7 +39,9 @@ function Device(){
 function Vehicle(){
     window.location='vehicle';
 }
-
+function Petugas (){
+    window.location = 'petugas'
+}
 function Tasklist(){
     //alert('tasklist')
 
@@ -58,6 +60,10 @@ function Tasklist(){
     $('#tasklist').linkbutton({
         iconCls: 'icon-tasklist',
         selected:true
+    });
+    $('#chat').linkbutton({
+        iconCls: 'icon-chat-black',
+        selected:false
     });
 
     $('#alert').linkbutton({
@@ -85,6 +91,10 @@ function Tasklist(){
 
     $('#title_page').text('Penugasan')
 
+}
+
+function Chat(){
+    window.location ='chat'
 }
 
 function Notifikasi(){

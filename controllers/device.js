@@ -81,16 +81,27 @@ var read = async function(req,res){
     var result
     result = await axios.get(url,config) 
     .then(function (response) {
-        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(response.status)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE STATUS ] | INFO ' + util.inspect(response.status)); 
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
         var data = JSON.stringify(response.data.data)
         return data
     }).catch(function(error){
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+        
+        var data = {  
+            "status":false,
+            "message":"token is expired"
+         }
+
+         return data
+
     })
 
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT STATUS ] | INFO ' + util.inspect(result.status)); 
     futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(result)); 
-    res.send(result)
+    // res.send(result)
+    return result
+    
 }
 
 var read_all = async function(req,res){

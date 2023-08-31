@@ -35,6 +35,11 @@ function Monitor(){
         iconCls: 'icon-tasklist-black',
         selected:false
     });
+    
+    $('#chat').linkbutton({
+        iconCls: 'icon-chat-black',
+        selected:false
+    });
 
     $('#alert').linkbutton({
         iconCls: 'icon-bell-black',
@@ -73,10 +78,19 @@ function Monitor(){
 function Device(){
     window.location='device';
 }
+function Petugas(){
+    
+}
+function Petugas (){
+    window.location='petugas';  
+}
 
 function Tasklist(){
     // alert('task')
     location.replace("tasklist")
+}
+function Chat(){
+    window.location='chat'
 }
 
 // Menu handler =======================================================================
@@ -160,11 +174,37 @@ function live_tracking(e){
     // alert(current_section)
 }
 
+
+function live_tracking_marker(e){
+
+    var sclId = e
+    // alert(sclId)
+    selected_sclId = sclId
+    // alert(selection)
+    // alert(sclId)
+    $('#cc_monitor').layout('panel','west').panel('close');
+    $('#cc_monitor').layout('resize');
+    $('#live_box').css('visibility','visible')
+    historyMarker =[]
+
+    current_section = 'live_tracking'
+    processing_data(current_section,sclId)
+    
+    // alert(current_section)
+}
+
 function close_live_box(){
     $('#cc_monitor').layout('panel','west').panel('open');
     $('#cc_monitor').layout('resize');
     $('#live_box').css('visibility','hidden')
 
+    for (i=0;i<= arr_drivingPath.length-1;i++)
+    {
+        arr_drivingPath[i].setMap(null)
+    }
+    arr_drivingPath =[]
+    drivingPlanCoordinates = []
+    
     current_section = 'pantau'
     // directionsRenderer.setMap(null);
     
@@ -189,6 +229,19 @@ function riwayat(e){
     current_section = 'riwayat'
     processing_data(current_section,sclId)
     // alert(current_section)
+}
+
+function riwayat_marker(e){
+    // var selection = e
+    console.log('marker detail',e)
+    $('#cc_monitor').layout('panel','west').panel('close');
+    $('#cc_monitor').layout('resize');
+    var sclId = e
+    $('#history_box').css('visibility','visible')
+    $('#history_box_table').css('visibility','visible')
+    $('#close_history').css('visibility','visible')
+    current_section = 'riwayat'
+    processing_data(current_section,sclId)
 }
 
 function close_riwayat(){
@@ -216,6 +269,17 @@ function detail(e){
     //alert(selection)
     var no = selection.substr(6)
     var sclId = $('#pnl'+no).attr("name")
+    $('#cc_monitor').layout('panel','west').panel('close');
+    $('#cc_monitor').layout('resize');
+    $('#detail_box').css('visibility','visible')
+    current_section = 'detail'
+    processing_data(current_section,sclId,'semua',false,null)
+    // alert(current_section)
+}
+
+function detail_marker(e){
+  
+    var sclId = e
     $('#cc_monitor').layout('panel','west').panel('close');
     $('#cc_monitor').layout('resize');
     $('#detail_box').css('visibility','visible')
@@ -293,7 +357,7 @@ function myFunction() {
 
     $('#g3_1').css('backkground','white')
     $('#g3_2').css('backkground','transparent')
-    read_speed_data = 1000
+    read_speed_data = 500
 
     // console.log('speed:' + speed)
 });
@@ -303,7 +367,7 @@ $('#g3_2').bind('click', function(){
 
     $('#g3_1').css('backkground','transparent')
     $('#g3_2').css('backkground','white')
-    read_speed_data = 500
+    read_speed_data = 100
 
 });
 

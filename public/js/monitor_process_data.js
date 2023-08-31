@@ -9,10 +9,12 @@ var t3 = null
 var t4 = null
 var tout = null
 
-var read_speed_data= 1000
+var read_speed_data= 500
 
 var drivingPlanCoordinates = []
 var arr_drivingPath =[]
+
+var is_play = false
 
 // Processing Data ============================================================================
 function processing_data (current_section,sclId,mode,search_mode,search_param){
@@ -211,7 +213,10 @@ function AssetStatusCount(mode,search_mode,search_param){
        
       };
 
-    axios.post("http://147.139.144.120:3002/api/patern/status_count",postData,config)
+    //   var url = "http://147.139.144.120:3002/api/patern/status_count"
+    var url = "http://localhost:3002/api/patern/status_count"
+
+    axios.post(url,postData,config)
     .then((response) => {
 
 
@@ -286,7 +291,9 @@ async function CreateData(){
        
       };
 
-    let res1 = await axios.post("http://147.139.144.120:3002/api/patern/latest_status",postData,config)
+    // var url = "http://147.139.144.120:3002/api/patern/latest_status"
+    var url = "http://localhost:3002/api/patern/latest_status"
+    let res1 = await axios.post(url,postData,config)
     .then((response) => {
         // console.log(response.data)
         var status = response.data.status
@@ -364,7 +371,7 @@ async function CreateData(){
                 <div id="img_time`+ i +`" style="margin-top:50px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/clock.png" width="18" height="18"/></div>
                 <div id="time`+ i +`" style="margin-top:-17px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + strDate + ` </div>
 
-                <div id="options`+ i +`" style="margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> | <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" onclick="riwayat(this)">Riwayat</a> | <a href="#" id="detail`+ i +`" style="text-decoration: none;"onclick="detail(this)">Detail</a></div>
+                <div id="options`+ i +`" style="margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> | <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" onclick="riwayat(this)">Riwayat</a> | <a href="#" id="detail`+ i +`" style="text-decoration: none;">Chat</a></div>
                 <div id="lat` + i + `" style="visibility:hidden">` + validLatitude + `</div>
                 <div id="lon` + i + `" style="visibility:hidden">` + validLongitude + `</div>
                 <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
@@ -377,11 +384,13 @@ async function CreateData(){
 
                 var cars_info = {
                     no:i,
+                    sclId:sclId,
                     licensePlate : licensePlate,
                     vehicleUid: vehicleUid,
                     deviceStatus : status,
                     speed: speed,
-                    heading:heading
+                    heading:heading,
+                    last_update:strDate
                 }
 
                 // console.log('validLatitude1:' + validLatitude)
@@ -429,7 +438,9 @@ function CreateDataSelected(mode){
        
       };
 
-      axios.post("http://147.139.144.120:3002/api/patern/latest_status",postData,config)
+    //   var url = "http://147.139.144.120:3002/api/patern/latest_status"
+      var url = "http://localhost:3002/api/patern/latest_status"
+      axios.post(url,postData,config)
       .then((response) => {
           // console.log(response.data)
           var status = response.data.status
@@ -516,12 +527,16 @@ function CreateDataSelected(mode){
                             
                 
                                 var cars_info = {
+                                    no: i,
+                                    sclId:sclId,
                                     licensePlate : licensePlate,
                                     vehicleUid : vehicleUid,
                                     deviceStatus : status,
                                     speed: speed,
                                     heading:heading
                                 }
+
+                                console.log('cars_info:' + cars_info)
 
                                 CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
                                 var resp = addMarker(CentralPark,heading,cars_info)
@@ -579,8 +594,9 @@ async function CreateDataSearch(param){
       var postData = {
        
       };
-
-      let res1 = await axios.post("http://147.139.144.120:3002/api/patern/latest_status",postData,config)
+    //   var url = "http://147.139.144.120:3002/api/patern/latest_status"
+      var url = "http://localhost:3002/api/patern/latest_status"
+      let res1 = await axios.post(url,postData,config)
       .then((response) => {
           // console.log(response.data)
           var status = response.data.status
@@ -711,7 +727,8 @@ var getAddress = async (location) => {
 
 
       
-  var url = "http://147.139.144.120:3002/api/patern/asset_address/"+lat +"/" + lng
+//   var url = "http://147.139.144.120:3002/api/patern/asset_address/"+lat +"/" + lng
+  var url = "http://localhost:3002/api/patern/asset_address/"+lat +"/" + lng
     // console.log(url)
   var resp =  await axios.get(url,config)
     .then((response) => { 
@@ -758,7 +775,8 @@ function process_live_tracking(sclId){
             timeout: 10000
           };
           
-        var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
+        // var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
+        var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
         // console.log(url)
         axios.get(url,config)
         .then((response) => {
@@ -766,54 +784,18 @@ function process_live_tracking(sclId){
             // alert(status)
             var data = response.data.data
 
-            if (status == true){
-                // console.log(data[0])
-                // console.log('gmarkers pre live: ' + gmarkers.length)
-                // console.log('gmarkerswaypoint pre live: ' + gmarkers_waypoint.length)
-                
-                if (gmarkers.length == 2) {
-                    // var position = [gm, -73.985763];
-                    // console.log('marker lat' + gmarkers[0].getPosition().lat())
-                    // console.log('marker lng' + gmarkers[0].getPosition().lng())
-                    var prev_latitude = gmarkers[0].getPosition().lat()
-                    var prev_longitude = gmarkers[0].getPosition().lng()
-                    position = [prev_latitude,prev_longitude]
-
-                    // var cars_info = {
-                    //     licensePlate : licensePlate,
-                    //     deviceStatus : deviceStatus,
-                    //     speed: speed,
-                    //     heading:heading,
-                    //     updateTime:strDate
-                    //  }
-
-                   
-                
-                } else{
-                    //RemoveMarker(gmarkers)
-                    // console.log('gmarkers after live: ' + gmarkers.length)
-                    removeMarkerWaypointAll(gmarkers_waypoint,gmarkers_waypoint.length) 
-                }
-
-                
-
-                
-               
-                // ReInitializeMap(lat,lon)
-
+            if (status == true)
+            {
                 var validLatitude = data[0].validLatitude
-                var validLongitude = data[0].validLongitude
-
-
-
-                // RemoveMarker(gmarkers)
-                // console.log('gmarkers after live: ' + gmarkers.length)
-
+                var validLongitude = data[0].validLongitude    
+                
                 var licensePlate = data[0].vehicleLicensePlate
                 var vehicleUid = data[0].vehicleUid
                 var speed = data[0].vehicleSpeed[0].value + ' ' + data[0].vehicleSpeed[0].unit
                 var deviceStatus = ''
                 var heading = data[0].heading
+                var vehicle_voltage = parseFloat(data[0].batteryVoltage[1].value/1000).toFixed(1) + ' V' 
+                console.log(vehicle_voltage)
                 var img = ''
 
                 if(data[0].deviceStatus == 'moving'){
@@ -828,28 +810,37 @@ function process_live_tracking(sclId){
                 }
 
                 
-                prevSpeed =  $('#vehicle_speed_live').text()
-                prevStatus = $('#vehicle_status').text()
+                prevSpeed  =  $('#vehicle_speed_live').text()
+                prevStatus =  $('#vehicle_status').text()
 
-                // console.log('deviceStatus: '+ deviceStatus)
+                console.log('prev gmarkers length:'  + gmarkers.length)
+                if (gmarkers.length== 2){
+                    
+                    var prev_latitude = gmarkers[0].getPosition().lat()
+                    var prev_longitude = gmarkers[0].getPosition().lng()
+                    
+                }
+
+
                 var location = {lat:validLatitude,lng:validLongitude}
+
                 getAddress(location).then( result => {
                     $('#vehicle_address_live').text(result)  
                     $('#vehicle_address_detail').text(result)
                     // console.log('update address')  
                 })
-                
+
                 var dms_lat = deg_to_dms(validLatitude)
                 var dms_lon = deg_to_dms(validLongitude)
                 var koordinat = dms_lat + ' , ' + dms_lon
 
-                // console.log('update speed:' + speed)
                 $('#vehicle_status').text(deviceStatus)
                 $('#vehicle_status_detail').text(deviceStatus)
                 $('#vehicle_speed_live').text(speed)
                 $('#vehicle_heading').text(heading + ' degree')
                 $('#img_status').attr("src",img)
                 $('#koordinat').text(koordinat)
+                $('#vehicle_voltage').text(vehicle_voltage)
                 var utcSeconds = data[0].updateTime;
                 var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
                 d.setUTCSeconds(utcSeconds);
@@ -858,28 +849,21 @@ function process_live_tracking(sclId){
 
                 $('#vehicle_time_live').text(strDate)
 
-                
-                if (prevSpeed == speed ){
-
-                }
-                
                 var cars_info = {
-                                licensePlate : licensePlate,
-                                vehicleUid : vehicleUid,
-                                deviceStatus : deviceStatus,
-                                speed: speed,
-                                heading:heading,
-                                updateTime:strDate,
-                                updateJam: strTime      
+                    licensePlate : licensePlate,
+                    vehicleUid : vehicleUid,
+                    deviceStatus : deviceStatus,
+                    speed: speed,
+                    heading:heading,
+                    updateTime:strDate,
+                    updateJam: strTime      
                 }
-                //     console.log(cars_info)
-                    
-                // var resp = addMarkerTracking(latlng,heading,cars_info)
+
+                console.log('gmarkers length: ' + gmarkers.length)
+
                 if (gmarkers.length == 2){
-                        // console.log('translation')
-                        // if (validLatitude!= prev_latitude && validLongitude != prev_longitude){
-                            // ClearAllMarker()
-                            // var resp = addMarkerTracking(latlng,heading,cars_info)
+                            console.log('transition')
+                            position = [prev_latitude,prev_longitude]
                             var result = [validLatitude,validLongitude]
                             var locs = {
                                 prevLatitude: prev_latitude,
@@ -887,149 +871,63 @@ function process_live_tracking(sclId){
                                 currLatitude: validLatitude,
                                 currLongitude: validLongitude
                             }
-                            // console.log(1,locs)
 
-                            // if (prev_latitude != validLatitude || prev_longitude != validLongitude){
-                                var range = distance(prev_latitude,prev_longitude,validLatitude,validLongitude)
-                               
-                                if (range>0){
+                        var range = distance(prev_latitude,prev_longitude,validLatitude,validLongitude)
+                    
+                        console.log('range: '+ range)
 
-                                    // directionsService = new google.maps.DirectionsService()
-                                    directionsRenderer.setOptions({
-                                        suppressMarkers:true
-                                    })
+                        if (range >0){
+                            console.log(range)
+                            console.log('result:' + result)
+                            console.log('result0: '+ result[0])
+                            console.log('result1: '+ result[1])
 
-                                    waypts.push({location:  new google.maps.LatLng(prev_latitude, prev_longitude),stopover:true})
-                                    waypts.push({location:  new google.maps.LatLng(validLatitude, validLongitude),stopover:true})
+                            transition(result,heading,cars_info,locs)
+                            setMarkerAnchor(heading,cars_info,locs)
 
-                                    // console.log('speed: '+ cars_info.speed)
+                            var latlng = new google.maps.LatLng(validLatitude,validLongitude);
+                            addMarkerWaypoint(latlng,cars_info)
 
-                                    
-                                    historyMarker.push({location : new google.maps.LatLng(validLatitude, validLongitude),cars_info:cars_info})
+                            drivingPlanCoordinates = []
 
-                                    // console.log('gmw0:' , waypts.length)
+                            console.log('draw polylines')
+                            var loc_prev = { lat: prev_latitude, lng: prev_longitude }
+                            console.log('loc_prev',loc_prev)
+                            drivingPlanCoordinates.push(loc_prev)
+                            var loc_current = {lat: Number(validLatitude), lng: Number(validLongitude)}
+                            console.log('loc_current',loc_current)
+                            drivingPlanCoordinates.push(loc_current)
 
-                                    if (waypts.length>22){
-                                        while(waypts.length>22){
-                                            waypts.splice(0,1)
-                                           
-                                        }
-                                    }
+                            console.log('driving path coordinates:' + drivingPlanCoordinates.length)
+                            console.log('driving path coordinates:' + drivingPlanCoordinates.length)
 
-                                    // console.log('gmw1:',gmarkers_waypoint.length)
+                            var drivingPath = new google.maps.Polyline({
+                                path: drivingPlanCoordinates,
+                                geodesic: true,
+                                strokeColor: "#FF0000",
+                                strokeOpacity: 1.0,
+                                strokeWeight: 2,
+                              });
 
-                                    if (gmarkers_waypoint.length>7){
-                                        while(gmarkers_waypoint.length>7){
-                                            removeMarkerWaypoint(gmarkers_waypoint)
-                                            break;
-                                        }
-                                    }
+                              drivingPath.setMap(map);
 
-                                    // console.log('waypts length:' + waypts.length)
-                                    // console.log('waypts: ' + waypts[0])
-                                    // console.log('waypts: ' + waypts[1])
-                                    // console.log('waypts: ' + waypts[2])
-                                    // console.log('waypts start'+ waypts[0].location)
-                                    // console.log('waypts end'+ waypts[waypts.length-1].location)
-                                    
-                                    var request = {
-                                        origin: waypts[0].location,
-                                        destination: waypts[waypts.length-1].location,
-                                        waypoints: waypts,
-                                        optimizeWaypoints: true,
-                                        travelMode: google.maps.DirectionsTravelMode.DRIVING
-                                    };
+                        }else{
+                            //setMarkerAnchor(heading,cars_info,locs)
+                        }
 
-                                    // console.log('request: ' + request)
+                }else{
 
-                                    directionsService
-                                    .route({
-                                      origin: waypts[0].location,
-                                      destination: waypts[waypts.length-1].location,
-                                      waypoints: waypts,
-                                      optimizeWaypoints: true,
-                                      travelMode: google.maps.TravelMode.DRIVING,
-                                    })
-                                    .then((response) => {
-                                      directionsRenderer.setDirections(response);
-                                      route = response.routes[0];
-                                      var legs = response.routes[0].legs;
-                                    //   console.log('legs length:' + legs.length)
-                                      var path = response.routes[0].overview_path;
-                                      var legs = response.routes[0].legs;
-                                      
-                                      startLocation = new Object();
-                                      endLocation = new Object();
-                                     
-
-                                    //   console.log('Marker Length: ' + historyMarker.length)
-                                      
-                                    if (historyMarker.length>0){
-
-                                        historyMarker.push({location : new google.maps.LatLng(prev_latitude, prev_longitude),cars_info:cars_info})
-                                        var marker_waypoint = addMarkerWaypoint(new google.maps.LatLng(validLatitude, validLongitude),cars_info)
-                                        
-                                        // console.log('Marker Length Data: ' + historyMarker[historyMarker.length-1].cars_info)
-                                    }
-
-                                      
-                                      
-
-                                    }).catch((e) => console.log("Error " + status));
-                                    
-
-                                    transition(result,heading,cars_info,locs)
-                                    
-                                   
-
-                                    
-
-                                }else{
-                                    console.log('History Marker Length: ' + historyMarker.length)
-
-                                    if (historyMarker.length==0){
-
-                                           console.log(1,'prev latitude'+ prev_latitude)
-                                           console.log(1,'prev longitude :' + prev_latitude)
-
-                                           historyMarker.push({location : new google.maps.LatLng(prev_latitude, prev_longitude),cars_info:cars_info})
-                                   
-                                        }else{
-                                        if (historyMarker[historyMarker.length-1].location != new google.maps.LatLng(prev_latitude, prev_longitude)){
-                                            
-                                            console.log(2,'prev latitude'+ prev_latitude)
-                                            console.log(2,'prev longitude :' + prev_latitude)
-
-                                            historyMarker.push({location : new google.maps.LatLng(prev_latitude, prev_longitude),cars_info:cars_info})
-                                        }
-                                    }
-                                    setMarkerAnchor(heading,cars_info,locs)
-                                }
-                               
-                            // }
-                        // }
-                }else if (gmarkers.length == 0){
+                    console.log('gmarkers length: ' + gmarkers.length)
+                    prev_latitude = validLatitude
+                    prev_longitude = validLongitude
                     var latlng = new google.maps.LatLng(validLatitude,validLongitude);
                     var resp = addMarkerTracking(latlng,heading,cars_info)
-                    
-                    if(current_section == 'live_tracking' || current_section == 'detail'){
-                        addMarkerWaypoint(latlng,cars_info)
-                    }
-                   
-                    // console.log(resp[0])
-                    
+                    setMarkerAnchor(heading,cars_info,locs)
+                    addMarkerWaypoint(latlng,cars_info)
                     map.panTo(latlng);
+                    console.log('gmarkers length: ' + gmarkers.length)
                 }
-                           
-                            // gmarkers.push(resp[0]);
-                           
-                            // map.setZoom(16)
-                            // var infowindow = resp[1]
-                            // infowindow.open(map, resp[0]);
-                            // console.log('selectedsclId: ' + selected_sclId)
-                            // processing_data(current_section,selected_sclId)
-                           
-                            
+
             }
         }).catch((error) => {
             
@@ -1037,7 +935,7 @@ function process_live_tracking(sclId){
             // AssetStatusCount()
         });
 
-    },1000)
+    },500)
    
 }
 
@@ -1053,7 +951,8 @@ function process_live_detail (sclId){
             timeout: 10000
           };
           
-        var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
+        // var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
+        var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
         axios.get(url,config)
         .then((response) => {
             var status = response.data.status
@@ -1160,9 +1059,11 @@ function process_live_detail (sclId){
 
                         // if (prev_latitude != validLatitude || prev_longitude != validLongitude){
                             var range = distance(prev_latitude,prev_longitude,validLatitude,validLongitude)
-                           
+                           console.log('range:'+range)
+
                             if (range>0){
                                 transition(result,heading,cars_info,locs)
+                                setMarkerAnchor(heading,cars_info,locs)
                             }else{
                                 setMarkerAnchor(heading,cars_info,locs)
                             }
@@ -1172,6 +1073,7 @@ function process_live_detail (sclId){
             }else if (gmarkers.length == 0){
                 var latlng = new google.maps.LatLng(validLatitude,validLongitude);
                 var resp = addMarkerTracking(latlng,heading,cars_info)
+                setMarkerAnchor(heading,cars_info,locs)
                 map.panTo(latlng);
             }
                                 
@@ -1210,6 +1112,8 @@ async function cari_riwayat(){
     $.messager.progress('bar').hide();
     win.dialog('resize');
     win.window('window').addClass('bg1');
+
+
 
     var postdata = {
         createdBefore:timestamp2,
@@ -1290,10 +1194,10 @@ selected_sclId = sclId
 
 function play(){
     // alert('play')
+   
     paused_history = false
     stopped_history = false
-   
-
+    
     var data_length = data_riwayat.length
 
     
@@ -1309,6 +1213,7 @@ function play(){
             drivingPlanCoordinates.push(location)
         }
         
+        if (is_play == false){
          var drivingPath = new google.maps.Polyline({
                 path: drivingPlanCoordinates,
                 geodesic: true,
@@ -1318,19 +1223,53 @@ function play(){
               });
             drivingPath.setMap(map);
             arr_drivingPath.push(drivingPath)
+        
+        }else{
+            if(row_index_selected == data_length-1){
+
+            }else{
+                alert('already play')
+            }
+            
+        }
 
         // alert(prev_row_index_selected)
         console.log('row_index_selected:'+ row_index_selected)
         console.log('data.length: ' + data_length)
+        
     
         if (row_index_selected!= data_length-1){
-            select_history(data_riwayat,row_index_selected)
+            if (is_play == false){
+                is_play = true
+                select_history(data_riwayat,row_index_selected)
+            }
+           
         }else{
+            is_play = false
             ReInitializeMap(map,gmarkers)
             arr_tout = []
             arr_drivingPath = []
             row_index_selected = 0
+
+                for (i=0; i<= arr_drivingPath.length-1;i++){
+                    arr_drivingPath[i].setMap(null)
+                }
+                arr_drivingPath=[]
+            
+                // drivingPlanCoordinates =[]
+
+                var drivingPath = new google.maps.Polyline({
+                    path: drivingPlanCoordinates,
+                    geodesic: true,
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2,
+                  });
+                drivingPath.setMap(map);
+                arr_drivingPath.push(drivingPath)
+
             select_history(data_riwayat,row_index_selected)
+            is_play = true
             
         }
     }
@@ -1368,6 +1307,7 @@ function play(){
 function pause(){
     // alert('here')
     paused_history = true
+    is_play = false
     for(i=0;i<=arr_tout.length-1;i++){
         clearTimeout(arr_tout[i])
     }
@@ -1389,6 +1329,7 @@ function pause(){
 }
 
 function stop(){
+    is_play = false
     for(i=0;i<=arr_tout.length-1;i++){
         clearTimeout(arr_tout[i])
     }

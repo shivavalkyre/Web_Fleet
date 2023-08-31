@@ -51,12 +51,17 @@ function Vehicle(){
     });
 
     $('#vehicle').linkbutton({
-        iconCls: 'icon-tasklist-white',
+        iconCls: 'icon-tasklist',
         selected:true
     });
 
     $('#tasklist').linkbutton({
         iconCls: 'icon-tasklist-black',
+        selected:false
+    });
+
+    $('#chat').linkbutton({
+        iconCls: 'icon-chat-black',
         selected:false
     });
 
@@ -86,6 +91,9 @@ function Vehicle(){
     
    
     $('#title_page').text('Kendaraan')
+}
+function Petugas (){
+    window.location='petugas';  
 }
 
 function Tasklist(){
@@ -134,6 +142,9 @@ function Tasklist(){
     // $('#title_page').text('Penugasan')
 
     window.location='tasklist';
+}
+function Chat(){
+    window.location='chat'
 }
 
 function Notifikasi(){
@@ -450,42 +461,7 @@ async function simpan_data(){
         });
 
 
-    //     console.log(response.status)
-
-
-    //     var img 
-    //     if (parseInt(response.status) == 200){
-    //         img = "/img/success.png"
-    //     }else{
-    //         img = "/img/red_close.png"
-    //     }
-
-    //     var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
-    //     msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data sukses</div>`
-    //     msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
-    //                 <hr style="width: 280px;margin-top:10px;margin-left:0px;">
-    //             </div>
-    //             <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
-    //                 OK
-    //             </div>
-    //             `
-
-    //     dlg = $.messager.show({
-        
-    //     msg: msg,
-    //     showType:'fade',
-    //     border:'thin',
-    //     timeout:500,
-    //     cls: 'cls1',
-    //     height:180,
-    //     style:{
-    //         right:'',
-    //         bottom:''
-    //     }
-    // });
-    // $('#dg').datagrid('reload')
-    // $('#w_tambah').window('close')
-        
+   
     }
     else
     {

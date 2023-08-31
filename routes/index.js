@@ -3,6 +3,7 @@ var express = require ('express');
  // Init express router
 var router = express.Router();
 var User = require('../controllers/user.js')
+var Chat = require ('../controllers/chat.js')
 var Tasklist = require('../controllers/tasklist.js')
 var Device = require('../controllers/device.js')
 var Vehicle = require('../controllers/vehicle.js')
@@ -46,6 +47,10 @@ router.get('/vehicle',function (req, res, next) {
     res.render('vehicle',{apikey:process.env.APIKEY,latitude:process.env.LATITUDE,longitude:process.env.LONGITUDE})
 })
 
+router.get('/petugas',function (req, res, next) {
+    res.render('petugas')
+})
+
 router.get('/overview',function (req, res, next) {
     res.render('overview')
 })
@@ -55,16 +60,45 @@ router.get('/tasklist',function (req, res, next) {
     // Tasklist.index(req,res)
 })
 
+router.get('/chat',function(req,res){
+    Chat.index(req,res)
+    // res.render('chat',{apikey:process.env.APIKEY})
+})
+
 router.get('/map',function (req, res, next) {
     res.render('map',{apikey:process.env.APIKEY,latitude:process.env.LATITUDE,longitude:process.env.LONGITUDE})
 })
 
 router.get('/vehicle',function(req,res){
-    Vehicle.Read(req,res)
+    Vehicle.read(req,res)
 })
 
 router.get('/user',function(req,res){
     User.Read(req,res)
+})
+
+router.post('/petugas/create', async function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY ] | INFO ' + util.inspect(req.body));
+    User.Create(req,res)
+})
+
+router.post('/petugas/read',async function(req,res){
+    var resp = await User.Read(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
+router.post('/petugas/update', async function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY ] | INFO ' + util.inspect(req.body));
+    User.Update(req,res)
+})
+
+router.post('/petugas/delete', async function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY ] | INFO ' + util.inspect(req.body));
+    User.Delete(req,res)
 })
 
 router.post('/tasklist/create',upload.single('myFile'),function(req,res){
@@ -76,10 +110,10 @@ router.post('/tasklist/create',upload.single('myFile'),function(req,res){
 })
 
 
-
-
-router.post('/tasklist/read',function(req,res){
-    Tasklist.read(req,res)
+router.post('/tasklist/read',async function(req,res){
+    var resp = await Tasklist.read(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
 })
 
 router.post('/tasklist/read/:status',function(req,res){
@@ -106,12 +140,16 @@ router.post('/device/create',function(req,res){
     Device.create(req,res)
 })
 
-router.post('/device/read',function(req,res){
-    Device.read(req,res)
+router.post('/device/read',async function(req,res){
+    var resp = await Device.read(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+   
 })
 
 router.post('/device/read/all',function(req,res){
-    Device.read_all(req,res)
+    var resp = Device.read_all(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
 })
 
 router.post('/device/update',function(req,res){
@@ -132,8 +170,10 @@ router.post('/vehicle/create',function(req,res){
     Vehicle.create(req,res)
 })
 
-router.post('/vehicle/read',function(req,res){
-    Vehicle.read(req,res)
+router.post('/vehicle/read',async function(req,res){
+    var resp = await Vehicle.read(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
 })
 
 router.post('/vehicle/read/all',function(req,res){

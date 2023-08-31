@@ -40,7 +40,7 @@ function Device(){
     });
     
     $('#device').linkbutton({
-        iconCls: 'icon-tasklist-white',
+        iconCls: 'icon-tasklist',
         selected:true
     });
 
@@ -51,6 +51,11 @@ function Device(){
 
     $('#tasklist').linkbutton({
         iconCls: 'icon-tasklist-black',
+        selected:false
+    });
+
+    $('#chat').linkbutton({
+        iconCls: 'icon-chat-black',
         selected:false
     });
 
@@ -85,6 +90,9 @@ function Device(){
 
 function Vehicle(){
     window.location='vehicle';
+}
+function Petugas (){
+    window.location='petugas';  
 }
 
 function Tasklist(){
@@ -133,6 +141,9 @@ function Tasklist(){
     // $('#title_page').text('Penugasan')
 
     window.location='tasklist';
+}
+function Chat(){
+    window.location='chat'
 }
 
 function Notifikasi(){

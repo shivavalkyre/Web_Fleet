@@ -28,12 +28,12 @@
     </head>
     <body>    
         <div id="mini_me" style="width:30px;height:30px;text-align: center; font-weight: 100; margin: 8px 0 0 230px;position: absolute;z-index: 2;cursor: pointer;"><img id="img_mini_me" src="/img/mini.png"/></div>   
-        <div id="cc" class="easyui-layout" style="width:100%;height:650px;background: transparent;z-index: 1;">
+        <div id="cc" class="easyui-layout" style="width:100%;height:99%;background: transparent;z-index: 1;">
             <!-- <div data-options="region:'north'" style="height:50px;border-color: #fff;background-color:#fff;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
             <div style="width:211px;height:100%;background-color: #FAFAFA;">AA</div>
             </div> -->
             
-            <div data-options="region:'center'"  style="background-color: white;">
+            <div data-options="region:'center'"  style="background-color: white;border:none;height: 100%;">
                 <div style="background: white;width: 100%;height:60px;margin-top: -12px;position: absolute;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                        
                             <div id="title_page" style="margin-left: 30px;margin-top: 20px;color: #45464E;font-family:'Open Sans Condensed';font-size: 20; font-weight: 600;line-height: 28px;height: 28px;width:100px;border: 0px solid red;">Penugasan</div>
@@ -55,7 +55,7 @@
                             <div style="margin-bottom: 15px;"></div>
                         
                             <div id="cc_monitor" class="easyui-layout" style="width:98%;height:580px;background: white;border-radius: 8px;margin-top: 10px;margin-left:10px;position: fixed;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-                                <div data-options="region:'center'"  style="background-color: white;border-color: white;">
+                                <div data-options="region:'center'"  style="background-color: white;border-color: white;height: 100%;border:none;">
 
 
                                     <div class="easyui-panel" style="padding:10px;border: none;">
@@ -63,7 +63,7 @@
                                             <a href="#" id="tambah_device" class="easyui-linkbutton" style="height: 40px; background: #436AAC; color: white;font-family: 'Poppins';" onclick="tambah_data()">Tambah Device</a>
                                         </div>
                                         <table id="dg" class="easyui-datagrid"  style="width:100%;height:500px;border:none;border-color: transparent;font-family: 'Poppins';"
-                                            data-options="singleSelect:true,striped:true,nowrap:false,pagination:true,collapsible:false,url:'/device/read',border:false,fitColumns:true">
+                                            data-options="singleSelect:true,striped:true,nowrap:false,pagination:true,collapsible:false,border:false,fitColumns:true">
 
 
                                             <thead>
@@ -111,7 +111,13 @@
                     <a id="vehicle" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Vehicle()">Kendaraan</a>
                 </div>
                 <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="petugas" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Petugas()">Petugas</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
                     <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Tasklist()">Penugasan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="chat" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-chat-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Chat()">Chat</a>
                 </div>
                 <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
                     <a id="alert" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-bell',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Notifikasi()">Notifikasi</a>
@@ -177,10 +183,10 @@
             <div style="font-family: 'Poppins';font-size: 14px;font-weight: 900;">Tambah Device</div>
             <hr style="width: 380px;margin-top:10px;margin-left:0px;">
 
-            <form id="ff" method="post"  style="padding:10px">
+            <form id="ff" method="post"  style="padding:10px;width: 100%;border:1px solid lightgray;">
            
-                    <div id="div_taskid" style="margin-bottom:0px">
-                        <input id="t_device_id" class="easyui-textbox" name="id" style="width:100%" data-options="label:'ID:'">
+                    <div id="div_taskid" style="margin-bottom:0px;width: 100%;border:1px solid red;">
+                        <input id="t_device_id" class="easyui-textbox" name="id" style="width:100%" labelPosition="left" data-options="label:'ID:'">
                     </div>
                     <div style="margin-bottom:10px">
                         <input id="t_deviceId" class="easyui-textbox" name="deviceId" style="width:100%" data-options="label:'Device ID:'">

@@ -16,6 +16,9 @@ const User = con.db.define('users', {
       },
     level: {
       type: DataTypes.STRING
+    }, 
+    ph_number: {
+      type: DataTypes.STRING
     }
   },{
     // Freeze Table Name

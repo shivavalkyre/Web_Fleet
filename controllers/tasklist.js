@@ -93,10 +93,18 @@ var read = async function(req,res){
         return data
     }).catch(function(error){
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+        var data = {  
+            "status":false,
+            "message":"token is expired"
+         }
+
+         return data
     })
 
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT STATUS ] | INFO ' + util.inspect(result.status)); 
     futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(result)); 
-    res.send(result)
+    // res.send(result)
+    return result
 }
 
 var read_by_status = async function(req,res){

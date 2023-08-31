@@ -1,3 +1,15 @@
+.icon-emoticon{
+	background:url('icons/emoticon.png') no-repeat center center;
+}
+.icon-attachment{
+	background:url('icons/attachment.png') no-repeat center center;
+}
+.icon-chat{
+	background:url('icons/chat-white.png') no-repeat center center;
+}
+.icon-chat-black{
+	background:url('icons/chat-black.png') no-repeat center center;
+}
 .icon-logout{
 	background:url('icons/logout.png') no-repeat center center;
 }

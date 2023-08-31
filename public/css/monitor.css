@@ -317,4 +317,22 @@ font-family: 'Open Sans';
     border-radius: 20px;
 }
 
+.info {
+  box-shadow: inset 0 0 0 0 #436AAC;
+  color: #436AAC;
+  margin: 0 -.25rem;
+  padding: 0 .25rem;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+.info:hover {
+  box-shadow: inset 100px 0 0 0 #436AAC;
+  color: white;
+  border-radius: 10px;
+}
+
+.textbox .textbox-button{
+  background:transparent;
+  border-color: transparent;
+}
+
 

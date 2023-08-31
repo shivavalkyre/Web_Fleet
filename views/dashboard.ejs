@@ -26,7 +26,7 @@
     </head>
     <body>    
         <div id="mini_me" style="width:30px;height:30px;text-align: center; font-weight: 100; margin: 8px 0 0 230px;position: absolute;z-index: 2;cursor: pointer;"><img id="img_mini_me" src="/img/mini.png"/></div>   
-        <div id="cc" class="easyui-layout" style="width:100%;height:650px;background: transparent;z-index: 1;">
+        <div id="cc" class="easyui-layout" style="width:100%;height:100%;background: transparent;z-index: 1;">
             <div data-options="region:'west',split:false"  style="width:250px;border-color: transparent;background:transparent;background-color: #FAFAFA;">
                 <div style="Margin:30px 0 0 20px"><img src="/img/logo_polisi.png" width="60px" height="60px"></div>
                 <div style="Margin:-50px 0 0 90px"><img src="/img/polisi.png" width="50px" height="20px"></div>
@@ -45,7 +45,13 @@
                     <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Vehicle()">Kendaraan</a>
                 </div>
                 <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="petugas" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Petugas()">Petugas</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
                     <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Tasklist()">Penugasan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="chat" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-chat',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Chat()">Chat</a>
                 </div>
                 <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
                     <a id="alert" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-bell',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Notifikasi()">Notifikasi</a>
@@ -62,7 +68,7 @@
             
             </div>
 
-            <div data-options="region:'center'"  style="background-color: white;border:none">
+            <div data-options="region:'center'"  style="background-color: white;border:none;height: 100%;">
                 <div style="background: white;width: 100%;height:60px;margin-top: -12px;position: absolute;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                     <div id="title_page" style="margin-left: 30px;margin-top: 20px;color: #45464E;font-family:'Open Sans Condensed';font-size: 20; font-weight: 600;line-height: 28px;height: 28px;width:100px;border: 0px solid red;">Dashboard</div>
                     <div style ="width:16px;height: 16px; margin-top: -25px; margin-left: 80%;"><img src="/img/notification.png" width="16" height="16"/> </div>
@@ -81,28 +87,29 @@
                     </div>
                 </div>
                 <div style="margin-bottom: 45px;"></div>
-                <div style="float:left;margin-left:35px;margin-top: 20px;">
-                    <img src="/img/dashboard1.png" width="380" height="178" />
+
+                <div style="left: 2.5%;margin-top: 20px;position:absolute">
+                    <img src="/img/dashboard1.png" width="380px" height="178px" style="margin-bottom: 10px;" />
+                    <img src="/img/dashboard2.png"  width="380px" height="178px"  style="margin-bottom: 10px;"/>
+                    <div style="top:100%;left:0%;border: 0px solid red;border-radius: 8px;width: 770px;height: 400px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);position: absolute;">
+                        <div class="easyui-panel" style="padding:0px;border: none;padding: 10px;">
+                            <div style="float:left;font-weight: 900;font-size:16px;font-family: 'Poppins';">Status Penugasan</div>
+                            <div style="float:right"><a id="view_task" href="#" class="easyui-linkbutton" style="height:40px;background:#56C65B;color:white;font-family: 'Poppins';">Lihat Semua Tugas</a></div>
+                        </div>
+    
+                        <div class="chart-container" style="height:100%; width:90%;margin-left: 5%;margin-top: -3%;">
+                            <canvas id="myChart"></canvas>
+                      </div>
+                    </div>
                 </div>
                
-                <div style="float:right;margin-right:300px;margin-top: 20px;">
-                    <img src="/img/dashboard2.png"  width="380" height="178" />
-                </div>
-
-                <div>
+               
+                <!-- <div>
                     <div style="float:left;margin-left: -365px;margin-top: 80px;font-size: 20px;color:white;font-weight: 900;font-family: 'Poppins';">200</div>
                     <div style="float:right;margin-right: -50px;margin-top: 80px;font-size: 20px;color:white;font-weight: 900;font-family: 'Poppins';">200</div>
-                </div>
+                </div> -->
 
-                <div style="margin-top:255px;margin-left: 40px;margin-bottom: 245px;border: 0px solid red;border-radius: 8px;width: 770px;height: 400px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-                    <div class="easyui-panel" style="padding:0px;border: none;padding: 10px;">
-                        <div style="float:left;font-weight: 900;font-size:16px;font-family: 'Poppins';">Status Penugasan</div>
-                        <div style="float:right"><a id="view_task" href="#" class="easyui-linkbutton" style="height:40px;background:#56C65B;color:white;font-family: 'Poppins';">Lihat Semua Tugas</a></div>
-                    </div>
-                    <div class="chart-container" style="height:50vh; width:100vw;margin-left: 8%;">
-                        <canvas id="myChart"></canvas>
-                  </div>
-                </div>
+
                 
 
             </div>

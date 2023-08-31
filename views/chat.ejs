@@ -1,0 +1,169 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>.: Polisi Lalu Lintas :.</title>
+        <link rel="icon" href="/img/gp3.png" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="/themes/gray/easyui.css">
+        <link rel="stylesheet" type="text/css" href="/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <link rel="stylesheet" type="text/css" href="/css/chat.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/css/navpanel.css"> -->
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <link rel="stylesheet" type="text/css" href="/themes/mobile.css"> 
+
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.easyui.mobile.js"></script> 
+
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <script type="text/javascript" src="/js/chat.js"></script>
+        <script type="text/javascript" src="/js/dashboard.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        
+        
+        <!-- <link rel="stylesheet" href="/css/idx.css"> -->
+        <link rel="stylesheet" href="/css/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link href="https://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Emoji -->
+        <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.css">
+        <script type="text/javascript" src="/js/jquery.emojipicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.tw.css">
+        <script type="text/javascript" src="/js/jquery.emojis.js"></script>
+
+
+    </head>
+    <body>    
+        <div id="mini_me" style="width:30px;height:30px;text-align: center; font-weight: 100; margin: 8px 0 0 230px;position: absolute;z-index: 2;cursor: pointer;"><img id="img_mini_me" src="/img/mini.png"/></div>   
+        <div id="cc" class="easyui-layout" style="width:100%;height:100%;background: transparent;z-index: 1;">
+            <div data-options="region:'west',split:false"  style="width:250px;border-color: transparent;background:transparent;background-color: #FAFAFA;">
+                <div style="Margin:30px 0 0 20px"><img src="/img/logo_polisi.png" width="60px" height="60px"></div>
+                <div style="Margin:-50px 0 0 90px"><img src="/img/polisi.png" width="50px" height="20px"></div>
+                <div style="Margin:10px 0 50px 90px"><img src="/img/lalu lintas.png" width="120px" height="20px"></div>
+
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="dashboard" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-dashboard-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Dashboard()" >Dashboard</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="monitor" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:true,iconCls:'icon-monitor',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Monitor()">Pantauan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Device()">Perangkat</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Vehicle()">Kendaraan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="petugas" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Petugas()">Petugas</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Tasklist()">Penugasan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="chat" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-bell',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Chat()">Chat</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="alert" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-bell',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Notifikasi()">Notifikasi</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="report" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-document',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Laporan()">Laporan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="setting" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-setting1',size:'middle'" style="height: 40px;width: 100%;text-align: left;" >Pengaturan</a>
+                </div>
+                <div style="margin-top:200px;margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="logout" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-logout',size:'middle'" style="height: 40px;width: 100%;text-align: left;" >Logout</a>
+                </div>
+            
+            </div>
+
+            <div data-options="region:'center'"  style="background-color: white;border:none;height: 100%;">
+                <div style="background: white;width: 100%;height:60px;margin-top: -12px;position: absolute;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                    <div id="title_page" style="margin-left: 30px;margin-top: 20px;color: #45464E;font-family:'Open Sans Condensed';font-size: 20; font-weight: 600;line-height: 28px;height: 28px;width:100px;border: 0px solid red;">Chat</div>
+                    <div style ="width:16px;height: 16px; margin-top: -25px; margin-left: 80%;"><img src="/img/notification.png" width="16" height="16"/> </div>
+                    <div id="username" style ="width:16px;height: 16px; margin-top: -25px; margin-left: 85%;font-family: 'Poppins';font-size: 18;font-weight: 400;color: #404040;">Admin</div>
+                    <div id="level" style ="width:60px;height: 18px; margin-top: 10px; margin-left: 85%;font-family: 'Poppins';font-size: 10;font-weight: 400;color: #404040;text-align: center;">Super Admin</div>
+                    <div style="width: 32;height: 32;margin-top: -40px; margin-left: 91%;"><img src="/img/profile 1.png" width="32" height="32" /></div>
+                    <!-- <div style="width: 15;height: 9;margin-top: -20px; margin-left: 95%;cursor: pointer;"><img src="/img/vector (6).png" width="15" height="9" /></div>
+                    <div style="margin-bottom: 25px;"></div> -->
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn"><img src="/img/vector (6).png" width="15" height="9"/></button>
+                        <div id="myDropdown" class="dropdown-content">
+                        <a href="#home">Home</a>
+                        <a href="#about">About</a>
+                        <a href="#contact">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 45px;"></div>                   
+                
+                <div id="cc_monitor" class="easyui-layout" style="width:98.5%;height:93%;background: white;border-radius: 8px;top: 60px;margin-left:10px;position: absolute;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                    <div data-options="region:'west',split:false"  style="width:25%;background:white;">
+                        <div class="easyui-panel" style="padding:5px;top:60;height: 60px;background: #f0f2f5;border:none;position: fixed;">
+                            <img src="/img/icon_petugas.png" style="width:40px;height:40px;vertical-align:middle;margin-top: 5px;margin-left: 10px;">
+                            <div id="admin" style="margin-top:-30px;margin-left: 60px;font-family: 'Poppins';font-size: 16px;color:black">Administrator</div>
+                            
+                        </div>
+                        <div style="margin-left:0px;margin-top: 60px;width: 100%;position: absolute;">
+                            <input id="usearch" class="easyui-textbox"  prompt="Search" iconWidth="28" data-options="iconCls:'icon-search1',iconAlign:'left',buttonAlign:'right',buttonIcon:'icon-setting'" style="width:100%;height:50px;padding:10px;background-color: #F6F6F6;font-family:'Poppins';font-size: 24px;">
+                        </div>
+                        <!-- <div class="easyui-panel" style="padding:5px;text-align: center;border:none;margin-bottom: 5px;position: absolute;">
+                          
+                        </div> -->
+
+                        
+                            <div  style="left:0;top: 110;height: 90%;width: 100%;border: 0px solid red;position: absolute;">
+                                
+                                <div id="chat_member"  class="easyui-datalist"  lines="false" style="width:100%;height:100%;border:none;cursor: pointer;">
+                                    <% for(var i=0; i<data.length; i++) {%>
+                                        <li value="<%=  data[i].ph_number +'_'+ data[i].username %>" style="cursor: pointer;"> <img src="/img/icon_petugas.png" style="width:40px;height:40px;vertical-align:middle;">  <span  style="margin-top: -20px;left: 60px;margin-left: 10px;font-size: 16px;font-family: 'Poppins';cursor: pointer;"><%= data[i].username %></span></li>
+                                     <% } %>
+                                </div>
+                            </div>
+
+                    </div>
+
+                    <div data-options="region:'center'"  style="width:100%;height: 100%;border-top-left-radius: 0;background-image: url('/img/background.png');">
+                        <div class="easyui-panel" style="padding:5px;top:0;position: absolute;height: 60px;background: #f0f2f5;z-index:10;">
+                            <img src="/img/icon_petugas.png" style="width:40px;height:40px;vertical-align:middle;margin-top: 5px;margin-left: 10px;">
+                            <div id="selected_petugas" style="margin-top:-30px;margin-left: 60px;font-family: 'Poppins';font-size: 16px;color:black"></div>
+                        </div>
+                        
+                        <div id="chat_content" style="top:80px;overflow-y: auto; font-family: 'Poppins', sans-serif;">
+
+                        </div>
+
+
+
+                        <div class="easyui-panel" style="padding:5px;bottom:0;position: absolute;">
+                            <div style="margin-left: 100px;">
+                                <input class="easyui-textbox"  data-options="prompt:'Type a message'" style="width:94%;height:50px;font-size: 24px;font-family: 'Poppins';">
+                            </div>
+
+                           <div style="margin-top: -35px;margin-left:15px;position:absolute;cursor: pointer;">
+                            <img src="/img/emoji.png" width="24" height="24">
+                          </div>
+                        
+                          <div style="margin-top: -35px;margin-left:60px;position:absolute;cursor: pointer;">
+                            <img src="/img/attachment.png" width="24" height="24">
+                          </div>
+
+                            <!-- <input type="text" id="input-default" class="emojiable-option" style="height: 40px;width: 90%;" placeholder="Default"> -->
+                            
+                        </div>
+                        <div style="bottom: 10px;right:10;position: absolute;">
+                            <button class="btn"><i class="fa fa-send"></i></button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script type="text/javascript" src="/js/chat_bottom.js"></script>
+      
+    </body>
+    </html>
