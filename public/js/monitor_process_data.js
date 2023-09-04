@@ -331,7 +331,7 @@ async function CreateData(userid){
     //    return json
     // })
 
-    console.log('res_vehicle',res_vehicle)
+    // console.log('res_vehicle',res_vehicle)
     // for (l=)
 
     for (i=0;i<= data.length-1;i++){
@@ -556,7 +556,7 @@ function CreateDataSelected(mode){
                                     heading:heading
                                 }
 
-                                console.log('cars_info:' + cars_info)
+                                // console.log('cars_info:' + cars_info)
 
                                 CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
                                 var resp = addMarker(CentralPark,heading,cars_info)
@@ -565,15 +565,15 @@ function CreateDataSelected(mode){
                                 // var infowindow = resp[1]
                                 // infowindow.close()
                                 // markerCluster.addMarker(resp[0]);
-                                console.log('marker:' + resp[0])
+                                // console.log('marker:' + resp[0])
                                 gmarkers.push(resp[0]);
                         }
 
                     }
                 }
 
-                    console.log('finish create data selected process')
-                    console.log(gmarkers.length)
+                    // console.log('finish create data selected process')
+                    // console.log(gmarkers.length)
 
                     var markerCluster = new MarkerClusterer(map, gmarkers);
 
@@ -719,7 +719,7 @@ async function CreateDataSearch(param){
 
       }
 
-      console.log(gmarkers.length)
+    //   console.log(gmarkers.length)
     //   var markerCluster = new MarkerClusterer(map, gmarkers,{ 
     //       imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
     //       ignoreHidden: true
@@ -815,7 +815,7 @@ function process_live_tracking(sclId){
                 var deviceStatus = ''
                 var heading = data[0].heading
                 var vehicle_voltage = parseFloat(data[0].batteryVoltage[1].value/1000).toFixed(1) + ' V' 
-                console.log(vehicle_voltage)
+                // console.log(vehicle_voltage)
                 var img = ''
 
                 if(data[0].deviceStatus == 'moving'){
@@ -833,7 +833,7 @@ function process_live_tracking(sclId){
                 prevSpeed  =  $('#vehicle_speed_live').text()
                 prevStatus =  $('#vehicle_status').text()
 
-                console.log('prev gmarkers length:'  + gmarkers.length)
+                // console.log('prev gmarkers length:'  + gmarkers.length)
                 if (gmarkers.length== 2){
                     
                     var prev_latitude = gmarkers[0].getPosition().lat()
@@ -879,10 +879,10 @@ function process_live_tracking(sclId){
                     updateJam: strTime      
                 }
 
-                console.log('gmarkers length: ' + gmarkers.length)
+                // console.log('gmarkers length: ' + gmarkers.length)
 
                 if (gmarkers.length == 2){
-                            console.log('transition')
+                            // console.log('transition')
                             position = [prev_latitude,prev_longitude]
                             var result = [validLatitude,validLongitude]
                             var locs = {
@@ -894,13 +894,13 @@ function process_live_tracking(sclId){
 
                         var range = distance(prev_latitude,prev_longitude,validLatitude,validLongitude)
                     
-                        console.log('range: '+ range)
+                        // console.log('range: '+ range)
 
                         if (range >0){
-                            console.log(range)
-                            console.log('result:' + result)
-                            console.log('result0: '+ result[0])
-                            console.log('result1: '+ result[1])
+                            // console.log(range)
+                            // console.log('result:' + result)
+                            // console.log('result0: '+ result[0])
+                            // console.log('result1: '+ result[1])
 
                             transition(result,heading,cars_info,locs)
                             setMarkerAnchor(heading,cars_info,locs)
@@ -910,16 +910,16 @@ function process_live_tracking(sclId){
 
                             drivingPlanCoordinates = []
 
-                            console.log('draw polylines')
+                            // console.log('draw polylines')
                             var loc_prev = { lat: prev_latitude, lng: prev_longitude }
-                            console.log('loc_prev',loc_prev)
+                            // console.log('loc_prev',loc_prev)
                             drivingPlanCoordinates.push(loc_prev)
                             var loc_current = {lat: Number(validLatitude), lng: Number(validLongitude)}
-                            console.log('loc_current',loc_current)
+                            // console.log('loc_current',loc_current)
                             drivingPlanCoordinates.push(loc_current)
 
-                            console.log('driving path coordinates:' + drivingPlanCoordinates.length)
-                            console.log('driving path coordinates:' + drivingPlanCoordinates.length)
+                            // console.log('driving path coordinates:' + drivingPlanCoordinates.length)
+                            // console.log('driving path coordinates:' + drivingPlanCoordinates.length)
 
                             var drivingPath = new google.maps.Polyline({
                                 path: drivingPlanCoordinates,
@@ -937,7 +937,7 @@ function process_live_tracking(sclId){
 
                 }else{
 
-                    console.log('gmarkers length: ' + gmarkers.length)
+                    // console.log('gmarkers length: ' + gmarkers.length)
                     prev_latitude = validLatitude
                     prev_longitude = validLongitude
                     var latlng = new google.maps.LatLng(validLatitude,validLongitude);
@@ -945,7 +945,7 @@ function process_live_tracking(sclId){
                     setMarkerAnchor(heading,cars_info,locs)
                     addMarkerWaypoint(latlng,cars_info)
                     map.panTo(latlng);
-                    console.log('gmarkers length: ' + gmarkers.length)
+                    // console.log('gmarkers length: ' + gmarkers.length)
                 }
 
             }
@@ -977,7 +977,7 @@ function process_live_detail (sclId){
         .then((response) => {
             var status = response.data.status
             var data = response.data.data
-            console.log(status)
+            // console.log(status)
             if (status == true){
                 // console.log(data[0])
                 // console.log('gmarkers pre live: ' + gmarkers.length)
@@ -1079,7 +1079,7 @@ function process_live_detail (sclId){
 
                         // if (prev_latitude != validLatitude || prev_longitude != validLongitude){
                             var range = distance(prev_latitude,prev_longitude,validLatitude,validLongitude)
-                           console.log('range:'+range)
+                        //    console.log('range:'+range)
 
                             if (range>0){
                                 transition(result,heading,cars_info,locs)
@@ -1141,7 +1141,7 @@ async function cari_riwayat(){
         sclId:selected_sclId
     }
 
-    console.log(JSON.stringify(postdata))
+    // console.log(JSON.stringify(postdata))
 
     var url='/vehicle/history'
     var response = await fetch(url, {
@@ -1225,10 +1225,10 @@ function play(){
 
 
     if (data_length>0){
-        console.log('data_length:' + data_length)
+        // console.log('data_length:' + data_length)
         // draw polylines
         for (i=0;i<=data_length-1;i++){
-            console.log(data_riwayat[i])
+            // console.log(data_riwayat[i])
             var location = {lat:data_riwayat[i].latitude,lng:data_riwayat[i].longitude}
             drivingPlanCoordinates.push(location)
         }
@@ -1254,8 +1254,8 @@ function play(){
         }
 
         // alert(prev_row_index_selected)
-        console.log('row_index_selected:'+ row_index_selected)
-        console.log('data.length: ' + data_length)
+        // console.log('row_index_selected:'+ row_index_selected)
+        // console.log('data.length: ' + data_length)
         
     
         if (row_index_selected!= data_length-1){
@@ -1355,7 +1355,7 @@ function stop(){
     }
     arr_tout = []
     row_index_selected = 0
-    console.log('driving path: '+ arr_drivingPath.length)
+    // console.log('driving path: '+ arr_drivingPath.length)
 
     for (i=0; i<= arr_drivingPath.length-1;i++){
         arr_drivingPath[i].setMap(null)
@@ -1397,7 +1397,7 @@ async function select_history(data,start,paused,stopped){
 }
 
 function doSetTimeout(i) {
-    console.log('read speed data:' + read_speed_data)
+    // console.log('read speed data:' + read_speed_data)
     tout = setTimeout(function() {
         $('#dg').datagrid('selectRow',i)
         var row = $('#dg').datagrid('getSelected')
