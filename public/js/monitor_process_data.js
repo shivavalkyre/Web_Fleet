@@ -313,23 +313,23 @@ async function CreateData(userid){
     // RemoveMarker(gmarkers)
     // deleteMarkers()
     // get list kendaraan
-    var url = '/vehicle/read/all/'+ userid
-    // alert(url)
-    // fetch
+    // var url1 = '/vehicle/read/all/'+ userid
+    // // alert(url)
+    // // fetch
 
-    const requestOptions = {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json'
-        },
-    };
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers: { 
+    //         'Content-Type': 'application/json'
+    //     },
+    // };
 
-    const res_vehicle = await fetch(url,requestOptions)
-    .then(response => response.json()) 
-    .then(json => {
-        // alert (json)
-       return json
-    })
+    // const res_vehicle = await fetch(url1,requestOptions)
+    // .then(response => response.json()) 
+    // .then(json => {
+    //     // alert (json)
+    //    return json
+    // })
 
     console.log('res_vehicle',res_vehicle)
     // for (l=)
