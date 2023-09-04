@@ -65,6 +65,7 @@ var read = async function(req,res){
     var data = {"total":"0","rows": []}
     var page = req.body.page;
     var rows =  req.body.rows;
+    var createdby = req.body.createdby;
     var offset = (page - 1) * rows
     futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
     
@@ -79,16 +80,19 @@ var read = async function(req,res){
             token : token,
             page:page,
             rows:rows,
-            offset:offset
+            offset:offset,
+            createdby:createdby
         },
       }
 
     futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST HEADER] | INFO ' + util.inspect(config)); 
+    
     var result
     result = await axios.get(url,config) 
     .then(function (response) {
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(response.status)); 
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
+        response.data.data.status = response.status
         var data = JSON.stringify(response.data.data)
         return data
     }).catch(function(error){

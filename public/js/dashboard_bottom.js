@@ -84,6 +84,10 @@ function Device(){
     
 }
 
+function Vehicle(){
+    window.location ='vehicle'
+}
+
 function Petugas (){
     window.location='petugas';  
 }

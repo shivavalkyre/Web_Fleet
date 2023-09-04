@@ -1,7 +1,11 @@
 // Global variable ==================================================================
 
-var username = sessionStorage.getItem("username")
-var level = sessionStorage.getItem("level")
+
+
+$('#username').text(username)
+$('#level').text(level)
+
+
 var current_section = 'pantau'
 var selected_sclId
 var selected_vehicleUid
@@ -78,8 +82,8 @@ function Monitor(){
 function Device(){
     window.location='device';
 }
-function Petugas(){
-    
+function Vehicle(){
+    window.location='vehicle'
 }
 function Petugas (){
     window.location='petugas';  

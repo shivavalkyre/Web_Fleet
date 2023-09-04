@@ -1,11 +1,9 @@
-var username = sessionStorage.getItem("username")
-var level = sessionStorage.getItem("level")
+
 var dlg
 var selectedId
 var store_status
 
-$('#username').text(username)
-$('#level').text(level)
+
 
 
 Tasklist()
@@ -401,9 +399,44 @@ function tambah_data(){
     var today = new Date();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     $('#t_time').textbox('setValue',time)
+
+    var url = '/vehicle/read/all/'+ userid
+
+    $('#t_vehicleid').combogrid({
+        panelWidth: 250,
+        idField: 'vehicleid',
+        textField: 'vehicleid',
+        url: url,
+        method: 'post',
+        columns: [[
+            {field:'vehicleid',title:'Vehicle ID',width:80},
+        ]],
+        fitColumns: true,
+        label: 'Vehicle ID:',
+        labelPosition: 'left'
+    })
+   
+    var url = '/petugas/read/all/' + userid
+    $('#t_user').combobox({
+            url:url,
+            method:'post',
+            valueField:'id',
+            textField:'username',
+            label: 'User' 
+    })
+
+    // data-options="
+    //                     url:'/user',
+    //                     method:'get',
+    //                     valueField:'id',
+    //                     textField:'username',
+    //                     label: 'User'
+    //                     "
+
+    $('#t_createdby').textbox('setValue',userid)
+    // alert(userid)
     gmarker.setMap(null)
     gmarker = []
-
     $('#w_tambah').window('center');
 }
 

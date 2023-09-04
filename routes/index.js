@@ -83,10 +83,22 @@ router.post('/petugas/create', async function(req,res){
     User.Create(req,res)
 })
 
-router.post('/petugas/read',async function(req,res){
+router.post('/petugas/read/selected/:createdby',async function(req,res){
+    var createdby = req.params.createdby
+    req.body.createdby = createdby
     var resp = await User.Read(req,res)
     futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
     res.send(resp)
+})
+
+router.post('/petugas/read/all/:createdby',function(req,res){
+    var createdby = req.params.createdby
+    req.body.createdby = createdby
+    
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER READ ALL] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY ] | INFO ' + util.inspect(req.body));
+    var resp = User.read_all(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
 })
 
 router.post('/petugas/update', async function(req,res){
@@ -110,7 +122,9 @@ router.post('/tasklist/create',upload.single('myFile'),function(req,res){
 })
 
 
-router.post('/tasklist/read',async function(req,res){
+router.post('/tasklist/read/selected/:createdby',async function(req,res){
+    var createdby = req.params.createdby
+    req.body.createdby = createdby
     var resp = await Tasklist.read(req,res)
     futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
     res.send(resp)
@@ -140,14 +154,17 @@ router.post('/device/create',function(req,res){
     Device.create(req,res)
 })
 
-router.post('/device/read',async function(req,res){
+router.post('/device/read/selected/:createdby',async function(req,res){
+    var createdby = req.params.createdby
+    req.body.createdby = createdby
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY ] | INFO ' + util.inspect(req.body));
     var resp = await Device.read(req,res)
     futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
     res.send(resp)
    
 })
 
-router.post('/device/read/all',function(req,res){
+router.post('/device/read/all/:createdby',function(req,res){
     var resp = Device.read_all(req,res)
     futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
 })
@@ -170,13 +187,16 @@ router.post('/vehicle/create',function(req,res){
     Vehicle.create(req,res)
 })
 
-router.post('/vehicle/read',async function(req,res){
+router.post('/vehicle/read/selected/:createdby',async function(req,res){
+    var createdby = req.params.createdby
+    req.body.createdby = createdby
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY ] | INFO ' + util.inspect(req.body));
     var resp = await Vehicle.read(req,res)
     futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
     res.send(resp)
 })
 
-router.post('/vehicle/read/all',function(req,res){
+router.post('/vehicle/read/all/:createdby',function(req,res){
     Vehicle.read_all(req,res)
 })
 

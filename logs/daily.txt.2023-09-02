@@ -1,0 +1,117 @@
+{"level":"debug","message":"\n02 Sep 2023 06:25:35 - [ REQ HEADER HISTORY ] | INFO {\n  host: 'localhost:3001',\n  connection: 'keep-alive',\n  'content-length': '107',\n  'sec-ch-ua': '\"Chromium\";v=\"116\", \"Not)A;Brand\";v=\"24\", \"Google Chrome\";v=\"116\"',\n  'sec-ch-ua-platform': '\"Windows\"',\n  'sec-ch-ua-mobile': '?0',\n  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',\n  'content-type': 'application/json',\n  accept: '*/*',\n  origin: 'http://localhost:3001',\n  'sec-fetch-site': 'same-origin',\n  'sec-fetch-mode': 'cors',\n  'sec-fetch-dest': 'empty',\n  referer: 'http://localhost:3001/monitor',\n  'accept-encoding': 'gzip, deflate, br',\n  'accept-language': 'en-US,en;q=0.9,id;q=0.8'\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:25:35 - [ REQ HISTORY BODY ] | INFO {\n  createdBefore: 1693610732000,\n  createdAfter: 1693524327000,\n  sclId: '416fa0b0-1a4e-11ee-8e76-0bde7aa14120'\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:25:35 - [ REQUEST BODY HISTORY ] | INFO {\n  createdBefore: 1693610732000,\n  createdAfter: 1693524327000,\n  sclId: '416fa0b0-1a4e-11ee-8e76-0bde7aa14120'\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:25:35 - [ HISTORY URL ] | INFO 'http://localhost:3002/api/patern/history'"}
+{"level":"debug","message":"\n02 Sep 2023 06:25:35 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:25:35 - [ REQUEST HEADER ] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:25:35 - [ REQUEST BODY HISTORY ] | INFO {\n  createdBefore: 1693610732000,\n  createdAfter: 1693524327000,\n  sclId: '416fa0b0-1a4e-11ee-8e76-0bde7aa14120'\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:10 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:10 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:10 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:10 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:10 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:10 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:40 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:40 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:40 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:40 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:40 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:40 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:54 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:54 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:54 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:54 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:54 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:31:54 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:23 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:23 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:23 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:23 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:23 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:23 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:42 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:42 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:42 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:42 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:42 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:32:42 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:12 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:12 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:12 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:12 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:12 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:12 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:42 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:42 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:42 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:42 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:42 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:33:42 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:12 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:12 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:12 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:12 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:12 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:12 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:42 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:42 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:42 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:42 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:42 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:34:42 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:12 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:12 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:12 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:12 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:12 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:12 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:42 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:42 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:42 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:42 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:42 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:35:42 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:12 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:12 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:12 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:12 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:12 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:12 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:42 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:42 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:42 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:42 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:42 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:36:42 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:12 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:12 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:12 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:12 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:12 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:12 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:42 - [ URL ] | INFO 'http://localhost:3002/api/patern/vehicles/all'"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:42 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:42 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    createdby: 'undefined'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:42 - [ RESPONSE BODY ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:42 - [ RESPONSE BODY ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:37:42 - [ RESULT ] | INFO '\"Read data failed\"'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ REQ READ BODY ] | INFO { page: 1, rows: 10, createdby: '12' }"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ REQUEST PAGE ] | INFO 1"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ URL ] | INFO 'http://localhost:3002/api/patern/devices'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    page: 1,\n    rows: 10,\n    offset: 0,\n    createdby: '12'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ RESPONSE STATUS ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ RESPONSE BODY ] | INFO '{\"total\":3,\"rows\":[{\"id\":10,\"deviceId\":\"Device6\",\"make\":\"DD\",\"model\":\"DD\",\"simId\":1234567,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:21:07.000Z\",\"updatedAt\":\"2023-09-01T00:27:16.000Z\",\"no\":1},{\"id\":11,\"deviceId\":\"Device7\",\"make\":\"MM\",\"model\":\"MM\",\"simId\":14465859,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:26:57.000Z\",\"updatedAt\":\"2023-09-01T00:26:57.000Z\",\"no\":2},{\"id\":12,\"deviceId\":\"Device8\",\"make\":\"FF\",\"model\":\"FF\",\"simId\":12345679,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T03:34:52.000Z\",\"updatedAt\":\"2023-09-01T03:34:52.000Z\",\"no\":3}]}'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ RESULT STATUS ] | INFO undefined"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ RESULT ] | INFO '{\"total\":3,\"rows\":[{\"id\":10,\"deviceId\":\"Device6\",\"make\":\"DD\",\"model\":\"DD\",\"simId\":1234567,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:21:07.000Z\",\"updatedAt\":\"2023-09-01T00:27:16.000Z\",\"no\":1},{\"id\":11,\"deviceId\":\"Device7\",\"make\":\"MM\",\"model\":\"MM\",\"simId\":14465859,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:26:57.000Z\",\"updatedAt\":\"2023-09-01T00:26:57.000Z\",\"no\":2},{\"id\":12,\"deviceId\":\"Device8\",\"make\":\"FF\",\"model\":\"FF\",\"simId\":12345679,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T03:34:52.000Z\",\"updatedAt\":\"2023-09-01T03:34:52.000Z\",\"no\":3}],\"status\":200}'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:06 - [ RESP] | INFO '{\"total\":3,\"rows\":[{\"id\":10,\"deviceId\":\"Device6\",\"make\":\"DD\",\"model\":\"DD\",\"simId\":1234567,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:21:07.000Z\",\"updatedAt\":\"2023-09-01T00:27:16.000Z\",\"no\":1},{\"id\":11,\"deviceId\":\"Device7\",\"make\":\"MM\",\"model\":\"MM\",\"simId\":14465859,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:26:57.000Z\",\"updatedAt\":\"2023-09-01T00:26:57.000Z\",\"no\":2},{\"id\":12,\"deviceId\":\"Device8\",\"make\":\"FF\",\"model\":\"FF\",\"simId\":12345679,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T03:34:52.000Z\",\"updatedAt\":\"2023-09-01T03:34:52.000Z\",\"no\":3}],\"status\":200}'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ REQ READ BODY ] | INFO { page: '1', rows: '10', createdby: '12' }"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ REQUEST PAGE ] | INFO '1'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ URL ] | INFO 'http://localhost:3002/api/patern/devices'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ REQUEST HEADER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY5MzUzOTk4NCwiZXhwIjoxNjkzNjI2Mzg0fQ.eRZHFxPm30dlIDYiSoJUpGw_GyqLC3vU4hIwwRhAxHY',\n    page: '1',\n    rows: '10',\n    offset: 0,\n    createdby: '12'\n  }\n}"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ RESPONSE STATUS ] | INFO 200"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ RESPONSE BODY ] | INFO '{\"total\":3,\"rows\":[{\"id\":10,\"deviceId\":\"Device6\",\"make\":\"DD\",\"model\":\"DD\",\"simId\":1234567,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:21:07.000Z\",\"updatedAt\":\"2023-09-01T00:27:16.000Z\",\"no\":1},{\"id\":11,\"deviceId\":\"Device7\",\"make\":\"MM\",\"model\":\"MM\",\"simId\":14465859,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:26:57.000Z\",\"updatedAt\":\"2023-09-01T00:26:57.000Z\",\"no\":2},{\"id\":12,\"deviceId\":\"Device8\",\"make\":\"FF\",\"model\":\"FF\",\"simId\":12345679,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T03:34:52.000Z\",\"updatedAt\":\"2023-09-01T03:34:52.000Z\",\"no\":3}]}'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ RESULT STATUS ] | INFO undefined"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ RESULT ] | INFO '{\"total\":3,\"rows\":[{\"id\":10,\"deviceId\":\"Device6\",\"make\":\"DD\",\"model\":\"DD\",\"simId\":1234567,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:21:07.000Z\",\"updatedAt\":\"2023-09-01T00:27:16.000Z\",\"no\":1},{\"id\":11,\"deviceId\":\"Device7\",\"make\":\"MM\",\"model\":\"MM\",\"simId\":14465859,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:26:57.000Z\",\"updatedAt\":\"2023-09-01T00:26:57.000Z\",\"no\":2},{\"id\":12,\"deviceId\":\"Device8\",\"make\":\"FF\",\"model\":\"FF\",\"simId\":12345679,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T03:34:52.000Z\",\"updatedAt\":\"2023-09-01T03:34:52.000Z\",\"no\":3}],\"status\":200}'"}
+{"level":"debug","message":"\n02 Sep 2023 06:38:07 - [ RESP] | INFO '{\"total\":3,\"rows\":[{\"id\":10,\"deviceId\":\"Device6\",\"make\":\"DD\",\"model\":\"DD\",\"simId\":1234567,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:21:07.000Z\",\"updatedAt\":\"2023-09-01T00:27:16.000Z\",\"no\":1},{\"id\":11,\"deviceId\":\"Device7\",\"make\":\"MM\",\"model\":\"MM\",\"simId\":14465859,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T00:26:57.000Z\",\"updatedAt\":\"2023-09-01T00:26:57.000Z\",\"no\":2},{\"id\":12,\"deviceId\":\"Device8\",\"make\":\"FF\",\"model\":\"FF\",\"simId\":12345679,\"status\":\"OK\",\"createdBy\":12,\"createdAt\":\"2023-09-01T03:34:52.000Z\",\"updatedAt\":\"2023-09-01T03:34:52.000Z\",\"no\":3}],\"status\":200}'"}

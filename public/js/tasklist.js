@@ -1,6 +1,11 @@
 var map = null
 var gmarker = []
 
+var username = sessionStorage.getItem("username")
+var level = sessionStorage.getItem("level")
+var area = sessionStorage.getItem("area");
+var userid =  sessionStorage.getItem("id");
+
 $(function(){
 
     $('#div_taskid').hide()
@@ -30,6 +35,9 @@ $(function(){
 // 	}
 // });
 
+$('#username').text(username)
+$('#level').text(level)
+
 const requestOptions = {
     method: 'POST',
     headers: { 
@@ -38,14 +46,15 @@ const requestOptions = {
     body: JSON.stringify({ page: 1,rows:10 })
 };
 // console.log('DATA' + data)
-    fetch('/tasklist/read',requestOptions)
+    var url = '/tasklist/read/selected/'+userid
+    fetch(url,requestOptions)
     .then(response => response.json()) 
     .then(json => {
         // alert (json)
         console.log(json)
-        if (json.total>0){
+        if (json.status==200){
             $('#dg').datagrid({
-                url: '/tasklist/read'
+                url: url
             });
         }else{
             sessionStorage.clear()

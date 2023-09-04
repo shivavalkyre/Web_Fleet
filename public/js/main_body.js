@@ -27,12 +27,22 @@ async function submitForm(){
         var status = response.data.status
 
         if(status == true){
-            var token = response.data.data.token
             var level = response.data.data.body[0].level
-            sessionStorage.setItem("username",uname);
-            sessionStorage.setItem("level",level);
-            sessionStorage.setItem("token",token);
-            setTimeout(myFunction, 1000);
+            if (level == 'administrator'){
+                var token = response.data.data.token
+                var id    = response.data.data.body[0].id
+                var area  = response.data.data.body[0].area
+                sessionStorage.setItem("username",uname);
+                sessionStorage.setItem("level",level);
+                sessionStorage.setItem("area",area)
+                sessionStorage.setItem("id",id)
+                sessionStorage.setItem("token",token);
+                setTimeout(myFunction, 1000);
+            }else{
+                console.log('failed')
+            }
+           
+
         }else{
             // message here
             console.log('failed')

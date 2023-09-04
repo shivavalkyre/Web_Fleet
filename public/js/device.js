@@ -1,9 +1,18 @@
 var map = null
 var gmarker = []
 
+var username = sessionStorage.getItem("username");
+var level = sessionStorage.getItem("level");
+var area = sessionStorage.getItem("area");
+var userid =  sessionStorage.getItem("id");
+
 $(function(){
 
     $('#div_taskid').hide()
+
+    
+    $('#username').text(username)
+    $('#level').text(level)
 
     // InitializeMap()
     // google.maps.event.addDomListener(window, 'load', InitializeMap);
@@ -38,14 +47,15 @@ const requestOptions = {
     body: JSON.stringify({ page: 1,rows:10 })
 };
 // console.log('DATA' + data)
-    fetch('/device/read',requestOptions)
+    var url = '/device/read/selected/' + userid
+    fetch(url,requestOptions)
     .then(response => response.json()) 
     .then(json => {
         // alert (json)
         console.log(json)
-        if (json.total>0){
+        if (json.status==200){
             $('#dg').datagrid({
-                url: '/device/read'
+                url: url
             });
         }else{
             sessionStorage.clear()

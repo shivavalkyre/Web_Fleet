@@ -265,30 +265,16 @@
                                             panelHeight: 'auto'" style="width:100%;background-color: #F6F6F6;height: 30px;"/>
                     </div>
                     <div style="margin-bottom:10px">
-                        <select id= "t_deviceid" class="easyui-combogrid" style="width:100%" name="vehicleid" data-options="
-                        panelWidth: 250,
-                        idField: 'vehicleid',
-                        textField: 'vehicleid',
-                        url: '/vehicle/read/all',
-                        method: 'post',
-                        columns: [[
-                            {field:'vehicleid',title:'Vehicle ID',width:80},
-                        ]],
-                        fitColumns: true,
-                        label: 'Vehicle ID:',
-                        labelPosition: 'left'
-                    ">
-                    </select>
+                        <input id= "t_vehicleid" class="easyui-combogrid" style="width:100%" name="vehicleid">
                     </div>
                     <div style="margin-bottom:10px">
-                        <input id="t_user" class="easyui-combobox" name="userid" style="width:100%;" data-options="
-                        url:'/user',
-                        method:'get',
-                        valueField:'id',
-                        textField:'username',
-                        label: 'User'
-                        ">
+                        <input id="t_user" class="easyui-combobox" name="userid" style="width:100%;">
                     </div>
+
+                    <div style="top: 0; visibility: hidden;position:absolute">
+                        <input id="t_createdby" class="easyui-textbox" name="createdBy" style="width:200px" data-options="label:'createdBy'">
+                    </div>
+                    
                 </div>
                 <div title="Dokumen" style="padding:10px">
                     <div style="margin-bottom:20px">
@@ -303,6 +289,9 @@
                         <input class="easyui-textbox"  multiline="true" name="desc" value="This TextBox will allow the user to enter multiple lines of text." style="width:100%;height:120px">
                     </div>
                 </div>
+
+
+
             </div>
             <div style="margin-bottom:10px;float:right">
                 <a id="close_view_task" href="#" class="easyui-linkbutton" data-options="plain:false" style="height: 35px;border-color: #436AAC;background-color: white;background: white;color: #436AAC;width: 80px;" onclick="javascript:$('#w_tambah').window('close')">Batal</a>

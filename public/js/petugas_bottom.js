@@ -1,8 +1,4 @@
 
-var username = sessionStorage.getItem("username")
-var level = sessionStorage.getItem("level")
-$('#username').text(username)
-$('#level').text(level)
 
 Petugas()
  
@@ -264,6 +260,8 @@ function myFunction() {
     $('#t_level').textbox('setValue','petugas')
     $('#pac-input').text('')
     $('#w_tambah').window('open') 
+    $('#t_area').textbox('setValue',area)
+    $('#t_createdby').textbox('setValue',userid)
     // $('#tt').tabs('select', 0);
     // var today = new Date();
     // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -276,7 +274,7 @@ function myFunction() {
 
 async function simpan_data(){
 
-    alert('store status: '+ store_status)
+    // alert('store status: '+ store_status)
     
     if (store_status==0){
 

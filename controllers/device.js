@@ -59,6 +59,7 @@ var read = async function(req,res){
     var data = {"total":"0","rows": []}
     var page = req.body.page;
     var rows =  req.body.rows;
+    var createdby = req.body.createdby;
     var offset = (page - 1) * rows
     futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
     
@@ -73,7 +74,8 @@ var read = async function(req,res){
             token : token,
             page:page,
             rows:rows,
-            offset:offset
+            offset:offset,
+            createdby:createdby
         },
       }
 
@@ -83,6 +85,7 @@ var read = async function(req,res){
     .then(function (response) {
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE STATUS ] | INFO ' + util.inspect(response.status)); 
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
+        response.data.data.status = response.status
         var data = JSON.stringify(response.data.data)
         return data
     }).catch(function(error){
@@ -106,13 +109,14 @@ var read = async function(req,res){
 
 var read_all = async function(req,res){
     var data = {"total":"0","rows": []}
-    var page = req.body.page;
-    var rows =  req.body.rows;
-    var offset = (page - 1) * rows
-    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
+    // var page = req.body.page;
+    // var rows =  req.body.rows;
+    // var offset = (page - 1) * rows
+    // futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
     
     var url = process.env.URL_READ_DEVICE_ALL
     var token = process.env.TOKEN_APP
+    var createdby = req.params.createdby
 
     futil.logger.debug('\n' + futil.shtm() + '- [ URL ] | INFO ' + util.inspect(url));
     futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
@@ -120,9 +124,10 @@ var read_all = async function(req,res){
     const config = {
         headers:{
             token : token,
-            page:page,
-            rows:rows,
-            offset:offset
+            createdby: createdby
+            // page:page,
+            // rows:rows,
+            // offset:offset
         },
       }
 

@@ -1,8 +1,10 @@
 
-var username = sessionStorage.getItem("username")
-var level = sessionStorage.getItem("level")
-$('#username').text(username)
-$('#level').text(level)
+
+
+// alert(userid)
+
+// $('#username').text(username)
+// $('#level').text(level)
 
 Vehicle()
  
@@ -323,7 +325,7 @@ function view_data(){
 function edit_data(){
     
     var row = $('#dg').datagrid('getSelected');
-    //alert(row.id)
+    // alert(row.tagging)
     $('#form_title').text('Edit Kendaraan')
     selectedId = row.id
     $('#w').window('close')
@@ -337,7 +339,8 @@ function edit_data(){
         vehicle_type:row.vehicle_type,
         name:row.name,
         vin:row.vin,
-        deviceId:row.deviceId
+        deviceId:row.deviceId,
+        tagging:row.tagging
     });
 
 
@@ -362,17 +365,24 @@ function tambah_data(){
     // $('#t_status').combobox('setValue','')
     // $('#t_vehicle').combobox('setValue','')
     // $('#t_user').combobox('setValue','')
+
+    
+
     store_status = 0
     $('#form_title').text('Tambah Kendaraan')
     $('#ff').form('clear');
     $('#pac-input').text('')
     $('#w_tambah').window('open') 
+    $('#t_createdby').textbox('setValue',userid)
+    $('#t_tagging').textbox('setValue',area)
     // $('#tt').tabs('select', 0);
     // var today = new Date();
     // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     // $('#t_time').textbox('setValue',time)
     // // gmarker.setMap(null)
     // gmarker = []
+
+
 
     $('#w_tambah').window('center');
 }
@@ -405,14 +415,15 @@ async function simpan_data(){
 
         
 
-        const data = {
-            vehicleid: vehicleid,
-            brand: brand,
-            type:type,
-            name:name,
-            vin:vin,
-            deviceId:deviceId
-        };
+        // const data = {
+        //     vehicleid: vehicleid,
+        //     brand: brand,
+        //     type:type,
+        //     name:name,
+        //     vin:vin,
+        //     deviceId:deviceId,
+        //     createdBy:userid
+        // };
         // alert(JSON.stringify(data))
         let  url = '/vehicle/create'
 

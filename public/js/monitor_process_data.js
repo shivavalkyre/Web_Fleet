@@ -17,7 +17,7 @@ var arr_drivingPath =[]
 var is_play = false
 
 // Processing Data ============================================================================
-function processing_data (current_section,sclId,mode,search_mode,search_param){
+function processing_data (current_section,sclId,mode,search_mode,search_param,userid){
 
 
     // alert(search_mode)
@@ -107,7 +107,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param){
                 //alert('semua')
                 // console.log('semua')
                     deleteMarkers()
-                    AssetStatusCount(mode,search_mode,null)  
+                    AssetStatusCount(mode,search_mode,null,userid)  
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
                     t1_all = setInterval(function(){
                         console.log('Interval reached')
@@ -115,7 +115,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param){
                         deleteMarkers()
                         console.log('markers deleted')
                         console.log('markers: '  + gmarkers.length)
-                        AssetStatusCount(mode,search_mode,null)
+                        AssetStatusCount(mode,search_mode,null,userid)
                     },30000)
               
             }
@@ -197,7 +197,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param){
 
 // Asset Status Count =================================================================================================
 
-function AssetStatusCount(mode,search_mode,search_param){
+function AssetStatusCount(mode,search_mode,search_param,userid){
 
     var token = sessionStorage.getItem("token")
     // console.log(token)
@@ -241,7 +241,7 @@ function AssetStatusCount(mode,search_mode,search_param){
 
                 if (mode == 'semua'){
                     console.log('create data')
-                    CreateData()
+                    CreateData(userid)
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
                     
                     console.log('mode:' + mode)
@@ -272,7 +272,7 @@ function AssetStatusCount(mode,search_mode,search_param){
 
 // Create Data ============================================================================================================
 
-async function CreateData(){
+async function CreateData(userid){
 
  
     var token = sessionStorage.getItem("token")
@@ -312,7 +312,27 @@ async function CreateData(){
 
     // RemoveMarker(gmarkers)
     // deleteMarkers()
-    
+    // get list kendaraan
+    var url = '/vehicle/read/all/'+ userid
+    // alert(url)
+    // fetch
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+    };
+
+    const res_vehicle = await fetch(url,requestOptions)
+    .then(response => response.json()) 
+    .then(json => {
+        // alert (json)
+       return json
+    })
+
+    console.log('res_vehicle',res_vehicle)
+    // for (l=)
 
     for (i=0;i<= data.length-1;i++){
 

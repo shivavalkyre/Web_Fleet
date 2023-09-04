@@ -56,6 +56,7 @@ var read = async function(req,res){
     var data = {"total":"0","rows": []}
     var page = req.body.page;
     var rows =  req.body.rows;
+    var createdby = req.body.createdby;
     var offset = (page - 1) * rows
     futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
     
@@ -70,7 +71,8 @@ var read = async function(req,res){
             token : token,
             page:page,
             rows:rows,
-            offset:offset
+            offset:offset,
+            createdby:createdby
         },
       }
 
@@ -79,6 +81,7 @@ var read = async function(req,res){
     .then(function (response) {
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE VEHICLE ] | INFO ' + util.inspect(response.data)); 
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE VEHICLE RAW ] | INFO ' + util.inspect(response.data.data)); 
+        response.data.data.status = response.status
         var data = JSON.stringify(response.data.data)
         return data
 
@@ -98,13 +101,14 @@ var read = async function(req,res){
     return result
 }
 
-
 var read_all = async function(req,res){
     var data = {"total":"0","rows": []}
-    var page = req.body.page;
-    var rows =  req.body.rows;
-    var offset = (page - 1) * rows
-    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
+    // var page = req.body.page;
+    // var rows =  req.body.rows;
+    var createdby = req.params.createdby
+    // var offset = (page - 1) * rows
+
+    // futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
     
     var url = process.env.URL_READ_VEHICLE_ALL
     var token = process.env.TOKEN_APP
@@ -115,9 +119,10 @@ var read_all = async function(req,res){
     const config = {
         headers:{
             token : token,
-            page:page,
-            rows:rows,
-            offset:offset
+            // page:page,
+            // rows:rows,
+            // offset:offset,
+            createdby:createdby
         },
       }
 

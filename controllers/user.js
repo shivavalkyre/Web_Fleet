@@ -71,6 +71,7 @@ var Read = async function(req,res){
     var data = {"total":"0","rows": []}
     var page = req.body.page;
     var rows =  req.body.rows;
+    var createdby = req.body.createdby;
     var offset = (page - 1) * rows
     futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page))
 
@@ -85,7 +86,8 @@ var Read = async function(req,res){
             token : token,
             page:page,
             rows:rows,
-            offset:offset
+            offset:offset,
+            createdby:createdby
         },
       }
 
@@ -96,6 +98,7 @@ var Read = async function(req,res){
     .then(function (response) {
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(response.status)); 
         futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
+        response.data.data.status = response.status
         var data = JSON.stringify(response.data.data)
         return data
     }).catch(function(error){
@@ -112,6 +115,46 @@ var Read = async function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(result)); 
     // res.send(result)
     return result
+}
+
+var read_all = async function(req,res){
+    var data = {"total":"0","rows": []}
+    // var page = req.body.page;
+    // var rows =  req.body.rows;
+    // var offset = (page - 1) * rows
+    // futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
+    
+    var url = process.env.URL_READ_USER_ALL
+    var token = process.env.TOKEN_APP
+    var createdby = req.params.createdby
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ URL ] | INFO ' + util.inspect(url));
+    futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
+
+    const config = {
+        headers:{
+            token : token,
+            createdby: createdby
+            // page:page,
+            // rows:rows,
+            // offset:offset
+        },
+      }
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST HEADER] | INFO ' + util.inspect(config)); 
+    var result
+    result = await axios.get(url,config) 
+    .then(function (response) {
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(response.status)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
+        var data = JSON.stringify(response.data.data)
+        return data
+    }).catch(function(error){
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+    })
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(result)); 
+    res.send(result)
 }
 
 var Update = async function (req,res){
@@ -207,6 +250,7 @@ var Delete = async function (req,res){
 module.exports = {
     Create,
     Read,
+    read_all,
     Update,
     Delete
 }

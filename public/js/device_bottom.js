@@ -1,8 +1,8 @@
 
-var username = sessionStorage.getItem("username")
-var level = sessionStorage.getItem("level")
-$('#username').text(username)
-$('#level').text(level)
+// var username = sessionStorage.getItem("username")
+// var level = sessionStorage.getItem("level")
+// $('#username').text(username)
+// $('#level').text(level)
 
 Device()
  
@@ -366,6 +366,7 @@ function tambah_data(){
     $('#ff').form('clear');
     $('#pac-input').text('')
     $('#w_tambah').window('open') 
+    $('#t_createdby').textbox('setValue',userid)
     // $('#tt').tabs('select', 0);
     // var today = new Date();
     // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();

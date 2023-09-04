@@ -19,7 +19,10 @@ var prev_history_latitude
 var prev_history_longitude
 var prev_mode
 
-
+var username = sessionStorage.getItem("username");
+var level = sessionStorage.getItem("level");
+var area = sessionStorage.getItem("area");
+var userid =  sessionStorage.getItem("id");
 
 
 		$(document).ready(function(){
@@ -28,7 +31,7 @@ var prev_mode
 			close_detail_box()
 
 			InitializeMap()
-			processing_data('pantau',null,'semua',false,null)
+			processing_data('pantau',null,'semua',false,null,userid)
 
 			var g3_1 = document.getElementById('g3_1')
 			g3_1.style.color ='black'

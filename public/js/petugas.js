@@ -1,6 +1,13 @@
+
+var username = sessionStorage.getItem("username");
+var level = sessionStorage.getItem("level");
+var area = sessionStorage.getItem("area");
+var userid =  sessionStorage.getItem("id");
+
 $(function(){
 
-    
+$('#username').text(username)
+$('#level').text(level)
 
     const requestOptions = {
         method: 'POST',
@@ -10,14 +17,15 @@ $(function(){
         body: JSON.stringify({ page: 1,rows:10 })
     };
     // console.log('DATA' + data)
-        fetch('/petugas/read',requestOptions)
+    var url = '/petugas/read/selected/'+ userid
+        fetch(url,requestOptions)
         .then(response => response.json()) 
         .then(json => {
             // alert (json)
             console.log(json)
-            if (json.total>0){
+            if (json.status==200){
                 $('#dg').datagrid({
-                    url: '/petugas/read'
+                    url: url
                 });
             }else{
                 sessionStorage.clear()
