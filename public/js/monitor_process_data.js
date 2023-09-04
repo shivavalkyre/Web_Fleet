@@ -213,8 +213,8 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
        
       };
 
-    //   var url = "http://147.139.144.120:3002/api/patern/status_count"
-    var url = "http://localhost:3002/api/patern/status_count"
+      var url = "http://147.139.144.120:3002/api/patern/status_count"
+    // var url = "http://localhost:3002/api/patern/status_count"
 
     axios.post(url,postData,config)
     .then((response) => {
@@ -291,8 +291,8 @@ async function CreateData(userid){
        
       };
 
-    // var url = "http://147.139.144.120:3002/api/patern/latest_status"
-    var url = "http://localhost:3002/api/patern/latest_status"
+    var url = "http://147.139.144.120:3002/api/patern/latest_status"
+    // var url = "http://localhost:3002/api/patern/latest_status"
     let res1 = await axios.post(url,postData,config)
     .then((response) => {
         // console.log(response.data)
@@ -458,8 +458,8 @@ function CreateDataSelected(mode){
        
       };
 
-    //   var url = "http://147.139.144.120:3002/api/patern/latest_status"
-      var url = "http://localhost:3002/api/patern/latest_status"
+      var url = "http://147.139.144.120:3002/api/patern/latest_status"
+    //   var url = "http://localhost:3002/api/patern/latest_status"
       axios.post(url,postData,config)
       .then((response) => {
           // console.log(response.data)
@@ -614,8 +614,8 @@ async function CreateDataSearch(param){
       var postData = {
        
       };
-    //   var url = "http://147.139.144.120:3002/api/patern/latest_status"
-      var url = "http://localhost:3002/api/patern/latest_status"
+      var url = "http://147.139.144.120:3002/api/patern/latest_status"
+    //   var url = "http://localhost:3002/api/patern/latest_status"
       let res1 = await axios.post(url,postData,config)
       .then((response) => {
           // console.log(response.data)
@@ -747,8 +747,8 @@ var getAddress = async (location) => {
 
 
       
-//   var url = "http://147.139.144.120:3002/api/patern/asset_address/"+lat +"/" + lng
-  var url = "http://localhost:3002/api/patern/asset_address/"+lat +"/" + lng
+  var url = "http://147.139.144.120:3002/api/patern/asset_address/"+lat +"/" + lng
+//   var url = "http://localhost:3002/api/patern/asset_address/"+lat +"/" + lng
     // console.log(url)
   var resp =  await axios.get(url,config)
     .then((response) => { 
@@ -795,8 +795,8 @@ function process_live_tracking(sclId){
             timeout: 10000
           };
           
-        // var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
-        var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
+        var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
+        // var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
         // console.log(url)
         axios.get(url,config)
         .then((response) => {
@@ -971,8 +971,8 @@ function process_live_detail (sclId){
             timeout: 10000
           };
           
-        // var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
-        var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
+        var url = "http://147.139.144.120:3002/api/patern/latest_status/"+ sclId
+        // var url = "http://localhost:3002/api/patern/latest_status/"+ sclId
         axios.get(url,config)
         .then((response) => {
             var status = response.data.status
