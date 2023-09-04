@@ -145,7 +145,7 @@ function addMarker(location,heading,cars_info) {
    
     
     // console.log('Add Marker ==============================================================================')
-    console.log('Location: ' + location)
+    // console.log('Location: ' + location)
     // console.log('heading: ' + heading)
 
     var svgIcon = getMarkerSVG(heading)
@@ -160,7 +160,7 @@ function addMarker(location,heading,cars_info) {
     // //   var $markerImage = document.querySelector('.markerImage'),
     // //   markerImageSvg = $markerImage.innerHTML && '';
 
-        console.log('cars_info:' + cars_info)
+        // console.log('cars_info:' + cars_info)
 
         var contentString =`<div style="width:265px">`
         contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ cars_info.vehicleUid +`</div></div>`
@@ -206,8 +206,8 @@ function addMarker(location,heading,cars_info) {
 
 function addMarkerTracking(location,heading,cars_info) {
    
-    console.log('heading: ' + heading)
-    console.log('loction:'  + location)
+    // console.log('heading: ' + heading)
+    // console.log('loction:'  + location)
     var marker
     
         var contentString = `<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'">`+ cars_info.vehicleUid+`</div>`
@@ -274,14 +274,14 @@ function addMarkerTracking(location,heading,cars_info) {
 // add Marker Waypoint
 function addMarkerWaypoint(latlng,cars_info){
 
-    console.log('Create Marker')
-    console.log('Cars_Info: ' + cars_info)
+    // console.log('Create Marker')
+    // console.log('Cars_Info: ' + cars_info)
     
     var contentString = `<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'">`+ cars_info.updateJam +`</div>`
     contentString += `<div style="height:30px;margin-top:-10px;text-align:center;font-family:'Poppins';">`+ cars_info.speed  +`</div>`
 
-    console.log ('contentString: '+ contentString)
-    console.log('latlng:'+ latlng)
+    // console.log ('contentString: '+ contentString)
+    // console.log('latlng:'+ latlng)
 
           var marker_waypoint = new google.maps.Marker({
             position: latlng,
@@ -316,7 +316,7 @@ var CreateIconRes = async function(path,heading){
             .setRotation({deg: heading})
             .getUrl()
 
-     console.log(res)
+    //  console.log(res)
       return res
 }
 
@@ -331,7 +331,7 @@ var CreateIconRes = async function(path,heading){
 // Remove Marker ======================================================================
 
 function deleteMarkers() {
-    console.log('process delete markers')
+    // console.log('process delete markers')
     clearMarkers();
     gmarkers = [];
  }
@@ -341,21 +341,21 @@ function deleteMarkers() {
  }
 
 function setMapOnAll(req) {
-    console.log('marker length: ' + gmarkers.length)
-    console.log('start process delete markers')
+    // console.log('marker length: ' + gmarkers.length)
+    // console.log('start process delete markers')
     
     if (gmarkers.length >0){
         for (var i = 0; i < gmarkers.length-1; i++) 
         {
-            console.log('markers: ' + i)
+            // console.log('markers: ' + i)
             var lat = gmarkers[i].getPosition().lat();
             var lng = gmarkers[i].getPosition().lng();
-            console.log('lat:'+ lat)
-            console.log('lng:'+ lng)
+            // console.log('lat:'+ lat)
+            // console.log('lng:'+ lng)
             gmarkers[i].setMap(req);
         }
     }
-    console.log('finish process delete markers')
+    // console.log('finish process delete markers')
  }
 
 
@@ -369,7 +369,7 @@ function removeMarkerWaypoint(){
     //     // gmarkers[it].setVisible(false);
     // }
    
-    console.log('gmarkersLengthWaypoint',gmarkers_waypoint.length)
+    // console.log('gmarkersLengthWaypoint',gmarkers_waypoint.length)
     // gmarkers_waypoint[0].setMap(null)
 
      for (i=0;i<gmarkers_waypoint.length;i++){
@@ -389,12 +389,12 @@ function removeMarkerWaypointAll(gmarkerswaypoint,gmarkersLength){
     //     markerCluster.removeMarker(it);
     //     // gmarkers[it].setVisible(false);
     // }
-    console.log('gmarkersLength',gmarkersLength)
-    console.log('gmarkersLengthWaypoint',gmarkers_waypoint.length)
+    // console.log('gmarkersLength',gmarkersLength)
+    // console.log('gmarkersLengthWaypoint',gmarkers_waypoint.length)
 
      for (i=0;i<gmarkerswaypoint.length;i++){
         gmarkers_waypoint[i].setMap(null);
-        console.log('here remove yes')
+        // console.log('here remove yes')
      }
        
    gmarkers_waypoint.length = 0
@@ -404,14 +404,14 @@ function removeMarkerWaypointAll(gmarkerswaypoint,gmarkersLength){
 
 function transition(result,heading,cars_info,locs){
     k = 0;
-    console.log(result[0])
+    // console.log(result[0])
     deltaLat = (result[0] - position[0])/numDeltas;
     deltaLng = (result[1] - position[1])/numDeltas;
 
-    console.log('deltaLat:'+ deltaLat)
-    console.log('deltaLng:'+ deltaLng)
+    // console.log('deltaLat:'+ deltaLat)
+    // console.log('deltaLng:'+ deltaLng)
     // console.log(1,cars_info)
-    console.log(2,cars_info)
+    // console.log(2,cars_info)
     moveMarker(heading,cars_info, locs);
 }
 
@@ -419,7 +419,7 @@ function moveMarker(heading, cars_info,locs){
     position[0] += deltaLat;
     position[1] += deltaLng;
 
-    console.log(3,locs)
+    // console.log(3,locs)
 
     var latlng = new google.maps.LatLng(position[0], position[1]);
     // marker.setTitle("Latitude:"+position[0]+" | Longitude:"+position[1]);
