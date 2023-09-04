@@ -22,12 +22,12 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
     // alert(search_mode)
     // alert(current_section)
-    console.log('current section: '+current_section)
+    // console.log('current section: '+current_section)
 
     // clearInterval(t)
 
     if(directionsRenderer){
-        console.log('direction renderer')
+        // console.log('direction renderer')
         // directionsRenderer.setMap(null);
         directionsRenderer = new google.maps.DirectionsRenderer;
         directionsService = new google.maps.DirectionsService;
@@ -38,7 +38,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
     removeMarkerWaypointAll(gmarkers_waypoint,gmarkers_waypoint.length)
 
-    console.log('gmarkerswaypoint length',gmarkers_waypoint.length)
+    // console.log('gmarkerswaypoint length',gmarkers_waypoint.length)
     
     if (current_section == 'pantau'){
 
@@ -56,33 +56,33 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
             if (mode == 'bergerak'){
 
-                    console.log('bergerak')
+                    // console.log('bergerak')
                 
                     deleteMarkers()
                     AssetStatusCount(mode,search_mode,null)  
                 
                     t1_moving = setInterval(function(){
-                        console.log('Interval reached')
-                        console.log('start delete markers')
+                        // console.log('Interval reached')
+                        // console.log('start delete markers')
                         deleteMarkers()
-                        console.log('markers deleted')
-                        console.log('markers: '  + gmarkers.length)
+                        // console.log('markers deleted')
+                        // console.log('markers: '  + gmarkers.length)
                         AssetStatusCount(mode,search_mode,null)
                     },30000)
                
 
             }else if (mode == 'diam'){
-                console.log('diam')
+                // console.log('diam')
                 //alert('diam')
                     deleteMarkers()
                     AssetStatusCount(mode,search_mode,null)  
                     
                     t1_stop = setInterval(function(){
-                        console.log('Interval reached')
-                        console.log('start delete markers')
+                        // console.log('Interval reached')
+                        // console.log('start delete markers')
                         deleteMarkers()
-                        console.log('markers deleted')
-                        console.log('markers: '  + gmarkers.length)
+                        // console.log('markers deleted')
+                        // console.log('markers: '  + gmarkers.length)
                         AssetStatusCount(mode,search_mode,null)
                         
                         // var markerCluster = new MarkerClusterer(map, gmarkers);
@@ -95,11 +95,11 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     AssetStatusCount(mode,search_mode,null)  
                
                     t1_offline = setInterval(function(){
-                        console.log('Interval reached')
-                        console.log('start delete markers')
+                        // console.log('Interval reached')
+                        // console.log('start delete markers')
                         deleteMarkers()
-                        console.log('markers deleted')
-                        console.log('markers: '  + gmarkers.length)
+                        // console.log('markers deleted')
+                        // console.log('markers: '  + gmarkers.length)
                         AssetStatusCount(mode,search_mode,null)
                     },30000)
                 
@@ -110,11 +110,11 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     AssetStatusCount(mode,search_mode,null,userid)  
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
                     t1_all = setInterval(function(){
-                        console.log('Interval reached')
-                        console.log('start delete markers')
+                        // console.log('Interval reached')
+                        // console.log('start delete markers')
                         deleteMarkers()
-                        console.log('markers deleted')
-                        console.log('markers: '  + gmarkers.length)
+                        // console.log('markers deleted')
+                        // console.log('markers: '  + gmarkers.length)
                         AssetStatusCount(mode,search_mode,null,userid)
                     },30000)
               
@@ -240,17 +240,17 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
                 
 
                 if (mode == 'semua'){
-                    console.log('create data')
+                    // console.log('create data')
                     CreateData(userid)
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
                     
-                    console.log('mode:' + mode)
+                    // console.log('mode:' + mode)
                 } else{
                     // alert(mode)
-                    console.log('start create data selected')
+                    // console.log('start create data selected')
                     CreateDataSelected(mode)
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
-                    console.log('mode:' + mode)
+                    // console.log('mode:' + mode)
                 }
             }else{
                 CreateDataSearch(search_param)
@@ -430,7 +430,7 @@ async function CreateData(userid){
     }
 
     var markerCluster = new MarkerClusterer(map, gmarkers);
-    console.log(gmarkers.length)
+    // console.log(gmarkers.length)
    
     // new MarkerClusterer(map, gmarkers);
     $('#live_monitor').html(pnl);
@@ -467,7 +467,7 @@ function CreateDataSelected(mode){
           var data = response.data.data
           if (status == true){
               
-                console.log('start create data selected prosess')
+                // console.log('start create data selected prosess')
                         
                 if (mode == 'bergerak'){
                     selected_mode ='moving'
