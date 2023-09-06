@@ -51,7 +51,7 @@ const requestOptions = {
     .then(response => response.json()) 
     .then(json => {
         // alert (json)
-        console.log(json)
+        // console.log(json)
         if (json.status==200){
             $('#dg').datagrid({
                 url: url

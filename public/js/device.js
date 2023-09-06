@@ -58,8 +58,8 @@ const requestOptions = {
                 url: url
             });
         }else{
-            sessionStorage.clear()
-            window.location = '/'
+            // sessionStorage.clear()
+            // window.location = '/'
         }
     }).catch (function (error) {
         console.log('Request failed', error);
