@@ -100,7 +100,7 @@ var userid =  sessionStorage.getItem("id");
 						clearInterval(t3)
 						clearInterval(t4)
 
-						processing_data(current_section,null,null,true,value)
+						processing_data(current_section,null,null,true,value,userid)
 					}else{
 						current_section = 'pantau'
 						clearInterval(t1_moving)
@@ -110,7 +110,7 @@ var userid =  sessionStorage.getItem("id");
 						clearInterval(t3)
 						clearInterval(t4)
 
-						processing_data(current_section,null,prev_mode,false,null)
+						processing_data(current_section,null,prev_mode,false,null,userid)
 					}
 				}
 				});	
@@ -131,5 +131,8 @@ var userid =  sessionStorage.getItem("id");
 					g3_1.style.color ='white'
 					g3_1.style.background = 'transparent'
 				};
+
+			
+
 		});
 		

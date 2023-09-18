@@ -10,8 +10,14 @@ $(function(){
 
     $('#username').text(username)
     $('#level').text(level)
+   
 
-    var url = '/device/read/all/'+ userid
+    if (area == 'pusat'){
+        var url = '/device/read/all'
+    }else{
+        var url = '/device/read/all/'+ userid
+    }
+   
     // alert(url)
 
     $('#t_deviceid').combogrid({
@@ -29,6 +35,30 @@ $(function(){
                  
     })
 
+    if (area == 'pusat'){
+        var url = '/user/admin'
+    }else{
+        var url = '/user/admin/selected/'+ userid
+    }
+    
+    // alert(url)
+
+    $('#t_assignment').combogrid({
+        panelWidth: 280,
+        idField: 'id',
+        textField: 'username',
+        url: url,
+        method: 'POST',
+        columns: [[
+                        {field:'id',title:'ID',width:80},
+                        {field:'username',title:'User',width:80},
+                        {field:'area',title:'Area',width:80},
+                 ]],
+        fitColumns: true,
+        label: 'Assignment',
+        labelPosition: 'left'
+    })
+
     const requestOptions = {
         method: 'POST',
         headers: { 
@@ -39,7 +69,12 @@ $(function(){
 
         console.log('requestOptions' + requestOptions)
 
-        var url = '/vehicle/read/selected/'+ userid
+        if (area == 'pusat'){
+            var url =  '/vehicle/read/all'
+        }else{
+            var url = '/vehicle/read/selected/'+ userid
+        }
+        
 
         fetch(url,requestOptions)
         .then(response => response.json()) 

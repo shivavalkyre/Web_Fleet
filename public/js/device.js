@@ -47,19 +47,28 @@ const requestOptions = {
     body: JSON.stringify({ page: 1,rows:10 })
 };
 // console.log('DATA' + data)
-    var url = '/device/read/selected/' + userid
+    if (area == 'pusat')
+    {
+        var url = '/device/read/all_data'
+    }
+    else
+    {
+        var url = '/device/read/selected/' + userid
+    }
+
+    
     fetch(url,requestOptions)
     .then(response => response.json()) 
     .then(json => {
         // alert (json)
-        console.log(json)
+        // console.log(json)
         if (json.status==200){
             $('#dg').datagrid({
                 url: url
             });
         }else{
-            // sessionStorage.clear()
-            // window.location = '/'
+            sessionStorage.clear()
+            window.location = '/'
         }
     }).catch (function (error) {
         console.log('Request failed', error);

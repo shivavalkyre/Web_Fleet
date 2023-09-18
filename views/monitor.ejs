@@ -26,6 +26,7 @@
         <link href="https://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
         <script src="https://maps.googleapis.com/maps/api/js?key=<%=apikey%>"></script>
         <script src="/js/markerclusterer.js"></script>
+
     </head>
     <body>  
         <div id="mini_me" style="width:30px;height:30px;text-align: center; font-weight: 100; margin: 8px 0 0 230px;position: absolute;z-index: 2;cursor: pointer;"><img id="img_mini_me" src="/img/mini.png"/></div>   
@@ -66,7 +67,7 @@
                     <a id="setting" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-setting-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" >Pengaturan</a>
                 </div>
                 <div style="margin-top:200px;margin-bottom:5px;width: 200px;margin-left:25px ;">
-                    <a id="logout" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-logout',size:'middle'" style="height: 40px;width: 100%;text-align: left;" >Logout</a>
+                    <a id="logout" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-logout',size:'middle'" style="height: 40px;width: 100%;text-align: left;"  onclick="logout()" >Logout</a>
                 </div>
             
             </div>
@@ -111,7 +112,7 @@
                     <div id="googleMap" style="width: 100%;height: 100%;z-index:1"></div>
                     <!-- Live Box -->
                     <div id="live_box" style="width: 30%px;height:100%;z-index:2;top:0%;right:0;position:absolute;background: #F5F8FFD9;float:right;visibility: hidden;">
-                        <div style="margin:10 0 0 10;width: 100%;height: 16px;font-size: 16px;font-weight: bolder;color: black;font-family: 'Poppins';">Detail Kendaraan</div>
+                        <div id="title_detail" style="margin:10 0 0 10;width: 100%;height: 16px;font-size: 14px;font-weight: bolder;color: black;font-family: 'Poppins';">Vuid</div>
                         <div id="close_live_box" style="margin-left: 220px;margin-top:-15;cursor: pointer;" onclick="close_live_box()"><img src="/img/close_small.png"></div>
                        
                         <div style="width: 100%;text-align: center;margin-top: 20px;">
@@ -136,10 +137,9 @@
                             <div id="vehicle_time_live" style="padding-left: 10px;padding-top: 10px;font-size: 10px;font-size: 10px;margin-bottom: 10px;font-family: 'Poppins';">7/12/2023 1:20 PM WIB</div>
                         </div>
 
-                        <div style="width:230px;height: 280px;background: white;margin-left: 10px;border-radius: 8px;margin-top: 180px;position:fixed;overflow-y: auto;">
+                        <div style="width:230px;height: 210px;background: white;margin-left: 10px;border-radius: 8px;margin-top: 180px;position:fixed;overflow-y: auto;">
                             <div style="margin-top: 10px;border:0px solid red;height: 20px;">
-                                <div style="float: left;padding-left: 10px;font-family: 'Poppins';font-weight: 800;">Detail</div>
-                
+                                <div style="float: left;padding-left: 10px;font-family: 'Poppins';font-weight: 800;">Data hari ini</div>
                             </div>
                             <div style="margin-top: 5px;border:0px solid red;height: 20px;font-family: 'Poppins';">
                                 <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Tegangan Accu</div>
@@ -161,37 +161,67 @@
                                     <div id="vehicle_speed_live" style="float: right;padding-right: 10px;">16 Km</div>
                                 </div>
                                 <div style="margin-top: 5px;border:0px solid red;height: 20px;">
-                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Heading</div>
+                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Arah</div>
                                     <div id="vehicle_heading" style="float: right;padding-right: 10px;">16 degree</div>
                                 </div>
-                                <div style="margin-top: 5px;border:0px solid red;height: 20px;">
-                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Merk</div>
-                                    <div id="merk_kendaraan"  style="float: right;padding-right: 10px;">Mazda</div>
-                                </div>
-                                <div style="margin-top: 5px;border:0px solid red;height: 20px;">
-                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Tipe Kendaraan</div>
-                                    <div id="tipe_kendaraan" style="float: right;padding-right: 10px;">Mobil Listrik</div>
-                                </div>
-                                <div style="margin-top: 5px;border:0px solid red;height: 20px;">
+                                
+                                <!-- <div style="margin-top: 5px;border:0px solid red;height: 20px;">
                                     <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Merk Perangkat</div>
                                     <div id="merk_perangkat" style="float: right;padding-right: 10px;">Samsung</div>
                                 </div>
                                 <div style="margin-top: 5px;border:0px solid red;height: 20px;">
                                     <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Tipe Perangkat</div>
                                     <div id="tipe_perangkat" style="float: right;padding-right: 10px;">Android</div>
-                                </div>
-                                <div style="margin-top: 5px;border:0px solid red;height: 20px;">
+                                </div> -->
+                                <!-- <div style="margin-top: 5px;border:0px solid red;height: 20px;">
                                     <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Kondisi Kendaraan</div>
                                     <div id="kondisi_kendaraan" style="float: right;padding-right: 10px;">Baik</div>
+                                </div> -->
+
+                                <div style="margin-top: 5px;border:0px solid red;height: 20px;">
+                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Operating Time</div>
+                                    <div id="operating_time" style="float: right;padding-right: 10px;">On</div>
                                 </div>
                                 <div style="margin-top: 5px;border:0px solid red;height: 20px;">
-                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Power Status</div>
-                                    <div id="kondisi_kendaraan" style="float: right;padding-right: 10px;">On</div>
+                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Fuel Level</div>
+                                    <div id="fuel_level" style="float: right;padding-right: 10px;">On</div>
                                 </div>
                                 <div style="margin-top: 5px;border:0px solid red;height: 20px;">
-                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Power Status</div>
-                                    <div id="kondisi_kendaraan" style="float: right;padding-right: 10px;">On</div>
+                                    <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Odometer</div>
+                                    <div id="odometer" style="float: right;padding-right: 10px;">On</div>
                                 </div>
+                               
+                        </div>
+
+                        <div style="width:230px;height: 180px;background: white;margin-left: 0px;border-radius: 8px;margin-top: 10px;position:fixed;overflow-y: auto;">
+                            <div style="margin-top: 10px;border:0px solid red;height: 20px;">
+                                <div style="float: left;padding-left: 10px;font-family: 'Poppins';font-weight: 800;">Detail Kendaraan</div>
+                            </div>
+
+                            <div style="margin-top: 5px;border:0px solid red;height: 20px;">
+                                <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Merk</div>
+                                <div id="merk_kendaraan"  style="float: right;padding-right: 10px;">Mazda</div>
+                            </div>
+                            <div style="margin-top: 5px;border:0px solid red;height: 20px;">
+                                <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Tipe Kendaraan</div>
+                                <div id="tipe_kendaraan" style="float: right;padding-right: 10px;">Mobil Listrik</div>
+                            </div>
+
+                            <div style="margin-top: 5px;border:0px solid red;height: 20px;">
+                                <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Vin</div>
+                                <div id="tipe_kendaraan" style="float: right;padding-right: 10px;">Mobil Listrik</div>
+                            </div>
+
+                            <div style="margin-top: 5px;border:0px solid red;height: 20px;">
+                                <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Plat No</div>
+                                <div id="tipe_kendaraan" style="float: right;padding-right: 10px;">Mobil Listrik</div>
+                            </div>
+
+                            <div style="margin-top: 5px;border:0px solid red;height: 20px;">
+                                <div style="float: left;padding-left: 10px;font-size: 11;font-family: 'Poppins';">Device ID</div>
+                                <div id="tipe_kendaraan" style="float: right;padding-right: 10px;">Mobil Listrik</div>
+                            </div>
+
                         </div>
 
                     </div>

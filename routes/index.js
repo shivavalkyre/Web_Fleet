@@ -77,6 +77,25 @@ router.get('/user',function(req,res){
     User.Read(req,res)
 })
 
+
+router.post('/user/admin', async function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY ] | INFO ' + util.inspect(req.body));
+    var resp = await User.ReadAdmin(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
+router.post('/user/admin/selected/:createdby', async function(req,res){
+    var createdby = req.params.createdby
+    req.body.createdby = createdby
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER USER ADMIN] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY USER ADMIN] | INFO ' + util.inspect(req.body));
+    User.ReadAdminSelected(req,res)
+})
+
+
 router.post('/petugas/create', async function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER ] | INFO ' + util.inspect(req.headers));
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY ] | INFO ' + util.inspect(req.body));
@@ -164,9 +183,19 @@ router.post('/device/read/selected/:createdby',async function(req,res){
    
 })
 
-router.post('/device/read/all/:createdby',function(req,res){
-    var resp = Device.read_all(req,res)
+router.post('/device/read/all/:createdby',async function(req,res){
+    var resp = await Device.read_all(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP DEVICE ] | INFO ' + util.inspect(resp)); 
+})
+router.post('/device/read/all_data',async function(req,res){
+    var resp = await Device.read_all_data(req,res)
     futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
+router.post('/device/read/all',async function(req,res){
+    var resp = await Device.read_all_device(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP DEVICE ] | INFO ' + util.inspect(resp)); 
 })
 
 router.post('/device/update',function(req,res){
@@ -196,9 +225,41 @@ router.post('/vehicle/read/selected/:createdby',async function(req,res){
     res.send(resp)
 })
 
+router.post('/vehicle/read/selected/vehicleuid/:vehicleuid',async function(req,res){
+    var vehicleid = req.params.vehicleuid
+    req.body.vehicleid = vehicleid
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY VEHICLEUID ] | INFO ' + util.inspect(req.body));
+    var resp = await Vehicle.readbyvehicleuid(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
+router.post('/vehicle/read/odometer',async function(req,res){
+
+    req.body.accountId = process.env.ACCOUNTID
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY ODOMETER ] | INFO ' + util.inspect(req.body));
+    var resp = await Vehicle.ReadOdometer(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
+router.post('/vehicle/read/all',async function(req,res){
+    // var createdby = req.params.createdby
+    // req.body.createdby = createdby
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY ] | INFO ' + util.inspect(req.body));
+    var resp = await Vehicle.read_all_data(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
 router.post('/vehicle/read/all/:createdby',function(req,res){
     Vehicle.read_all(req,res)
 })
+
+router.post('/vehicle/read/km_driven',function(req,res){
+    Vehicle.read_all(req,res)
+})
+
 
 router.post('/vehicle/update',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER ] | INFO ' + util.inspect(req.headers));

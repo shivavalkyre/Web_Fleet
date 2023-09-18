@@ -35,7 +35,10 @@ function InitializeMap() {
     var mapProp= {
     center:new google.maps.LatLng(-6.200000,106.816666),
     zoom:10,
-    disableDefaultUI: true,
+    fullscreenControl: false,
+    streetViewControl: false,
+    zoomControl: false,
+    disableDefaultUI: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     // styles: [{
     //     "featureType": "landscape",

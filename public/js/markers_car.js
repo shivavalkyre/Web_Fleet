@@ -1002,7 +1002,7 @@ function getMarkerSVG(align){
        `
 
     }else if(heading >85 && heading <= 90){
-        console.log('heading 90')
+        // console.log('heading 90')
         svg = `
             <svg width="41" height="20" viewBox="0 0 41 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.1673 0.866211L3.01444 0.866211C0.433123 0.866211 0.346146 4.92952 0.346146 9.94257C0.346146 14.9556 0.436602 19.0224 3.01444 19.0224L12.1673 19.0224L12.1673 0.866211Z" fill="#F0F4F7"/>

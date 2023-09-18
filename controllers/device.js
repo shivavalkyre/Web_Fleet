@@ -135,8 +135,8 @@ var read_all = async function(req,res){
     var result
     result = await axios.get(url,config) 
     .then(function (response) {
-        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(response.status)); 
-        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY DEVICE ] | INFO ' + util.inspect(response.status)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY DEVICE ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
         var data = JSON.stringify(response.data.data)
         return data
     }).catch(function(error){
@@ -145,6 +145,96 @@ var read_all = async function(req,res){
 
     futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(result)); 
     res.send(result)
+}
+
+var read_all_device = async function(req,res){
+    var data = {"total":"0","rows": []}
+    // var page = req.body.page;
+    // var rows =  req.body.rows;
+    // var offset = (page - 1) * rows
+    // futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
+    
+    var url = process.env.URL_READ_DEVICE_ALL_DATA
+    var token = process.env.TOKEN_APP
+    var createdby = req.params.createdby
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ URL ] | INFO ' + util.inspect(url));
+    futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
+
+    const config = {
+        headers:{
+            token : token,
+        },
+      }
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST HEADER] | INFO ' + util.inspect(config)); 
+    var result
+    result = await axios.get(url,config) 
+    .then(function (response) {
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY DEVICE ] | INFO ' + util.inspect(response.status)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY DEVICE ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
+        var data = JSON.stringify(response.data.data)
+        return data
+    }).catch(function(error){
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+    })
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(result)); 
+    res.send(result)
+}
+
+var read_all_data = async function(req,res){
+    var data = {"total":"0","rows": []}
+    var page = req.body.page;
+    var rows =  req.body.rows;
+    // var createdby = req.body.createdby;
+    var offset = (page - 1) * rows
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST PAGE ] | INFO ' + util.inspect(page)); 
+    
+    var url = process.env.URL_READ_DEVICE_ALL_DATA
+    var token = process.env.TOKEN_APP
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ URL ] | INFO ' + util.inspect(url));
+    futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
+
+    const config = {
+        headers:{
+            token : token,
+            page:page,
+            rows:rows,
+            offset:offset
+        },
+      }
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST HEADER] | INFO ' + util.inspect(config)); 
+    var result
+    result = await axios.get(url,config) 
+    .then(function (response) {
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE STATUS ] | INFO ' + util.inspect(response.status)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
+        response.data.data.status = response.status
+        var data = JSON.stringify(response.data.data)
+        return data
+    }).catch(function(error){
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+        
+        var data = {  
+            "status":false,
+            "message":"token is expired"
+         }
+
+         return data
+
+    })
+
+    var resp = JSON.parse(result)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT STATUS ] | INFO ' + util.inspect(resp.status)); 
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(resp)); 
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT TOTAL ] | INFO ' + util.inspect(resp.total)); 
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ROWS ] | INFO ' + util.inspect(resp.rows)); 
+    // res.send(result)
+    return result
+    
 }
 
 var read_by_status = async function(req,res){
@@ -284,6 +374,8 @@ module.exports = {
     create,
     read,
     read_all,
+    read_all_data,
+    read_all_device,
     update,
     Delete
 }

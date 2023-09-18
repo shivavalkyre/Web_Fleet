@@ -115,8 +115,9 @@ function getClicked(e){
     // $('#pnl0').css("margin-bottom","-=100px")
     var selector = e
     var myparent  = $(e).parent().closest('div');
-    console.log(myparent)
+    // console.log(myparent)
     var selector_parent = myparent
+    // console.log(selector_parent)
     var current_height =  $(selector_parent).css("height")
     // alert(current_height)
 
@@ -127,33 +128,145 @@ function getClicked(e){
 
     var location = {lat:lat,lng:lng}
     // console.log(location)
+
+    // minimize all content
+    var container_div = document.getElementById('live_monitor');
+    var count = container_div.getElementsByClassName('pnl').length;
+    var content = container_div.getElementsByClassName('pnl')
+
+    // alert(count)
+
+    for (i=0;i<=count-1;i++)
+    {
+        // console.log('id',content[i].id)
+        var id = content[i].id
+        // console.log('id',id)
+        var no_id = id.substr(3)
+        // console.log('no_id',no_id)
+        $('#pnl' + no_id).css("height","30px")
+        $('#angle' + no_id).html('<i class="fa fa-angle-down fa-2x" aria-hidden="true"></i>')
+        $('#img_location'+ no_id).css("visibility","hidden")
+        $('#location'+ no_id).css("visibility","hidden")
+        $('#img_time'+ no_id).css("visibility","hidden")
+        $('#time'+ no_id).css("visibility","hidden")
+        $('#options'+ no_id).css("visibility","hidden")
+        $('#td_arrow' + no_id).css("border-bottom-right-radius","5px")
+       
+    }
     
-    if (current_height== '185px'){
-        $(selector_parent).css("height","40px")
+    if (current_height== '160px'){
+        $(selector_parent).css("height","30px")
         $('#angle' + no).html('<i class="fa fa-angle-down fa-2x" aria-hidden="true"></i>')
         $('#img_location'+ no).css("visibility","hidden")
         $('#location'+ no).css("visibility","hidden")
         $('#img_time'+ no).css("visibility","hidden")
         $('#time'+ no).css("visibility","hidden")
         $('#options'+ no).css("visibility","hidden")
+        $('#td_arrow' + no).css("border-bottom-right-radius","5px")
+      
     } else{
-        $(selector_parent).css("height","185px")
+        $(selector_parent).css("height","160px")
         $('#angle'+ no).html('<i class="fa fa-angle-up fa-2x" aria-hidden="true"></i>')
         $('#img_location'+ no).css("visibility","visible")
         $('#location'+ no).css("visibility","visible")
         $('#img_time'+ no).css("visibility","visible")
         $('#time'+ no).css("visibility","visible")
         $('#options'+ no).css("visibility","visible")
+        $('#td_arrow' + no).css("border-bottom-right-radius","0px")
+        
         getAddress(location).then( result => {
             var address = result
-            console.log(address)
+            // console.log(address)
             $('#location'+ no).text(address)
         })
     
     }   
     
     $(selector).after('<p></p>')
+}
+
+function getClickedTitle(e){
+    let elementId = e.id;
+    var selector = e
+    // console.log(elementId)
+    var myparent  = $(e).parent().closest('div');
+    // console.log(myparent)
+    var selector_parent = myparent
+    // console.log(selector_parent)
+    var current_height =  $(selector_parent).css("height")
+    var no = elementId.substr(5)
+    // console.log('no:',no)
+
+    var lat = $('#lat'+ no).text()
+    // alert(lat)
+    var lng = $('#lon'+ no).text()
+    // alert(lng)
+
+    var location = {lat:lat,lng:lng}
+    // console.log(location)
+
+    // minimize all content
+    var container_div = document.getElementById('live_monitor');
+    var count = container_div.getElementsByClassName('pnl').length;
+    var content = container_div.getElementsByClassName('pnl')
+
+    for (i=0;i<=count-1;i++)
+    {
+        // console.log('id',content[i].id)
+        var id = content[i].id
+        // console.log('id',id)
+        var no_id = id.substr(3)
+        // console.log('no_id',no_id)
+        $('#pnl' + no_id).css("height","30px")
+        $('#angle' + no_id).html('<i class="fa fa-angle-down fa-2x" aria-hidden="true"></i>')
+        $('#img_location'+ no_id).css("visibility","hidden")
+        $('#location'+ no_id).css("visibility","hidden")
+        $('#img_time'+ no_id).css("visibility","hidden")
+        $('#time'+ no_id).css("visibility","hidden")
+        $('#options'+ no_id).css("visibility","hidden")
+        $('#td_arrow' + no_id).css("border-bottom-right-radius","5px")
+        $('#title_row' + no_id).css("background-color","white")
+        $('#title_row' + no_id).css("color","black")
+        $('#v_uid' + no_id).css("color","black")
+
     }
+    
+    if (current_height== '160px'){
+        $(selector_parent).css("height","30px")
+        $('#angle' + no).html('<i class="fa fa-angle-down fa-2x" aria-hidden="true"></i>')
+        $('#img_location'+ no).css("visibility","hidden")
+        $('#location'+ no).css("visibility","hidden")
+        $('#img_time'+ no).css("visibility","hidden")
+        $('#time'+ no).css("visibility","hidden")
+        $('#options'+ no).css("visibility","hidden")
+        $('#td_arrow' + no).css("border-bottom-right-radius","5px")
+        $('#title_row' + no).css("background-color","white")
+        $('#v_uid' + no).css("color","black")
+        $('#angle' + no).css("color","black")
+    } else{
+        $(selector_parent).css("height","160px")
+        $('#angle'+ no).html('<i class="fa fa-angle-up fa-2x" aria-hidden="true"></i>')
+        $('#img_location'+ no).css("visibility","visible")
+        $('#location'+ no).css("visibility","visible")
+        $('#img_time'+ no).css("visibility","visible")
+        $('#time'+ no).css("visibility","visible")
+        $('#options'+ no).css("visibility","visible")
+        $('#td_arrow' + no).css("border-bottom-right-radius","0px")
+        $('#title_row' + no).css("background-color","#436AAC")
+        $('#v_uid' + no).css("color","white")
+        $('#angle' + no).css("color","white")
+
+        getAddress(location).then( result => {
+            var address = result
+            // console.log(address)
+            $('#location'+ no).text(address)
+        })
+    
+    }   
+    
+    $(selector).after('<p></p>')
+
+}
 
 // sub menu handler ==================================================
 
@@ -308,7 +421,7 @@ function semua(){
     clearInterval(t1_moving)
     clearInterval(t1_offline)
     clearInterval(t1_stop)
-    processing_data(current_section,null,'semua',false,null)
+    processing_data(current_section,null,'semua',false,null,userid)
 }
 
 function bergerak(){
@@ -317,7 +430,7 @@ function bergerak(){
     clearInterval(t1_all)
     clearInterval(t1_offline)
     clearInterval(t1_stop)
-    processing_data(current_section,null,'bergerak',false,null)
+    processing_data(current_section,null,'bergerak',false,null,userid)
 }
 function diam(){
     //alert('diam')
@@ -325,7 +438,7 @@ function diam(){
     clearInterval(t1_all)
     clearInterval(t1_offline)
     clearInterval(t1_moving)
-    processing_data(current_section,null,'diam',false,null)
+    processing_data(current_section,null,'diam',false,null,userid)
 }
 
 function offline(){
@@ -334,7 +447,7 @@ function offline(){
     clearInterval(t1_all)
     clearInterval(t1_moving)
     clearInterval(t1_stop)
-    processing_data(current_section,null,'offline',false,null)
+    processing_data(current_section,null,'offline',false,null,userid)
 }
 
 
@@ -375,6 +488,11 @@ $('#g3_2').bind('click', function(){
 
 });
 
+function logout(){
+    sessionStorage.clear();
+    window.history.forward();
+    window.location ='/'
+}
 
 function mydtformatter(date)
   {
@@ -622,3 +740,14 @@ function secondsToHms(d) {
 
     return hDisplay + ':' + mDisplay + ':' + sDisplay; 
 }
+
+
+function changeColor(e){
+    $(e).addClass("info1");
+}
+
+function restoreColor(e){
+    $(e).removeClass("hoverTable");
+}
+
+

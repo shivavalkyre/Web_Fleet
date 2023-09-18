@@ -331,6 +331,7 @@ function edit_data(){
     $('#w').window('close')
     $('#w_tambah').window('open')
     
+    
     store_status = 1
     $('#ff').form('load',{
         id: row.id,
@@ -340,9 +341,15 @@ function edit_data(){
         name:row.name,
         vin:row.vin,
         deviceId:row.deviceId,
-        tagging:row.tagging
+        tagging:row.tagging,
+        assignment:row.assignment,
+        init_odometer:row.init_odometer,
+        createdBy:row.createdBy
     });
 
+    $('#t_odometer').textbox({
+        editable:false
+    })
 
     //alert(row.filename)
    
@@ -382,7 +389,11 @@ function tambah_data(){
     // // gmarker.setMap(null)
     // gmarker = []
 
+    $('#t_odometer').textbox({
+        editable:true
+    })
 
+    $('#t_odometer').textbox('setValue',0)
 
     $('#w_tambah').window('center');
 }

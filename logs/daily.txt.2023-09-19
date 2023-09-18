@@ -1,0 +1,5 @@
+{"level":"debug","message":"\n19 Sep 2023 00:01:31 - [ REQ READ BODY VEHICLEUID ] | INFO { vehicleid: 'MJEFMBJN2NJX13093' }"}
+{"level":"debug","message":"\n19 Sep 2023 00:01:31 - [ URL INIT ODOMETER] | INFO 'http://147.139.144.120:3002/api/patern/vehicle/odometer'"}
+{"level":"debug","message":"\n19 Sep 2023 00:01:31 - [ TOKEN ] | INFO 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjk1MDEzNTAzLCJleHAiOjE2OTUwOTk5MDN9.Hy3VjDFbQA-QY4aXLZzipn_BH_KESY0Iu1lQkQoTZqw'"}
+{"level":"debug","message":"\n19 Sep 2023 00:01:31 - [ VEHICLE ID ] | INFO 'MJEFMBJN2NJX13093'"}
+{"level":"debug","message":"\n19 Sep 2023 00:01:31 - [ REQUEST HEADER ODOMETER] | INFO {\n  headers: {\n    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjk1MDEzNTAzLCJleHAiOjE2OTUwOTk5MDN9.Hy3VjDFbQA-QY4aXLZzipn_BH_KESY0Iu1lQkQoTZqw',\n    vehicleid: 'MJEFMBJN2NJX13093'\n  }\n}"}

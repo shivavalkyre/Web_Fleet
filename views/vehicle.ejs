@@ -73,10 +73,13 @@
                                                 <th data-options="field:'vehicleid',width:110,align:'left'">Vehicle ID</th>
                                                 <th data-options="field:'vehicle_brand',width:70,align:'center'">Brand</th>
                                                 <th data-options="field:'vehicle_type',width:70,align:'center'">Type</th>
-                                                <th data-options="field:'name',width:80,align:'center'">Name</th>
+                                                <th data-options="field:'name',width:80,align:'center'">Plat No.</th>
                                                 <th data-options="field:'vin',width:70,align:'center'">Vin</th>
                                                 <th data-options="field:'deviceId',width:80,align:'center'">Device ID</th>
                                                 <th data-options="field:'tagging',width:90,align:'center'">Tagging</th>
+                                                <th data-options="field:'assignment',width:90,align:'center'">Assignment</th>
+                                                <th data-options="field:'init_odometer',width:90,align:'center'">Init Odometer</th>
+                                                <th data-options="field:'createdBy',width:90,align:'center'" hidden>Created By</th>
                                                 <th data-options="field:'status_device',width:80,align:'center',formatter:formatAction">Action</th>
                                             </tr>
                                         </thead>
@@ -185,7 +188,7 @@
         </div>
         </div>
 
-        <div id="w_tambah" class="easyui-window"  data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false,closable:false,noheader:true,border:'thin'" style="width:400px;height:400px;padding:10px;">
+        <div id="w_tambah" class="easyui-window"  data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false,closable:false,noheader:true,border:'thin'" style="width:400px;height:480px;padding:10px;">
             <div id="form_title" style="font-family: 'Poppins';font-size: 14px;font-weight: 900;">Tambah Kendaraan</div>
             <hr style="width: 380px;margin-top:10px;margin-left:0px;">
 
@@ -214,6 +217,14 @@
 
                     <div style="margin-bottom:10px">
                         <input id= "t_deviceid" class="easyui-combogrid" style="width:100%" name="deviceId">
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input id= "t_assignment" class="easyui-combogrid" style="width:100%" name="assignment">
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input id="t_odometer" class="easyui-numberbox" name="init_odometer" style="width:100%" data-options="label:'Odometer'">
                     </div>
 
                     <div style="margin-bottom:10px">
