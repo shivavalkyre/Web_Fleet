@@ -9,6 +9,8 @@ var userid =  sessionStorage.getItem("id");
 $(function(){
 
     $('#div_taskid').hide()
+    $('#t_daily').hide()
+    $('#t_monthly').hide()
 
     // InitializeMap()
     google.maps.event.addDomListener(window, 'load', InitializeMap);
@@ -65,5 +67,17 @@ const requestOptions = {
     });
 
    
+    $('#t_recurrent_type').combobox({
+        onClick: function(item){
+            console.log(item.value)
+            if(item.value == 'daily'){
+                $('#t_daily').show()
+                $('#t_monthly').hide()
+            }else if(item.value == 'monthly'){
+                $('#t_daily').hide()
+                $('#t_monthly').show()
+            }
+        }
+    });
 
 })

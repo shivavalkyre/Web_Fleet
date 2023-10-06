@@ -1,3 +1,9 @@
+.icon-circle{
+	background:url('icons/circle.png') no-repeat center center;
+}
+.icon-polygon{
+	background:url('icons/polygon.png') no-repeat center center;
+}
 .icon-emoticon{
 	background:url('icons/emoticon.png') no-repeat center center;
 }

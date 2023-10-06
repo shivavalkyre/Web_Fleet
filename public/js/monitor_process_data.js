@@ -24,21 +24,21 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
     // alert(search_mode)
     // alert(current_section)
-    // console.log('current section: '+current_section)
+    console.log('current section: '+current_section)
 
     // clearInterval(t)
 
-    if(directionsRenderer){
-        // console.log('direction renderer')
-        // directionsRenderer.setMap(null);
-        directionsRenderer = new google.maps.DirectionsRenderer;
-        directionsService = new google.maps.DirectionsService;
-        // directionsRenderer = null
-        // directionsRenderer = null
-        route = null
-    }
+    // if(directionsRenderer){
+    //     // console.log('direction renderer')
+    //     // directionsRenderer.setMap(null);
+    //     directionsRenderer = new google.maps.DirectionsRenderer;
+    //     directionsService = new google.maps.DirectionsService;
+    //     // directionsRenderer = null
+    //     // directionsRenderer = null
+    //     route = null
+    // }
 
-    removeMarkerWaypointAll(gmarkers_waypoint,gmarkers_waypoint.length)
+    // removeMarkerWaypointAll(gmarkers_waypoint,gmarkers_waypoint.length)
 
     // console.log('gmarkerswaypoint length',gmarkers_waypoint.length)
     
@@ -46,6 +46,9 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
         ReInitializeMap(map,gmarkers)
         // map.setZoom(10)
+
+        // $('#geofence_box').css("visibility","visible")
+        $('#geofence_box').show()
         
         if (!search_mode){
             // alert('null')
@@ -107,7 +110,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                 
             }else if (mode == 'semua'){
                 //alert('semua')
-                // console.log('semua')
+                console.log('semua')
                     deleteMarkers()
                     AssetStatusCount(mode,search_mode,null,userid)  
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
@@ -155,6 +158,9 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
         deleteMarkers()
 
+        // $('#geofence_box').css("visibility","hidden")
+        $('#geofence_box').hide()
+
         process_live_tracking(sclId)
 
        t3 = setInterval(function() {
@@ -171,6 +177,9 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
         clearInterval(t2)
         clearInterval(t3)
         clearInterval(t4)
+
+        // $('#geofence_box').css("visibility","hidden")
+        $('#geofence_box').hide()
 
         deleteMarkers()
         process_riwayat(sclId)

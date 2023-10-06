@@ -314,6 +314,9 @@ function close_live_box(){
     $('#cc_monitor').layout('panel','west').panel('open');
     $('#cc_monitor').layout('resize');
     $('#live_box').css('visibility','hidden')
+    $('#toggle_place').linkbutton({
+        selected:false
+    })
 
     for (i=0;i<= arr_drivingPath.length-1;i++)
     {
@@ -371,6 +374,9 @@ function close_riwayat(){
     $('#history_box').css('visibility','hidden')
     $('#history_box_table').css('visibility','hidden')
     $('#close_history').css('visibility','hidden')
+    $('#toggle_place').linkbutton({
+        selected:false
+    })
     for(i=0;i<=arr_tout.length-1;i++){
         clearTimeout(arr_tout[i])
     }
@@ -751,3 +757,76 @@ function restoreColor(e){
 }
 
 
+//table button formatter  for dg_place
+
+function formatAction(){
+   
+    // console.log (value)
+            // var style = `<div style="border: 0px solid red;width:30px;height:30px;text-align:center;padding-top:0px;"><a href="#" onclick="view_data()"><img src="/img/view.png" width=28 height=28 /></div>`
+            var style = `<div style="border: 0px solid red;width:30px;height:30px;text-align:center;padding-top:0px;margin-top:0px;margin-left:30px;"><a href="#" onclick="edit_data()"><img src="/img/edit1.png" width=28 height=28 /></div>`
+            style+= `<div style="border: 0px solid red;width:30px;height:30px;text-align:center;padding-top:0px;margin-top:-30px;margin-left:60px;"><a href="#" onclick="ask_delete()"><img src="/img/delete1.png" width=28 height=28 /></div>`
+  
+     
+    
+    return style
+}
+
+
+function ask_delete(){
+
+    var img = "/img/info.png"
+    var msg =  `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+        msg += `<div style="width:100%;height:40px;text-align:center;font-size:18px;font-weight:900;margin-top:-10px;"> Hapus File ? </div>`
+        msg += `<div style="color:#353736;text-align:center;margin-top:-10px;">Apakah kamu sudah yakin ingin menghapus file ini?</div>`
+        msg += `<div style="width:100%;height:40px;text-align:center;margin-top:0px;"> `
+        msg += `<hr style="width: 280px;margin-top:10px;margin-left:0px;">`
+        msg += `</div>`
+        msg += `<div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#E93426;cursor:pointer;float:left;width:100px;border:0px solid red;margin-left:20px;" onclick="javascript:dlg.dialog('close');">Cancel</div>`
+        msg += `<div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;float:right;width:100px;border:0px solid red;margin-right:20px;" onclick="delete_data()" >Yakin</div>`
+        msg += `<div class="vl"></div>`
+
+      dlg= $.messager.show({
+                    
+        msg: msg,
+        showType:'fade',
+        border:'thin',
+        cls: 'cls1',
+        height:180,
+        style:{
+            right:'',
+            bottom:''
+        }
+    });
+}
+
+async function delete_data(value){
+    dlg.dialog('close');
+    var img
+    var row = $('#dg_place').datagrid('getSelected');
+    var placeUid = row.placeUid
+    alert(placeUid)
+    var result = await proccess_delete(placeUid)
+    console.log(result)
+}
+
+async function  proccess_delete(id){
+    var url = "/geofence/delete"
+    var data = {id:id}
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ placeUid: id })
+    };
+
+    const response = await fetch(url,requestOptions)
+    .then(response => response.json()) 
+    .then(json => {
+        // alert (json)
+       return json
+    })
+
+    return response
+}

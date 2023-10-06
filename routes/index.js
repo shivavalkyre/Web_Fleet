@@ -7,6 +7,7 @@ var Chat = require ('../controllers/chat.js')
 var Tasklist = require('../controllers/tasklist.js')
 var Device = require('../controllers/device.js')
 var Vehicle = require('../controllers/vehicle.js')
+var Geofence = require('../controllers/geofence.js')
 var Auth = require('../controllers/auth.js')
 var util = require('util');
 const fs = require('fs');
@@ -278,6 +279,36 @@ router.post('/vehicle/history',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ HISTORY BODY ] | INFO ' + util.inspect(req.body));
     Vehicle.History(req,res)
 })
+
+// Geofence ==================================================================================================
+
+router.post('/geofence/create',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE BODY ] | INFO ' + util.inspect(req.body));
+    Geofence.create(req,res)
+})
+
+router.post('/geofence/read',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE BODY ] | INFO ' + util.inspect(req.body));
+
+    Geofence.read(req,res)
+})
+
+router.post('/geofence/list/read',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE BODY ] | INFO ' + util.inspect(req.body));
+
+    Geofence.read_list(req,res)
+})
+
+router.post('/geofence/delete',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE BODY ] | INFO ' + util.inspect(req.body));
+    Geofence.Delete(req,res)
+})
+
+// auth =========================================================================================================
 
 router.post('/auth',function (req, res, next) {
     Auth.Login(req,res)

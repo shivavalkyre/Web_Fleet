@@ -1,12 +1,14 @@
 
 
 var map = null
+var map_place = null
 var isinitializeMap = false
 var  isreinitializeMap = false
 var prevSpeed
 var prevStatus
 var prev_row_index_selected
 var row_index_selected=0
+var geofences = []
 // var tout
 var tint
 var arr_tout = []
@@ -30,7 +32,53 @@ var userid =  sessionStorage.getItem("id");
 			close_riwayat()
 			close_detail_box()
 
+			$('#geofence_box').hide();
+			$('#geo_circle').hide();
+			$('#geo_poly').hide();
+
+			var tt = $('#address_geo1');
+			tt.textbox('textbox').bind('keydown', function(e){
+				if (e.keyCode == 13){   // when press ENTER key, accept the inputed value.
+					// alert('here')
+					var marker_geo  = null
+					
+					AddressToLatLng($(this).val())
+					// map_place
+				}
+			});	
+
+			$('#create_geo_circle').bind('click', function(e){
+				 //check radius minimum 75
+				 var radius = $('#radius_geo1').textbox('getValue')
+				 if (parseInt(radius) <75){
+					alert('Radius minimum 75')
+				 }else if (radius != '' ){
+					lat = $('#lat_geo1').textbox('getValue')
+					lng = $('#lng_geo1').textbox('getValue')
+					address =  $('#address_geo1').textbox('getValue')
+					placeId =  $('#placeId_geo1').textbox('getValue')
+
+					if (lat !='' && lng != '' && address != '' && placeId != ''){
+						// create data geofence circle
+						var data = {
+							"placeId" : placeId,
+							"address" : address,
+							"lat"	  : lat,
+							"lng"	  : lng,
+							"radius"  : radius
+						}
+						createDataCirlceGeofence(data)
+					}else{
+						alert('Harap isi dengan lengkap')
+					}
+				 }else{
+					alert('Radius minimum 75')
+				 }
+
+			  });
+
 			InitializeMap()
+			InitializeMapPlace()
 			processing_data('pantau',null,'semua',false,null,userid)
 
 			var g3_1 = document.getElementById('g3_1')
@@ -132,7 +180,286 @@ var userid =  sessionStorage.getItem("id");
 					g3_1.style.background = 'transparent'
 				};
 
-			
+				$('#toggle_vehicle').linkbutton({
+					onClick:function(){
+					  var opts = $(this).linkbutton('options');
+					//   alert (opts.selected)
+					  if(opts.selected == false){
+							
+							clearInterval(t1_moving)
+							clearInterval(t1_offline)
+							clearInterval(t1_stop)
+							clearInterval(t1_all)
+							clearInterval(t2)
+							clearInterval(t3)
+							clearInterval(t4)
+							ReInitializeMap(null,gmarkers)
+							// clearMarkers()
+					  }else{
 
+							clearInterval(t1_moving)
+							clearInterval(t1_offline)
+							clearInterval(t1_stop)
+							clearInterval(t1_all)
+							clearInterval(t2)
+							clearInterval(t3)
+							clearInterval(t4)
+
+							InitializeMap()
+							processing_data('pantau',null,'semua',false,null,userid)
+					  }
+				}})
+
+				$('#toggle_place').linkbutton({
+					onClick:function(){
+					  var opts = $(this).linkbutton('options');
+					//   alert (opts.selected)
+					  if(opts.selected == true){
+							// hit api geofence
+							var url = '/geofence/read'
+							const requestOptions = {
+								method: 'POST',
+								headers: { 
+									'Content-Type': 'application/json'
+								},
+							};
+						
+							fetch(url,requestOptions)
+							.then(response => response.json()) 
+							.then(json => {
+								// alert (json)
+								console.log('json',json)
+								console.log('data length',json.places.length)
+								// return json
+								var ctr = 0;
+								for (i=0; i<= json.places.length-1;i++){
+										var jparse = JSON.parse(json.places[i].coordinates)
+										// if (json.places[i].coordinates){
+										console.log('i',i)
+										console.log('jparse',jparse)
+										var type_geometry = jparse.geometry.type
+										console.log('type geometry',type_geometry)
+										console.log('=======================================')
+
+
+										if (type_geometry == 'Point'){
+											console.log('ctr',ctr)
+											ctr++
+
+												var lat = jparse.geometry.coordinates[1]
+												var lng = jparse.geometry.coordinates [0]
+												var radius = jparse.properties.radius.value
+												var center = {lat:lat,lng:lng}
+												var title = json.places[i].placeId
+												var address = json.places[i].address
+												console.log('lat',lat)
+												console.log('lng',lng)
+												console.log('radius',radius)
+												console.log('center',center)
+												console.log('title',title)
+												console.log('address',address)
+
+												
+
+												drawCircle(lat,lng,radius,center,title,address)
+
+										}else{
+											console.log('ctr',ctr)
+											ctr++
+
+											// drawPolygon
+											console.log('ctr',ctr)
+											var coordinates = jparse.geometry.coordinates[0]
+											var title = json.places[i].placeId
+											var path_coordinates = []
+											for (l=0;l<=coordinates.length-1;l++){
+											   var lat = coordinates[l][1]
+											   var lon = coordinates[l][0]
+											   
+											   var coordinate = {lat:lat,lng:lon}
+											   path_coordinates.push(coordinate)
+											}
+											ctr++
+										   //  console.log('path',path_coordinates)
+										   drawPolygon(path_coordinates,title)
+
+										}
+									// }
+								}
+							})	
+					  	}else{
+							for (i=0;i<= geofences.length-1;i++){
+								geofences[i].setMap(null);
+							}
+						}
+					}
+				})
+
+				$('#circle_place').linkbutton({
+					onClick:function(){
+						var opts = $(this).linkbutton('options');
+						// alert(opts.selected)
+					  if(opts.selected == true){
+						$('#place_box').css("visibility","visible")
+						marker_geo.setMap(null)
+						map_place.setCenter(new google.maps.LatLng(-6.200000,106.816666))
+						InitializeMapPlace
+						$('#placeId_geo1').textbox('setValue','')
+						$('#address_geo1').textbox('setValue','')
+						$('#lat_geo1').textbox('setValue','')
+						$('#lng_geo1').textbox('setValue','')
+						$('#radius_geo1').textbox('setValue','')
+
+						$('#placeId_geo2').textbox('setValue','')
+						$('#address_geo2').textbox('setValue','')
+
+					  }else{
+						$('#place_box').css("visibility","hidden")
+						marker_geo.setMap(null)
+						map_place.setCenter(new google.maps.LatLng(-6.200000,106.816666))
+						InitializeMapPlace
+						$('#placeId_geo1').textbox('setValue','')
+						$('#address_geo1').textbox('setValue','')
+						$('#lat_geo1').textbox('setValue','')
+						$('#lng_geo1').textbox('setValue','')
+						$('#radius_geo1').textbox('setValue','')
+
+						$('#placeId_geo2').textbox('setValue','')
+						$('#address_geo2').textbox('setValue','')
+
+					  }
+					}
+				})
+
+				$('#list_place').linkbutton({
+					onClick:function(){
+						$('#w_place').window('open')
+						$('#dg_place').datagrid({
+							url: '/geofence/list/read'
+						})
+					}
+				})
 		});
+
+
+function AddressToLatLng(address){
+	var geocoder = new google.maps.Geocoder();
+	geocoder.geocode( { 'address': address}, function(results, status) {
+
+		if (status == google.maps.GeocoderStatus.OK) {
+			var latitude = results[0].geometry.location.lat();
+			var longitude = results[0].geometry.location.lng();
+
+			var location = new google.maps.LatLng(latitude,longitude);
+
+			marker_geo = new google.maps.Marker({
+				position: location,
+				map: map_place
+			});
+
+			map_place.setCenter(location);
+
+			$('#lat_geo1').textbox('setValue',latitude)
+			$('#lng_geo1').textbox('setValue',longitude)
+
+			const cityCircle = new google.maps.Circle({
+				strokeColor: "#FF0000",
+				strokeOpacity: 0.8,
+				strokeWeight: 2,
+				fillColor: "#FF0000",
+				fillOpacity: 0.35,
+				map:map_place,
+				center: location,
+				radius: 75,
+			  });
+
+			  map_place.setZoom(15)
+
+			console.log('latitude',latitude)
+			console.log('longitude',longitude)
+
+			} 
+		});
+}
 		
+function createDataCirlceGeofence(data){
+	// console.log('data',data)
+
+	var url = '/geofence/create'
+	const requestOptions = {
+		method: 'POST',
+		headers: { 
+			'Content-Type': 'application/json'
+		},
+		body:JSON.stringify(data)
+	};
+
+	fetch(url,requestOptions)
+	.then(response => response.json()) 
+	.then(json => {
+		// console.log(json)
+
+
+
+		if (json.status == 'success'){
+				var img = "/img/success.png"
+				var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+				msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data sukses</div>`
+				msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+							<hr style="width: 280px;margin-top:10px;margin-left:0px;">
+						</div>
+						<div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+							OK
+						</div>
+						`
+		
+				dlg = $.messager.show({
+				
+				msg: msg,
+				showType:'fade',
+				border:'thin',
+				timeout:500,
+				cls: 'cls1',
+				height:180,
+				style:{
+					right:'',
+					bottom:''
+				}
+			});
+
+			$('#circle_place').linkbutton({
+				selected:false
+			})
+
+			$('#place_box').css("visibility","hidden")
+
+		}else{
+					var img = "/img/red_close.png"
+					var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+					msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data gagal</div>`
+					msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+								<hr style="width: 280px;margin-top:10px;margin-left:0px;">
+							</div>
+							<div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+								OK
+							</div>
+							`
+			
+					dlg = $.messager.show({
+					
+					msg: msg,
+					showType:'fade',
+					border:'thin',
+					timeout:500,
+					cls: 'cls1',
+					height:180,
+					style:{
+						right:'',
+						bottom:''
+					}
+				});
+		}
+
+
+	})
+}

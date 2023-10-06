@@ -129,6 +129,114 @@ function InitializeMap() {
     // directionsRenderer.setMap(map);
 }
 
+
+function InitializeMapPlace() {
+    //alert('Start');
+    // map = null
+    // waypts = []
+    // gmarkers = []
+    // directionsRenderer.setMap(null);
+    // removeMarkerWaypoint(gmarkers_waypoint,gmarkers_waypoint.length)
+
+    var mapProp= {
+    center:new google.maps.LatLng(-6.200000,106.816666),
+    zoom:10,
+    fullscreenControl: false,
+    streetViewControl: false,
+    zoomControl: false,
+    disableDefaultUI: false,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    // styles: [{
+    //     "featureType": "landscape",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "lightness": 65
+    //     }, {
+    //         "visibility": "on"
+    //     }]
+    // }, {
+    //     "featureType": "poi",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "lightness": 51
+    //     }, {
+    //         "visibility": "off"
+    //     }]
+    // }, {
+    //     "featureType": "road.highway",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "visibility": "simplified"
+    //     }]
+    // }, {
+    //     "featureType": "road.arterial",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "lightness": 30
+    //     }, {
+    //         "visibility": "on"
+    //     }]
+    // }, {
+    //     "featureType": "road.local",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "lightness": 40
+    //     }, {
+    //         "visibility": "on"
+    //     }]
+    // }, {
+    //     "featureType": "transit",
+    //     "stylers": [{
+    //         "saturation": -100
+    //     }, {
+    //         "visibility": "simplified"
+    //     }]
+    // }, {
+    //     "featureType": "administrative.province",
+    //     "stylers": [{
+    //         "visibility": "off"
+    //     }]
+    // }, {
+    //     "featureType": "water",
+    //     "elementType": "labels",
+    //     "stylers": [{
+    //         "visibility": "on"
+    //     }, {
+    //         "lightness": -25
+    //     }, {
+    //         "saturation": -100
+    //     }]
+    // }, {
+    //     "featureType": "water",
+    //     "elementType": "geometry",
+    //     "stylers": [{
+    //         "hue": "#ffff00"
+    //     }, {
+    //         "lightness": -25
+    //     }, {
+    //         "saturation": -97
+    //     }]
+    // }]
+    };
+    map_place = null
+    // map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    map_place = new google.maps.Map(document.getElementById("googleMapPlace"),mapProp);
+
+    // map.setZoom(3)
+
+    // markerCluster = new MarkerClusterer(map, [], {
+    //     imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+    //   });
+
+    // directionsRenderer.setMap(map);
+}
+
+
 // Initialize Map =====================================================================
 
 // ReInitialize Map
@@ -165,14 +273,14 @@ function addMarker(location,heading,cars_info) {
 
         // console.log('cars_info:' + cars_info)
 
-        var contentString =`<div style="width:265px">`
+        var contentString =`<div style="width:300px">`
         contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ cars_info.vehicleUid +`</div></div>`
         contentString += `<div style="height:30px;margin-top:5px;text-align:left;font-size:12px;font-family:'Poppins';">Status</div>`
         contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
         contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ cars_info.deviceStatus + `</div>`
         contentString += `<div style="height:30px;margin-top:-15px;text-align:left;font-family:'Poppins';font-size:12px;">Last Update</div>`
         contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-        contentString += `<div style="height:30px;width:180px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.last_update + `</div>`
+        contentString += `<div style="height:30px;width:190px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.last_update + `</div>`
         contentString += `<div style="height:30px;margin-top:-15px;text-align:left;font-family:'Poppins';font-size:12px;">Speed</div>`
         contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
         contentString += `<div style="height:30px;width:80px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.speed + `</div>`
@@ -932,3 +1040,112 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 		return dist;
 	}
 }
+
+async function drawCircle(lat,lng,radius,center,title,address){
+   
+    var geofence = new google.maps.Circle({
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+        map,
+        center: center,
+        radius: radius,
+      });
+
+      console.log('address',address)
+
+    //   var avm = new google.maps.LatLng(center.lat, center.lng);
+    //   console.log('avm',avm)
+      var markerCnt = 0;
+
+      for (h=0;h<=gmarkers.length-1;h++){
+        if (google.maps.geometry.spherical.computeDistanceBetween(gmarkers[h].getPosition(), geofence.getCenter())<= geofence.getRadius()){
+            markerCnt++
+        }
+
+      }
+
+    //   console.log(markerCnt)
+
+      var contentString =`<div style="width:300px">`
+      contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`
+      contentString += `<div style="height:30px;margin-top:5px;text-align:left;font-size:12px;font-family:'Poppins';">Latitude</div>`
+      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+      contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ lat + `</div>`
+      contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Longitude</div>`
+      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+      contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ lng + `</div>`
+      contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Address</div>`
+      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+      contentString += `<div style="height:30px;width:200px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ address + `</div>`
+      contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Radius</div>`
+      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+      contentString += `<div style="height:30px;width:150px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ radius + ` meters </div>`
+      contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Vehicles</div>`
+      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+      contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ markerCnt + `</div>`
+      contentString += `</div>`
+
+    //   console.log('content_string',contentString)
+      
+      var infoWindow = new google.maps.InfoWindow({
+        content: contentString,
+        maxWidth: 500
+    });
+
+    //   google.maps.event.addListener(geofence, 'click', function(ev) {
+    //     infoWindow.setPosition(ev.latlng);
+    //     infoWindow.open(map);
+    // });
+
+    google.maps.event.addListener(geofence, 'click', function(ev){
+        infoWindow.setPosition(geofence.getCenter());
+        infoWindow.open(map);
+    });
+
+      geofences.push(geofence)
+}
+
+function drawPolygon(paths,title){
+   
+    var geofence = new google.maps.Polygon({
+        paths: paths,
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+      });
+
+      var markerCnt = 0;
+      
+
+      for (var i = 0; i < gmarkers.length; i++) {
+        if (google.maps.geometry.poly.containsLocation(gmarkers[i].getPosition(), geofence)) {
+          markerCnt++;
+        }
+      }
+
+      var contentString =`<div style="width:300px">`
+      contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`
+      contentString += `<div style="height:30px;margin-top:5px;text-align:left;font-size:12px;font-family:'Poppins';">Vehicles</div>`
+      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+      contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  markerCnt + `</div>`
+      contentString += `</div>`
+      
+      var infoWindow = new google.maps.InfoWindow({
+        content: contentString,
+        maxWidth: 500
+    });
+
+      google.maps.event.addListener(geofence, 'click', function(ev) {
+        infoWindow.setPosition(ev.latLng);
+            infoWindow.open(map);
+    });
+    
+      geofence.setMap(map);
+      geofences.push(geofence)
+}
+

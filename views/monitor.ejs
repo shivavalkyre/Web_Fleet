@@ -110,6 +110,72 @@
                 
                 <div data-options="region:'center'"  style="background-color: white;width:100%;height: 100%;border:none;">
                     <div id="googleMap" style="width: 100%;height: 100%;z-index:1"></div>
+                    <!-- Vehicle & Place -->
+                    <div id="geofence_box" style="width: 350;height:40px;z-index:4;top:10;left:200;position:absolute;background: transparent;visibility: visible;overflow-y: auto;">
+                        <a id="toggle_vehicle" href="#" class="easyui-linkbutton" data-options="toggle:true,selected:true" style="height: 100%;width:100px;"><span style="font-size: 16px;">Vehicle</span></a>
+                        <div style="margin-top: -40px;margin-left:100px;">
+                            <a id="toggle_place" href="#" class="easyui-linkbutton" data-options="toggle:true" style="height: 100%;width:100px;"><span style="font-size: 16px;">Place</span></a>   
+                        </div>
+                        <div style="margin-top: -40px;margin-left:220px;">
+                            <a id="circle_place" href="#" class="easyui-linkbutton" data-options="toggle:true,plain:false,iconCls:'icon-circle'" style="height: 100%;width: 40px;"> </a>   
+                        </div>
+                        <div style="margin-top: -40px;margin-left:260px;">
+                            <a id="polygon_place" href="#" class="easyui-linkbutton" data-options="toggle:true,plain:false,iconCls:'icon-polygon'" style="height: 100%;width: 40px;"> </a>   
+                        </div>
+                        <div style="margin-top: -40px;margin-left:300px;">
+                            <a id="list_place" href="#" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-tasklist-black'" style="height: 100%;width: 40px;"> </a>   
+                        </div>
+                    </div>
+                    <!-- Create Place Box -->
+                    <div id="place_box" style="width: 200px;height:100%;z-index:2;top:0%;right:0;position:absolute;background: #F5F8FFD9;float:right;visibility: hidden;">
+                        <div id="title_geofence" style="margin:10 0 0 10;width: 100%;height: 16px;font-size: 14px;font-weight: bolder;color: black;font-family: 'Poppins';">Circle Geofence</div>
+                        
+                        <div id="geo_cirle">
+                            <div style="margin:10 0 0 10">
+                                <input id="placeId_geo1" class="easyui-textbox" label="Place Name:" labelPosition="top" style="width:100%;">
+                            </div>
+    
+                            <div style="margin:10 0 0 10">
+                                <input id="address_geo1" class="easyui-textbox" label="Address:" multiline="true" labelPosition="top" style="width:100%;">
+                            </div>
+
+                            <div style="margin:10 0 0 10;width: 185px;height: 150px;border-radius: 5px;">
+                                <div id="googleMapPlace" style="width: 100%;height: 100%;border-radius: 5px;"></div>
+                            </div>
+                            
+    
+                            <div style="margin:10 0 0 10">
+                                <input id="lat_geo1" class="easyui-textbox" label="latitude:" labelPosition="top" style="width:100%;">
+                            </div>
+                            
+                            <div style="margin:10 0 0 10">
+                                <input id="lng_geo1" class="easyui-numberbox" label="longitude:" labelPosition="top" style="width:100%;">
+                            </div>
+    
+                            <div style="margin:10 0 0 10">
+                                <input id="radius_geo1" class="easyui-textbox" label="radius:" labelPosition="top" style="width:100%;">
+                            </div>
+
+                            <div style="margin:10 0 0 10;float:right;">
+                                <a id="create_geo_circle" href="#" class="easyui-linkbutton" style="height:35px;float:right;background: #436AAC;color:white;">Create</a>
+                            </div>
+
+                        </div>
+
+                        <div id="geo_poly">
+                            <div style="margin:10 0 0 10">
+                                <input id="placeId_geo2" class="easyui-textbox" label="placeId:" labelPosition="top" style="width:100%;">
+                            </div>
+    
+                            <div style="margin:10 0 0 10">
+                                <input id="address_geo2" class="easyui-textbox" label="Address:" multiline="true" labelPosition="top" style="width:100%;">
+                            </div>
+    
+      
+
+                        </div>
+                       
+                    </div>
                     <!-- Live Box -->
                     <div id="live_box" style="width: 30%px;height:100%;z-index:2;top:0%;right:0;position:absolute;background: #F5F8FFD9;float:right;visibility: hidden;">
                         <div id="title_detail" style="margin:10 0 0 10;width: 100%;height: 16px;font-size: 14px;font-weight: bolder;color: black;font-family: 'Poppins';">Vuid</div>
@@ -361,11 +427,13 @@
                     <img src="/img/close_history.png" width="68" height="68"/>
                 </div>
 
-                
+
 
                     <!-- Other -->
 
                 </div>
+
+    
             
             </div>
 
@@ -373,6 +441,21 @@
 
 
             </div>
+        </div>
+
+        <div id="w_place" class="easyui-window" title="List Place" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false,headerCls:'hcls1'" style="width:800px;height:400px;padding:10px;">
+            <table id="dg_place" class="easyui-datagrid"  style="width:100%;height:340px"
+            data-options="singleSelect:true,collapsible:true,fitColumns:true,striped:true,nowrap:true,pagination:true,nowrap:false">
+                <thead>
+                    <tr>
+                        <th data-options="field:'placeUid',width:100,align:'center'">PlaceUid</th>
+                        <th data-options="field:'placeId',width:100,align:'center'">Place</th>
+                        <th data-options="field:'address',width:80,align:'center'">Address</th>
+                        <th data-options="field:'type',width:80,align:'center'">Type</th>
+                        <th data-options="field:'status',width:80,align:'center',formatter:formatAction">Action</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
 
         <script type="text/javascript" src="/js/markers_arrow.js"></script>  

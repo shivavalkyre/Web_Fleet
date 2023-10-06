@@ -6,6 +6,19 @@
     font-family: 'Poppins';
 }
 
+.datagrid-header-row, .datagrid-row{
+  height:40px;
+}
+
+.datagrid-header .datagrid-cell{
+  font-weight: bold;
+  font-family: 'Poppins';
+}
+
+.datagrid-row-selected {
+  background: #436AAC;
+  color: white;
+}
 
 .bg1{
         background: #2F3089;
@@ -343,4 +356,12 @@ font-family: 'Open Sans';
   /* border-radius: px; */
 }
 
+/* .hcls1{
+  background: #2F3089;
+} */
+
+.hcls1 .panel-title{
+
+  color: #436AAC;
+}
 

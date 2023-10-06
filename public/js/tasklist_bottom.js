@@ -325,6 +325,35 @@ function view_data(){
 function edit_data(){
     InitializeMap
     $('#form_title').text('Edit Penugasan')
+    
+
+    
+    var url = '/vehicle/read/all/'+ userid
+
+    $('#t_vehicleid').combogrid({
+        panelWidth: 250,
+        idField: 'vehicleid',
+        textField: 'vehicleid',
+        url: url,
+        method: 'post',
+        columns: [[
+            {field:'vehicleid',title:'Vehicle ID',width:80},
+        ]],
+        fitColumns: true,
+        label: 'Vehicle ID:',
+        labelPosition: 'left'
+    })
+   
+    var url = '/petugas/read/all/' + userid
+    $('#t_user').combobox({
+            url:url,
+            method:'post',
+            valueField:'id',
+            textField:'username',
+            label: 'User'
+    })
+    $('#t_user').combobox('enable')
+
     var row = $('#dg').datagrid('getSelected');
     //alert(row.id)
     
@@ -344,7 +373,8 @@ function edit_data(){
         task_status:row.task_status,
         vehicleid:row.vehicleid,
         userid: row.userid,
-        desc: row.desc
+        desc: row.desc,
+        createdBy:row.createdBy
     });
 
 
@@ -422,8 +452,10 @@ function tambah_data(){
             method:'post',
             valueField:'id',
             textField:'username',
-            label: 'User' 
+            label: 'User'
     })
+
+    $('#t_user').combobox('disable')
 
     // data-options="
     //                     url:'/user',
@@ -440,70 +472,450 @@ function tambah_data(){
     $('#w_tambah').window('center');
 }
 
+
+
 async function simpan_data(){
 
     // alert('store status: '+ store_status)
+    // var form = $('#ff')[0];
+    // var data = new FormData(form);
+
     
-    if (store_status==0){
+    if (store_status==0)
+    {
 
-        // var inputElement = document.querySelector("input[type='file']");
-        // var fileSize = inputElement.files[0].size;
-        // alert(fileSize)
-        // insert
-        
-        // event.preventDefault();
-        var form = $('#ff')[0];
-        var data = new FormData(form);
-
-        // for (var pair of data.entries()) {
-        //     console.log(pair[0]+ ', ' + pair[1]); 
-        // }
-
+        $('#t_user').combobox('disable')
 
         let  url = '/tasklist/create'
+        var vehicles = $('#t_vehicleid').combogrid('getValues')
+        var reccuring_type = $('#t_recurrent_type').combobox('getValue')
+        // alert (reccuring_type)
 
-        const response = await fetch(url, {
-            method: "POST",
-            body: data
-          })
-        console.log(response.status)
-        var img 
-        if (parseInt(response.status) == 200){
-            img = "/img/success.png"
+        if (reccuring_type == ''){
+
+            for (i=0;i<=vehicles.length-1;i++)
+            {
+                var id = $('#t_task_id').textbox('getValue')
+                var task = $('#t_task').textbox('getValue')
+                var address = $('#t_address').textbox('getValue')
+                var lat = $('#t_lat').textbox('getValue')
+                var lng = $('#t_lon').textbox('getValue')
+                var tanggal = $('#t_tanggal').datebox('getValue')
+                var time = $('#t_time').textbox('getValue')
+                var status = $('#t_status').combobox('getValue')
+                
+                var createdBy  = $('#t_createdby').textbox('getValue')
+                var desc = $('#desc').textbox('getValue')
+    
+                // alert(vehicles[i])
+                // var users = $('#t_user').combobox('getValues')
+                
+                // for(j=0;j<= users.length-1;j++){
+                //     alert (users[j])
+                    const formData = new FormData();
+                    formData.append("id","")
+                    formData.append("task",task)
+                    formData.append("task_address",address)
+                    formData.append("task_lat",lat)
+                    formData.append("task_lon",lng)
+                    formData.append("task_date",tanggal)
+                    formData.append("task_time",time)
+                    formData.append("task_status",status)
+                    formData.append("vehicleid",vehicles[i])
+                    // formData.append("userid",users[j])
+                    formData.append("createdBy",createdBy)
+                    formData.append("desc",desc)
+    
+                    
+                
+                    console.log(Array.from(formData));
+    
+                    const response = await fetch(url, {
+                        method: "POST",
+                        body: formData
+                      })
+            
+                    console.log(response.status)
+                    var img 
+                    if (parseInt(response.status) == 200){
+                        img = "/img/success.png"
+                    }else{
+                        img = "/img/red_close.png"
+                    }
+                    
+                    if (parseInt(response.status) == 200){
+                                var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+                                msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data sukses</div>`
+                                msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                            <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                                        </div>
+                                        <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                            OK
+                                        </div>
+                                        `
+                        
+                                dlg = $.messager.show({
+                                
+                                msg: msg,
+                                showType:'fade',
+                                border:'thin',
+                                timeout:500,
+                                cls: 'cls1',
+                                height:180,
+                                style:{
+                                    right:'',
+                                    bottom:''
+                                }
+                            });
+                            
+                            $('#dg').datagrid('reload')
+                            $('#w_tambah').window('close')
+                    } else{
+                                var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+                                msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data gagal</div>`
+                                msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                            <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                                        </div>
+                                        <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                            OK
+                                        </div>
+                                        `
+                        
+                                dlg = $.messager.show({
+                                
+                                msg: msg,
+                                showType:'fade',
+                                border:'thin',
+                                timeout:500,
+                                cls: 'cls1',
+                                height:180,
+                                style:{
+                                    right:'',
+                                    bottom:''
+                                }
+                            });
+                            
+                            $('#dg').datagrid('reload')
+                            $('#w_tambah').window('close')
+                    }
+                    
+    
+                // }
+                
+            
+               
+                
+            }
         }else{
-            img = "/img/red_close.png"
+
+            if (vehicles.length == 1){
+                if (reccuring_type == 'daily'){
+                    // alert(reccuring_type)
+                    var start_reccurent = $('#t_start_recurrent').datebox('getValue')
+                    var end_recurrent = $('#t_end_reccurent').datebox('getValue')
+    
+                    console.log('start', start_reccurent)
+                    console.log('end',end_recurrent)
+    
+                    if (start_reccurent!='' && end_recurrent!=''){
+                        var result = CompareDate(end_recurrent, start_reccurent)
+                        if(result=='equal' || result=='greater'){
+                            // buat jadwal sesuai range tanggal per hari
+                            var jumlah_hari = SelisihHari(end_recurrent,start_reccurent)
+                            console.log(jumlah_hari)
+                            var tgl;
+                            var res;
+                            for (k=0;k<= jumlah_hari;k++){
+                                 if (k==0){
+                                    console.log('Start here =====================')
+                                    tgl = new Date(start_reccurent)
+                                    tgl.setHours(0, 0, 0, 0);
+                                    tgl.setDate (tgl.getDate())
+                                    res = tgl.getFullYear() +'-' + String(tgl.getMonth() + 1).padStart(2, '0') + '-' + String(tgl.getDate()).padStart(2, '0')
+                                    console.log('tgl',tgl)
+                                    console.log('res',res)
+                                 }else{
+                                    console.log('Next here =====================')
+                                    console.log('res awal',res)
+                                    tgl = new Date(res)
+                                    tgl.setHours(0, 0, 0, 0);
+                                    tgl.setDate (tgl.getDate() + 1)
+                                    res = tgl.getFullYear() +'-' + String(tgl.getMonth() + 1).padStart(2, '0') + '-' + String(tgl.getDate()).padStart(2, '0')
+                                    console.log('tgl',tgl)
+                                    console.log('res baru',res)
+                                 }
+    
+                                 for (i=0;i<=vehicles.length-1;i++)
+                                 {
+                                     var id = $('#t_task_id').textbox('getValue')
+                                     var task = $('#t_task').textbox('getValue')
+                                     var address = $('#t_address').textbox('getValue')
+                                     var lat = $('#t_lat').textbox('getValue')
+                                     var lng = $('#t_lon').textbox('getValue')
+                                     var tanggal = $('#t_tanggal').datebox('getValue')
+                                     var time = $('#t_time').textbox('getValue')
+                                     var status = $('#t_status').combobox('getValue')
+                                     
+                                     var createdBy  = $('#t_createdby').textbox('getValue')
+                                     var desc = $('#desc').textbox('getValue')
+                         
+                                     // alert(vehicles[i])
+                                     // var users = $('#t_user').combobox('getValues')
+                                     
+                                     // for(j=0;j<= users.length-1;j++){
+                                     //     alert (users[j])
+                                         const formData = new FormData();
+                                         formData.append("id","")
+                                         formData.append("task",task)
+                                         formData.append("task_address",address)
+                                         formData.append("task_lat",lat)
+                                         formData.append("task_lon",lng)
+                                         formData.append("task_date",res)
+                                         formData.append("task_time",time)
+                                         formData.append("task_status",status)
+                                         formData.append("vehicleid",vehicles[i])
+                                         // formData.append("userid",users[j])
+                                         formData.append("createdBy",createdBy)
+                                         formData.append("desc",desc)
+                         
+                                         
+                                     
+                                         console.log(Array.from(formData));
+                         
+                                         const response = await fetch(url, {
+                                             method: "POST",
+                                             body: formData
+                                           })
+                                 
+                                         console.log(response.status)
+                                         var img 
+                                         if (parseInt(response.status) == 200){
+                                             img = "/img/success.png"
+                                         }else{
+                                             img = "/img/red_close.png"
+                                         }
+                                         
+                                         if (parseInt(response.status) == 200){
+                                                     var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+                                                     msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data sukses</div>`
+                                                     msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                                                 <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                                                             </div>
+                                                             <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                                                 OK
+                                                             </div>
+                                                             `
+                                             
+                                                     dlg = $.messager.show({
+                                                     
+                                                     msg: msg,
+                                                     showType:'fade',
+                                                     border:'thin',
+                                                     timeout:500,
+                                                     cls: 'cls1',
+                                                     height:180,
+                                                     style:{
+                                                         right:'',
+                                                         bottom:''
+                                                     }
+                                                 });
+                                                 
+                                                 $('#dg').datagrid('reload')
+                                                 $('#w_tambah').window('close')
+                                         } else{
+                                                     var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+                                                     msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data gagal</div>`
+                                                     msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                                                 <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                                                             </div>
+                                                             <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                                                 OK
+                                                             </div>
+                                                             `
+                                             
+                                                     dlg = $.messager.show({
+                                                     
+                                                     msg: msg,
+                                                     showType:'fade',
+                                                     border:'thin',
+                                                     timeout:500,
+                                                     cls: 'cls1',
+                                                     height:180,
+                                                     style:{
+                                                         right:'',
+                                                         bottom:''
+                                                     }
+                                                 });
+                                                 
+                                                 $('#dg').datagrid('reload')
+                                                 $('#w_tambah').window('close')
+                                         }
+                                         
+                         
+                                     // }
+                                     
+                                 
+                                    
+                                     
+                                 }
+                                 
+                            }
+                        }
+                    }else{
+                        alert('Harap Isi tanggal dengan lengkap')
+                    }
+                }else if (reccuring_type == 'monthly'){
+                    // alert(reccuring_type)
+                    var start_reccurent = new Date()
+                    var end_recurrent = $('#t_end_month_reccurent').numberbox('getValue')
+    
+                    for (k=0;k<end_recurrent;k++){
+                        if (k==0){
+                            console.log('Start here =====================')
+                            tgl = new Date(start_reccurent)
+                            tgl.setHours(0, 0, 0, 0);
+                            tgl.setDate (tgl.getDate())
+                            res = tgl.getFullYear() +'-' + String(tgl.getMonth() + 1).padStart(2, '0') + '-' + String(tgl.getDate()).padStart(2, '0')
+                            console.log('tgl',tgl)
+                            console.log('res',res)
+                         }else{
+                            console.log('Next here =====================')
+                            console.log('res awal',res)
+                            tgl = new Date(res)
+                            tgl.setHours(0, 0, 0, 0);
+                            tgl.setDate (tgl.getDate() + 30)
+                            res = tgl.getFullYear() +'-' + String(tgl.getMonth() + 1).padStart(2, '0') + '-' + String(tgl.getDate()).padStart(2, '0')
+                            console.log('tgl',tgl)
+                            console.log('res baru',res)
+                         }
+
+                         for (i=0;i<=vehicles.length-1;i++)
+                         {
+                             var id = $('#t_task_id').textbox('getValue')
+                             var task = $('#t_task').textbox('getValue')
+                             var address = $('#t_address').textbox('getValue')
+                             var lat = $('#t_lat').textbox('getValue')
+                             var lng = $('#t_lon').textbox('getValue')
+                             var tanggal = $('#t_tanggal').datebox('getValue')
+                             var time = $('#t_time').textbox('getValue')
+                             var status = $('#t_status').combobox('getValue')
+                             
+                             var createdBy  = $('#t_createdby').textbox('getValue')
+                             var desc = $('#desc').textbox('getValue')
+                 
+                             // alert(vehicles[i])
+                             // var users = $('#t_user').combobox('getValues')
+                             
+                             // for(j=0;j<= users.length-1;j++){
+                             //     alert (users[j])
+                                 const formData = new FormData();
+                                 formData.append("id","")
+                                 formData.append("task",task)
+                                 formData.append("task_address",address)
+                                 formData.append("task_lat",lat)
+                                 formData.append("task_lon",lng)
+                                 formData.append("task_date",res)
+                                 formData.append("task_time",time)
+                                 formData.append("task_status",status)
+                                 formData.append("vehicleid",vehicles[i])
+                                 // formData.append("userid",users[j])
+                                 formData.append("createdBy",createdBy)
+                                 formData.append("desc",desc)
+                 
+                                 
+                             
+                                 console.log(Array.from(formData));
+                 
+                                 const response = await fetch(url, {
+                                     method: "POST",
+                                     body: formData
+                                   })
+                         
+                                 console.log(response.status)
+                                 var img 
+                                 if (parseInt(response.status) == 200){
+                                     img = "/img/success.png"
+                                 }else{
+                                     img = "/img/red_close.png"
+                                 }
+                                 
+                                 if (parseInt(response.status) == 200){
+                                             var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+                                             msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data sukses</div>`
+                                             msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                                         <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                                                     </div>
+                                                     <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                                         OK
+                                                     </div>
+                                                     `
+                                     
+                                             dlg = $.messager.show({
+                                             
+                                             msg: msg,
+                                             showType:'fade',
+                                             border:'thin',
+                                             timeout:500,
+                                             cls: 'cls1',
+                                             height:180,
+                                             style:{
+                                                 right:'',
+                                                 bottom:''
+                                             }
+                                         });
+                                         
+                                         $('#dg').datagrid('reload')
+                                         $('#w_tambah').window('close')
+                                 } else{
+                                             var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+                                             msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data gagal</div>`
+                                             msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                                         <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                                                     </div>
+                                                     <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                                         OK
+                                                     </div>
+                                                     `
+                                     
+                                             dlg = $.messager.show({
+                                             
+                                             msg: msg,
+                                             showType:'fade',
+                                             border:'thin',
+                                             timeout:500,
+                                             cls: 'cls1',
+                                             height:180,
+                                             style:{
+                                                 right:'',
+                                                 bottom:''
+                                             }
+                                         });
+                                         
+                                         $('#dg').datagrid('reload')
+                                         $('#w_tambah').window('close')
+                                 }
+                                 
+                 
+                             // }
+                             
+                         
+                            
+                             
+                         }
+                    }
+    
+
+                }
+            }else{
+                alert('Recurring hanya untuk 1 kendaraan')
+            }
+
         }
 
-        var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
-        msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data sukses</div>`
-        msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
-                    <hr style="width: 280px;margin-top:10px;margin-left:0px;">
-                </div>
-                <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
-                    OK
-                </div>
-                `
 
-        dlg = $.messager.show({
-        
-        msg: msg,
-        showType:'fade',
-        border:'thin',
-        timeout:500,
-        cls: 'cls1',
-        height:180,
-        style:{
-            right:'',
-            bottom:''
-        }
-    });
-    $('#dg').datagrid('reload')
-    $('#w_tambah').window('close')
-        
-    }
-    else
-    {
-        // update
+    }else{
+
+                      // update
         $('#ff').form('submit',{
             url:'/tasklist/update',
             onSubmit:function(data){
@@ -549,7 +961,6 @@ async function simpan_data(){
                 $('#w_tambah').window('close')
             }
         });
-
     }
    
 }
@@ -747,3 +1158,40 @@ function myFunction() {
 //  $(":file").change(function(){
 //     alert($(":file").val());
 //  });
+
+
+function CompareDate(d1,d2){
+    let date1 = new Date(d1).getTime();
+    let date2 = new Date(d2).getTime();
+    var res= ''
+
+  if (date1 < date2) {
+    console.log(`${d1} is less than ${d2}`);
+    res = 'less'
+
+  } else if (date1 > date2) {
+    console.log(`${d1} is greater than ${d2}`);
+    res = 'greater'
+  } else {
+    console.log(`Both dates are equal`);
+    res = 'equal'
+  }
+  return res
+}
+
+function SelisihHari(d1,d2){
+var tanggal1 = new Date(d1); // new Date() saja akan menghasilkan tanggal sekarang
+var tanggal2 = new Date(d2); // format tanggal YYYY-MM-DD, tahun-bulan-hari
+ 
+// set jam menjadi jam 12 malam, atau 00
+tanggal1.setHours(0, 0, 0, 0);
+tanggal2.setHours(0, 0, 0, 0);
+ 
+var selisih = Math.abs(tanggal1 - tanggal2);
+// Selisih akan dalam millisecond atau mili detik
+ 
+var hariDalamMillisecond = 1000 * 60 * 60 * 24; // 1000 * 1 menit * 1 jam * 1 hari
+ 
+var selisihTanggal = Math.round(selisih / hariDalamMillisecond);
+return selisihTanggal
+}

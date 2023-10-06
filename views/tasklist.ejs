@@ -107,6 +107,7 @@
                                                 <th data-options="field:'desc',width:100,align:'center'">Desc</th>
                                                 <th data-options="field:'path',width:100,align:'center'">Path</th>
                                                 <th data-options="field:'filename',width:100,align:'center'">Filename</th>
+                                                <th data-options="field:'createdBy',width:100,align:'center'" hidden>Created By</th>
                                             </tr>
                                         </thead>
 
@@ -265,14 +266,14 @@
                                             panelHeight: 'auto'" style="width:100%;background-color: #F6F6F6;height: 30px;"/>
                     </div>
                     <div style="margin-bottom:10px">
-                        <input id= "t_vehicleid" class="easyui-combogrid" style="width:100%" name="vehicleid">
+                        <input id= "t_vehicleid" class="easyui-combogrid" data-options="multiple: true" style="width:100%" name="vehicleid">
                     </div>
                     <div style="margin-bottom:10px">
-                        <input id="t_user" class="easyui-combobox" name="userid" style="width:100%;">
+                        <input id="t_user" class="easyui-combobox"  name="userid" style="width:100%;">
                     </div>
 
                     <div style="top: 0; visibility: hidden;position:absolute">
-                        <input id="t_createdby" class="easyui-textbox" name="createdBy" style="width:200px" data-options="label:'createdBy'">
+                        <input id="t_createdby" class="easyui-textbox" name="createdBy" style="width:100%" data-options="label:'createdBy'">
                     </div>
                     
                 </div>
@@ -286,11 +287,31 @@
                     </div>
                     <div style="margin-bottom:20px;margin-top: 10px;">
                         <div style="font-weight: 900;">Keterangan</div>
-                        <input class="easyui-textbox"  multiline="true" name="desc" value="This TextBox will allow the user to enter multiple lines of text." style="width:100%;height:120px">
+                        <input id="desc" class="easyui-textbox"  multiline="true" name="desc" value="This TextBox will allow the user to enter multiple lines of text." style="width:100%;height:120px">
                     </div>
                 </div>
 
-
+                <div title="Recuring Task" style ="padding: 10px;">
+                    <div style="margin-bottom:10px">
+                    <select id="t_recurrent_type" class="easyui-combobox" name="recurrent_type" label="Reccurent Type:" labelPosition="top" style="width:100%;">
+                        <option value="daily">Daily</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                    </div>
+                    <div id="t_daily" >
+                        <div style="margin-bottom:10px">
+                            <input id="t_start_recurrent"  class="easyui-datebox"  name="start_recurrent" data-options="formatter:myformatter,parser:myparser" label="Start Date:" labelPosition="top" style="width:100%;">
+                        </div>
+                        <div style="margin-bottom:10px">
+                            <input id="t_end_reccurent"  class="easyui-datebox" name="end_recurrent" data-options="formatter:myformatter,parser:myparser" label="End Date:" labelPosition="top" style="width:100%;">
+                        </div>
+                    </div>
+                    <div id="t_monthly">
+                        <div style="margin-bottom:10px">
+                            <input id="t_end_month_reccurent"  class="easyui-numberbox" name="end_month_recurrent"  label="Month Reccurent:" labelPosition="top" style="width:100%;">
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div style="margin-bottom:10px;float:right">

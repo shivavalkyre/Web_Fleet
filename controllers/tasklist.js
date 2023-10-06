@@ -153,14 +153,14 @@ var read_by_status = async function(req,res){
 
 var update = async function(req,res){
 
-    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST BODY ] | INFO ' + util.inspect(req.body));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST BODY UPDATE] | INFO ' + util.inspect(req.body));
 
     var url = process.env.URL_UPDATE_TASKLIST +'/' + req.body.id
     var token = process.env.TOKEN_APP
 
     req.headers.token = token
 
-    futil.logger.debug('\n' + futil.shtm() + '- [ URL ] | INFO ' + util.inspect(url));
+    futil.logger.debug('\n' + futil.shtm() + '- [ URL UPDATE ] | INFO ' + util.inspect(url));
     futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
 
     
