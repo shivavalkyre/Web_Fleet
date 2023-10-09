@@ -804,9 +804,33 @@ async function delete_data(value){
     var img
     var row = $('#dg_place').datagrid('getSelected');
     var placeUid = row.placeUid
-    alert(placeUid)
+    // alert(placeUid)
     var result = await proccess_delete(placeUid)
     console.log(result)
+    if (result.status='success'){
+        $('#dg_place').datagrid('reload')
+        img = "/img/success.png"
+        var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+        msg+= `<div style="width:100%;height:40px;text-align:center"> Data berhasil dihapus </div>`
+        msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                            </div>
+                            <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                OK
+                            </div>
+                            `
+    }else{
+        img = "/img/red_close.png"
+        var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+        msg+= `<div style="width:100%;height:40px;text-align:center"> Hapus data tidak diijinkan </div>`
+        msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                            </div>
+                            <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                OK
+                            </div>
+                            `
+    }
 }
 
 async function  proccess_delete(id){

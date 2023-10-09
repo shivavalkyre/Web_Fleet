@@ -47,32 +47,55 @@ var userid =  sessionStorage.getItem("id");
 				}
 			});	
 
-			$('#create_geo_circle').bind('click', function(e){
+			$('#create_geo_shape').bind('click', function(e){
 				 //check radius minimum 75
-				 var radius = $('#radius_geo1').textbox('getValue')
-				 if (parseInt(radius) <75){
-					alert('Radius minimum 75')
-				 }else if (radius != '' ){
-					lat = $('#lat_geo1').textbox('getValue')
-					lng = $('#lng_geo1').textbox('getValue')
+				 var coord = $('#coordinates_geo1').textbox('getValue')
+				 var identify = coord.substr(0,1)
+				 console.log('identify',identify)
+
+				 if(identify == '{'){
+					// circle
+					var json_coord =JSON.parse(coord)
+					var lat = JSON.parse(coord).lat
+					var lng = JSON.parse(coord).lng
+					console.log('lat',lat)
+					console.log('lng',lng)
+
+					console.log('json_coord',json_coord)
+
 					address =  $('#address_geo1').textbox('getValue')
 					placeId =  $('#placeId_geo1').textbox('getValue')
 
 					if (lat !='' && lng != '' && address != '' && placeId != ''){
-						// create data geofence circle
+						var radius = $('#radius_geo1').textbox('getValue')
 						var data = {
+							"mode":"circle",
 							"placeId" : placeId,
 							"address" : address,
-							"lat"	  : lat,
-							"lng"	  : lng,
+							"coordinates": [lat,lng],
 							"radius"  : radius
 						}
+						console.log('data',data)
 						createDataCirlceGeofence(data)
 					}else{
 						alert('Harap isi dengan lengkap')
 					}
-				 }else{
-					alert('Radius minimum 75')
+					
+
+				 }else if(identify == '['){
+					// polygon
+
+						address =  $('#address_geo1').textbox('getValue')
+						placeId =  $('#placeId_geo1').textbox('getValue')
+
+						var data = {
+							"mode":"polygon",
+							"placeId" : placeId,
+							"address" : address,
+							"coordinates": coord
+						}
+						createDataPolygonGeofence(data)
+
 				 }
 
 			  });
@@ -213,8 +236,9 @@ var userid =  sessionStorage.getItem("id");
 				$('#toggle_place').linkbutton({
 					onClick:function(){
 					  var opts = $(this).linkbutton('options');
-					//   alert (opts.selected)
+					  
 					  if(opts.selected == true){
+							
 							// hit api geofence
 							var url = '/geofence/read'
 							const requestOptions = {
@@ -288,6 +312,7 @@ var userid =  sessionStorage.getItem("id");
 								}
 							})	
 					  	}else{
+							
 							for (i=0;i<= geofences.length-1;i++){
 								geofences[i].setMap(null);
 							}
@@ -299,29 +324,31 @@ var userid =  sessionStorage.getItem("id");
 					onClick:function(){
 						var opts = $(this).linkbutton('options');
 						// alert(opts.selected)
+						$('#coordinates_geo1').textbox('setValue','')
 					  if(opts.selected == true){
 						$('#place_box').css("visibility","visible")
-						marker_geo.setMap(null)
+						// marker_geo.setMap(null)
 						map_place.setCenter(new google.maps.LatLng(-6.200000,106.816666))
 						InitializeMapPlace
 						$('#placeId_geo1').textbox('setValue','')
 						$('#address_geo1').textbox('setValue','')
-						$('#lat_geo1').textbox('setValue','')
-						$('#lng_geo1').textbox('setValue','')
+						// $('#lat_geo1').textbox('setValue','')
+						// $('#lng_geo1').textbox('setValue','')
 						$('#radius_geo1').textbox('setValue','')
 
 						$('#placeId_geo2').textbox('setValue','')
 						$('#address_geo2').textbox('setValue','')
 
 					  }else{
+						InitializeMapPlace()
 						$('#place_box').css("visibility","hidden")
 						marker_geo.setMap(null)
 						map_place.setCenter(new google.maps.LatLng(-6.200000,106.816666))
-						InitializeMapPlace
+						// InitializeMapPlace
 						$('#placeId_geo1').textbox('setValue','')
 						$('#address_geo1').textbox('setValue','')
-						$('#lat_geo1').textbox('setValue','')
-						$('#lng_geo1').textbox('setValue','')
+						// $('#lat_geo1').textbox('setValue','')
+						// $('#lng_geo1').textbox('setValue','')
 						$('#radius_geo1').textbox('setValue','')
 
 						$('#placeId_geo2').textbox('setValue','')
@@ -359,30 +386,119 @@ function AddressToLatLng(address){
 
 			map_place.setCenter(location);
 
-			$('#lat_geo1').textbox('setValue',latitude)
-			$('#lng_geo1').textbox('setValue',longitude)
+			// $('#lat_geo1').textbox('setValue',latitude)
+			// $('#lng_geo1').textbox('setValue',longitude)
 
-			const cityCircle = new google.maps.Circle({
-				strokeColor: "#FF0000",
-				strokeOpacity: 0.8,
-				strokeWeight: 2,
-				fillColor: "#FF0000",
-				fillOpacity: 0.35,
-				map:map_place,
-				center: location,
-				radius: 75,
-			  });
+			// const cityCircle = new google.maps.Circle({
+			// 	strokeColor: "#FF0000",
+			// 	strokeOpacity: 0.8,
+			// 	strokeWeight: 2,
+			// 	fillColor: "#FF0000",
+			// 	fillOpacity: 0.35,
+			// 	map:map_place,
+			// 	center: location,
+			// 	radius: 75,
+			//   });
 
-			  map_place.setZoom(15)
+			//   map_place.setZoom(15)
 
-			console.log('latitude',latitude)
-			console.log('longitude',longitude)
+			// console.log('latitude',latitude)
+			// console.log('longitude',longitude)
 
 			} 
 		});
 }
 		
 function createDataCirlceGeofence(data){
+	// console.log('data',data)
+
+	var url = '/geofence/create'
+	var body = JSON.stringify(data)
+
+	console.log('body',body)
+
+	const requestOptions = {
+		method: 'POST',
+		headers: { 
+			'Content-Type': 'application/json'
+		},
+		body: body
+	};
+
+	fetch(url,requestOptions)
+	.then(response => response.json()) 
+	.then(json => {
+		// console.log(json)
+
+
+
+		if (json.status == 'success'){
+				var img = "/img/success.png"
+				var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+				msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data sukses</div>`
+				msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+							<hr style="width: 280px;margin-top:10px;margin-left:0px;">
+						</div>
+						<div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+							OK
+						</div>
+						`
+		
+				dlg = $.messager.show({
+				
+				msg: msg,
+				showType:'fade',
+				border:'thin',
+				timeout:500,
+				cls: 'cls1',
+				height:180,
+				style:{
+					right:'',
+					bottom:''
+				}
+			});
+
+			$('#circle_place').linkbutton({
+				selected:false
+			})
+
+			$('#place_box').css("visibility","hidden")
+			InitializeMapPlace()
+
+		}else{
+					var img = "/img/red_close.png"
+					var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+					msg+= `<div style="width:100%;height:40px;text-align:center"> Insert data gagal</div>`
+					msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+								<hr style="width: 280px;margin-top:10px;margin-left:0px;">
+							</div>
+							<div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+								OK
+							</div>
+							`
+			
+					dlg = $.messager.show({
+					
+					msg: msg,
+					showType:'fade',
+					border:'thin',
+					timeout:500,
+					cls: 'cls1',
+					height:180,
+					style:{
+						right:'',
+						bottom:''
+					}
+				});
+
+				InitializeMapPlace()
+		}
+
+
+	})
+}
+
+function createDataPolygonGeofence(data){
 	// console.log('data',data)
 
 	var url = '/geofence/create'
@@ -432,6 +548,7 @@ function createDataCirlceGeofence(data){
 			})
 
 			$('#place_box').css("visibility","hidden")
+			InitializeMapPlace()
 
 		}else{
 					var img = "/img/red_close.png"
@@ -458,6 +575,7 @@ function createDataCirlceGeofence(data){
 						bottom:''
 					}
 				});
+				InitializeMapPlace()
 		}
 
 

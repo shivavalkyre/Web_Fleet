@@ -8,6 +8,8 @@ var create = async function (req,res){
 
     var url = process.env.URL_GEOFENCE
     var token = process.env.TOKEN_APP
+    var mode = req.body.mode
+    var coordinates = req.body.coordinates
 
     futil.logger.debug('\n' + futil.shtm() + '- [ URL CREATE GEOFENCE ] | INFO ' + util.inspect(url));
     futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
@@ -19,18 +21,41 @@ var create = async function (req,res){
         },
       }
       
-    
-   var data =   {
-        "mode" :"circle",
-        "placeId": req.body.placeId,
-        "address": req.body.address,
-        "coordinate_type":"Radius", 
-        "geometry_type":"Point", 
-        "coordinates":[[req.body.lng,req.body.lat]],
-        "radius":req.body.radius,
-        "customerId":"22437"
-    
+    if (mode == 'circle'){
+
+        var lat = coordinates[0]
+        var lng = coordinates[1]
+
+        futil.logger.debug('\n' + futil.shtm() + '- [ LAT] | INFO ' + util.inspect(lat));
+        futil.logger.debug('\n' + futil.shtm() + '- [ LNG ] | INFO ' + util.inspect(lng));
+
+        var data =   {
+            "mode" :"circle",
+            "placeId": req.body.placeId,
+            "address": req.body.address,
+            "coordinate_type":"Radius", 
+            "geometry_type":"Point", 
+            "coordinates":[lat,lng],
+            "radius":req.body.radius,
+            "customerId":"22437"
+        
+        }
+
+        futil.logger.debug('\n' + futil.shtm() + '- [ REQ DATA ] | INFO ' + util.inspect(data));
+        
+    }else if (mode == 'polygon'){
+        var data =   {
+            "mode" :"polygon",
+            "placeId": req.body.placeId,
+            "address": req.body.address,
+            "coordinate_type":"Feature", 
+            "geometry_type":"Polygon", 
+            "coordinates":[coordinates],
+            "customerId":"22437"
+        
+        }
     }
+  
 
     var postData = data
 

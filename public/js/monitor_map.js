@@ -11,7 +11,9 @@ var historyMarker = []
 var startLocation = null;
 var endLocation = null;
 var route = null
-
+var selectedShape;
+var drawRadius=[];
+var drawCoordinates=[];
 
 
 // smoot moving
@@ -137,103 +139,88 @@ function InitializeMapPlace() {
     // gmarkers = []
     // directionsRenderer.setMap(null);
     // removeMarkerWaypoint(gmarkers_waypoint,gmarkers_waypoint.length)
+    drawCoordinates = []
 
     var mapProp= {
     center:new google.maps.LatLng(-6.200000,106.816666),
-    zoom:10,
+    zoom: 13,
     fullscreenControl: false,
     streetViewControl: false,
     zoomControl: false,
     disableDefaultUI: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    // styles: [{
-    //     "featureType": "landscape",
-    //     "stylers": [{
-    //         "saturation": -100
-    //     }, {
-    //         "lightness": 65
-    //     }, {
-    //         "visibility": "on"
-    //     }]
-    // }, {
-    //     "featureType": "poi",
-    //     "stylers": [{
-    //         "saturation": -100
-    //     }, {
-    //         "lightness": 51
-    //     }, {
-    //         "visibility": "off"
-    //     }]
-    // }, {
-    //     "featureType": "road.highway",
-    //     "stylers": [{
-    //         "saturation": -100
-    //     }, {
-    //         "visibility": "simplified"
-    //     }]
-    // }, {
-    //     "featureType": "road.arterial",
-    //     "stylers": [{
-    //         "saturation": -100
-    //     }, {
-    //         "lightness": 30
-    //     }, {
-    //         "visibility": "on"
-    //     }]
-    // }, {
-    //     "featureType": "road.local",
-    //     "stylers": [{
-    //         "saturation": -100
-    //     }, {
-    //         "lightness": 40
-    //     }, {
-    //         "visibility": "on"
-    //     }]
-    // }, {
-    //     "featureType": "transit",
-    //     "stylers": [{
-    //         "saturation": -100
-    //     }, {
-    //         "visibility": "simplified"
-    //     }]
-    // }, {
-    //     "featureType": "administrative.province",
-    //     "stylers": [{
-    //         "visibility": "off"
-    //     }]
-    // }, {
-    //     "featureType": "water",
-    //     "elementType": "labels",
-    //     "stylers": [{
-    //         "visibility": "on"
-    //     }, {
-    //         "lightness": -25
-    //     }, {
-    //         "saturation": -100
-    //     }]
-    // }, {
-    //     "featureType": "water",
-    //     "elementType": "geometry",
-    //     "stylers": [{
-    //         "hue": "#ffff00"
-    //     }, {
-    //         "lightness": -25
-    //     }, {
-    //         "saturation": -97
-    //     }]
-    // }]
     };
+
     map_place = null
     // map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    
     map_place = new google.maps.Map(document.getElementById("googleMapPlace"),mapProp);
+    
+   
+    
+    const drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.CIRCLE,
+        drawingControl: true,
+        drawingControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
+          drawingModes: [
+            google.maps.drawing.OverlayType.CIRCLE,
+            google.maps.drawing.OverlayType.POLYGON,
 
-    // map.setZoom(3)
+          ],
+        },
+       
+        circleOptions: {
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0.35,
+          clickable: true,
+          editable: false,
+          zIndex: 1,
+        },
+        polygonOptions: {
+            clickable: true,
+            draggable: true,
+            editable: false,
+            strokeColor: "#FF0000",
+            fillColor: "#FF0000",
+            fillOpacity: 0.35,
 
-    // markerCluster = new MarkerClusterer(map, [], {
-    //     imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-    //   });
+        }
+      });
+    
+      drawingManager.setMap(map_place);
 
-    // directionsRenderer.setMap(map);
+      google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
+        const coords = polygon.getPath().getArray().map(coord => {
+          return {
+            lat: coord.lat(),
+            lng: coord.lng()
+          }
+        });
+        
+        var coord = JSON.stringify(coords, null, 1)
+
+        $('#coordinates_geo1').textbox('setValue',coord)
+      
+        // SAVE COORDINATES HERE
+      });
+
+      google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
+        var radius = circle.getRadius();
+        var center = circle.getCenter();
+        // console.log(JSON.stringify(radius, null, 1));
+        
+        var coord = JSON.stringify(center, null, 1)
+        drawCoordinates.push(coord)
+        // drawCoordinates.push(center)
+        // console.log(drawCoordinates)
+        $('#coordinates_geo1').textbox('setValue',coord)
+        $('#radius_geo1').textbox('setValue',radius)
+        // SAVE COORDINATES HERE
+      });
 }
 
 
@@ -283,7 +270,7 @@ function addMarker(location,heading,cars_info) {
         contentString += `<div style="height:30px;width:190px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.last_update + `</div>`
         contentString += `<div style="height:30px;margin-top:-15px;text-align:left;font-family:'Poppins';font-size:12px;">Speed</div>`
         contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-        contentString += `<div style="height:30px;width:80px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.speed + `</div>`
+        contentString += `<div style="height:30px;width:100px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.speed + `</div>`
         contentString +=  `<div style="width:100%;font-size:10px;font-family:'Poppins';margin-left:45px;height:15px;margin-bottom:10px;" ><a href="#" id="live`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="live_tracking_marker('`+ cars_info.sclId +`')">Live Tracking</a>  &nbsp;| &nbsp;  <a href="#" id="riwayat`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="riwayat_marker('`+ cars_info.sclId +`')">Riwayat</a>  &nbsp;| &nbsp;  <a href="#" id="detail`+ cars_info.no +`" class="info" style="text-decoration: none;">Chat</a></div>`
         // contentString +=  `<div style="width:100%;font-size:10px;font-family:'Poppins';margin-left:45px;height:15px;margin-bottom:10px;" ><a href="#" id="live`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="live_tracking_marker('`+ cars_info.sclId +`')">Live Tracking</a>  &nbsp;| &nbsp;  <a href="#" id="riwayat`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="riwayat_marker('`+ cars_info.sclId +`')">Riwayat</a>  &nbsp;| &nbsp;  <a href="#" id="detail`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="detail_marker('`+ cars_info.sclId +`')">Detail</a></div>`
         contentString +=  `</div>`
