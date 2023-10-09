@@ -9,6 +9,7 @@ var prevStatus
 var prev_row_index_selected
 var row_index_selected=0
 var geofences = []
+var gmarkers_place = []
 // var tout
 var tint
 var arr_tout = []
@@ -36,16 +37,20 @@ var userid =  sessionStorage.getItem("id");
 			$('#geo_circle').hide();
 			$('#geo_poly').hide();
 
-			var tt = $('#address_geo1');
-			tt.textbox('textbox').bind('keydown', function(e){
-				if (e.keyCode == 13){   // when press ENTER key, accept the inputed value.
-					// alert('here')
-					var marker_geo  = null
+			// var tt = $('#address_geo1');
+
+			// tt.textbox('textbox').attr('autocomplete', 'on');
+
+			// tt.textbox('textbox').bind('keydown', function(e){
+			// 	if (e.keyCode == 13){   // when press ENTER key, accept the inputed value.
+			// 		// alert('here')
+			// 		var marker_geo  = null
 					
-					AddressToLatLng($(this).val())
-					// map_place
-				}
-			});	
+			// 		AddressToLatLng($(this).val())
+			// 		// map_place
+			// 	}
+			// });	
+			
 
 			$('#create_geo_shape').bind('click', function(e){
 				 //check radius minimum 75
@@ -63,7 +68,8 @@ var userid =  sessionStorage.getItem("id");
 
 					console.log('json_coord',json_coord)
 
-					address =  $('#address_geo1').textbox('getValue')
+					// address =  $('#address_geo1').textbox('getValue')
+					address = $('#pac-input').val()
 					placeId =  $('#placeId_geo1').textbox('getValue')
 
 					if (lat !='' && lng != '' && address != '' && placeId != ''){
@@ -85,7 +91,7 @@ var userid =  sessionStorage.getItem("id");
 				 }else if(identify == '['){
 					// polygon
 
-						address =  $('#address_geo1').textbox('getValue')
+						address =   $('#pac-input').val()
 						placeId =  $('#placeId_geo1').textbox('getValue')
 
 						var data = {
@@ -240,6 +246,10 @@ var userid =  sessionStorage.getItem("id");
 					  if(opts.selected == true){
 							
 							// hit api geofence
+			
+
+							// gmarkers_place = null
+
 							var url = '/geofence/read'
 							const requestOptions = {
 								method: 'POST',
@@ -315,6 +325,11 @@ var userid =  sessionStorage.getItem("id");
 							
 							for (i=0;i<= geofences.length-1;i++){
 								geofences[i].setMap(null);
+							}
+
+							console.log('gmarker_place',gmarkers_place.length)
+							for (m=0;m<= gmarkers_place.length-1;m++){
+								gmarkers_place[m].setMap(null)
 							}
 						}
 					}
@@ -462,6 +477,8 @@ function createDataCirlceGeofence(data){
 				selected:false
 			})
 
+			$('#pac-input').val('')
+
 			$('#place_box').css("visibility","hidden")
 			InitializeMapPlace()
 
@@ -492,6 +509,7 @@ function createDataCirlceGeofence(data){
 				});
 
 				InitializeMapPlace()
+				$('#pac-input').val('')
 		}
 
 
@@ -580,4 +598,11 @@ function createDataPolygonGeofence(data){
 
 
 	})
+}
+
+function searchMap(ele) {
+    if(event.key === 'Enter') {
+        // alert(ele.value);  
+		AddressToLatLng(ele.value)      
+    }
 }

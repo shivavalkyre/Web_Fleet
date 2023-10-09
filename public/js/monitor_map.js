@@ -221,6 +221,15 @@ function InitializeMapPlace() {
         $('#radius_geo1').textbox('setValue',radius)
         // SAVE COORDINATES HERE
       });
+
+  
+
+      var address = document.getElementById('pac-input');
+      var options = {
+          types: ['establishment'],
+      };
+    
+      var autocomplete = new google.maps.places.Autocomplete(address, options);
 }
 
 
@@ -1043,6 +1052,15 @@ async function drawCircle(lat,lng,radius,center,title,address){
 
       console.log('address',address)
 
+      var marker_place = new google.maps.Marker({
+        position: center,
+        map,
+        title: title,
+      });
+
+      console.log('marker_place',marker_place);
+     
+
     //   var avm = new google.maps.LatLng(center.lat, center.lng);
     //   console.log('avm',avm)
       var markerCnt = 0;
@@ -1066,8 +1084,8 @@ async function drawCircle(lat,lng,radius,center,title,address){
       contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ lng + `</div>`
       contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Address</div>`
       contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-      contentString += `<div style="height:30px;width:200px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ address + `</div>`
-      contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Radius</div>`
+      contentString += `<div style="height:30px;width:200px;margin-top:-30px;margin-left:80px;margin-bottom:10px;text-align:left;font-family:'Poppins';font-size:12px;">`+ address + `</div>`
+      contentString += `<div style="height:30px;margin-top:25px;text-align:left;font-size:12px;font-family:'Poppins';">Radius</div>`
       contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
       contentString += `<div style="height:30px;width:150px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ radius + ` meters </div>`
       contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Vehicles</div>`
@@ -1093,9 +1111,11 @@ async function drawCircle(lat,lng,radius,center,title,address){
     });
 
       geofences.push(geofence)
+      gmarkers_place.push(marker_place)
 }
 
 function drawPolygon(paths,title){
+    console.log('paths',paths)
    
     var geofence = new google.maps.Polygon({
         paths: paths,
@@ -1114,6 +1134,14 @@ function drawPolygon(paths,title){
           markerCnt++;
         }
       }
+
+      var center = {lat:paths[0].lat,lng:paths[0].lng}
+
+      var marker_place = new google.maps.Marker({
+        position: center,
+        map,
+        title: title,
+      });
 
       var contentString =`<div style="width:300px">`
       contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`
@@ -1134,5 +1162,6 @@ function drawPolygon(paths,title){
     
       geofence.setMap(map);
       geofences.push(geofence)
+      gmarkers_place.push(marker_place)
 }
 

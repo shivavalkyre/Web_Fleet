@@ -61,9 +61,9 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
             if (mode == 'bergerak'){
 
-                    // console.log('bergerak')
+                    console.log('bergerak')
                 
-                    deleteMarkers()
+                    // deleteMarkers()
                     AssetStatusCount(mode,search_mode,null)  
                 
                     t1_moving = setInterval(function(){
@@ -72,6 +72,8 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                         deleteMarkers()
                         // console.log('markers deleted')
                         // console.log('markers: '  + gmarkers.length)
+                        console.log('search mode', search_mode)
+
                         AssetStatusCount(mode,search_mode,null)
                     },30000)
                
@@ -259,6 +261,7 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
                 } else{
                     // alert(mode)
                     // console.log('start create data selected')
+      
                     CreateDataSelected(mode)
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
                     // console.log('mode:' + mode)
@@ -615,7 +618,9 @@ async function CreateDataSelected(mode){
 
     var token = sessionStorage.getItem("token")
     
-    //alert('selected')
+    // alert('selected')
+    console.log('selected')
+    deleteMarkers()
 
     var status_bergerak=0
     var status_diam=0
@@ -626,6 +631,8 @@ async function CreateDataSelected(mode){
     var selected_mode
     
     // console.log(token)
+
+    
 
     const config = {
         headers:{
@@ -657,9 +664,11 @@ async function CreateDataSelected(mode){
                 // console.log('status',status)
                 var data = response.data.data
                 // console.log('data',data)
+                
                 if (status == true){
                     
                       // console.log('start create data selected prosess')
+                      
                               
                       if (mode == 'bergerak'){
                           selected_mode ='moving'
@@ -688,8 +697,10 @@ async function CreateDataSelected(mode){
       
                       if (area == 'pusat')
                       {
+                                
                                 for (i=0;i<= data.length-1;i++)
                                 {
+                                    deleteMarkers()
                                     var vehicleUid = data[i].vehicleUid
                                     var sclId = data[i].vehicleSclId
                                     var deviceStatus = data[i].deviceStatus
@@ -825,6 +836,7 @@ async function CreateDataSelected(mode){
                       else
                       {
                               var data_vehicle = res_vehicle.rows
+                              deleteMarkers
                               for (l=0;l<=data_vehicle.length-1;l++)
                               {
                                   var vehicleid = data_vehicle[l].vehicleid
@@ -971,7 +983,7 @@ async function CreateDataSelected(mode){
                           // console.log('finish create data selected process')
                           // console.log(gmarkers.length)
       
-                          var markerCluster = new MarkerClusterer(map, gmarkers);
+                        //   var markerCluster = new MarkerClusterer(map, gmarkers);
       
                           status_total = status_bergerak + status_diam + status_offline
                           // alert(status_total)

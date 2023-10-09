@@ -14,6 +14,7 @@ var create = async function (req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ URL CREATE GEOFENCE ] | INFO ' + util.inspect(url));
     futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY GEOFENCE ] | INFO ' + util.inspect(req.body));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY COORDINATES ] | INFO ' + util.inspect(coordinates));
 
     const config = {
         headers:{
@@ -42,7 +43,7 @@ var create = async function (req,res){
         }
 
         futil.logger.debug('\n' + futil.shtm() + '- [ REQ DATA ] | INFO ' + util.inspect(data));
-        
+
     }else if (mode == 'polygon'){
         var data =   {
             "mode" :"polygon",
@@ -50,10 +51,12 @@ var create = async function (req,res){
             "address": req.body.address,
             "coordinate_type":"Feature", 
             "geometry_type":"Polygon", 
-            "coordinates":[coordinates],
+            "coordinates":JSON.parse(coordinates),
             "customerId":"22437"
         
         }
+
+        futil.logger.debug('\n' + futil.shtm() + '- [ REQ DATA ] | INFO ' + util.inspect(data));
     }
   
 
