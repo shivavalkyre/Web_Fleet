@@ -25,6 +25,8 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
         ReInitializeMap(map,gmarkers)
         // map.setZoom(10)
 
+
+
         // $('#geofence_box').css("visibility","visible")
         $('#geofence_box').show()
         
@@ -43,6 +45,10 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearTimeout(t1_all)
                     clearTimeout(t1_offline)
                     clearTimeout(t1_stop)
+
+                    $('#toggle_place').linkbutton({
+                        selected:false
+                    })
 
                     // deleteMarkers()
                     AssetStatusCount(mode,search_mode,null)  
@@ -67,6 +73,10 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearTimeout(t1_offline)
                     clearTimeout(t1_all)
                     
+                    $('#toggle_place').linkbutton({
+                        selected:false
+                    })
+
                     AssetStatusCount(mode,search_mode,null)  
                     
                     
@@ -89,7 +99,10 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearTimeout(t1_stop)
                     AssetStatusCount(mode,search_mode,null)  
 
-               
+                    $('#toggle_place').linkbutton({
+                        selected:false
+                    })
+
                     t1_offline = setInterval(function(){
                         // console.log('Interval reached')
                         // console.log('start delete markers')
@@ -106,6 +119,10 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearTimeout(t1_moving)
                     clearTimeout(t1_offline)
                     clearTimeout(t1_stop)
+
+                    $('#toggle_place').linkbutton({
+                        selected:false
+                    })
 
                     AssetStatusCount(mode,search_mode,null,userid)  
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
@@ -129,6 +146,10 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
             clearInterval(t1_all)
             clearInterval(t3)
             clearInterval(t4)
+
+            $('#toggle_place').linkbutton({
+                selected:false
+            })
 
             deleteMarkers()
             AssetStatusCount(mode,search_mode,search_param)

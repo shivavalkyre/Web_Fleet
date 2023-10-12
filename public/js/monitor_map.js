@@ -1197,8 +1197,11 @@ async function drawCircle(lat,lng,radius,center,title,address,map_target,shape_e
     //   contentString += `</div>`
 
     //   console.log('content_string',contentString)
+    // if (shape_editable == false){
       var wide = 22/7 * radius * radius
-
+    // }else{
+    //     var wide=0;
+    // }
       var contentString =`<div style="width:350px">`
       contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`
       contentString += `<table>`
@@ -1311,8 +1314,12 @@ function drawPolygon(paths,title,address,map_target,shape_editable){
     //   contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
     //   contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  markerCnt + `</div>`
     //   contentString += `</div>`
-
-      var wide = google.maps.geometry.spherical.computeArea(geofence.getPath());
+    //   if (shape_editable== false){
+        var wide = google.maps.geometry.spherical.computeArea(geofence.getPath());
+    //   }else{
+    //     var wide = 0;
+    //   }
+      
 
       var contentString =`<div style="width:450px;">`
       contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`

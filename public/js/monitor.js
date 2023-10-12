@@ -955,16 +955,19 @@ function edit_data(){
 		//  drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
 
 		 drawCircle(lat,lng,radius,center,row.placeId,row.address,map_place,true)
-	  }else{
+	  }else  if (radius == ''){
 
 		var place = JSON.parse(row.coordinates)
 		console.log('place',place)
 		var lat = parseFloat(place[0].lat)
+		console.log('lat',lat)
 		var lng = parseFloat(place[0].lng )
+		console.log('lng',lng)
+
 		var center = {lat:lat,lng:lng}
 		console.log('center',center)
 		map_place.setCenter(center)
-		drawPolygon(place,row.placeId,map_place,true)
+		drawPolygon(place,row.placeId,row.address,map_place,true)
 
 	  }
 
