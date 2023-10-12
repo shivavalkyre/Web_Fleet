@@ -97,6 +97,10 @@ function Chat(){
     window.location='chat'
 }
 
+function Notifikasi(){
+    window.location = 'notifikasi'
+  }
+
 // Menu handler =======================================================================
 
 

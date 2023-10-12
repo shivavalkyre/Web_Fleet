@@ -3,6 +3,7 @@ var express = require ('express');
  // Init express router
 var router = express.Router();
 var User = require('../controllers/user.js')
+var Notifikasi = require('../controllers/notifikasi.js')
 var Chat = require ('../controllers/chat.js')
 var Tasklist = require('../controllers/tasklist.js')
 var Device = require('../controllers/device.js')
@@ -65,6 +66,13 @@ router.get('/chat',function(req,res){
     Chat.index(req,res)
     // res.render('chat',{apikey:process.env.APIKEY})
 })
+
+
+router.get('/notifikasi',function(req,res){
+    Notifikasi.index(req,res)
+    // res.render('chat',{apikey:process.env.APIKEY})
+})
+
 
 router.get('/map',function (req, res, next) {
     res.render('map',{apikey:process.env.APIKEY,latitude:process.env.LATITUDE,longitude:process.env.LONGITUDE})

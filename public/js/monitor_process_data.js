@@ -881,6 +881,7 @@ return resp
 }
 
 
+
 // get Trips
 
 var getKMDriven =  (AssetUid,vehicleUid) => {
@@ -906,6 +907,41 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
         console.log('json',json)
         var init_odometer = json.rows[0].init_odometer
         console.log('init odometer',init_odometer)
+
+        // vehicle_detail
+        var brand = json.rows[0].vehicle_brand
+        console.log('brand',brand)
+        var vehicle_type = json.rows[0].vehicle_type
+        console.log('vehicle type',vehicle_type)
+        var vin = json.rows[0].vin
+        console.log('vin',vin)
+
+        var license_plate = json.rows[0].license_plate
+
+        if (license_plate !== undefined){
+            console.log('license_plate',license_plate)
+        }else{
+            var license_plate = '-'
+            console.log('license_plate',license_plate)
+        }
+        
+        var deviceId = json.rows[0].deviceId
+        if (deviceId !== undefined){
+            console.log('deviceId',deviceId)
+        }else{
+            var deviceId =''
+            console.log('deviceId',deviceId)
+        }
+        
+        $('#merk_kendaraan').text(brand)
+        $('#tipe_kendaraan').text(vehicle_type)
+        $('#vin').text(vin)
+        $('#license_plate').text(license_plate)
+        $('#deviceid').text(deviceId)
+
+        
+
+
         var createdAt = json.rows[0].createdAt
         var start_date = createdAt.substr(0,10)
         console.log('start date', start_date)       
@@ -1025,6 +1061,8 @@ function process_live_tracking(sclId){
                     var prev_longitude = gmarkers[0].getPosition().lng()
                     
                 }
+
+                    // get detail kendaraan
 
 
                 var location = {lat:validLatitude,lng:validLongitude}

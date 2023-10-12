@@ -1,0 +1,206 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>.: Polisi Lalu Lintas :.</title>
+        <link rel="icon" href="/img/gp3.png" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="/themes/gray/easyui.css">
+        <link rel="stylesheet" type="text/css" href="/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <link rel="stylesheet" type="text/css" href="/css/home.css">
+        <link rel="stylesheet" type="text/css" href="/css/tasklist.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/css/navpanel.css"> -->
+        <link rel="stylesheet" type="text/css" href="/themes/color.css">
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <!-- <script type="text/javascript" src="/js/home.js"></script> -->
+        <script type="text/javascript" src="/js/notifikasi.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!-- <link rel="stylesheet" href="/css/idx.css"> -->
+        <link rel="stylesheet" href="/css/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link href="https://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%=apikey%>&libraries=places"></script>
+        
+
+    </head>
+    <body>    
+        <div id="mini_me" style="width:30px;height:30px;text-align: center; font-weight: 100; margin: 8px 0 0 230px;position: absolute;z-index: 2;cursor: pointer;"><img id="img_mini_me" src="/img/mini.png"/></div>   
+        <div id="cc" class="easyui-layout" style="width:100%;height:99%;background: transparent;z-index: 1;">
+            <!-- <div data-options="region:'north'" style="height:50px;border-color: #fff;background-color:#fff;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+            <div style="width:211px;height:100%;background-color: #FAFAFA;">AA</div>
+            </div> -->
+            
+            <div data-options="region:'center'"  style="background-color: white;border:none;height: 100%;">
+                <div style="background: white;width: 100%;height:60px;margin-top: -12px;position: absolute;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                       
+                            <div id="title_page" style="margin-left: 30px;margin-top: 20px;color: #45464E;font-family:'Open Sans Condensed';font-size: 20; font-weight: 600;line-height: 28px;height: 28px;width:100px;border: 0px solid red;">Notifikasi</div>
+                            <div style ="width:16px;height: 16px; margin-top: -25px; margin-left: 80%;"><img src="/img/notification.png" width="16" height="16"/> </div>
+                            <div id="username" style ="width:16px;height: 16px; margin-top: -25px; margin-left: 85%;font-family: 'Poppins';font-size: 18;font-weight: 400;color: #404040;">Admin</div>
+                            <div id="level" style ="width:60px;height: 18px; margin-top: 10px; margin-left: 85%;font-family: 'Poppins';font-size: 10;font-weight: 400;color: #404040;text-align: center;">Super Admin</div>
+                            <div style="width: 32;height: 32;margin-top: -40px; margin-left: 91%;"><img src="/img/profile 1.png" width="32" height="32" /></div>
+                            <!-- <div style="margin-top: -30px;margin-left: 93%;"> -->
+                                <div class="dropdown">
+                                    <button onclick="myFunction()" class="dropbtn"><img src="/img/vector (6).png" width="15" height="9"/></button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                    <a href="#home">Home</a>
+                                    <a href="#about">About</a>
+                                    <a href="#contact">Contact</a>
+                                    </div>
+                                </div>
+                            <!-- </div> -->
+
+                            <div style="margin-bottom: 15px;"></div>
+                        
+                            <div id="cc_monitor" class="easyui-layout" style="width:98%;height:580px;background: white;border-radius: 8px;margin-top: 10px;margin-left:10px;position: fixed;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                                <div data-options="region:'center'"  style="background-color: white;border-color: white;height: 100%;border:none;">
+
+
+                                    <div class="easyui-panel" style="padding:10px;border: none;">
+
+
+                                    
+                                    
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    
+                </div>
+                <!-- Haloo -->
+            </div>
+        <div data-options="region:'west',split:false"  style="width:250px;border-color: transparent;background:transparent;background-color: #FAFAFA;">
+			<!-- <div id="sm" class="easyui-sidemenu" data-options="data:data" style="margin-left: 0px;width:208px;border-color: none;background: transparent;"></div> -->
+			<div style="Margin:30px 0 0 20px"><img src="/img/logo_polisi.png" width="60px" height="60px"></div>
+            <div style="Margin:-50px 0 0 90px"><img src="/img/polisi.png" width="50px" height="20px"></div>
+            <div style="Margin:10px 0 50px 90px"><img src="/img/lalu lintas.png" width="120px" height="20px"></div>
+
+        
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="dashboard" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-dashboard',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Dashboard()" >Dashboard</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="monitor" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:true,iconCls:'icon-monitor',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Monitor()">Pantauan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="device" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Device()">Perangkat</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="vehicle" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Vehicle()">Kendaraan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="petugas" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Petugas()">Petugas</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="tasklist" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-tasklist-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Tasklist()">Penugasan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="chat" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,iconCls:'icon-chat-black',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Chat()">Chat</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="alert" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-bell',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Notifikasi()">Notifikasi</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="report" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-document',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="Laporan()">Laporan</a>
+                </div>
+                <div style="margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="setting" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-setting1',size:'middle'" style="height: 40px;width: 100%;text-align: left;" >Pengaturan</a>
+                </div>
+                <div style="margin-top:100px;margin-bottom:5px;width: 200px;margin-left:25px ;">
+                    <a id="logout" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',plain:true,selected:false,iconCls:'icon-logout',size:'middle'" style="height: 40px;width: 100%;text-align: left;" onclick="logout()" >Logout</a>
+                </div>
+		</div>
+        </div>
+
+        <div id="w" class="easyui-window"  data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false,closable:false,noheader:true,border:'thin'" style="width:500px;height:320px;padding:10px;">
+           <div style="font-family: 'Poppins';font-size: 14px;font-weight: 900;">View Device</div>
+           <hr style="width: 480px;margin-top:10px;margin-left:0px;">
+            
+           <div class="easyui-panel" style="padding:5px;border:none">
+                <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Device ID</div>
+                <div id="view_device1" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+            </div>
+
+            <div style="margin:10px 0;"></div>
+            <div class="easyui-panel" style="padding:5px;background-color: #F7F8FA;border-radius: 5px;border:none">
+                <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Make</div>
+                <div id="view_device2" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+           </div>
+
+           <div style="margin:10px 0;"></div>
+           <div class="easyui-panel" style="padding:5px;border:none">
+               <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Model</div>
+               <div id="view_device3" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+          </div>
+
+          <div style="margin:10px 0;"></div>
+          <div class="easyui-panel" style="padding:5px;background-color: #F7F8FA;border-radius: 5px;border:none">
+              <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">SIM ID</div>
+              <div id="view_device4" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+         </div>
+
+         <div style="margin:10px 0;"></div>
+         <div class="easyui-panel" style="padding:5px;border:none">
+             <div style="float:left;width:100px;border:0px solid red;font-weight: 900;color:#404040">Status</div>
+             <div id="view_device5" style="float:right;width:360px;border:0px solid red;">isi Judul Task</div>
+        </div>
+
+     
+
+        
+        
+        <hr id="hr_bottom" style="width: 480px;margin-top:10px;margin-left:0px;">
+        
+        <div id="w_toolbar" style="float:right;margin-top: -5px;">
+            <a id="close_view_task" href="#" class="easyui-linkbutton" data-options="plain:false" style="height: 35px;border-color: #436AAC;background-color: white;background: white;color: #436AAC;width: 80px;" onclick="javascript:$('#w').window('close')">Tutup</a>
+            <a id="edit_view_task" href="#" class="easyui-linkbutton" data-options="plain:true" style="height: 35px;background-color: #436AAC;color: white;width: 80px;" onclick="edit_data()">Edit</a>
+        </div>
+        </div>
+
+        <div id="w_tambah" class="easyui-window"  data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false,closable:false,noheader:true,border:'thin'" style="width:400px;height:310px;padding:10px;">
+            <div style="font-family: 'Poppins';font-size: 14px;font-weight: 900;">Tambah Device</div>
+            <hr style="width: 380px;margin-top:10px;margin-left:0px;">
+
+            <form id="ff" method="post"  style="padding:10px;width: 100%;border:1px solid lightgray;">
+           
+                    <div id="div_taskid" style="margin-bottom:0px;width: 100%;border:1px solid red;">
+                        <input id="t_device_id" class="easyui-textbox" name="id" style="width:100%" labelPosition="left" data-options="label:'ID:'">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input id="t_deviceId" class="easyui-textbox" name="deviceId" style="width:100%" data-options="label:'Device ID:'">
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <input id="t_make" class="easyui-textbox" name="make" style="width:100%" data-options="label:'Make:'">
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input id="t_model" class="easyui-textbox" name="model" style="width:100%" data-options="label:'Model:'">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input id="t_simId" class="easyui-textbox" name="simId" style="width:100%" data-options="label:'SIM ID'">
+                    </div>
+                    
+                    <div style="margin-bottom:10px">
+                        <input id="t_status" class="easyui-textbox" name="status" style="width:100%" data-options="label:'Status'">
+                    </div>
+                    
+                    <div style="top: 0; visibility: hidden;position:absolute">
+                        <input id="t_createdby" class="easyui-textbox" name="createdBy" style="width:200px" data-options="label:'createdBy'">
+                    </div>
+
+            
+            <div style="margin-bottom:10px;float:right">
+                <a id="close_view_task" href="#" class="easyui-linkbutton" data-options="plain:false" style="height: 35px;border-color: #436AAC;background-color: white;background: white;color: #436AAC;width: 80px;" onclick="javascript:$('#w_tambah').window('close')">Batal</a>
+                <a id="edit_view_task" href="#" class="easyui-linkbutton" data-options="plain:true" style="height: 35px;background-color: #436AAC;color: white;width: 80px;" onclick="simpan_data()">Simpan</a>
+            </div>
+            </form>
+            
+        </div>
+        
+       
+        <script type="text/javascript" src="/js/notifikasi_bottom.js"></script>
+        
+    </body>
+    </html>
