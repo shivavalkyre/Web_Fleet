@@ -1177,26 +1177,72 @@ async function drawCircle(lat,lng,radius,center,title,address,map_target,shape_e
 
     //   console.log(markerCnt)
 
-      var contentString =`<div style="width:300px">`
-      contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`
-      contentString += `<div style="height:30px;margin-top:5px;text-align:left;font-size:12px;font-family:'Poppins';">Latitude</div>`
-      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-      contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ lat + `</div>`
-      contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Longitude</div>`
-      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-      contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ lng + `</div>`
-      contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Address</div>`
-      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-      contentString += `<div style="height:30px;width:200px;margin-top:-30px;margin-left:80px;margin-bottom:10px;text-align:left;font-family:'Poppins';font-size:12px;">`+ address + `</div>`
-      contentString += `<div style="height:30px;margin-top:25px;text-align:left;font-size:12px;font-family:'Poppins';">Radius</div>`
-      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-      contentString += `<div style="height:30px;width:180px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ radius + ` meters </div>`
-      contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Vehicles</div>`
-      contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-      contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ markerCnt + `</div>`
-      contentString += `</div>`
+    //   var contentString =`<div style="width:300px">`
+    //   contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`
+    //   contentString += `<div style="height:30px;margin-top:5px;text-align:left;font-size:12px;font-family:'Poppins';">Latitude</div>`
+    //   contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+    //   contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ lat + `</div>`
+    //   contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Longitude</div>`
+    //   contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+    //   contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ lng + `</div>`
+    //   contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Address</div>`
+    //   contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+    //   contentString += `<div style="height:30px;width:200px;margin-top:-30px;margin-left:80px;margin-bottom:10px;text-align:left;font-family:'Poppins';font-size:12px;">`+ address + `</div>`
+    //   contentString += `<div style="height:30px;margin-top:25px;text-align:left;font-size:12px;font-family:'Poppins';">Radius</div>`
+    //   contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+    //   contentString += `<div style="height:30px;width:180px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ radius + ` meters </div>`
+    //   contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Vehicles</div>`
+    //   contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
+    //   contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ markerCnt + `</div>`
+    //   contentString += `</div>`
 
     //   console.log('content_string',contentString)
+      var wide = 22/7 * radius * radius
+
+      var contentString =`<div style="width:350px">`
+      contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`
+      contentString += `<table>`
+      contentString += `<tr style="width:300px">`
+      contentString += `<td style="vertical-align: top;width:50px"> <div style="font-size:12px;font-family:'Poppins';">Address</div>`
+      contentString += `<td style="vertical-align: top;width:10px"> <div style="font-size:12px;font-family:'Poppins';">:</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:300px"> <div style="font-size:12px;font-family:'Poppins';">`+ address +`</div>`
+      contentString += `</td>`
+      contentString += `</tr>`
+      contentString += `<tr style="width:300px">`
+      contentString += `<td style="vertical-align: top;width:50px"> <div style="font-size:12px;font-family:'Poppins';">Coordinate</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:10px"> <div style="font-size:12px;font-family:'Poppins';">:</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:300px"> <div style="font-size:12px;font-family:'Poppins';">{`+ lat + ','+ lng +`}</div>`
+      contentString += `</td>`
+      contentString += `</tr">`
+      contentString += `<tr style="width:300px">`
+      contentString += `<td style="vertical-align: top;width:50px"> <div style="font-size:12px;font-family:'Poppins';">Radius</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:10px"> <div style="font-size:12px;font-family:'Poppins';">:</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:300px"> <div style="font-size:12px;font-family:'Poppins';">`+ radius +` meters</div>`
+      contentString += `</td>`
+      contentString += `</tr">`
+      contentString += `<tr style="width:300px">`
+      contentString += `<td style="vertical-align: top;width:50px"> <div style="font-size:12px;font-family:'Poppins';">Wide</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:10px"> <div style="font-size:12px;font-family:'Poppins';">:</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:300px"> <div style="font-size:12px;font-family:'Poppins';">`+ wide +` meters<sup>2</sup></div>`
+      contentString += `</td>`
+      contentString += `</tr">`
+      contentString += `<tr style="width:300px">`
+      contentString += `<td style="vertical-align: top;width:50px"> <div style="font-size:12px;font-family:'Poppins';">Vehicles</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:10px"> <div style="font-size:12px;font-family:'Poppins';">:</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:300px"> <div style="font-size:12px;font-family:'Poppins';">`+ markerCnt +`</div>`
+      contentString += `</td>`
+      contentString += `</tr">`
+      contentString += `</table>`
+      contentString += `</div>`
       
       var infoWindow = new google.maps.InfoWindow({
         content: contentString,
@@ -1266,6 +1312,8 @@ function drawPolygon(paths,title,address,map_target,shape_editable){
     //   contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  markerCnt + `</div>`
     //   contentString += `</div>`
 
+      var wide = google.maps.geometry.spherical.computeArea(geofence.getPath());
+
       var contentString =`<div style="width:450px;">`
       contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ title +`</div></div>`
       contentString += `<table>`
@@ -1283,6 +1331,14 @@ function drawPolygon(paths,title,address,map_target,shape_editable){
       contentString += `<td style="vertical-align: top;width:10px"> <div style="font-size:12px;font-family:'Poppins';">:</div>`
       contentString += `</td>`
       contentString += `<td style="vertical-align: top;width:300px"> <div style="font-size:12px;font-family:'Poppins';">`+ JSON.stringify(paths) +`</div>`
+      contentString += `</td>`
+      contentString += `</tr>`
+      contentString += `<tr  style="width:300px">`
+      contentString += `<td style="vertical-align: top;width:50px"> <div style="font-size:12px;font-family:'Poppins';">Wide</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:10px"> <div style="font-size:12px;font-family:'Poppins';">:</div>`
+      contentString += `</td>`
+      contentString += `<td style="vertical-align: top;width:300px"> <div style="font-size:12px;font-family:'Poppins';">`+ wide +` meters<sup>2</sup></div>`
       contentString += `</td>`
       contentString += `</tr>`
       contentString += `<tr  style="width:300px">`

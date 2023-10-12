@@ -1053,7 +1053,7 @@ function process_live_tracking(sclId){
                 $('#vehicle_status').text(deviceStatus)
                 $('#vehicle_status_detail').text(deviceStatus)
                 $('#vehicle_speed_live').text(speed)
-                $('#vehicle_heading').text(heading + ' degree')
+                $('#vehicle_heading').text(heading)
                 $('#img_status').attr("src",img)
                 $('#koordinat').text(koordinat)
                 $('#vehicle_voltage').text(vehicle_voltage)
