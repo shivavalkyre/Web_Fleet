@@ -586,6 +586,11 @@ function createDataCirlceGeofence(data){
 				selected:false
 			})
 
+			$('#toggle_place').linkbutton({
+				selected:false,
+				disabled:false
+			})
+
 			$('#pac-input').val('')
 
 			$('#place_box').css("visibility","hidden")
@@ -674,6 +679,11 @@ function updateDataCirlceGeofence(data){
 
 			$('#circle_place').linkbutton({
 				selected:false
+			})
+
+			$('#toggle_place').linkbutton({
+				selected:false,
+				disabled:false
 			})
 
 			$('#pac-input').val('')
@@ -1004,6 +1014,7 @@ function showShapes(places){
 				console.log('ctr',ctr)
 				var coordinates = jparse.geometry.coordinates[0]
 				var title = places[i].placeId
+				var address = places[i].address
 				var path_coordinates = []
 				for (l=0;l<=coordinates.length-1;l++){
 				   var lat = coordinates[l][1]
@@ -1014,7 +1025,7 @@ function showShapes(places){
 				}
 				ctr++
 			   //  console.log('path',path_coordinates)
-			   drawPolygon(path_coordinates,title,map,false)
+			   drawPolygon(path_coordinates,title,address,map,false)
 
 			}
 		// }
