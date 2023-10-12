@@ -14,7 +14,10 @@ var route = null
 var selectedShape;
 var drawRadius=[];
 var drawCoordinates=[];
-
+var all_overlays = [];
+var selectedShape;
+var drawingManager;
+var editRadius
 
 // smoot moving
 var numDeltas = 100;
@@ -131,7 +134,7 @@ function InitializeMap() {
     // directionsRenderer.setMap(map);
 }
 
-
+// MAP PLACE ==========================================================================
 function InitializeMapPlace() {
     //alert('Start');
     // map = null
@@ -158,8 +161,8 @@ function InitializeMapPlace() {
     
    
     
-    const drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.CIRCLE,
+     drawingManager = new google.maps.drawing.DrawingManager({
+       
         drawingControl: true,
         drawingControlOptions: {
           position: google.maps.ControlPosition.TOP_CENTER,
@@ -177,13 +180,12 @@ function InitializeMapPlace() {
           fillColor: "#FF0000",
           fillOpacity: 0.35,
           clickable: true,
-          editable: false,
+          editable: true,
           zIndex: 1,
         },
         polygonOptions: {
             clickable: true,
-            draggable: true,
-            editable: false,
+            editable: true,
             strokeColor: "#FF0000",
             fillColor: "#FF0000",
             fillOpacity: 0.35,
@@ -193,44 +195,117 @@ function InitializeMapPlace() {
     
       drawingManager.setMap(map_place);
 
-      google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
-        const coords = polygon.getPath().getArray().map(coord => {
-          return {
-            lat: coord.lat(),
-            lng: coord.lng()
-          }
-        });
+    //   google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
+    //     const coords = polygon.getPath().getArray().map(coord => {
+    //       return {
+    //         lat: coord.lat(),
+    //         lng: coord.lng()
+    //       }
+    //     });
         
-        var coord = JSON.stringify(coords, null, 1)
+    //     var coord = JSON.stringify(coords, null, 1)
 
-        $('#coordinates_geo1').textbox('setValue',coord)
+    //     $('#coordinates_geo1').textbox('setValue',coord)
       
-        // SAVE COORDINATES HERE
-      });
+    //     // SAVE COORDINATES HERE
+    //   });
 
-      google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
-        var radius = circle.getRadius();
-        var center = circle.getCenter();
-        // console.log(JSON.stringify(radius, null, 1));
+    //   google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
+    //     var radius = circle.getRadius();
+    //     var center = circle.getCenter();
+    //     // console.log(JSON.stringify(radius, null, 1));
         
-        var coord = JSON.stringify(center, null, 1)
-        drawCoordinates.push(coord)
-        // drawCoordinates.push(center)
-        // console.log(drawCoordinates)
-        $('#coordinates_geo1').textbox('setValue',coord)
-        $('#radius_geo1').textbox('setValue',radius)
-        // SAVE COORDINATES HERE
-      });
+    //     var coord = JSON.stringify(center, null, 1)
+    //     drawCoordinates.push(coord)
+    //     // drawCoordinates.push(center)
+    //     // console.log(drawCoordinates)
+    //     $('#coordinates_geo1').textbox('setValue',coord)
+    //     $('#radius_geo1').textbox('setValue',radius)
+    //     // SAVE COORDINATES HERE
+    //   });
 
-  
+      google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+            all_overlays.push(e);
+            var newShape = e.overlay;
+            newShape.type = e.type;
+            // console.log('e',e)
+
+            google.maps.event.addListener(newShape, 'click', function() {
+                setSelection(newShape);
+              });
+
+            if (e.type != google.maps.drawing.OverlayType.MARKER) {
+
+                if(e.type == google.maps.drawing.OverlayType.CIRCLE){
+                    var radius = newShape.getRadius();
+                    var center = newShape.getCenter();
+                    // console.log(JSON.stringify(radius, null, 1));
+                    
+                    var coord = JSON.stringify(center, null, 1)
+                    drawCoordinates.push(coord)
+                    // drawCoordinates.push(center)
+                    // console.log(drawCoordinates)
+                    $('#coordinates_geo1').textbox('setValue',coord)
+                    $('#radius_geo1').textbox('setValue',radius)
+                }
+
+                if(e.type == google.maps.drawing.OverlayType.POLYGON){
+                    const coords = newShape.getPath().getArray().map(coord => {
+                        return {
+                          lat: coord.lat(),
+                          lng: coord.lng()
+                        }
+                      });
+                      
+                      var coord = JSON.stringify(coords, null, 1)
+              
+                      $('#coordinates_geo1').textbox('setValue',coord)
+                }
+            }
+
+            setSelection(newShape);
+      })
 
       var address = document.getElementById('pac-input');
       var options = {
           types: ['establishment'],
       };
     
-      var autocomplete = new google.maps.places.Autocomplete(address, options);
+    //   var autocomplete = new google.maps.places.Autocomplete(address, options);
+      var autocomplete = new google.maps.places.SearchBox(address);
+      
 }
+
+function clearSelection() {
+    if (selectedShape) {
+      selectedShape.setEditable(false);
+      selectedShape = null;
+    }
+  }
+
+  function setSelection(shape) {
+    clearSelection();
+    selectedShape = shape;
+    shape.setEditable(true);
+  }
+
+  function deleteSelectedShape() {
+    alert('here')
+    console.log('selectedShape',selectedShape)
+    if (selectedShape) {
+      selectedShape.setMap(null);
+    }
+  }
+
+  function deleteAllShape() {
+    for (var i=0; i < all_overlays.length; i++)
+    {
+      all_overlays[i].overlay.setMap(null);
+    }
+    all_overlays = [];
+  }
+
+// MAP PLACE ==========================================================================
 
 
 // Initialize Map =====================================================================
@@ -248,7 +323,7 @@ function ReInitializeMap(map,gmarkers){
 
 // Add New Marker =====================================================================
 
-function addMarker(location,heading,cars_info) {
+async function addMarker(location,heading,cars_info) {
    
     
     // console.log('Add Marker ==============================================================================')
@@ -291,10 +366,27 @@ function addMarker(location,heading,cars_info) {
       });
 
 
+    // find marker in map
+
+    // for (k=0;k<=gmarkers.length-1;k++){
+
+    //     console.log('marker title',gmarkers[k].title)
+    //     console.log('cars_info.vehicleUid',cars_info.vehicleUid)
+
+    //     if (gmarkers[k].title == cars_info.vehicleUid)
+    //     {
+    //         console.log('marker title sama')
+    //     }else{
+    //         console.log('marker title beda')
+    //     }
+    // }
+
+
     var marker = new google.maps.Marker({
         position: location,
         icon: homer,
-        map: map
+        map,
+        title: cars_info.vehicleUid
     });
 
     marker.addListener("click", () => {
@@ -303,6 +395,7 @@ function addMarker(location,heading,cars_info) {
           map,
         })
       })
+      
 
     return [marker,infowindow]
 
@@ -440,27 +533,35 @@ var CreateIconRes = async function(path,heading){
 function deleteMarkers() {
     // console.log('process delete markers')
     clearMarkers();
-    gmarkers = [];
+    
  }
-
- function clearMarkers() {
+function clearMarkers() {
     setMapOnAll(null);
+
  }
 
 function setMapOnAll(req) {
-    // console.log('marker length: ' + gmarkers.length)
+    console.log('marker length: ' + gmarkers.length)
     // console.log('start process delete markers')
     
     if (gmarkers.length >0){
-        for (var i = 0; i < gmarkers.length-1; i++) 
+        for (var x = 0; x <= gmarkers.length-1; x++) 
         {
-            // console.log('markers: ' + i)
-            var lat = gmarkers[i].getPosition().lat();
-            var lng = gmarkers[i].getPosition().lng();
+            
+            // console.log('gmarkers ['+ x +']',gmarkers[x])
+            // var lat = gmarkers[x].getPosition().lat();
+            // var lng = gmarkers[x].getPosition().lng();
+            // var title = gmarkers[x].title
             // console.log('lat:'+ lat)
             // console.log('lng:'+ lng)
-            gmarkers[i].setMap(req);
+            // console.log('title',title)
+            gmarkers[x].setMap(null);
         }
+        gmarkers = [];
+        console.log('delete finish')
+        //     for (x in gmarkers) {
+        //      gmarkers[x].setMap(null);
+        //   }
     }
     // console.log('finish process delete markers')
  }
@@ -510,6 +611,7 @@ function removeMarkerWaypointAll(gmarkerswaypoint,gmarkersLength){
 }
 
 function transition(result,heading,cars_info,locs){
+    console.log('transition')
     k = 0;
     // console.log(result[0])
     deltaLat = (result[0] - position[0])/numDeltas;
@@ -1037,7 +1139,7 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 	}
 }
 
-async function drawCircle(lat,lng,radius,center,title,address){
+async function drawCircle(lat,lng,radius,center,title,address,map_target,shape_editable){
    
     var geofence = new google.maps.Circle({
         strokeColor: "#FF0000",
@@ -1045,16 +1147,17 @@ async function drawCircle(lat,lng,radius,center,title,address){
         strokeWeight: 2,
         fillColor: "#FF0000",
         fillOpacity: 0.35,
-        map,
+        map:map_target,
         center: center,
         radius: radius,
+        editable:shape_editable
       });
 
       console.log('address',address)
 
       var marker_place = new google.maps.Marker({
         position: center,
-        map,
+        map:map_target,
         title: title,
       });
 
@@ -1087,7 +1190,7 @@ async function drawCircle(lat,lng,radius,center,title,address){
       contentString += `<div style="height:30px;width:200px;margin-top:-30px;margin-left:80px;margin-bottom:10px;text-align:left;font-family:'Poppins';font-size:12px;">`+ address + `</div>`
       contentString += `<div style="height:30px;margin-top:25px;text-align:left;font-size:12px;font-family:'Poppins';">Radius</div>`
       contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-      contentString += `<div style="height:30px;width:150px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ radius + ` meters </div>`
+      contentString += `<div style="height:30px;width:180px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ radius + ` meters </div>`
       contentString += `<div style="height:30px;margin-top:-5px;text-align:left;font-size:12px;font-family:'Poppins';">Vehicles</div>`
       contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
       contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ markerCnt + `</div>`
@@ -1107,14 +1210,20 @@ async function drawCircle(lat,lng,radius,center,title,address){
 
     google.maps.event.addListener(geofence, 'click', function(ev){
         infoWindow.setPosition(geofence.getCenter());
-        infoWindow.open(map);
+        infoWindow.open(map_target);
+    });
+
+    google.maps.event.addListener(geofence, 'radius_changed', function () {
+        console.log('newRadius',geofence.getRadius());
+        editRadius = geofence.getRadius()
+        $('#radius_geo1').textbox('setValue',editRadius)
     });
 
       geofences.push(geofence)
       gmarkers_place.push(marker_place)
 }
 
-function drawPolygon(paths,title){
+function drawPolygon(paths,title,map_target,shape_editable){
     console.log('paths',paths)
    
     var geofence = new google.maps.Polygon({
@@ -1124,6 +1233,7 @@ function drawPolygon(paths,title){
         strokeWeight: 2,
         fillColor: "#FF0000",
         fillOpacity: 0.35,
+        editable:shape_editable
       });
 
       var markerCnt = 0;
@@ -1139,7 +1249,7 @@ function drawPolygon(paths,title){
 
       var marker_place = new google.maps.Marker({
         position: center,
-        map,
+        map:map_target,
         title: title,
       });
 
@@ -1156,11 +1266,40 @@ function drawPolygon(paths,title){
     });
 
       google.maps.event.addListener(geofence, 'click', function(ev) {
-        infoWindow.setPosition(ev.latLng);
-            infoWindow.open(map);
+            infoWindow.setPosition(ev.latLng);
+            infoWindow.open(map_target);
+    });
+
+    google.maps.event.addListener(geofence.getPath(), 'set_at', function(ev) {
+        var polygonBounds = geofence.getPath();
+        var bounds = [];
+        for (var i = 0; i < polygonBounds.length; i++) {
+            var point = {
+              lat: polygonBounds.getAt(i).lat(),
+              lng: polygonBounds.getAt(i).lng()
+            };
+            bounds.push(point);
+       }
+       console.log('bounds',bounds)
+       $('#coordinates_geo1').textbox('setValue',JSON.stringify(bounds))
+    });
+
+    google.maps.event.addListener(geofence.getPath(), 'insert_at', function(ev) {
+        var polygonBounds = geofence.getPath();
+        var bounds = [];
+        for (var i = 0; i < polygonBounds.length; i++) {
+            var point = {
+              lat: polygonBounds.getAt(i).lat(),
+              lng: polygonBounds.getAt(i).lng()
+            };
+            bounds.push(point);
+       }
+       console.log('bounds',bounds)
+       $('#coordinates_geo1').textbox('setValue',JSON.stringify(bounds))
+
     });
     
-      geofence.setMap(map);
+      geofence.setMap(map_target);
       geofences.push(geofence)
       gmarkers_place.push(marker_place)
 }

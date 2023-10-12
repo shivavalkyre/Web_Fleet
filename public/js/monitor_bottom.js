@@ -383,6 +383,11 @@ function close_riwayat(){
     arr_tout = []
     row_index_selected =0
     current_section = 'pantau'
+    // $('#toggle_vehicle').css('width','100px')
+    // $('#toggle_vehicle').css('height','40px')
+    // $('#toggle_place').css('width','100px')
+    // $('#toggle_place').css('height','40px')
+
     processing_data(current_section,null,prev_mode,false,null)
     // alert(current_section)
 }

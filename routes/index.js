@@ -302,6 +302,12 @@ router.post('/geofence/list/read',function(req,res){
     Geofence.read_list(req,res)
 })
 
+router.post('/geofence/update',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE UPDATE BODY ] | INFO ' + util.inspect(req.body));
+    Geofence.update(req,res)
+})
+
 router.post('/geofence/delete',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE ] | INFO ' + util.inspect(req.headers));
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE BODY ] | INFO ' + util.inspect(req.body));
