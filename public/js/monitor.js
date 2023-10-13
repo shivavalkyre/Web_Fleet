@@ -53,6 +53,17 @@ var userid =  sessionStorage.getItem("id");
 			// 		// map_place
 			// 	}
 			// });	
+
+			// $('#pac-input').click(function(e) {
+			// 	alert('clicked');
+			// 	var txt = $('#pac-input').val()
+			// 	if (txt.length>0){
+			// 		alert(txt.length)
+			// 	}else{
+			// 		alert(0)
+			// 	}
+			// });
+
 			$('#clear_geo_shape').bind('click', function(e){
 				InitializeMapPlace()
 				// alert('here')

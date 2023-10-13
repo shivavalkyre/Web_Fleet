@@ -272,7 +272,21 @@ function InitializeMapPlace() {
       };
     
     //   var autocomplete = new google.maps.places.Autocomplete(address, options);
-      var autocomplete = new google.maps.places.SearchBox(address);
+      var autocomplete = new google.maps.places.Autocomplete(address);
+
+      google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        // var data = $("#search_form").serialize();
+        // alert('change')
+        // show_submit_data(data);
+        const event = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            code: 'Enter',
+            which: 13,
+            keyCode: 13,
+	    });
+
+	    document.getElementById('pac-input').dispatchEvent(event);
+    });
       
 }
 
@@ -334,10 +348,11 @@ async function addMarker(location,heading,cars_info) {
     
 
     var homer = {
-        anchor: new google.maps.Point(16, 16),
+        // anchor: new google.maps.Point(16, 16),
         url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon),
         scale: 2,
-        anchor: new google.maps.Point(0, 40),
+        anchor: new google.maps.Point(0, 0),
+        // anchor: new google.maps.Point(16, 25)
       }
     // //   var $markerImage = document.querySelector('.markerImage'),
     // //   markerImageSvg = $markerImage.innerHTML && '';
