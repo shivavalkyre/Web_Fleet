@@ -1229,3 +1229,433 @@ function process_riwayat(sclId){
     selected_sclId = sclId
     // alert(sclId)
     }
+
+// function cari_riwayat
+async function cari_riwayat(){
+    // alert('cari')
+    // alert('play')
+    var dateToday1 = $('#dt1').datetimebox('getValue')
+    // alert(dateToday1)
+    const timestamp1 = datetime_to_epoch(dateToday1)
+    var dateToday2 = $('#dt2').datetimebox('getValue')
+    // alert(dateToday2)
+    const timestamp2 = datetime_to_epoch(dateToday2)
+    // alert(selected_sclId)
+    // alert('after:' + timestamp1)
+    // alert('before:' + timestamp2)
+
+    var win = $.messager.progress({
+        border: 'thin',
+        msg:'<div style="margin-top:5px;margin-left:5px;"><img src="/img/loader.gif" style="height:50px;width:50px;"></div>',
+        width:100,
+        height:100
+    });
+    $.messager.progress('bar').hide();
+    win.dialog('resize');
+    win.window('window').addClass('bg1');
+
+
+
+    var postdata = {
+        createdBefore:timestamp2,
+        createdAfter:timestamp1,
+        sclId:selected_sclId
+    }
+
+    // console.log(JSON.stringify(postdata))
+
+    var url='/vehicle/history'
+    var response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postdata)
+      })
+    
+      const data = await response.json();
+    //   console.log(data)
+    //  for (i=0; i<= data.length-1;i++){
+    //     var dt = FormatedDate1(epoch_to_datetime(data[i].updateTime))
+    //     data[i].tanggal = dt
+    //  }
+
+     data.sort(GetSortOrder("updateTime"))
+     var j=1
+
+     for (i=0; i<= data.length-1;i++){
+        var dt = FormatedDate1(epoch_to_datetime(data[i].updateTime))
+        data[i].tanggal = dt
+        data[i].no = j
+        data[i].speed = data[i].speed /10
+        j++
+     }
+
+     var new_data = []
+     var k=1
+
+     for (i=0;i<= data.length-1;i++){
+        if (data[i].speed>0){
+            data[i].no = k
+            new_data.push(data[i])
+            k++
+        }
+     }
+
+    $('#dg').datagrid({
+        data: new_data
+    })
+
+    data_riwayat =  $('#dg').datagrid('getRows')
+
+    $.messager.progress('close');
+}
+
+function GetSortOrder(prop) {    
+    return function(a, b) {    
+        if (a[prop] > b[prop]) {    
+            return 1;    
+        } else if (a[prop] < b[prop]) {    
+            return -1;    
+        }    
+        return 0;    
+    }    
+}
+
+
+// play riwayat
+
+function play(){
+    // alert('play')
+   
+    paused_history = false
+    stopped_history = false
+    
+    var data_length = data_riwayat.length
+
+    
+
+
+
+    if (data_length>0){
+        // console.log('data_length:' + data_length)
+        // draw polylines
+        for (i=0;i<=data_length-1;i++){
+            // console.log(data_riwayat[i])
+            var location = {lat:data_riwayat[i].latitude,lng:data_riwayat[i].longitude}
+            drivingPlanCoordinates.push(location)
+        }
+        
+        if (is_play == false){
+         var drivingPath = new google.maps.Polyline({
+                path: drivingPlanCoordinates,
+                geodesic: true,
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+              });
+            drivingPath.setMap(map);
+            arr_drivingPath.push(drivingPath)
+        
+        }else{
+            if(row_index_selected == data_length-1){
+
+            }else{
+                alert('already play')
+            }
+            
+        }
+
+        // alert(prev_row_index_selected)
+        // console.log('row_index_selected:'+ row_index_selected)
+        // console.log('data.length: ' + data_length)
+        
+    
+        if (row_index_selected!= data_length-1){
+            if (is_play == false){
+                is_play = true
+                select_history(data_riwayat,row_index_selected)
+            }
+           
+        }else{
+            is_play = false
+            ReInitializeMap(map,gmarkers)
+            arr_tout = []
+            arr_drivingPath = []
+            row_index_selected = 0
+
+                for (i=0; i<= arr_drivingPath.length-1;i++){
+                    arr_drivingPath[i].setMap(null)
+                }
+                arr_drivingPath=[]
+            
+                // drivingPlanCoordinates =[]
+
+                var drivingPath = new google.maps.Polyline({
+                    path: drivingPlanCoordinates,
+                    geodesic: true,
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2,
+                  });
+                drivingPath.setMap(map);
+                arr_drivingPath.push(drivingPath)
+
+            select_history(data_riwayat,row_index_selected)
+            is_play = true
+            
+        }
+    }
+    else
+    {
+                    var img = "/img/red_close.png"
+                    var msg = `<div style="width:100%;height:40px;text-align:center;margin-bottom:10px;"><img src="`+ img +`" witdth="40" height="40" /></div>`
+                    msg+= `<div style="width:100%;height:40px;text-align:center"> Data Kosong </div>`
+                    msg+= `<div style="width:100%;height:40px;text-align:center;margin-top:20px;">
+                                <hr style="width: 280px;margin-top:10px;margin-left:0px;">
+                            </div>
+                            <div style="margin-top:-20px;text-align:center;font-size:14px;font-family:'Poppins';font-weight:900;color:#0A7AFF;cursor:pointer;" onclick="close_msg()">
+                                OK
+                            </div>
+                            `
+                dlg = $.messager.show({
+                    msg: msg,
+                    showType:'fade',
+                    border:'thin',
+                    timeout:500,
+                    cls: 'cls1',
+                    height:180,
+                    style:{
+                        right:'',
+                        bottom:''
+                    }
+                });
+    }
+    
+    
+    
+}
+
+
+function pause(){
+    // alert('here')
+    paused_history = true
+    is_play = false
+    for(i=0;i<=arr_tout.length-1;i++){
+        clearTimeout(arr_tout[i])
+    }
+    
+    arr_tout = []
+
+    for (i=0; i<= arr_drivingPath.length-1;i++){
+        arr_drivingPath[i].setMap(null)
+    }
+    arr_drivingPath=[]
+
+    drivingPlanCoordinates =[]
+
+    $('#dg').datagrid('unselectAll')
+    $('#dg').datagrid('scrollTo',row_index_selected)
+    $('#dg').datagrid('selectRow',row_index_selected)
+    
+
+}
+
+function stop(){
+    is_play = false
+    for(i=0;i<=arr_tout.length-1;i++){
+        clearTimeout(arr_tout[i])
+    }
+    arr_tout = []
+    row_index_selected = 0
+    // console.log('driving path: '+ arr_drivingPath.length)
+
+    for (i=0; i<= arr_drivingPath.length-1;i++){
+        arr_drivingPath[i].setMap(null)
+    }
+    arr_drivingPath=[]
+
+    drivingPlanCoordinates =[]
+
+    ReInitializeMap(map,gmarkers)
+    $('#dg').datagrid('unselectAll')
+    $('#dg').datagrid('scrollTo',0)
+    // clearInterval(tout)
+    
+
+  
+    stopped_history = true
+}
+
+async function select_history(data,start,paused,stopped){
+    // alert(data.length)
+    // ReInitializeMap(map,gmarkers)
+
+    for(i=0;i<=arr_tout.length-1;i++){
+        clearTimeout(arr_tout[i])
+    }
+    arr_tout = []
+
+    for (i=start;i<=data.length-1;i++)
+    {
+       
+            var result = await doSetTimeout(i)
+            // if (result){
+            //     clearTimeout(result)
+            // }
+       
+    }
+    
+    
+}
+
+function doSetTimeout(i) {
+    // console.log('read speed data:' + read_speed_data)
+    tout = setTimeout(function() {
+        $('#dg').datagrid('selectRow',i)
+        var row = $('#dg').datagrid('getSelected')
+        row_index_selected = i
+
+        if (row.speed == 0){
+            var deviceStatus = 'diam'
+        }else if(row.speed>0){
+            var deviceStatus = 'bergerak'
+        }
+
+        var raw_tanggal = row.tanggal
+        var tanggal = raw_tanggal.substr(0,10)
+        var jam = raw_tanggal.substr(10,19)
+        // console.log(tanggal)
+        // console.log(jam)
+
+        var cars_info = {
+            no:row.no,
+            licensePlate : '',
+            vehicleUid : '',
+            sclId:selected_sclId,
+            deviceStatus : deviceStatus,
+            latitude: row.latitude,
+            longitude:row.longitude,
+            speed: row.speed,
+            heading:row.heading,  
+            tanggal:tanggal,
+            jam:jam
+        }
+        
+        // console.log(paused)
+
+        if (i==0){
+            draw_history(cars_info)
+        }else{
+            if (paused_history == false){
+                prev_row_index_selected = row_index_selected - 1
+                draw_history(cars_info)
+            }else{
+                draw_history(cars_info)
+                 paused_history = false
+            }
+
+        }
+        
+        // console.log(i)
+    }, read_speed_data * i,i)
+    arr_tout.push(tout)
+    // return tout
+  }
+
+ async function draw_history(cars_info){
+    // alert(row.latitude)
+    // alert(row.longitude)
+        // console.log(cars_info.no)
+
+        $('#track_date').text(cars_info.tanggal)
+        $('#track_time').text(cars_info.jam)
+
+        if (cars_info.no == 1){
+            // draw marker
+            var latlng = new google.maps.LatLng(cars_info.latitude,cars_info.longitude);
+            var resp = addMarkerTracking(latlng,cars_info.heading,cars_info)
+            map.panTo(latlng);
+            prev_history_latitude = cars_info.latitude
+            prev_history_longitude = cars_info.longitude
+            position = [cars_info.latitude,cars_info.longitude]
+        }else{
+        
+        position = [prev_history_latitude,prev_history_longitude]
+        var result = [cars_info.latitude,cars_info.longitude]
+
+        var locs = {
+            prevLatitude: prev_history_latitude,
+            prevLongitude: prev_history_longitude,
+            currLatitude: cars_info.latitude,
+            currLongitude: cars_info.longitude
+        }
+
+        // console.log('locs:' + JSON.stringify(locs))
+        var range = await distance(prev_history_latitude,prev_history_longitude,cars_info.latitude,cars_info.longitude)                  
+        // console.log('range:'+ range)
+
+        if (range>0){
+            transition(result,cars_info.heading,cars_info,locs)
+            var latlng = new google.maps.LatLng(cars_info.latitude,cars_info.longitude);
+            map.panTo(latlng)
+
+            // console.log('draw polylines')
+            // var loc_prev = { lat: prev_history_latitude, lng: prev_history_longitude }
+            // drivingPlanCoordinates.push(loc_prev)
+            // var loc_current = {lat: cars_info.latitude, lng: cars_info.longitude}
+            // drivingPlanCoordinates.push(loc_current)
+            
+
+            // var drivingPath = new google.maps.Polyline({
+            //     path: drivingPlanCoordinates,
+            //     geodesic: true,
+            //     strokeColor: "#FF0000",
+            //     strokeOpacity: 1.0,
+            //     strokeWeight: 2,
+            //   });
+              
+            //   drivingPath.setMap(map);
+            //   arr_drivingPath.push(drivingPath)
+
+            prev_history_latitude = cars_info.latitude
+            prev_history_longitude = cars_info.longitude
+            
+            
+            
+            // var loc = { lat: cars_info.latitude, lng: cars_info.longitude }
+            // drivingPlanCoordinates.push(loc)
+
+            // var drivingPath = new google.maps.Polyline({
+            //     path: drivingPlanCoordinates,
+            //     geodesic: true,
+            //     strokeColor: "#FF0000",
+            //     strokeOpacity: 1.0,
+            //     strokeWeight: 2,
+            //   });
+
+            //   drivingPath.setMap(map);
+
+        }else{
+            setMarkerAnchor(cars_info.heading,cars_info,locs)
+                
+            prev_history_latitude = cars_info.latitude
+            prev_history_longitude = cars_info.longitude
+        }
+
+    }
+
+    // var range = distance(prev_latitude,prev_longitude,validLatitude,validLongitude)                  
+    // if (range>0){
+    //     transition(result,heading,cars_info,locs)
+    // }else{
+    //     setMarkerAnchor(heading,cars_info,locs)
+    // }
+
+ }
+
+//  function title_row_change(e){
+   
+//     $(e).addClass("selected").siblings().removeClass("selected")
+
+//  }
