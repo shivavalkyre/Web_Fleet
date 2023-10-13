@@ -3,7 +3,7 @@ var t1_all = null
 var t1_moving = null
 var t1_stop = null
 var t1_offline = null
-
+var init_odometer
 
 
 var t2 = null
@@ -905,7 +905,7 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
     .then(response => response.json()) 
     .then(json => {
         console.log('json',json)
-        var init_odometer = json.rows[0].init_odometer
+        init_odometer = json.rows[0].init_odometer
         console.log('init odometer',init_odometer)
 
         // vehicle_detail
@@ -975,6 +975,9 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
             console.log('json',json)
             return json
         })
+
+        console.log('km_driven',km_driven)
+
 
 
     
@@ -1072,6 +1075,7 @@ function process_live_tracking(sclId){
                         var km_driven = '0 Km'
                         var distance = '0 Km'
                         // $('#t_odometer').text(km_driven)
+                        
                         $('#odometer').text(km_driven)
                         $('#vehicle_distance').text(distance)
                     }else{
@@ -1082,7 +1086,7 @@ function process_live_tracking(sclId){
     
     
                         if (result.total>0){
-                            var km_driven = result.totalKmDriven + ' Km'
+                            var km_driven = parseInt(result.totalKmDriven) + parseInt(init_odometer) + ' Km'
                             var distance = result.distance + ' Km'
                             // $('#t_odometer').text(km_driven)
                             // var raw_km_driven = result.totalKmDriven
