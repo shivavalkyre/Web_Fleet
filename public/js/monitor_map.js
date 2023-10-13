@@ -43,6 +43,8 @@ function InitializeMap() {
     fullscreenControl: false,
     streetViewControl: false,
     zoomControl: false,
+    minZoom: 5, 
+    maxZoom: 18,
     disableDefaultUI: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     // styles: [{
@@ -151,6 +153,8 @@ function InitializeMapPlace() {
     streetViewControl: false,
     zoomControl: false,
     disableDefaultUI: false,
+    minZoom: 5, 
+    maxZoom: 18,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
 
