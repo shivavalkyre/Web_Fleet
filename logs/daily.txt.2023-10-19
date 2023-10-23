@@ -1,0 +1,315 @@
+{"level":"debug","message":"\n19 Oct 2023 10:05:51 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:05:51 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:05:51 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:06:41 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:06:41 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:06:41 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:06:52 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:06:52 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:06:52 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:00 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:07:00 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:00 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:14 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:07:14 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:14 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:21 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:07:21 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:21 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:23 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:07:23 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:23 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:40 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:07:40 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:40 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:47 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:07:47 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:47 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:57 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:07:57 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:07:57 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:05 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:08:05 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:05 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:14 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:08:14 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:14 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:25 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:08:25 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:25 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:34 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:08:34 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:34 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:45 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:08:45 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:45 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:56 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:08:56 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:08:56 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:06 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:09:06 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:06 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:19 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:09:19 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:19 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:31 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:09:31 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:31 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:40 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:09:40 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:40 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:51 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:09:51 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:09:51 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:22:56 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:22:56 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:22:56 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:23:21 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:23:21 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:23:21 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:23:35 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:23:35 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:23:35 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:24:28 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:24:28 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:24:28 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:24:40 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:24:40 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:24:40 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:26:08 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:26:08 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:26:08 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:29:06 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:29:06 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:29:06 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:33:29 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:33:29 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:33:29 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:33:41 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:33:41 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:33:41 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:43:19 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:43:19 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:43:19 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:43:41 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:43:41 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:43:41 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:43:50 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:43:50 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:43:50 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:44:02 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:44:02 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:44:02 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:45:59 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:45:59 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:45:59 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:46:10 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:46:10 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:46:10 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:46:23 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:46:23 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:46:23 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:46:35 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:46:35 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:46:35 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:46:47 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:46:47 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:46:47 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:04 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:47:04 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:04 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:17 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:47:17 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:17 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:31 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:47:31 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:31 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:40 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:47:40 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:40 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:54 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:47:54 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:47:54 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:06 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:48:06 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:06 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:22 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:48:22 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:22 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:33 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:48:33 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:33 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:43 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:48:43 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:43 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:54 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:48:54 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:48:54 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:49:09 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:49:09 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:49:09 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:49:27 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:49:27 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:49:27 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:49:41 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:49:41 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:49:41 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:50:04 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:50:04 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:50:04 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:50:19 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:50:19 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:50:19 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:50:41 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:50:41 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:50:42 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:50:55 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:50:55 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:50:55 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:51:09 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:51:09 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:51:09 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:51:30 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:51:30 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:51:30 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:51:40 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:51:41 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:51:41 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:51:48 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:51:48 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:51:48 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:52:02 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:52:02 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:52:02 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:52:18 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:52:18 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:52:19 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:52:36 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:52:36 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:52:36 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:52:49 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:52:49 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:52:49 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:53:02 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:53:02 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:53:02 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:53:35 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:53:35 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:53:35 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:53:49 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:53:49 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:53:49 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:54:04 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:54:04 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:54:04 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:54:36 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:54:36 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:54:36 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:54:48 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:54:48 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:54:48 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:55:01 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:55:01 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:55:01 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:55:19 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:55:19 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:55:19 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:56:43 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:56:43 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:56:43 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:56:54 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:56:55 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:56:55 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:57:04 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:57:04 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:57:04 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:57:20 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:57:20 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:57:20 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:57:33 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:57:33 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:57:33 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:57:47 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:57:47 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:57:47 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:58:10 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:58:10 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:58:10 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:58:57 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:58:57 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:58:57 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:04 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:59:04 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:04 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:08 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:59:08 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:08 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:23 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:59:23 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:23 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:38 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:59:38 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:38 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:54 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 10:59:54 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 10:59:54 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:00:08 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:00:08 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:00:08 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:00:29 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:00:29 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:00:29 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:00:45 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:00:45 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:00:45 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:00:58 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:00:58 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:00:58 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:01:19 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:01:19 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:01:19 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:01:44 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:01:44 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:01:44 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:02:00 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:02:00 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:02:00 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:02:09 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:02:10 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:02:10 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:02:26 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:02:26 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:02:26 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:02:43 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:02:43 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:02:43 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:03:15 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:03:15 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:03:15 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:03:30 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:03:30 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:03:30 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:03:42 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:03:42 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:03:42 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:04:04 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:04:04 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:04:04 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:04:22 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:04:22 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:04:22 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:04:43 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:04:43 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:04:43 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:04:57 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:04:57 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:04:57 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:05:25 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:05:25 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:05:25 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:05:45 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:05:45 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:05:45 - [ DATABASE U P ] | STARTING 'db_fleet'"}
+{"level":"debug","message":"\n19 Oct 2023 11:05:56 - [ W A K E   U P ] | STARTING 'PATERN CONTROLLER ADAPTER'"}
+{"level":"debug","message":"19 Oct 2023 11:05:56 - [ W A K E   U P ] | RUN AT PATH: /api/pattern, PORT: 3001"}
+{"level":"debug","message":"\n19 Oct 2023 11:05:56 - [ DATABASE U P ] | STARTING 'db_fleet'"}

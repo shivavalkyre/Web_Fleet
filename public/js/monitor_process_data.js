@@ -46,6 +46,12 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearTimeout(t1_offline)
                     clearTimeout(t1_stop)
 
+                    clearInterval(t1_all)
+                    clearInterval(t1_moving)
+                    clearInterval(t1_stop)
+                    clearInterval(t1_offline)
+
+
                     $('#toggle_place').linkbutton({
                         selected:false
                     })
@@ -72,6 +78,11 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearTimeout(t1_moving)
                     clearTimeout(t1_offline)
                     clearTimeout(t1_all)
+
+                    clearInterval(t1_all)
+                    clearInterval(t1_moving)
+                    clearInterval(t1_stop)
+                    clearInterval(t1_offline)
                     
                     $('#toggle_place').linkbutton({
                         selected:false
@@ -97,6 +108,12 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     // deleteMarkers()
                     clearTimeout(t1_moving)
                     clearTimeout(t1_stop)
+
+                    clearInterval(t1_all)
+                    clearInterval(t1_moving)
+                    clearInterval(t1_stop)
+                    clearInterval(t1_offline)
+
                     AssetStatusCount(mode,search_mode,null)  
 
                     $('#toggle_place').linkbutton({
@@ -119,6 +136,11 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearTimeout(t1_moving)
                     clearTimeout(t1_offline)
                     clearTimeout(t1_stop)
+
+                    clearInterval(t1_all)
+                    clearInterval(t1_moving)
+                    clearInterval(t1_stop)
+                    clearInterval(t1_offline)
 
                     $('#toggle_place').linkbutton({
                         selected:false
@@ -412,8 +434,25 @@ async function CreateData(userid){
                     <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
                   </div>
                   `
-    
-               
+
+                  const requestOptions = {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    }
+                };
+
+                //   var url1= '/vehicle/read/selected/vehicleuid/'+ vehicleUid
+                //     //   console.log('url1',url1)
+                //   const result = await fetch(url1,requestOptions)
+                //   .then(response => response.json()) 
+                //   .then(json => {
+                //         console.log('json',json)
+                //   })
+                //   .catch (function (error) {
+                //     console.log('Request failed', error);
+                // });
+                        
     
                     var cars_info = {
                         no:i,
@@ -423,7 +462,8 @@ async function CreateData(userid){
                         deviceStatus : status,
                         speed: speed,
                         heading:heading,
-                        last_update:strDate
+                        last_update:strDate,
+                        type_kendaraan:'sedan'
                     }
     
                     // console.log('validLatitude1:' + validLatitude)
@@ -770,7 +810,8 @@ async function CreateDataSelected(mode){
                                                 deviceStatus : status,
                                                 last_update:strDate,
                                                 speed: speed,
-                                                heading:heading
+                                                heading:heading,
+                                                type_kendaraan:'sedan'
                                             }
 
                                             CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
@@ -933,6 +974,34 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
             console.log('deviceId',deviceId)
         }
         
+        var mazda = brand.indexOf('Mazda')
+        console.log('mazda',mazda)
+        if(mazda>=0){
+            $('#img_kendaraan').attr('src','/img/Clean2.png')
+            $('#img_kendaraan').attr('width','189')
+            $('#img_kendaraan').attr('height','159')
+        }
+
+        var honda = brand.indexOf('Honda')
+        console.log('honda',honda)
+
+        if(honda>=0){
+            console.log('here honda')
+            $('#img_kendaraan').attr('src','/img/honda.png')
+            $('#img_kendaraan').attr('width','200')
+            $('#img_kendaraan').attr('height','200')
+
+        }
+
+        var toyota = brand.indexOf('Toyota')
+
+        if(toyota>=0){
+            $('#img_kendaraan').attr('src','/img/hilux.png')
+            $('#img_kendaraan').attr('width','200')
+            $('#img_kendaraan').attr('height','200')
+        }
+
+
         $('#merk_kendaraan').text(brand)
         $('#tipe_kendaraan').text(vehicle_type)
         $('#vin').text(vin)
@@ -1035,7 +1104,7 @@ function process_live_tracking(sclId){
                 var vehicle_voltage = parseFloat(data[0].batteryVoltage[1].value/1000).toFixed(1) + ' V' 
 
                 var operating_time = parseFloat(data[0].operatingTime[1].value).toFixed(0) + ' Jam';
-                var fuel_level = data[0].fuelLevel[0].value + ' %'
+                var fuel_level = data[0].fuelPercent[0].value + ' %'
 
                 $('#title_detail').text(vehicleUid);
                 $('#fuel_level').text(fuel_level)

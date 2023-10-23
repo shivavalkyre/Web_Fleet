@@ -348,8 +348,42 @@ async function addMarker(location,heading,cars_info) {
     // console.log('Location: ' + location)
     // console.log('heading: ' + heading)
 
-    var svgIcon = getMarkerSVG(heading)
-    
+    // var svgIcon = getMarkerSVG(heading)
+    // device Status (bergerak,diam,offline)
+    // tipe kendaraan (sedan,wagon,cabin)
+    var svgIcon
+    var status
+
+    if (cars_info.deviceStatus=='bergerak' ){
+        status = 'moving'
+        if(cars_info.type_kendaraan == 'sedan' ){
+            svgIcon =  getMarkerSVGSedan(status,heading)
+        } else if (cars_info.type_kendaraan == 'wagon'){
+            svgIcon = getMarkerSVGWagon(status,heading)
+        } else if (cars_info.type_kendaraan == 'cabin'){
+            svgIcon = getMarkerSVGCabin(status,heading)
+        }
+    } else if (cars_info.deviceStatus=='diam'){
+        status = 'stopped'
+        if(cars_info.type_kendaraan == 'sedan' ){
+            svgIcon = getMarkerSVGSedan(status,heading)
+        } else if (cars_info.type_kendaraan == 'wagon'){
+            svgIcon = getMarkerSVGWagon(status,heading)
+        } else if (cars_info.type_kendaraan == 'cabin'){
+            svgIcon = getMarkerSVGCabin(status,heading)
+        }
+
+    } else if (cars_info.deviceStatus=='offline'){
+        status = 'offline'
+        if(cars_info.type_kendaraan == 'sedan' ){
+            svgIcon = getMarkerSVGSedan(status,heading)
+        } else if (cars_info.type_kendaraan == 'wagon'){
+            svgIcon = getMarkerSVGWagon(status,heading)
+        } else if (cars_info.type_kendaraan == 'cabin'){
+            svgIcon = getMarkerSVGCabin(status,heading)
+        }
+    }
+
 
     var homer = {
         // anchor: new google.maps.Point(16, 16),
