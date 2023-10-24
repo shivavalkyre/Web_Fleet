@@ -456,6 +456,21 @@ async function CreateData(userid){
                 // });
 
                 //     console.log('result',result)
+                    var vehicle_type 
+                    console.log(vehicleUid.substr(0,2))
+                    if (vehicleUid.substr(0,2)=='JM'){
+                        vehicle_type = 'sedan'
+                    }
+
+                    if (vehicleUid.substr(0,4)== 'MPAT'){
+                        vehicle_type = 'cabin'
+                    }
+
+                    if (vehicleUid.substr(0,4)== 'MPAU'){
+                        vehicle_type = 'wagon'
+                    }
+
+
 
                     var cars_info = {
                         no:i,
@@ -466,7 +481,7 @@ async function CreateData(userid){
                         speed: speed,
                         heading:heading,
                         last_update:strDate,
-                        type_kendaraan:'sedan'
+                        type_kendaraan:vehicle_type
                     }
     
                     // console.log('validLatitude1:' + validLatitude)
@@ -805,6 +820,21 @@ async function CreateDataSelected(mode){
                                             <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
                                             </div>`
 
+                                            var vehicle_type 
+                                            console.log(vehicleUid.substr(0,2))
+                                            if (vehicleUid.substr(0,2)=='JM'){
+                                                vehicle_type = 'sedan'
+                                            }
+                        
+                                            if (vehicleUid.substr(0,4)== 'MPAT'){
+                                                vehicle_type = 'cabin'
+                                            }
+                        
+                                            if (vehicleUid.substr(0,4)== 'MPAU'){
+                                                vehicle_type = 'wagon'
+                                            }
+                        
+
                                             var cars_info = {
                                                 no: i,
                                                 sclId:sclId,
@@ -814,7 +844,7 @@ async function CreateDataSelected(mode){
                                                 last_update:strDate,
                                                 speed: speed,
                                                 heading:heading,
-                                                type_kendaraan:'sedan'
+                                                type_kendaraan: vehicle_type
                                             }
 
                                             CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
