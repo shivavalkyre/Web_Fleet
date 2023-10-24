@@ -154,7 +154,7 @@ function InitializeMapPlace() {
     zoomControl: false,
     disableDefaultUI: false,
     minZoom: 5, 
-    maxZoom: 18,
+    maxZoom: 20,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
 
@@ -308,8 +308,8 @@ function clearSelection() {
   }
 
   function deleteSelectedShape() {
-    alert('here')
-    console.log('selectedShape',selectedShape)
+    // alert('here')
+    // console.log('selectedShape',selectedShape)
     if (selectedShape) {
       selectedShape.setMap(null);
     }
@@ -354,7 +354,11 @@ async function addMarker(location,heading,cars_info) {
     var svgIcon
     var status
 
+    // console.log('deviceStatus',cars_info.deviceStatus)
+    // console.log('heading',heading)
+
     if (cars_info.deviceStatus=='bergerak' ){
+        // console.log('disini aja')
         status = 'moving'
         if(cars_info.type_kendaraan == 'sedan' ){
             svgIcon =  getMarkerSVGSedan(status,heading)
@@ -439,7 +443,9 @@ async function addMarker(location,heading,cars_info) {
         position: location,
         icon: homer,
         map,
-        title: cars_info.vehicleUid
+        optimized: false,
+        title: cars_info.vehicleUid,
+        status:status
     });
 
     marker.addListener("click", () => {
@@ -562,7 +568,7 @@ function addMarkerWaypoint(latlng,cars_info){
 // Create Icon
 
 var CreateIconRes = async function(path,heading){
-      console.log('path: '+path)
+    //   console.log('path: '+path)
       var res = await  RotateIcon
             .makeIcon(
                 path,width=60,height=60)
@@ -588,13 +594,24 @@ function deleteMarkers() {
     clearMarkers();
     
  }
+
+function deleteMarkersMoving(){
+    for (i=0;i<=gmarkers.length-1;i++){
+        // console.log('marker status',gmarkers[i].status)
+        if (gmarkers[i].status == 'moving'){
+            gmarkers[i].setMap(null);
+        }
+        // if(gmarkers.status)
+    }
+}
+
+
 function clearMarkers() {
     setMapOnAll(null);
-
  }
 
 function setMapOnAll(req) {
-    console.log('marker length: ' + gmarkers.length)
+    // console.log('marker length: ' + gmarkers.length)
     // console.log('start process delete markers')
     
     if (gmarkers.length >0){
@@ -611,7 +628,7 @@ function setMapOnAll(req) {
             gmarkers[x].setMap(null);
         }
         gmarkers = [];
-        console.log('delete finish')
+        // console.log('delete finish')
         //     for (x in gmarkers) {
         //      gmarkers[x].setMap(null);
         //   }
@@ -664,7 +681,7 @@ function removeMarkerWaypointAll(gmarkerswaypoint,gmarkersLength){
 }
 
 function transition(result,heading,cars_info,locs){
-    console.log('transition')
+    // console.log('transition')
     k = 0;
     // console.log(result[0])
     deltaLat = (result[0] - position[0])/numDeltas;
@@ -706,6 +723,9 @@ function moveMarker(heading, cars_info,locs){
 function setMarkerAnchor(heading,cars_info,locs){
 
     var svgIcon1 = getMarkerSVGArrow(parseInt(heading))
+
+
+
     var svgIcon2 = getMarkerSVG(parseInt(heading))
 
     // console.log(cars_info)
@@ -718,6 +738,37 @@ function setMarkerAnchor(heading,cars_info,locs){
         }else if(cars_info.deviceStatus == 'offline'){
             img = "/img/moving_offline.png"
         }
+
+            if (cars_info.deviceStatus=='bergerak' ){
+        status = 'moving'
+        if(cars_info.type_kendaraan == 'sedan' ){
+            svgIcon =  getMarkerSVGSedan(status,heading)
+        } else if (cars_info.type_kendaraan == 'wagon'){
+            svgIcon = getMarkerSVGWagon(status,heading)
+        } else if (cars_info.type_kendaraan == 'cabin'){
+            svgIcon = getMarkerSVGCabin(status,heading)
+        }
+    } else if (cars_info.deviceStatus=='diam'){
+        status = 'stopped'
+        if(cars_info.type_kendaraan == 'sedan' ){
+            svgIcon = getMarkerSVGSedan(status,heading)
+        } else if (cars_info.type_kendaraan == 'wagon'){
+            svgIcon = getMarkerSVGWagon(status,heading)
+        } else if (cars_info.type_kendaraan == 'cabin'){
+            svgIcon = getMarkerSVGCabin(status,heading)
+        }
+
+    } else if (cars_info.deviceStatus=='offline'){
+        status = 'offline'
+        if(cars_info.type_kendaraan == 'sedan' ){
+            svgIcon = getMarkerSVGSedan(status,heading)
+        } else if (cars_info.type_kendaraan == 'wagon'){
+            svgIcon = getMarkerSVGWagon(status,heading)
+        } else if (cars_info.type_kendaraan == 'cabin'){
+            svgIcon = getMarkerSVGCabin(status,heading)
+        }
+    }
+
 
 
     var contentString =`<div style="width:200px;height:30px;margin-top:10px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins'"> <img src='`+ img +`' width="24" height="24"'/>` + ' ('+ cars_info.deviceStatus +')' + `</div>`
@@ -1206,7 +1257,7 @@ async function drawCircle(lat,lng,radius,center,title,address,map_target,shape_e
         editable:shape_editable
       });
 
-      console.log('address',address)
+    //   console.log('address',address)
 
       var marker_place = new google.maps.Marker({
         position: center,
@@ -1214,7 +1265,7 @@ async function drawCircle(lat,lng,radius,center,title,address,map_target,shape_e
         title: title,
       });
 
-      console.log('marker_place',marker_place);
+    //   console.log('marker_place',marker_place);
      
 
     //   var avm = new google.maps.LatLng(center.lat, center.lng);
@@ -1316,7 +1367,7 @@ async function drawCircle(lat,lng,radius,center,title,address,map_target,shape_e
     });
 
     google.maps.event.addListener(geofence, 'radius_changed', function () {
-        console.log('newRadius',geofence.getRadius());
+        // console.log('newRadius',geofence.getRadius());
         editRadius = geofence.getRadius()
         $('#radius_geo1').textbox('setValue',editRadius)
     });
@@ -1326,7 +1377,7 @@ async function drawCircle(lat,lng,radius,center,title,address,map_target,shape_e
 }
 
 function drawPolygon(paths,title,address,map_target,shape_editable){
-    console.log('paths',paths)
+    // console.log('paths',paths)
    
     var geofence = new google.maps.Polygon({
         paths: paths,
@@ -1432,7 +1483,7 @@ function drawPolygon(paths,title,address,map_target,shape_editable){
             };
             bounds.push(point);
        }
-       console.log('bounds',bounds)
+    //    console.log('bounds',bounds)
        $('#coordinates_geo1').textbox('setValue',JSON.stringify(bounds))
     });
 
@@ -1446,7 +1497,7 @@ function drawPolygon(paths,title,address,map_target,shape_editable){
             };
             bounds.push(point);
        }
-       console.log('bounds',bounds)
+    //    console.log('bounds',bounds)
        $('#coordinates_geo1').textbox('setValue',JSON.stringify(bounds))
 
     });

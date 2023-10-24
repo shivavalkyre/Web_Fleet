@@ -19,7 +19,7 @@ var arr_drivingPath =[]
 var is_play = false
 
 function processing_data (current_section,sclId,mode,search_mode,search_param,userid){
-    console.log('current section: '+ current_section)
+    // console.log('current section: '+ current_section)
     if (current_section == 'pantau'){
 
         ReInitializeMap(map,gmarkers)
@@ -36,7 +36,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
             clearInterval(t3)
             clearInterval(t4)
 
-            console.log('modenya:'+ mode)
+            // console.log('modenya:'+ mode)
             prev_mode = mode
 
             if (mode == 'bergerak'){
@@ -66,7 +66,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                         // console.log('markers deleted')
                         // console.log('markers: '  + gmarkers.length)
                         // console.log('search mode', search_mode)
-                        console.log('asset status count')
+                        // console.log('asset status count')
                         AssetStatusCount(mode,search_mode,null)
                     },30000)
                
@@ -131,7 +131,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                 
             }else if (mode == 'semua'){
                 //alert('semua')
-                    console.log('semua')
+                    // console.log('semua')
                     // deleteMarkers()
                     clearTimeout(t1_moving)
                     clearTimeout(t1_offline)
@@ -151,7 +151,8 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     t1_all = setInterval(function(){
                         // console.log('Interval reached')
                         // console.log('start delete markers')
-                        deleteMarkers()
+                        // deleteMarkers()
+                        deleteMarkersMoving()
                         // console.log('markers deleted')
                         // console.log('markers: '  + gmarkers.length)
                         AssetStatusCount(mode,search_mode,null,userid)
@@ -444,16 +445,18 @@ async function CreateData(userid){
 
                 //   var url1= '/vehicle/read/selected/vehicleuid/'+ vehicleUid
                 //     //   console.log('url1',url1)
-                //   const result = await fetch(url1,requestOptions)
+                //   var result = await fetch(url1,requestOptions)
                 //   .then(response => response.json()) 
                 //   .then(json => {
-                //         console.log('json',json)
+                //         // console.log('json',json)
+                //         return json
                 //   })
                 //   .catch (function (error) {
-                //     console.log('Request failed', error);
+                //     // console.log('Request failed', error);
                 // });
-                        
-    
+
+                //     console.log('result',result)
+
                     var cars_info = {
                         no:i,
                         sclId:sclId,
@@ -489,7 +492,7 @@ async function CreateData(userid){
       
 
         var data_vehicle = await res_vehicle.rows
-        console.log('data_vehicle',data_vehicle)
+        // console.log('data_vehicle',data_vehicle)
 
         for (l=0;l<=data_vehicle.length-1;l++){
 
@@ -702,8 +705,8 @@ async function CreateDataSelected(mode){
                 
                 // ReInitializeMap
 
-                console.log('gmarkers awal length:', gmarkers.length)
-                console.log('status',status)
+                // console.log('gmarkers awal length:', gmarkers.length)
+                // console.log('status',status)
 
                 if (status == true){
 
@@ -872,7 +875,7 @@ async function CreateDataSelected(mode){
                       }
                 }
 
-                console.log('gmarkers akhir length:', gmarkers.length)
+                // console.log('gmarkers akhir length:', gmarkers.length)
 
                 $('#live_monitor').html(pnl);
 }
@@ -934,48 +937,48 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
         }
     };
 
-    console.log('requestOptions' + requestOptions)
+    // console.log('requestOptions' + requestOptions)
 
     var total_odometer = '0 Km'
     $('#odometer').text(total_odometer)
 
     // get odometer awal
     var url1= '/vehicle/read/selected/vehicleuid/'+ vehicleUid
-    console.log('url1',url1)
+    // console.log('url1',url1)
     const result = fetch(url1,requestOptions)
     .then(response => response.json()) 
     .then(json => {
-        console.log('json',json)
+        // console.log('json',json)
         init_odometer = json.rows[0].init_odometer
-        console.log('init odometer',init_odometer)
+        // console.log('init odometer',init_odometer)
 
         // vehicle_detail
         var brand = json.rows[0].vehicle_brand
-        console.log('brand',brand)
+        // console.log('brand',brand)
         var vehicle_type = json.rows[0].vehicle_type
-        console.log('vehicle type',vehicle_type)
+        // console.log('vehicle type',vehicle_type)
         var vin = json.rows[0].vin
-        console.log('vin',vin)
+        // console.log('vin',vin)
 
         var license_plate = json.rows[0].license_plate
 
         if (license_plate !== undefined){
-            console.log('license_plate',license_plate)
+            // console.log('license_plate',license_plate)
         }else{
             var license_plate = '-'
-            console.log('license_plate',license_plate)
+            // console.log('license_plate',license_plate)
         }
         
         var deviceId = json.rows[0].deviceId
         if (deviceId !== undefined){
-            console.log('deviceId',deviceId)
+            // console.log('deviceId',deviceId)
         }else{
             var deviceId =''
-            console.log('deviceId',deviceId)
+            // console.log('deviceId',deviceId)
         }
         
         var mazda = brand.indexOf('Mazda')
-        console.log('mazda',mazda)
+        // console.log('mazda',mazda)
         if(mazda>=0){
             $('#img_kendaraan').attr('src','/img/Clean2.png')
             $('#img_kendaraan').attr('width','189')
@@ -983,10 +986,10 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
         }
 
         var honda = brand.indexOf('Honda')
-        console.log('honda',honda)
+        // console.log('honda',honda)
 
         if(honda>=0){
-            console.log('here honda')
+            // console.log('here honda')
             $('#img_kendaraan').attr('src','/img/honda.png')
             $('#img_kendaraan').attr('width','200')
             $('#img_kendaraan').attr('height','200')
@@ -1013,12 +1016,12 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
 
         var createdAt = json.rows[0].createdAt
         var start_date = createdAt.substr(0,10)
-        console.log('start date', start_date)       
+        // console.log('start date', start_date)       
 
         var token = sessionStorage.getItem("token")
         // console.log(token)
         var url2 = '/vehicle/read/odometer'
-        console.log('url2',url2)
+        // console.log('url2',url2)
 
         const date = new Date();
         let day = date.getDate();
@@ -1045,7 +1048,7 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
             return json
         })
 
-        console.log('km_driven',km_driven)
+        // console.log('km_driven',km_driven)
 
 
 
@@ -1148,10 +1151,10 @@ function process_live_tracking(sclId){
                         $('#odometer').text(km_driven)
                         $('#vehicle_distance').text(distance)
                     }else{
-                        console.log('result',result) 
-                        console.log('result',result.total)  
-                        console.log('distance',result.distance)
-                        console.log('KmDriven',result.totalKmDriven) 
+                        // console.log('result',result) 
+                        // console.log('result',result.total)  
+                        // console.log('distance',result.distance)
+                        // console.log('KmDriven',result.totalKmDriven) 
     
     
                         if (result.total>0){
