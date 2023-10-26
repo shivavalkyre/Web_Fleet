@@ -370,6 +370,158 @@ function tambah_data(){
     $('#w_tambah').window('center');
 }
 
+async function generate_data(){
+
+    // delete all data
+    // var rows = $('#dg').datagrid('getRows');
+    // console.log('rows',rows.length)
+
+    // var pager = $('#dg').datagrid('getPager')
+    // console.log(pager.pagination('total'))
+
+
+    // var data = $('#dg').datagrid('getData');
+    // var rows = data.firstRows;
+    // console.log(rows);
+            var win = $.messager.progress({
+                border: 'thin',
+                msg:'<div style="margin-top:5px;margin-left:5px;"><img src="/img/loader.gif" style="height:50px;width:50px;"></div>',
+                width:100,
+                height:100
+            });
+            $.messager.progress('bar').hide();
+            win.dialog('resize');
+            win.window('window').addClass('bg1');
+
+    
+            let  url1 = '/vehicle/delete_all'
+            var post_data ={
+            }
+            var result = await axios.post(url1,post_data).then((response) => {
+                        // console.log(response.data)
+                        var status = response.status
+                        // console.log(response)
+                        // console.log(status)
+                        return status
+                       
+                    })
+
+           if(result== 200){
+                $('#dg').datagrid('reload')
+                var token = sessionStorage.getItem("token")
+                    const config = {
+                        headers:{
+                        'token': token
+                        },
+                        timeout: 10000
+                    };
+
+                    var postData = {
+                    
+                    };
+                    var url = "http://147.139.144.120:3002/api/patern/latest_status"
+                    // var url = "http://localhost:3002/api/patern/latest_status"
+                    let res1 = await axios.post(url,postData,config)
+                    .then((response) => {
+                        // console.log(response.data)
+                        var status = response.data.status
+                        var data = response.data.data
+                        if (status == true){
+                            return data
+                        }
+
+                    }).catch((error) => {
+                        // $.messager.alert('Error','Error Loading Data Timeout','info');
+                        console.error(error)
+                        // AssetStatusCount()
+                    });
+
+                    var data = await  res1
+                    // console.log('data',data)
+
+                    for (i=0;i<= data.length-1;i++){
+                        // console.log('data['+ i +']', data[i])
+
+                        var vehicleUid = data[i].vehicleUid
+                        var vehicleVin = data[i].vehicleVin
+                        var vehicle_id = vehicleUid
+                        var deviceId = data[i].deviceId
+                        var deviceStatus = data[i].deviceStatus
+                        var assignment = 1
+                        var tagging = 'pusat'
+                        var vehicle_brand
+                        var vehicle_type
+
+                        var vehicle_type 
+                        // console.log('vehicle_id',vehicle_id)
+
+                        if (vehicle_id.substr(0,2)=='JM'){
+                            vehicle_type = 'sedan'
+                            vehicle_brand = 'Mazda'
+                            vehicle_type = 'Mazda 6'
+                        }
+
+                        if (vehicle_id.substr(0,4)== 'MPAT'){
+                            vehicle_type = 'cabin'
+                            vehicle_brand = 'Isuzu'
+                            vehicle_type = 'D-Max'
+                        }
+
+                        if (vehicle_id.substr(0,4)== 'MPAU'){
+                            vehicle_type = 'wagon'
+                            vehicle_brand = 'Isuzu'
+                            vehicle_type = 'Mux'
+                        }
+
+                        var post_data = {
+                            'vehicleid'     : vehicle_id,
+                            'vehicle_brand' : vehicle_brand,
+                            'vehicle_type'  : vehicle_type,
+                            'assignment'    : assignment,
+                            'tagging'       : tagging,
+                            'vin'           : vehicleVin,
+                            'init_odometer' : 0,
+                            'deviceId'      : deviceId
+                        }
+
+                        // console.log('post_data',post_data)
+                        if (deviceStatus == 'moving' || deviceStatus == 'stopped' || deviceStatus == 'offline') {
+
+                            let  url1 = '/vehicle/create'
+                        let res2 = await axios.post(url1,post_data)
+                        .then((response) => {
+                            // console.log(response.data)
+                            var status = response.data.status
+                            var data = response.data.data
+                            if (status == true){
+                                return data
+                            }
+
+                        }).catch((error) => {
+                            // $.messager.alert('Error','Error Loading Data Timeout','info');
+                            console.error(error)
+                            // AssetStatusCount()
+                        });
+
+                        // console.log('res2',res2)
+                        $('#dg').datagrid('reload')
+
+                        }
+                        
+                        
+                    }
+                      
+           }
+            
+
+    
+           $.messager.progress('close')
+   
+    
+}
+
+
+
 async function simpan_data(){
 
     // alert('store status: '+ store_status)

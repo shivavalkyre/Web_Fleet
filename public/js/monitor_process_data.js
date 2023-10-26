@@ -984,7 +984,7 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
 
         // vehicle_detail
         var brand = json.rows[0].vehicle_brand
-        // console.log('brand',brand)
+        console.log('brand',brand)
         var vehicle_type = json.rows[0].vehicle_type
         // console.log('vehicle type',vehicle_type)
         var vin = json.rows[0].vin
@@ -1006,33 +1006,55 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
             var deviceId =''
             // console.log('deviceId',deviceId)
         }
+
+
+                if (vehicleUid.substr(0,2)=='JM'){
+                    $('#img_kendaraan').attr('src','/img/Clean2.png')
+                    $('#img_kendaraan').attr('width','189')
+                    $('#img_kendaraan').attr('height','159')
+                }
+
+                if (vehicleUid.substr(0,4)== 'MPAT'){
+
+                    $('#img_kendaraan').attr('src','/img/hilux.png')
+                    $('#img_kendaraan').attr('width','200')
+                    $('#img_kendaraan').attr('height','200')
+  
+                }
+
+                if (vehicleUid.substr(0,4)== 'MPAU'){
+                    $('#img_kendaraan').attr('src','/img/honda.png')
+                    $('#img_kendaraan').attr('width','200')
+                    $('#img_kendaraan').attr('height','200')
+                }
         
-        var mazda = brand.indexOf('Mazda')
-        // console.log('mazda',mazda)
-        if(mazda>=0){
-            $('#img_kendaraan').attr('src','/img/Clean2.png')
-            $('#img_kendaraan').attr('width','189')
-            $('#img_kendaraan').attr('height','159')
-        }
+        // var mazda = brand.indexOf('Mazda')
+        // // console.log('mazda',mazda)
+        // if(mazda>=0){
+        //     $('#img_kendaraan').attr('src','/img/Clean2.png')
+        //     $('#img_kendaraan').attr('width','189')
+        //     $('#img_kendaraan').attr('height','159')
+        // }
+        
 
-        var honda = brand.indexOf('Honda')
-        // console.log('honda',honda)
+        // var honda = brand.indexOf('Honda')
+        // // console.log('honda',honda)
 
-        if(honda>=0){
-            // console.log('here honda')
-            $('#img_kendaraan').attr('src','/img/honda.png')
-            $('#img_kendaraan').attr('width','200')
-            $('#img_kendaraan').attr('height','200')
+        // if(honda>=0){
+        //     // console.log('here honda')
+        //     $('#img_kendaraan').attr('src','/img/honda.png')
+        //     $('#img_kendaraan').attr('width','200')
+        //     $('#img_kendaraan').attr('height','200')
 
-        }
+        // }
 
-        var toyota = brand.indexOf('Toyota')
+        // var toyota = brand.indexOf('Toyota')
 
-        if(toyota>=0){
-            $('#img_kendaraan').attr('src','/img/hilux.png')
-            $('#img_kendaraan').attr('width','200')
-            $('#img_kendaraan').attr('height','200')
-        }
+        // if(toyota>=0){
+        //     $('#img_kendaraan').attr('src','/img/hilux.png')
+        //     $('#img_kendaraan').attr('width','200')
+        //     $('#img_kendaraan').attr('height','200')
+        // }
 
 
         $('#merk_kendaraan').text(brand)
@@ -1231,6 +1253,20 @@ function process_live_tracking(sclId){
 
                 $('#vehicle_time_live').text(strDate)
 
+                var vehicle_type 
+                console.log(vehicleUid.substr(0,2))
+                if (vehicleUid.substr(0,2)=='JM'){
+                    vehicle_type = 'sedan'
+                }
+
+                if (vehicleUid.substr(0,4)== 'MPAT'){
+                    vehicle_type = 'cabin'
+                }
+
+                if (vehicleUid.substr(0,4)== 'MPAU'){
+                    vehicle_type = 'wagon'
+                }
+
                 var cars_info = {
                     licensePlate : licensePlate,
                     vehicleUid : vehicleUid,
@@ -1238,7 +1274,8 @@ function process_live_tracking(sclId){
                     speed: speed,
                     heading:heading,
                     updateTime:strDate,
-                    updateJam: strTime      
+                    updateJam: strTime,
+                    type_kendaraan: vehicle_type   
                 }
 
                 // console.log('gmarkers length: ' + gmarkers.length)

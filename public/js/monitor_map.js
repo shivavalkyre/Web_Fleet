@@ -494,7 +494,40 @@ function addMarkerTracking(location,heading,cars_info) {
                 map: map
             });
         }else{
-            var svgIcon = getMarkerSVG(heading)
+            // var svgIcon = getMarkerSVG(heading)
+            var svgIcon
+            if (cars_info.deviceStatus=='bergerak' ){
+                // console.log('disini aja')
+                status = 'moving'
+                if(cars_info.type_kendaraan == 'sedan' ){
+                    svgIcon =  getMarkerSVGSedan(status,heading)
+                } else if (cars_info.type_kendaraan == 'wagon'){
+                    svgIcon = getMarkerSVGWagon(status,heading)
+                } else if (cars_info.type_kendaraan == 'cabin'){
+                    svgIcon = getMarkerSVGCabin(status,heading)
+                }
+            } else if (cars_info.deviceStatus=='diam'){
+                status = 'stopped'
+                if(cars_info.type_kendaraan == 'sedan' ){
+                    svgIcon = getMarkerSVGSedan(status,heading)
+                } else if (cars_info.type_kendaraan == 'wagon'){
+                    svgIcon = getMarkerSVGWagon(status,heading)
+                } else if (cars_info.type_kendaraan == 'cabin'){
+                    svgIcon = getMarkerSVGCabin(status,heading)
+                }
+        
+            } else if (cars_info.deviceStatus=='offline'){
+                status = 'offline'
+                if(cars_info.type_kendaraan == 'sedan' ){
+                    svgIcon = getMarkerSVGSedan(status,heading)
+                } else if (cars_info.type_kendaraan == 'wagon'){
+                    svgIcon = getMarkerSVGWagon(status,heading)
+                } else if (cars_info.type_kendaraan == 'cabin'){
+                    svgIcon = getMarkerSVGCabin(status,heading)
+                }
+            }
+            
+            
             marker = new google.maps.Marker({
                 position: location,
                 icon: {
@@ -723,11 +756,8 @@ function moveMarker(heading, cars_info,locs){
 function setMarkerAnchor(heading,cars_info,locs){
 
     var svgIcon1 = getMarkerSVGArrow(parseInt(heading))
-
-
-
-    var svgIcon2 = getMarkerSVG(parseInt(heading))
-
+    // var svgIcon2 = getMarkerSVG(parseInt(heading))
+    var svgIcon2;
     // console.log(cars_info)
         var img
 
@@ -739,33 +769,33 @@ function setMarkerAnchor(heading,cars_info,locs){
             img = "/img/moving_offline.png"
         }
 
-            if (cars_info.deviceStatus=='bergerak' ){
-        status = 'moving'
+        if (cars_info.deviceStatus=='bergerak' ){
+            status = 'moving'
         if(cars_info.type_kendaraan == 'sedan' ){
-            svgIcon =  getMarkerSVGSedan(status,heading)
+            svgIcon2 =  getMarkerSVGSedan(status,heading)
         } else if (cars_info.type_kendaraan == 'wagon'){
-            svgIcon = getMarkerSVGWagon(status,heading)
+            svgIcon2 = getMarkerSVGWagon(status,heading)
         } else if (cars_info.type_kendaraan == 'cabin'){
-            svgIcon = getMarkerSVGCabin(status,heading)
+            svgIcon2 = getMarkerSVGCabin(status,heading)
         }
     } else if (cars_info.deviceStatus=='diam'){
         status = 'stopped'
         if(cars_info.type_kendaraan == 'sedan' ){
-            svgIcon = getMarkerSVGSedan(status,heading)
+            svgIcon2 = getMarkerSVGSedan(status,heading)
         } else if (cars_info.type_kendaraan == 'wagon'){
-            svgIcon = getMarkerSVGWagon(status,heading)
+            svgIcon2 = getMarkerSVGWagon(status,heading)
         } else if (cars_info.type_kendaraan == 'cabin'){
-            svgIcon = getMarkerSVGCabin(status,heading)
+            svgIcon2 = getMarkerSVGCabin(status,heading)
         }
 
     } else if (cars_info.deviceStatus=='offline'){
         status = 'offline'
         if(cars_info.type_kendaraan == 'sedan' ){
-            svgIcon = getMarkerSVGSedan(status,heading)
+            svgIcon2 = getMarkerSVGSedan(status,heading)
         } else if (cars_info.type_kendaraan == 'wagon'){
-            svgIcon = getMarkerSVGWagon(status,heading)
+            svgIcon2 = getMarkerSVGWagon(status,heading)
         } else if (cars_info.type_kendaraan == 'cabin'){
-            svgIcon = getMarkerSVGCabin(status,heading)
+            svgIcon2 = getMarkerSVGCabin(status,heading)
         }
     }
 

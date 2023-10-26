@@ -225,6 +225,7 @@ router.post('/vehicle/create',function(req,res){
     Vehicle.create(req,res)
 })
 
+
 router.post('/vehicle/read/selected/:createdby',async function(req,res){
     var createdby = req.params.createdby
     req.body.createdby = createdby
@@ -281,6 +282,14 @@ router.post('/vehicle/delete',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ DELETE BODY ] | INFO ' + util.inspect(req.body));
     Vehicle.Delete(req,res)
 })
+
+
+router.post('/vehicle/delete_all',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ DELETE BODY ] | INFO ' + util.inspect(req.body));
+    Vehicle.DeleteAll(req,res)
+})
+
 
 router.post('/vehicle/history',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER HISTORY ] | INFO ' + util.inspect(req.headers));
