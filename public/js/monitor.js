@@ -205,7 +205,7 @@ var userid =  sessionStorage.getItem("id");
 
 			$('#mini_me').click(function(e) {  
 				var mypos = $('#mini_me').css('margin-left')
-				if (mypos == '230px')
+				if (mypos == '260px')
 				{
 					$('#mini_me').css('margin-left','70px')
 					$("#img_mini_me").attr("src","/img/mini1.png");
@@ -223,9 +223,9 @@ var userid =  sessionStorage.getItem("id");
 					$('#setting').css('width','20%')
 
 				}else{
-					$('#mini_me').css('margin-left','230px')
+					$('#mini_me').css('margin-left','260px')
 					$("#img_mini_me").attr("src","/img/mini.png");
-					w=250
+					w=280
 					p = $('#cc').layout('panel','west');
 					p.panel('resize', {width:w});
 					$('#cc').layout('resize');
