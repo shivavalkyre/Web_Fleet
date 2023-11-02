@@ -69,7 +69,7 @@ router.get('/chat',function(req,res){
 
 
 router.get('/notifikasi',function(req,res){
-    Notifikasi.index(req,res)
+    res.render('notifikasi',{apikey:process.env.APIKEY,latitude:process.env.LATITUDE,longitude:process.env.LONGITUDE})
     // res.render('chat',{apikey:process.env.APIKEY})
 })
 
@@ -329,6 +329,14 @@ router.post('/geofence/delete',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE ] | INFO ' + util.inspect(req.headers));
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE BODY ] | INFO ' + util.inspect(req.body));
     Geofence.Delete(req,res)
+})
+
+// Notifikasi ===================================================================================================
+
+router.post('/notifikasi/read',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER NOTIFIKASI ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE READ BODY ] | INFO ' + util.inspect(req.body));
+    Notifikasi.read(req,res)
 })
 
 // auth =========================================================================================================
