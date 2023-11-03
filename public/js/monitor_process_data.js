@@ -18,7 +18,7 @@ var arr_drivingPath =[]
 
 var is_play = false
 
-function processing_data (current_section,sclId,mode,search_mode,search_param,userid){
+function processing_data (current_section,sclId,mode,search_mode,search_param,userid,vehicleUid){
     // console.log('current section: '+ current_section)
     if (current_section == 'pantau'){
 
@@ -457,18 +457,34 @@ async function CreateData(userid){
 
                 //     console.log('result',result)
                     var vehicle_type 
-                    console.log(vehicleUid.substr(0,2))
-                    if (vehicleUid.substr(0,2)=='JM'){
+                    // console.log('vehicleUid',vehicleUid.substr(0,2))
+
+                    
+
+                    // if (vehicleUid.substr(0,2)=='JM'){
+                    //     vehicle_type = 'sedan'
+                    // }
+
+                    var x_def = vehicleUid.substr(0,2)
+                    var x_def1 = vehicleUid.substr(0,4)
+
+                    // console.log('x_def',x_def)
+                    // console.log('x_def1',x_def1)
+
+                    if (x_def == 'MP'){
+
+                        if (x_def1 == 'MPAT'){
+                            vehicle_type = 'cabin'
+                        }
+    
+                        if (x_def1 == 'MPAU'){
+                            vehicle_type = 'wagon'
+                        }
+                    }else{
                         vehicle_type = 'sedan'
                     }
 
-                    if (vehicleUid.substr(0,4)== 'MPAT'){
-                        vehicle_type = 'cabin'
-                    }
 
-                    if (vehicleUid.substr(0,4)== 'MPAU'){
-                        vehicle_type = 'wagon'
-                    }
 
 
 
@@ -821,7 +837,9 @@ async function CreateDataSelected(mode){
                                             </div>`
 
                                             var vehicle_type 
-                                            console.log(vehicleUid.substr(0,2))
+                                            // console.log('vehicleUid',vehicleUid.substr(0,2))
+
+                                             
                                             if (vehicleUid.substr(0,2)=='JM'){
                                                 vehicle_type = 'sedan'
                                             }
@@ -978,7 +996,7 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
     const result = fetch(url1,requestOptions)
     .then(response => response.json()) 
     .then(json => {
-        // console.log('json',json)
+        console.log('json',json)
         init_odometer = json.rows[0].init_odometer
         // console.log('init odometer',init_odometer)
 
@@ -1006,27 +1024,54 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
             var deviceId =''
             // console.log('deviceId',deviceId)
         }
+                // alert(vehicleUid)
 
 
-                if (vehicleUid.substr(0,2)=='JM'){
+                var x_def = vehicleUid.substr(0,2)
+                var x_def1 = vehicleUid.substr(0,4)
+                console.log('x_def',x_def)
+                console.log('x_def1',x_def1)
+
+                if (x_def == 'MP'){
+
+                    if (x_def1 == 'MPAT'){
+                        $('#img_kendaraan').attr('src','/img/hilux.png')
+                        $('#img_kendaraan').attr('width','200')
+                        $('#img_kendaraan').attr('height','200')
+                    }
+
+                    if (x_def1 == 'MPAU'){
+                        $('#img_kendaraan').attr('src','/img/honda.png')
+                        $('#img_kendaraan').attr('width','200')
+                        $('#img_kendaraan').attr('height','200')
+                    }
+                }else{
                     $('#img_kendaraan').attr('src','/img/Clean2.png')
                     $('#img_kendaraan').attr('width','189')
                     $('#img_kendaraan').attr('height','159')
                 }
 
-                if (vehicleUid.substr(0,4)== 'MPAT'){
+                // if (vehicleUid.substr(0,2)=='JM'){
+                //     alert('JM')
+                //     $('#img_kendaraan').attr('src','/img/Clean2.png')
+                //     $('#img_kendaraan').attr('width','189')
+                //     $('#img_kendaraan').attr('height','159')
+                // }
 
-                    $('#img_kendaraan').attr('src','/img/hilux.png')
-                    $('#img_kendaraan').attr('width','200')
-                    $('#img_kendaraan').attr('height','200')
+                // if (vehicleUid.substr(0,4)== 'MPAT'){
+                //     alert('MPAT')
+                //     $('#img_kendaraan').attr('src','/img/hilux.png')
+                //     $('#img_kendaraan').attr('width','200')
+                //     $('#img_kendaraan').attr('height','200')
   
-                }
+                // }
 
-                if (vehicleUid.substr(0,4)== 'MPAU'){
-                    $('#img_kendaraan').attr('src','/img/honda.png')
-                    $('#img_kendaraan').attr('width','200')
-                    $('#img_kendaraan').attr('height','200')
-                }
+                // if (vehicleUid.substr(0,4)== 'MPAU'){
+                //     alert('MPAU')
+                //     $('#img_kendaraan').attr('src','/img/honda.png')
+                //     $('#img_kendaraan').attr('width','200')
+                //     $('#img_kendaraan').attr('height','200')
+                // }
         
         // var mazda = brand.indexOf('Mazda')
         // // console.log('mazda',mazda)
@@ -1255,6 +1300,7 @@ function process_live_tracking(sclId){
 
                 var vehicle_type 
                 console.log(vehicleUid.substr(0,2))
+
                 if (vehicleUid.substr(0,2)=='JM'){
                     vehicle_type = 'sedan'
                 }
@@ -1418,7 +1464,7 @@ async function cari_riwayat(){
     //     var dt = FormatedDate1(epoch_to_datetime(data[i].updateTime))
     //     data[i].tanggal = dt
     //  }
-
+    //  console.log('data riwayat',data)
      data.sort(GetSortOrder("updateTime"))
      var j=1
 
@@ -1666,13 +1712,35 @@ function doSetTimeout(i) {
         var jam = raw_tanggal.substr(10,19)
         // console.log(tanggal)
         // console.log(jam)
+        // alert(selected_vehicleUid)
+        // console.log('selectedVehicleUid',selected_vehicleUid)
+
+        var x_def = selected_vehicleUid.substr(0,2)
+        var x_def1 = selected_vehicleUid.substr(0,4)
+        var vehicle_type
+        // console.log('x_def',x_def)
+        // console.log('x_def1',x_def1)
+
+        if (x_def == 'MP'){
+
+            if (x_def1 == 'MPAT'){
+                vehicle_type = 'cabin'
+            }
+
+            if (x_def1 == 'MPAU'){
+                vehicle_type = 'wagon'
+            }
+        }else{
+            vehicle_type = 'sedan'
+        }
 
         var cars_info = {
             no:row.no,
             licensePlate : '',
-            vehicleUid : '',
+            vehicleUid : selected_vehicleUid,
             sclId:selected_sclId,
             deviceStatus : deviceStatus,
+            type_kendaraan:vehicle_type,
             latitude: row.latitude,
             longitude:row.longitude,
             speed: row.speed,

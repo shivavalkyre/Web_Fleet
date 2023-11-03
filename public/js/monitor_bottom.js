@@ -190,8 +190,12 @@ function getClicked(e){
 }
 
 function getClickedTitle(e){
+
     let elementId = e.id;
     var selector = e
+    var vehicleUid = $(selector).text();
+    selected_vehicleUid = vehicleUid;
+    console.log('getClickedTitle vehicleUid', selected_vehicleUid)
     // console.log(elementId)
     var myparent  = $(e).parent().closest('div');
     // console.log(myparent)
@@ -345,7 +349,9 @@ function riwayat(e){
     $('#cc_monitor').layout('panel','west').panel('close');
     $('#cc_monitor').layout('resize');
     var sclId = $('#pnl'+no).attr("name")
-    var selected_vehicleUid = $('#pnl'+no)
+    // var selected_vehicleUid = $('#pnl'+no)
+
+    // console.log('vehicleUid',selected_vehicleUid)
     // alert(sclId)
     $('#history_box').css('visibility','visible')
     $('#history_box_table').css('visibility','visible')
@@ -355,12 +361,33 @@ function riwayat(e){
     // alert(current_section)
 }
 
-function riwayat_marker(e){
+async function riwayat_marker(e){
     // var selection = e
     console.log('marker detail',e)
     $('#cc_monitor').layout('panel','west').panel('close');
     $('#cc_monitor').layout('resize');
     var sclId = e
+
+    var url = "/asset/read/" + e
+   
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+    };
+
+    var  response = await fetch(url,requestOptions)
+    .then(response => response.json()) 
+    .then(json => {
+        // alert (json)
+       return json
+    })
+
+    console.log('response 388',response.data[0].vin)
+    selected_vehicleUid = response.data[0].vin
+
     $('#history_box').css('visibility','visible')
     $('#history_box_table').css('visibility','visible')
     $('#close_history').css('visibility','visible')

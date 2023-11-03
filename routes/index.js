@@ -9,6 +9,7 @@ var Tasklist = require('../controllers/tasklist.js')
 var Device = require('../controllers/device.js')
 var Vehicle = require('../controllers/vehicle.js')
 var Geofence = require('../controllers/geofence.js')
+var Assets = require('../controllers/asset.js')
 var Auth = require('../controllers/auth.js')
 var util = require('util');
 const fs = require('fs');
@@ -337,6 +338,14 @@ router.post('/notifikasi/read',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER NOTIFIKASI ] | INFO ' + util.inspect(req.headers));
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE READ BODY ] | INFO ' + util.inspect(req.body));
     Notifikasi.read(req,res)
+})
+
+// Asset =========================================================================================================
+
+router.post('/asset/read/:sclId',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER ASSET] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ ASSET READ BODY ] | INFO ' + util.inspect(req.body));
+    Assets.read(req,res)
 })
 
 // auth =========================================================================================================

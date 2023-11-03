@@ -496,6 +496,8 @@ function addMarkerTracking(location,heading,cars_info) {
         }else{
             // var svgIcon = getMarkerSVG(heading)
             var svgIcon
+            console.log('cars_info.deviceStatus',cars_info.deviceStatus)
+
             if (cars_info.deviceStatus=='bergerak' ){
                 // console.log('disini aja')
                 status = 'moving'
@@ -758,7 +760,7 @@ function setMarkerAnchor(heading,cars_info,locs){
     var svgIcon1 = getMarkerSVGArrow(parseInt(heading))
     // var svgIcon2 = getMarkerSVG(parseInt(heading))
     var svgIcon2;
-    // console.log(cars_info)
+    // console.log('cars_info setMarkerAnchor',cars_info)
         var img
 
         if (cars_info.deviceStatus == 'bergerak'){
