@@ -51,6 +51,9 @@ async function loadData(){
             var types = []
             var rows = []
             var total = 0
+            var danger_ctr = 0
+            var warning_ctr = 0
+            var info_ctr = 0
 
             for (var key in data) {
                 // console.log(key);
@@ -64,11 +67,31 @@ async function loadData(){
                     console.log(data[key][i].type)
                     console.log(data[key][i].vehicleUId)
 
+            
+
                     var severity = data[key][i].severity
                     var type = data[key][i].type
+
+                    if (type=='idleThreshold'){
+                        type = 'Exessive Idle'
+                    }
+
                     var value="";
                     var vehicleid = data[key][i].vehicleUId;
                     var account = data[key][i].accountName;
+
+                    if (severity == 'Warning'){
+                        warning_ctr++
+                        console.log('warning_type',warning_ctr)
+                    }else if (severity == 'Info'){
+                        info_ctr++
+                        console.log('info_type',info_ctr)
+                    }else{
+                        danger_ctr++
+                        console.log('danger_type',danger_ctr)
+                    }
+
+                    
                     
                     const unixSeconds = data[key][i].creationTime;
                     const myDate = new Date(0);
@@ -81,6 +104,9 @@ async function loadData(){
                     if (data[key][i].type=='speeding'){
                         console.log(data[key][i].speed[0].value)
                         value = data[key][i].speed[0].value + ' ' + data[key][i].speed[0].unit
+                    } else{
+                        console.log(data[key][i].actualEventValue[0].value)
+                        value = data[key][i].actualEventValue[0].value + ' ' + data[key][i].actualEventValue[0].unit
                     }
 
                     var speed = data[key][i].speed[0].value + ' ' + data[key][i].speed[0].unit
@@ -114,7 +140,18 @@ async function loadData(){
             }
 
             total = j
-           
+            
+            var danger = danger_ctr + ' Danger'
+            console.log('danger',danger)
+            $('#danger_type').text(danger)
+
+            var warning = warning_ctr + ' Warning'
+            console.log('warning',warning)
+            $('#warning_type').text(warning)
+
+            var info = info_ctr + ' Info'
+            console.log('inf',info)
+            $('#info_type').text(info)
             
             console.log('types',types)
             $('#cbtype').combobox('loadData',types)
@@ -131,6 +168,13 @@ async function loadData(){
 
 
 async function loadDataSelected(x){
+
+    console.log('x',x)
+
+    if (x=='Exessive Idle'){
+
+        x = 'idleThreshold'
+    }
 
     const requestOptions = {
         method: 'POST',
@@ -164,6 +208,7 @@ async function loadDataSelected(x){
 
                     console.log('x',x)
                     console.log(' data[key][i].type', data[key][i].type)
+                    
 
                     if(x == data[key][i].type){
 
@@ -177,6 +222,11 @@ async function loadDataSelected(x){
                                 var value="";
                                 var vehicleid = data[key][i].vehicleUId;
                                 var account = data[key][i].accountName;
+
+                                
+                                if (type=='idleThreshold'){
+                                    type = 'Exessive Idle'
+                                }
                                 
                                 const unixSeconds = data[key][i].creationTime;
                                 const myDate = new Date(0);
