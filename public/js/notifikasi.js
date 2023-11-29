@@ -24,7 +24,7 @@ function formatStatus(val,row){
 	}else if(val=='Info'){
 		return`<div style="align='center';border-radius:5px;color:black;background:#00308F;font-size:12px;">Info<div>`;
 	}else {
-		return`<div style="align='center';border-radius:5px;color:white;background:#FF0000;font-size:12px;">Danger<div>`;
+		return`<div style="align='center';border-radius:5px;color:white;background:#00308F;font-size:12px;">Info<div>`;
 	}
 }
 
@@ -87,8 +87,8 @@ async function loadData(){
                         info_ctr++
                         console.log('info_type',info_ctr)
                     }else{
-                        danger_ctr++
-                        console.log('danger_type',danger_ctr)
+                        info_ctr++
+                        console.log('danger_type',info_ctr)
                     }
 
                     

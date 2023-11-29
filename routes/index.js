@@ -4,6 +4,7 @@ var express = require ('express');
 var router = express.Router();
 var User = require('../controllers/user.js')
 var Notifikasi = require('../controllers/notifikasi.js')
+var Laporan = require('../controllers/laporan.js')
 var Chat = require ('../controllers/chat.js')
 var Tasklist = require('../controllers/tasklist.js')
 var Device = require('../controllers/device.js')
@@ -73,6 +74,12 @@ router.get('/notifikasi',function(req,res){
     res.render('notifikasi',{apikey:process.env.APIKEY,latitude:process.env.LATITUDE,longitude:process.env.LONGITUDE})
     // res.render('chat',{apikey:process.env.APIKEY})
 })
+
+router.get('/laporan',function(req,res){
+    res.render('laporan',{apikey:process.env.APIKEY,latitude:process.env.LATITUDE,longitude:process.env.LONGITUDE})
+    // res.render('chat',{apikey:process.env.APIKEY})
+})
+
 
 
 router.get('/map',function (req, res, next) {
@@ -254,6 +261,28 @@ router.post('/vehicle/read/odometer',async function(req,res){
     res.send(resp)
 })
 
+router.post('/vehicle/read/usage/:start_date/:end_date',async function(req,res){
+     var start_date = req.params.start_date
+     var end_date = req.params.end_date
+
+     req.body.startDate = start_date
+     req.body.endDate = end_date
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY VEHICLE USAGE ] | INFO ' + util.inspect(req.body));
+    var resp = await Vehicle.read_usage(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+
+})
+
+router.post('/vehicle/read/km_driven',async function(req,res){
+    req.body.accountId = process.env.ACCOUNTID
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY ODOMETER ] | INFO ' + util.inspect(req.body));
+    var resp = await Vehicle.read_km_driven(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
 router.post('/vehicle/read/all',async function(req,res){
     // var createdby = req.params.createdby
     // req.body.createdby = createdby
@@ -336,8 +365,16 @@ router.post('/geofence/delete',function(req,res){
 
 router.post('/notifikasi/read',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER NOTIFIKASI ] | INFO ' + util.inspect(req.headers));
-    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE READ BODY ] | INFO ' + util.inspect(req.body));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ NOTIFIKASI READ BODY ] | INFO ' + util.inspect(req.body));
     Notifikasi.read(req,res)
+})
+
+// Laporan ======================================================================================================
+
+router.post('/laporan/detail',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER LAPORAN DETAIL ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ LAPORAN READ BODY ] | INFO ' + util.inspect(req.body));
+    Laporan.detail(req,res)
 })
 
 // Asset =========================================================================================================

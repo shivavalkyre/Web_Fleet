@@ -101,6 +101,10 @@ function Notifikasi(){
     window.location = 'notifikasi'
   }
 
+function Laporan(){
+    window.location = 'laporan'
+  }
+
 // Menu handler =======================================================================
 
 
@@ -211,6 +215,9 @@ function getClickedTitle(e){
     // alert(lng)
 
     var location = {lat:lat,lng:lng}
+    var position = new google.maps.LatLng(lat,lng)
+    map.setZoom(18)
+    map.panTo(position)
     // console.log(location)
 
     // minimize all content

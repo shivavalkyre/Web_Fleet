@@ -106,35 +106,7 @@ function Notifikasi(){
 
 
 function Laporan(){
-    $('#dashboard').linkbutton({
-        iconCls: 'icon-dashboard-black',
-        selected:false
-    });
-
-    $('#monitor').linkbutton({
-        iconCls: 'icon-monitor-black',
-        selected:false
-    });
-    $('#tasklist').linkbutton({
-        iconCls: 'icon-tasklist-black',
-        selected:false
-    });
-
-    $('#alert').linkbutton({
-        iconCls: 'icon-bell-black',
-        selected:false
-    });
-
-    
-    $('#report').linkbutton({
-        iconCls: 'icon-document',
-        selected:true
-    });
-
-    $('#setting').linkbutton({
-        iconCls: 'icon-setting-black',
-        selected:false
-    });
+   window.location='laporan'
 }
 
 function Setting(){

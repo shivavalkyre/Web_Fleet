@@ -1036,19 +1036,19 @@ var getKMDriven =  (AssetUid,vehicleUid) => {
 
                     if (x_def1 == 'MPAT'){
                         $('#img_kendaraan').attr('src','/img/hilux.png')
-                        $('#img_kendaraan').attr('width','200')
-                        $('#img_kendaraan').attr('height','200')
+                        $('#img_kendaraan').attr('width','120')
+                        $('#img_kendaraan').attr('height','120')
                     }
 
                     if (x_def1 == 'MPAU'){
                         $('#img_kendaraan').attr('src','/img/honda.png')
-                        $('#img_kendaraan').attr('width','200')
-                        $('#img_kendaraan').attr('height','200')
+                        $('#img_kendaraan').attr('width','120')
+                        $('#img_kendaraan').attr('height','120')
                     }
                 }else{
                     $('#img_kendaraan').attr('src','/img/Clean2.png')
-                    $('#img_kendaraan').attr('width','189')
-                    $('#img_kendaraan').attr('height','159')
+                    $('#img_kendaraan').attr('width','120')
+                    $('#img_kendaraan').attr('height','120')
                 }
 
                 // if (vehicleUid.substr(0,2)=='JM'){

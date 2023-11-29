@@ -39,7 +39,7 @@ function InitializeMap() {
 
     var mapProp= {
     center:new google.maps.LatLng(-6.200000,106.816666),
-    zoom:10,
+    zoom:5,
     fullscreenControl: false,
     streetViewControl: false,
     zoomControl: false,
@@ -148,7 +148,7 @@ function InitializeMapPlace() {
 
     var mapProp= {
     center:new google.maps.LatLng(-6.200000,106.816666),
-    zoom: 13,
+    zoom: 5,
     fullscreenControl: false,
     streetViewControl: false,
     zoomControl: false,
