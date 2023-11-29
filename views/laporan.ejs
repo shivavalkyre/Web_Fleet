@@ -89,7 +89,7 @@
                                                         </thead>
                                             </table>
                                         </div>
-                                        <div title="Total Distance" style="padding:10px">
+                                        <div title="Vehicle Usage" style="padding:10px">
                                             <div style="padding:5px;">
                                                 <input id="dari1" class="easyui-datebox" label="Dari:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:200px;">
                                             </div>
@@ -138,88 +138,32 @@
                                                         </thead>
                                             </table>
                                         </div>
-                                        <div title="Utilisation Status" style="padding:10px">
-                                            
+                                        <div title="Alert" style="padding:10px">
                                             <div style="padding:5px;">
                                                 <input id="dari2" class="easyui-datebox" label="Dari:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:200px;">
                                             </div>
                                             <div style="padding:5px;margin-top:-61px;margin-left:230px;">
                                                 <input id="sampai2" class="easyui-datebox" label="Sampai:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:200px;">
                                             </div>
-                                           
-
-                                            <div style="padding:5px;margin-top:-40px;margin-left:455px;">
+                                            <div style="padding:5px;margin-top:-41px;margin-left:450px;">
                                                 <a href="#" id="cari2" class="easyui-linkbutton" style="height: 30px; background: #436AAC; color: white;font-family: 'Poppins';" onClick=''>Cari</a>
                                             </div>
 
-                                            <table id="dgUtilisation"  class="easyui-datagrid" style="width:100%;height:380px;background:transparent;background-color:transparent;"
-                                                data-options="remoteSort:false,multiSort:true"
-                                                nowrap="false"
-                                                pagination="false"
-                                                rownumbers="false" fitColumns="false" singleSelect="true">
-
-                                                    <thead data-options="frozen:true">
-                                                        <tr>
-                                                            <th align="center" field="year" width="80" data-options="sortable:true">year</th> 
-                                                            <th align="center" field="month" width="80" data-options="sortable:true">month</th>
-                                                            <th align="center" field="date" width="80" data-options="sortable:true">date</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <thead>
-                                                        <tr>
-                                                           
-                                                            <th align="center" field="accountId" width="180" data-options="sortable:true">accountId</th>
-                                                            <th align="center" field="eventTime" width="180" data-options="sortable:true">eventTime</th> 
-                                                            <th align="center" field="totalTimeVehicleMovingSec" width="180" data-options="sortable:true">totalTimeVehicleMovingSec</th>
-                                                            <th align="center" field="vehicleMovingPercentage" width="180" data-options="sortable:true">vehicleMoving</th>
-                                                            <th align="center" field="totalTimeVehicleUsedSec" width="180" data-options="sortable:true">totalTimeVehicleUsedSec</th> 
-                                                            <th align="center" field="totalTimeVehicleIdleSec" width="180" data-options="sortable:true">totalTimeVehicleIdleSec</th>
-                                                            <th align="center" field="vehicleIdlePercentage" width="180" data-options="sortable:true">vehicleIdle</th> 
-                                                            <th align="center" field="vehicleUtilizationPercentage" width="180" data-options="sortable:true">vehicleUtilization</th> 
-                                                            <th align="center" field="vehicleRemainingUtilizationPercentage" width="180" data-options="sortable:true">vehicleRemainingUtilization</th>
-                                                            <th align="center" field="totalKm" width="180" data-options="sortable:true">totalKm</th>
-                                                            <th align="center" field="totalKmDriven" width="180" data-options="sortable:true">totalKmDriven</th>
-
-
-                                                            <th align="center" field="criticalCount" width="180" data-options="sortable:true">criticalCount</th> 
-                                                            <th align="center" field="warningCount" width="180" data-options="sortable:true">warningCount</th> 
-                                                            <th align="center" field="infoCount" width="180" data-options="sortable:true">infoCount</th>
-
-
-                                                            <th align="center" field="countDailyReports" width="180" data-options="sortable:true">countDailyReports</th>
-                                                            <th align="center" field="countSegments" width="180" data-options="sortable:true">countSegments</th>
-                                                            <th align="center" field="totalCount" width="180" data-options="sortable:true">totalCount</th> 
-
-                                                        </tr>
-                                                    </thead>
-                                            </table>
-                                        </div>
-                                        <div title="Fuel Percentage" style="padding:10px">
-                                           
-                                        </div>
-                                        <div title="All Asset" style="padding:10px">
-                                            <table id="dgAsset"  class="easyui-datagrid" style="width:100%;height:380px;background:transparent;background-color:transparent;"
-                                            data-options="remoteSort:false,multiSort:true"
-                                            nowrap="false"
-                                            pagination="false"
-                                            rownumbers="true" fitColumns="true" singleSelect="true">
+                                            <table id="dgAlert"  class="easyui-datagrid" style="width:100%;height:380px;background:transparent;background-color:transparent;"
+                                                    data-options="remoteSort:false,multiSort:true"
+                                                    nowrap="false"
+                                                    pagination="false"
+                                                    rownumbers="false" fitColumns="true" singleSelect="true">
                                                 <thead>
                                                     <tr>
-                                                        
-                                                       
-                                                        <th align="center" field="updateTime" width="180" data-options="sortable:true">Update Time</th> 
-                                                        <th align="center" hidden field="tgl" width="150" data-options="sortable:true">Update Date</th> 
-                                                        <th align="center" field="vehicleName" width="150" data-options="sortable:true">Vehicle Name</th>
-                                                        <th align="center" field="vehicleUid" width="200" data-options="sortable:true">Vehicle Uid</th>
-                                                        <th align="center" field="vehicleSclId" width="200" data-options="sortable:true">Vehicle Sclid</th>
-                                                        <!-- <th align="center" field="batteryVoltage" width="200" data-options="sortable:true">Battery Voltage</th>
-                                                        <th align="center" field="location" width="200" data-options="sortable:true">Location</th>
-                                                        <th align="center" field="speed" width="200" data-options="sortable:true">SPEED</th> -->
+                                                        <th align="center" field="severity" width="180" data-options="sortable:true">Severity</th> 
+                                                        <th align="center" field="count" width="150" data-options="sortable:true">Count</th>
+                                                    
                                                     </tr>
                                                 </thead>
-                                    </table>
+                                            </table>
                                         </div>
+                                       
                                         <div title="Trip Report" style="padding:10px">
                                            
                                         </div>

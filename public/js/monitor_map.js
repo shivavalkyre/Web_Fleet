@@ -38,7 +38,7 @@ function InitializeMap() {
     removeMarkerWaypoint(gmarkers_waypoint,gmarkers_waypoint.length)
 
     var mapProp= {
-    center:new google.maps.LatLng(-6.200000,106.816666),
+    center:new google.maps.LatLng(-3.316694,114.590111),
     zoom:5,
     fullscreenControl: false,
     streetViewControl: false,

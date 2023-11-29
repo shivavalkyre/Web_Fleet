@@ -14,8 +14,11 @@ $(function(){
     });
 
     $('#cari2').bind('click', function(){
-        find_data_vehicle_usage()
+        // find_data_vehicle_usage()
+        alert_agregat()
     });
+
+
 
 })
 
@@ -123,6 +126,41 @@ async function find_data_distance(){
     getKMDriven(AssetUid,vehicleUid,start_date,end_date)
 }
 
+async function alert_agregat(){
+
+    var start_date = $('#dari2').datebox('getValue')
+    var end_date = $('#sampai2').datebox('getValue')
+    var token = sessionStorage.getItem("token")
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json'
+        }
+    };  
+
+    var url1= '/vehicle/read/alerts/agregat/'+start_date +'/'+end_date
+
+    const result = await fetch(url1,requestOptions)
+    .then(function (response)
+    
+        {
+            return response.json()
+        })
+
+        console.log(result)
+        if (result){
+            var datas = result
+            var rows = []
+            for (i=0;i<=datas.data.length-1;i++){
+                rows.push({"severity":datas.data[i].severity,"count":datas.data[i].count})
+                console.log(rows)
+            }
+            var dg_data = {"total" : datas.data.length,"rows" : rows}
+            $('#dgAlert').datagrid('loadData',dg_data)
+        }
+
+}
 
 async function find_data_vehicle_usage(){
 

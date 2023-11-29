@@ -275,6 +275,21 @@ router.post('/vehicle/read/usage/:start_date/:end_date',async function(req,res){
 
 })
 
+router.post ('/vehicle/read/alerts/agregat/:start_date/:end_date',async function(req,res){
+
+        var start_date = req.params.start_date
+        var end_date = req.params.end_date
+
+        req.body.startDate = start_date
+        req.body.endDate = end_date
+
+        futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY VEHICLE ALERTS ] | INFO ' + util.inspect(req.body));
+        var resp = await Vehicle.read_alert_agregat(req,res)
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+        res.send(resp)
+
+})
+
 router.post('/vehicle/read/km_driven',async function(req,res){
     req.body.accountId = process.env.ACCOUNTID
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY ODOMETER ] | INFO ' + util.inspect(req.body));

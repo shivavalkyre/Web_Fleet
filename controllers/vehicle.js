@@ -278,6 +278,39 @@ var read_usage = async function (req,res){
 
 }
 
+var read_alert_agregat = async function(req,res){
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQUEST BODY ] | INFO ' + util.inspect(req.body));
+    var url = process.env.URL_READ_VEHICLE_ALERTS_AGREGAT
+    var token = process.env.TOKEN_APP
+    req.headers.token = token
+    futil.logger.debug('\n' + futil.shtm() + '- [ GET URL ] | INFO ' + util.inspect(url));
+    futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
+
+    const config = {
+        headers: {
+            token : token
+        }
+        
+      }
+    var postData = req.body 
+    
+    var result
+    result = await axios.post(url,postData,config).then(function (response) {
+
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(response.status)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY ] | INFO ' + util.inspect(JSON.stringify (response.data.data))); 
+        var data = JSON.stringify(response.data)
+        return data
+    }).catch(function(error){
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+    })
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(result)); 
+    res.send(result)
+
+}
+
 var read_all_data = async function(req,res){
 
     var data = {"total":"0","rows": []}
@@ -566,6 +599,7 @@ module.exports = {
     readbyvehicleuid,
     ReadOdometer,
     read_usage,
+    read_alert_agregat,
     update,
     Delete,
     DeleteAll,
