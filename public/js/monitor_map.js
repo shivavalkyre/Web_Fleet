@@ -401,18 +401,18 @@ async function addMarker(location,heading,cars_info) {
 
         // console.log('cars_info:' + cars_info)
 
-        var contentString =`<div style="width:300px">`
+        var contentString =`<div style="width:320px">`
         contentString += `<div style="width:100%;height:20px;margin-top:5px;margin-left:-10px;text-align:center;font-weight:bold;font-family:'Poppins';background:#436AAC;color:white;font-size:12px;"><div style="margin-left:10px">`+ cars_info.vehicleUid +`</div></div>`
         contentString += `<div style="height:30px;margin-top:5px;text-align:left;font-size:12px;font-family:'Poppins';">Status</div>`
         contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
         contentString += `<div style="height:30px;width:50px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+ cars_info.deviceStatus + `</div>`
         contentString += `<div style="height:30px;margin-top:-15px;text-align:left;font-family:'Poppins';font-size:12px;">Last Update</div>`
-        contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
-        contentString += `<div style="height:30px;width:190px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.last_update + `</div>`
+        contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:74px;text-align:left;font-family:'Poppins';font-size:12px;">:</div>`
+        contentString += `<div style="height:30px;width:200px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.last_update + `</div>`
         contentString += `<div style="height:30px;margin-top:-15px;text-align:left;font-family:'Poppins';font-size:12px;">Speed</div>`
         contentString += `<div style="height:30px;width:10px;margin-top:-30px;margin-left:70px;text-align:center;font-family:'Poppins';font-size:12px;">:</div>`
         contentString += `<div style="height:30px;width:100px;margin-top:-30px;margin-left:80px;text-align:left;font-family:'Poppins';font-size:12px;">`+  cars_info.speed + `</div>`
-        contentString +=  `<div style="width:100%;font-size:10px;font-family:'Poppins';margin-left:45px;height:15px;margin-bottom:10px;" ><a href="#" id="live`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="live_tracking_marker('`+ cars_info.sclId +`')">Live Tracking</a>  &nbsp;| &nbsp;  <a href="#" id="riwayat`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="riwayat_marker('`+ cars_info.sclId +`')">Riwayat</a>  &nbsp;| &nbsp;  <a href="#" id="detail`+ cars_info.no +`" class="info" style="text-decoration: none;">Chat</a></div>`
+        contentString +=  `<div style="width:100%;font-size:10px;font-family:'Poppins';margin-left:70px;height:15px;margin-bottom:10px;" ><a href="#" id="live`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="live_tracking_marker('`+ cars_info.sclId +`')">Live Tracking</a>  &nbsp;| &nbsp;  <a href="#" id="riwayat`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="riwayat_marker('`+ cars_info.sclId +`')">Riwayat</a>  &nbsp;| &nbsp;  <a href="#" id="detail`+ cars_info.no +`" class="info" style="text-decoration: none;">Chat</a></div>`
         // contentString +=  `<div style="width:100%;font-size:10px;font-family:'Poppins';margin-left:45px;height:15px;margin-bottom:10px;" ><a href="#" id="live`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="live_tracking_marker('`+ cars_info.sclId +`')">Live Tracking</a>  &nbsp;| &nbsp;  <a href="#" id="riwayat`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="riwayat_marker('`+ cars_info.sclId +`')">Riwayat</a>  &nbsp;| &nbsp;  <a href="#" id="detail`+ cars_info.no +`" class="info" style="text-decoration: none;" onclick="detail_marker('`+ cars_info.sclId +`')">Detail</a></div>`
         contentString +=  `</div>`
         // ' ('+ cars_info.deviceStatus +')'
