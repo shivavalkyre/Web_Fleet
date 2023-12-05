@@ -290,6 +290,21 @@ router.post ('/vehicle/read/alerts/agregat/:start_date/:end_date',async function
 
 })
 
+router.post ('/vehicle/read/segments/:start_date/:end_date/:vehicleuid',async function(req,res){
+    var start_date = req.params.start_date
+    var end_date = req.params.end_date
+    var  sclId = req.params.vehicleuid
+
+    req.body.startDate = start_date
+    req.body.endDate = end_date
+    req.body.sclId =  sclId
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY VEHICLE SEGMENTS ] | INFO ' + util.inspect(req.body));
+    var resp = await Vehicle.read_segments(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
 router.post('/vehicle/read/km_driven',async function(req,res){
     req.body.accountId = process.env.ACCOUNTID
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY ODOMETER ] | INFO ' + util.inspect(req.body));
@@ -362,6 +377,20 @@ router.post('/geofence/list/read',function(req,res){
     futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE BODY ] | INFO ' + util.inspect(req.body));
 
     Geofence.read_list(req,res)
+})
+
+router.post('/geofence/history/:startDate/:endDate',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE HISTORY ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE HISTORY BODY ] | INFO ' + util.inspect(req.body));
+
+    Geofence.read_history(req,res)
+})
+
+router.post('/geofence/history/detail/:startDate/:endDate/:sclId',function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER GEOFENCE HISTORY DETAIL ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ GEOFENCE HISTORY DETAIL BODY ] | INFO ' + util.inspect(req.body));
+
+    Geofence.read_history_detail(req,res)
 })
 
 router.post('/geofence/update',function(req,res){

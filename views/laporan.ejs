@@ -115,18 +115,26 @@
 
                                             <div style="padding:5px;margin-top:-40px;margin-left:655px;">
                                                 <a href="#" id="cari1" class="easyui-linkbutton" style="height: 30px; background: #436AAC; color: white;font-family: 'Poppins';" onClick=''>Cari</a>
+                                                <a href="#" id="kembali1" class="easyui-linkbutton" style="height: 30px; background: #436AAC; color: white;font-family: 'Poppins';" onClick=''>Kembali</a>
                                             </div>
-
-                                                    <table id="dgDistance"  class="easyui-datagrid" style="width:100%;height:380px;background:transparent;background-color:transparent;"
-                                                    data-options="remoteSort:false,multiSort:true"
-                                                    nowrap="false"
-                                                    pagination="false"
-                                                    rownumbers="false" fitColumns="false" singleSelect="true">
+                                                    <div id="div_distance">
+                                                        <table id="dgDistance"  class="easyui-datagrid" style="width:100%;height:380px;background:transparent;background-color:transparent;"
+                                                        data-options="remoteSort:false,multiSort:true"
+                                                        nowrap="false"
+                                                        pagination="false"
+                                                        rownumbers="false" fitColumns="false" singleSelect="true">
+                                                        <thead data-options="frozen:true">
+                                                                <tr>
+                                                                    <th align="center" field="period" width="180" data-options="sortable:true">Period</th> 
+                                                                    <th align="center" field="assetId" width="150" data-options="sortable:true">AssetId</th>
+                                                                    <th align="center" field="vehicle_type" width="150" data-options="sortable:true">Vehicle Type</th>
+                                                                    <th align="center" field="num_of_trip" width="150" data-options="sortable:true">Num Of Trip</th>
+                                                                    <th align="center" field="trip_duration" width="150" data-options="sortable:true">Trip Duration</th>
+                                                                </tr>
+                                                        </thead>
                                                         <thead>
                                                             <tr>
-                                                                <th align="center" field="period" width="180" data-options="sortable:true">Period</th> 
-                                                                <th align="center" field="assetId" width="150" data-options="sortable:true">AssetId</th>
-                                                                <th align="center" field="vehicle_type" width="150" data-options="sortable:true">Vehicle Type</th>
+                                                                
                                                                 <th align="center" field="start_latlng" width="180" data-options="sortable:true">Start Position</th>
                                                                 <th align="center" field="end_latlng" width="180" data-options="sortable:true">End Position</th>
                                                                 <th align="center" field="totalKmDriven" width="100" data-options="sortable:true">KM Driven</th>
@@ -134,9 +142,42 @@
                                                                 <th align="center" field="idlePercent" width="100" data-options="sortable:true">Idle %</th>
                                                                 <th align="center" field="movingPercent" width="100" data-options="sortable:true">Moving %</th>
                                                                 <th align="center" field="stoppedPercent" width="100" data-options="sortable:true">Stopped %</th>
+                                                                <th align="center" data-options="field:'status_device',width:80,align:'center',formatter:formatAction">Action</th>
                                                             </tr>
                                                         </thead>
-                                            </table>
+                                                        </table>
+                                                    </div>
+
+                                                    <div id="distance_detail">
+                                                        <table id="dgDistanceDetail"  class="easyui-datagrid" style="width:100%;height:380px;background:transparent;background-color:transparent;"
+                                                        data-options="remoteSort:false,multiSort:true"
+                                                        nowrap="false"
+                                                        pagination="false"
+                                                        rownumbers="false" fitColumns="false" singleSelect="true">
+                                                        <thead>
+                                                            <tr>
+                                                                
+                                                                <th align="center" field="totalVehicleMovingSec" width="180" data-options="sortable:true">Vehicle Moving Sec</th>
+                                                                <th align="center" field="totalTimeVehicleIdleSec" width="180" data-options="sortable:true">Time Vehicle Idle Sec</th>
+                                                                <th align="center" field="totalKm" width="100" data-options="sortable:true">Total Km</th>
+                                                                <th align="center" field="firstTime" width="100" data-options="sortable:true">FirstTime</th>
+                                                                <th align="center" field="lastTime" width="100" data-options="sortable:true">LastTime</th>
+                                                                <th align="center" field="startLat" width="100" data-options="sortable:true">Start Lat</th>
+                                                                <th align="center" field="startLong" width="100" data-options="sortable:true">Start Long</th>
+                                                                <th align="center" field="endLat" width="180" data-options="sortable:true">End Lat</th>
+                                                                <th align="center" field="endLong" width="180" data-options="sortable:true">End Long</th>
+                                                                <th align="center" field="fuelEfficiencyKPL" width="180" data-options="sortable:true">Fuel Efficiency KPL</th>
+                                                                <th align="center" field="fuelConsumedL" width="180" data-options="sortable:true">Fuel ConsumedL</th>
+                                                                <th align="center" field="totalTimeSegmentSec" width="180" data-options="sortable:true">Total Time Segment Sec</th>
+                                                                <th align="center" field="idlePercent" width="180" data-options="sortable:true">idle %</th>
+                                                                <th align="center" field="runningPercent" width="180" data-options="sortable:true">Running %</th>
+                                                                <th align="center" field="nightTimeDrive" width="180" data-options="sortable:true">Night Time Drive</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        </table>
+                                                    </div>
+                                                   
                                         </div>
                                         <div title="Alert" style="padding:10px">
                                             <div style="padding:5px;">
@@ -164,11 +205,62 @@
                                             </table>
                                         </div>
                                        
-                                        <div title="Trip Report" style="padding:10px">
+                                        <!-- <div title="Trip Report" style="padding:10px">
                                            
-                                        </div>
+                                        </div> -->
                                         <div title="Geofence" style="padding:10px">
-                                           
+                                            <div style="padding:5px;">
+                                                <input id="dari3" class="easyui-datebox" label="Dari:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:200px;">
+                                            </div>
+                                            <div style="padding:5px;margin-top:-61px;margin-left:230px;">
+                                                <input id="sampai3" class="easyui-datebox" label="Sampai:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:200px;">
+                                            </div>
+                                            <div style="padding:5px;margin-top:-41px;margin-left:450px;">
+                                                <a href="#" id="cari3" class="easyui-linkbutton" style="height: 30px; background: #436AAC; color: white;font-family: 'Poppins';" onClick=''>Cari</a>
+                                                <a href="#" id="kembali2" class="easyui-linkbutton" style="height: 30px; background: #436AAC; color: white;font-family: 'Poppins';" onClick=''>Kembali</a>
+                                            </div>
+
+                                            <div id="div_geofence">
+                                                <table id="dgGeofence"  class="easyui-datagrid" style="width:100%;height:380px;background:transparent;background-color:transparent;"
+                                                data-options="remoteSort:false,multiSort:true"
+                                                nowrap="false"
+                                                pagination="false"
+                                                rownumbers="false" fitColumns="true" singleSelect="true">
+               
+                                                <thead>
+                                                    <tr>
+                                                        <th align="center" field="geofenceScldId" width="180" data-options="sortable:true" hidden >geofenceScldId</th> 
+                                                        <th align="center" field="geofenceId" width="180" data-options="sortable:true">geofenceId</th>
+                                                        <th align="center" field="geofenceAddress" width="180" data-options="sortable:true">geofenceAddress</th>
+                                                        <th align="center" field="occurrences" width="100" data-options="sortable:true">occurrences</th>
+                                                        <th align="center" field="avgWaitTime" width="100" data-options="sortable:true">avgWaitTime</th>
+                                                        <th align="center" field="vehicles" width="100" data-options="sortable:true">vehicles</th>
+                                                        <th align="center" data-options="field:'status_device',width:80,align:'center',formatter:formatAction1">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                </table>
+                                            </div>
+
+                                            <div id="div_geofence_detail">
+                                                <table id="dgGeofenceDetail"  class="easyui-datagrid" style="width:100%;height:380px;background:transparent;background-color:transparent;"
+                                                data-options="remoteSort:false,multiSort:true"
+                                                nowrap="false"
+                                                pagination="false"
+                                                rownumbers="false" fitColumns="false" singleSelect="true">
+               
+                                                <thead>
+                                                    <tr>
+                                                        <th align="center" field="startTime" width="150" data-options="sortable:true" hidden >startTime</th> 
+                                                        <th align="center" field="geofenceId" width="150" data-options="sortable:true">geofenceId</th>
+                                                        <th align="center" field="vehicleSclId" width="150" data-options="sortable:true">vehicleSclId</th>
+                                                        <th align="center" field="vehicleUid" width="80" data-options="sortable:true">vehicleUid</th>
+                                                        <th align="center" field="duration" width="80" data-options="sortable:true">duration</th>
+                
+                                                    </tr>
+                                                </thead>
+                                                </table>
+                                            </div>
+
                                         </div>
                                     </div>
                                     

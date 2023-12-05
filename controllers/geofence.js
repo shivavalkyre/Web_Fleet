@@ -108,6 +108,88 @@ var read = async function(req,res){
     res.send(result)
 }
 
+var read_history = async function (req,res){
+
+    var url = process.env.URL_GEOFENCE_HISTORY
+    var token = process.env.TOKEN_APP
+
+    // req.body.startDate = req.params.startDate
+    // req.body.endDate = req.params.endDate
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ URL READ GEOFENCE HISTORY ] | INFO ' + util.inspect(url));
+    futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY GEOFENCE HISTORY ] | INFO ' + util.inspect(req.body));
+
+    const config = {
+        headers:{
+            token : token,
+        },
+      }
+
+      var data =   {
+            "startDate": req.params.startDate,
+            "endDate": req.params.endDate,
+      }
+
+    var postData = data
+
+    var result
+
+    result = await axios.post(url,postData,config) 
+    .then(function (response) {
+        var data = JSON.stringify(response.data.data)
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY STATUS GEOFENCE] | INFO ' + util.inspect(response.status)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY DATA GEOFENCE] | INFO ' + util.inspect((data))); 
+        var dt = JSON.parse(data)
+        return dt
+    }).catch(function(error){
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+    })
+    res.send(result)
+}
+
+
+var read_history_detail = async function (req,res){
+
+    var url = process.env.URL_GEOFENCE_HISTORY_DETAIL
+    var token = process.env.TOKEN_APP
+
+    // req.body.startDate = req.params.startDate
+    // req.body.endDate = req.params.endDate
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ URL READ GEOFENCE HISTORY DETAIL ] | INFO ' + util.inspect(url));
+    futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODY GEOFENCE HISTORY DETAIL ] | INFO ' + util.inspect(req.body));
+
+    const config = {
+        headers:{
+            token : token,
+        },
+      }
+
+      var data =   {
+            "startDate": req.params.startDate,
+            "endDate": req.params.endDate,
+            "sclId":req.params.sclId
+      }
+
+    var postData = data
+
+    var result
+
+    result = await axios.post(url,postData,config) 
+    .then(function (response) {
+        var data = JSON.stringify(response.data.data)
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY STATUS GEOFENCE] | INFO ' + util.inspect(response.status)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE BODY DATA GEOFENCE] | INFO ' + util.inspect((data))); 
+        var dt = JSON.parse(data)
+        return dt
+    }).catch(function(error){
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+    })
+    res.send(result)
+}
+
 var read_list = async function(req,res){
     var url = process.env.URL_GEOFENCE
     var token = process.env.TOKEN_APP
@@ -318,6 +400,8 @@ module.exports = {
     create,
     read,
     read_list,
+    read_history,
+    read_history_detail,
     update,
     Delete
 }

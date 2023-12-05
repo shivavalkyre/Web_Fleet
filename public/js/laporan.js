@@ -18,7 +18,28 @@ $(function(){
         alert_agregat()
     });
 
+    $('#cari3').bind('click', function(){
+        // find_data_vehicle_usage()
+        find_data_geofence()
+    });
 
+    $('#kembali1').bind('click',function(){
+        $('#div_distance').show()
+        $('#distance_detail').hide()
+        $('#kembali1').hide()
+    })
+
+    $('#kembali2').bind('click',function(){
+        $('#div_geofence').show()
+        $('#div_geofence_detail').hide()
+        $('#kembali2').hide()
+    })
+
+    $('#distance_detail').hide()
+    $('#kembali1').hide()
+    $('#kembali2').hide()
+
+    $('#div_geofence_detail').hide()
 
 })
 
@@ -51,7 +72,7 @@ async function loadDataDetail(){
                 for (i=0;i<=data.length-1;i++){
                     var updateTime = FormatedDate1(epoch_to_datetime(data[i].updateTime))
                     var updateDate = FormatedDate2(epoch_to_datetime(data[i].updateTime))
-                    var batteryVoltage = data[i].batteryVoltage[1].value + ' ' + data[i].batteryVoltage[1].unit;
+                    var batteryVoltage = parseInt(parseInt(data[i].batteryVoltage[1].value)/1000) + ' ' + data[i].batteryVoltage[1].unit;
                     var vehicleName = data[i].vehicleName;
                     var vehicleUid = data[i].vehicleUid;
                     var vehicleSclId = data[i].vehicleSclId;
@@ -201,6 +222,46 @@ async function find_data_vehicle_usage(){
 }
 
 
+async function find_data_geofence(){
+ 
+
+    var startDate = $('#dari3').datebox('getValue')
+    var endDate = $('#sampai3').datebox('getValue')
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json'
+        }
+    };  
+
+    var url1= '/geofence/history/'+startDate +'/'+endDate
+
+    const result = await fetch(url1,requestOptions)
+    .then(function (response)
+    
+        {
+            return response.json()
+        })
+
+        console.log(result)
+        if (result){
+            var datas = result
+            var rows = []
+            for (i=0;i<=datas.length-1;i++){
+                // rows.push({"year":datas[i].year,"month":datas.data[i].month,"date":datas.data[i].date,"accountId":datas.data[i].accountId,"eventTime":datas.data[i].eventTime,"totalTimeVehicleMovingSec":datas.data[i].totalTimeVehicleMovingSec,"vehicleMovingPercentage":parseInt(datas.data[i].vehicleMovingPercentage) + " %","totalTimeVehicleUsedSec":datas.data[i].totalTimeVehicleUsedSec,"totalTimeVehicleIdleSec":datas.data[i].totalTimeVehicleIdleSec,"vehicleIdlePercentage":parseInt(datas.data[i].vehicleIdlePercentage) +' %',"vehicleUtilizationPercentage":parseInt(datas.data[i].vehicleUtilizationPercentage) + ' %',"vehicleRemainingUtilizationPercentage":parseInt(datas.data[i].vehicleRemainingUtilizationPercentage) + ' %',"totalKm":parseInt(datas.data[i].totalKm),"totalKmDriven":parseInt(datas.data[i].totalKmDriven),"criticalCount":datas.data[i].criticalCount,"warningCount":datas.data[i].warningCount,"infoCount":datas.data[i].infoCount,"countDailyReports":datas.data[i].countDailyReports,"countSegments":datas.data[i].countSegments,"totalCount":datas.data[i].totalCount})
+                // console.log(rows)
+                rows.push({"geofenceScldId":datas[i].geofenceScldId,"geofenceId":datas[i].geofenceId,"geofenceAddress":datas[i].geofenceAddress,"occurrences":datas[i].occurrences,"avgWaitTime":datas[i].avgWaitTime,"vehicles":datas[i].vehicles})
+            }
+            
+            console.log('rows',rows)
+
+            var dg_data = {"total" : rows.length,"rows" : rows}
+            $('#dgGeofence').datagrid('loadData',dg_data)
+        }
+}
+
+
 
 async function getKMDriven(AssetUid,vehicleUid,start_date,end_date) {
     console.log('start_date',start_date,'end_date',end_date)
@@ -262,21 +323,24 @@ async function getKMDriven(AssetUid,vehicleUid,start_date,end_date) {
                 console.log('result1.data',result1.data)
     
                 var datas = result1.data
+
     
                 for(i=0;i<=datas.length-1;i++){
                     var period  = datas[i].period
                     console.log('period',period)
                     for (j=0;j<=datas[i].trips.length-1;j++){
                         var assetId = datas[i].trips[j].assetId
+                        var num_of_trip = datas[i].trips[j].segments
+                        var timespan = msToHMS(datas[i].trips[j].totalTimeVehicleUsedMSec)
                         var start_latlng =  datas[i].trips[j].startLat + ',' + datas[i].trips[j].startLong
                         var end_latlng =  datas[i].trips[j].endLat +',' +  datas[i].trips[j].endLong
                         var totalKmDriven = datas[i].trips[j].totalKmDriven
-                        var fuelConsumedL = parseInt(datas[i].trips[j].fuelConsumedL)
+                        var fuelConsumedL = parseInt(datas[i].trips[j].fuelConsumedL)/1000
                         var idle_percent = parseInt(datas[i].trips[j].idlePercent)
                         var moving_percent =  parseInt(datas[i].trips[j].movingPercent)
                         var stoppedPercent = parseInt(datas[i].trips[j].stoppedPercent)
     
-                        rows.push({"period": period,"assetId": assetId,"vehicle_type":vehicle_type,"start_latlng":start_latlng,"end_latlng":end_latlng,"totalKmDriven":totalKmDriven,"fuelConsumedL":fuelConsumedL,"idlePercent":idle_percent,"movingPercent":moving_percent,"stoppedPercent":stoppedPercent})
+                        rows.push({"period": period,"assetId": assetId,"vehicle_type":vehicle_type,"num_of_trip":num_of_trip,"trip_duration": timespan,"start_latlng":start_latlng,"end_latlng":end_latlng,"totalKmDriven":totalKmDriven,"fuelConsumedL":fuelConsumedL,"idlePercent":idle_percent,"movingPercent":moving_percent,"stoppedPercent":stoppedPercent})
                     }
                 }
     
@@ -284,11 +348,7 @@ async function getKMDriven(AssetUid,vehicleUid,start_date,end_date) {
     
                 $('#dgDistance').datagrid({
                     data :rows,
-                    view:groupview,
-                    groupField:'period',
-                    groupFormatter:function(value,rows){
-                        return value + ' - ' + rows.length + ' Item(s)';
-                    }
+                  
                 })
             }
         }
@@ -494,3 +554,16 @@ function compareStrings(a, b) {
   
     return (a < b) ? -1 : (a > b) ? 1 : 0;
   }
+
+  function msToHMS( ms ) {
+    // 1- Convert to seconds:
+    var seconds = ms / 1000;
+    // 2- Extract hours:
+    var hours = parseInt( seconds / 3600 ); // 3,600 seconds in 1 hour
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // 3- Extract minutes:
+    var minutes = parseInt( seconds / 60 ); // 60 seconds in 1 minute
+    // 4- Keep only seconds not extracted to minutes:
+    seconds = seconds % 60;
+   return  hours+":"+minutes+":"+seconds;
+}
