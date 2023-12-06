@@ -9,8 +9,16 @@ $(function(){
         filter_detail_rows()
     });
 
+    $('#export').bind('click', function(){
+        $('#dgDetail').datagrid('toExcel','detail.xls');
+    });
+
     $('#cari1').bind('click', function(){
         find_data_distance()
+    });
+
+    $('#export1').bind('click', function(){
+        $('#dgDistance').datagrid('toExcel','distance.xls');
     });
 
     $('#cari2').bind('click', function(){
@@ -18,9 +26,17 @@ $(function(){
         alert_agregat()
     });
 
+    $('#export2').bind('click', function(){
+        $('#dgAlert').datagrid('toExcel','alert.xls');
+    });
+
     $('#cari3').bind('click', function(){
         // find_data_vehicle_usage()
         find_data_geofence()
+    });
+
+    $('#export3').bind('click', function(){
+        $('#dgGeofence').datagrid('toExcel','geofence.xls');
     });
 
     $('#kembali1').bind('click',function(){
