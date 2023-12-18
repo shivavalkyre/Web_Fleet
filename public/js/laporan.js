@@ -14,11 +14,20 @@ $(function(){
     });
 
     $('#cari1').bind('click', function(){
+        $('#div_distance').show()
         find_data_distance()
+        
     });
 
     $('#export1').bind('click', function(){
-        $('#dgDistance').datagrid('toExcel','distance.xls');
+        var hidden = $('#div_distance').is(':hidden')
+        // alert(hidden)
+        if (hidden == false){
+            $('#dgDistance').datagrid('toExcel','distance.xls');
+        }else{
+            $('#dgDistanceDetail').datagrid('toExcel','distance_detail.xls');
+        }
+        
     });
 
     $('#cari2').bind('click', function(){
@@ -57,6 +66,9 @@ $(function(){
 
     $('#div_geofence_detail').hide()
 
+
+
+    // setInterval(loadDataDetail(),1000)
 })
 
 
@@ -148,10 +160,12 @@ async function filter_detail_rows(){
 
 
 async function find_data_distance(){
-    var AssetUid = $('#vehicle1').combogrid('getValue')
+    // var AssetUid = $('#vehicle1').combogrid('getValue')
     var g = $('#vehicle1').combogrid('grid');	// get datagrid object
     var r = g.datagrid('getSelected');	// get the selected row
     var vehicleUid = r.vehicleUid
+    var AssetUid = r.vehicleSclId
+    
     console.log('vehicleUid',r.vehicleUid)
     console.log('AssetUid',AssetUid)
 
@@ -541,6 +555,9 @@ function FormatedDate2(d){
     return tgl_baru
 }
 
+function formathms(val,row){
+   return msToHMS(val) 
+}
 
 function myformatter(date){
     var y = date.getFullYear();
@@ -581,5 +598,6 @@ function compareStrings(a, b) {
     var minutes = parseInt( seconds / 60 ); // 60 seconds in 1 minute
     // 4- Keep only seconds not extracted to minutes:
     seconds = seconds % 60;
-   return  hours+":"+minutes+":"+seconds;
+//    return  hours+":"+minutes+":"+seconds;
+return  hours+" jam "+minutes+" menit "+seconds+ " detik";
 }

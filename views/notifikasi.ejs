@@ -66,21 +66,31 @@
                                                 textField: 'text'">
                                             </div>
 
-
-                                            <div  style="margin-top: -35px;margin-left: 350px;">
-                                                <div style="width:20px;height: 20px;background: #FF0000;border-radius: 100%;"></div>
-                                                <div id="danger_type" style="margin-top: -20px;margin-left: 25px;font-weight: 800;">Danger</div>
+                                            <div style="margin-top: -39px;margin-bottom: 10px;margin-left: 330px;">
+                                                <input id="tanggal" class="easyui-datebox" label="Tanggal:" labelPosition="left" data-options="formatter:myformatter,parser:myparser" style="width:210px;">
                                             </div>
-                                            <div  style="margin-top: -20px;margin-left: 450px;">
+
+                                            <div style="margin-top:-39px;margin-left: 550px;">
+                                                <a href="#" id="cari" class="easyui-linkbutton" style="height: 30px;width:80px; background: #436AAC; color: white;font-family: 'Poppins';" onClick=''>Cari</a>
+                                            </div>
+
+                                            <div  style="margin-top: -25px;margin-left: 650px;">
+                                                <div style="width:20px;height: 20px;background: #FF0000;border-radius: 100%;"></div>
+                                                <div id="danger_type" style="margin-top: -20px;margin-left: 25px;font-weight: 800;">Critical</div>
+                                            </div>
+                                            <div  style="margin-top: -18px;margin-left: 750px;">
                                                 <div style="width:20px;height: 20px;background: #F4CE14;border-radius: 100%;"></div>
                                                 <div id="warning_type" style="margin-top: -20px;margin-left: 25px;font-weight: 800;">Warning</div>
                                             </div>
-                                            <div  style="margin-top: -18px;margin-left: 570px;">
+                                            <div  style="margin-top: -18px;margin-left: 850px;">
                                                 <div style="width:20px;height: 20px;background: #00308F;border-radius: 100%;"></div>
                                                 <div id="info_type" style="margin-top: -20px;margin-left: 25px;font-weight: 800;">Info</div>
                                             </div>
+                                            <div style="margin-top:-22px;margin-left: 950px;">
+                                                <a href="#" id="export" class="easyui-linkbutton" style="height: 30px; background: #436AAC; color: white;font-family: 'Poppins';" onClick=''>Export</a>
+                                            </div>
                                         </div>
-
+                                        
                                         <table id="dgNotif"  class="easyui-datagrid" style="width:100%;height:480px;background:transparent;background-color:transparent;"
                                         data-options="remoteSort:false,multiSort:true"
                                         nowrap="false"
@@ -89,7 +99,7 @@
                                     <thead>
                                         <tr>
                                             
-                                            <th align="center" field="severity" width="80" data-options="formatter:formatStatus,sortable:true">SEVERITY</th>    
+                                            <th align="center" field="severity" width="80" data-options="formatter:formatStatus,sortable:true">SEVERITY</th>  
                                             <th align="center" field="type" width="150" data-options="sortable:true">TYPE</th> 
                                             <th align="center" field="value" width="150" data-options="sortable:true">VALUE</th>
                                             <th align="center" field="vehicleId" width="180" data-options="sortable:true">VEHICLE ID</th>

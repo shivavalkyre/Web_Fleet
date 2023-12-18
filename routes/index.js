@@ -413,6 +413,13 @@ router.post('/notifikasi/read',function(req,res){
     Notifikasi.read(req,res)
 })
 
+router.post('/notifikasi/read/:tanggal',function(req,res){
+    req.body.startDate = req.params.tanggal
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ HEADER NOTIFIKASI ] | INFO ' + util.inspect(req.headers));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ NOTIFIKASI READ BODY ] | INFO ' + util.inspect(req.body));
+    Notifikasi.read_period(req,res)
+})
+
 // Laporan ======================================================================================================
 
 router.post('/laporan/detail',function(req,res){

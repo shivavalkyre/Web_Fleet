@@ -445,7 +445,8 @@ async function addMarker(location,heading,cars_info) {
         map,
         optimized: false,
         title: cars_info.vehicleUid,
-        status:status
+        status:status,
+        category:cars_info.category_kendaraan
     });
 
     marker.addListener("click", () => {

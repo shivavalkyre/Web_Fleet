@@ -24,6 +24,8 @@ var prev_mode
 var place_save_status
 var selected_placeUid
 
+var selected_vehicle_category
+
 var username = sessionStorage.getItem("username");
 var level = sessionStorage.getItem("level");
 var area = sessionStorage.getItem("area");
@@ -501,6 +503,50 @@ var userid =  sessionStorage.getItem("id");
 						hideShapes()
 					}
 				})
+
+				// $('#pnl_x').panel('close')
+				
+				$('#w').window('close')
+					// $('#pnl_x').panel('move',{
+				// 	// 	left:500,
+				// 	// 	top:500
+				// 	// })
+				
+
+				$('#toggle_vehicle').hover(function(){
+					// alert('hover')
+					$('#w').window('move',{
+						left:808,
+						top:110
+					})
+					$('#w').window({
+						noheader:true
+					})
+					$('#w').window('open')
+
+					
+
+
+				},function(){
+					// alert('release hover')
+					// $('#pnl_x').panel('close')
+
+				})
+
+				
+
+				$('#dl').datalist({
+					onClickRow: function(index,row){
+						console.log(row)
+						selected_vehicle_category = row.value
+						filter_vehicle_by_category(selected_vehicle_category)
+						$('#w').window('close')
+					}
+				})
+
+				$('#dl').datalist('selectRow',0)
+				selected_vehicle_category = 'All'
+				
 		});
 
 

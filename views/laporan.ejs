@@ -92,7 +92,7 @@
                                                         </thead>
                                             </table>
                                         </div>
-                                        <div title="Vehicle Usage" style="padding:10px">
+                                        <div title="Trip Data" style="padding:10px">
                                             <div style="padding:5px;">
                                                 <input id="dari1" class="easyui-datebox" label="Dari:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:200px;">
                                             </div>
@@ -101,14 +101,16 @@
                                             </div>
                                             <div style="padding:5px;margin-top:-60px;margin-left:450px;">
                                                 <select id="vehicle1" class="easyui-combogrid" style="width:200px" data-options="
-                                                panelWidth: 500,
-                                                idField: 'vehicleSclId',
-                                                textField: 'vehicleName',
+                                                panelWidth: 300,
+                                                idField: 'vehicleUid',
+                                                textField: 'vehicleUid',
+                                                mode:'local',
                                                 method: 'get',
                                                 columns: [[
-                                                    {field:'vehicleSclId',title:'VehicleSclID',hidden:true,width:80},
+                                                    
                                                     {field:'vehicleUid',title:'VehicleUid',width:80},
-                                                    {field:'vehicleName',title:'Vehicle Name',width:120},
+                                                    {field:'vehicleName',title:'Vehicle Name',width:120,hidden:true},
+                                                    {field:'vehicleSclId',title:'VehicleSclID',hidden:true,width:80},
                                                 ]],
                                                 fitColumns: true,
                                                 label: 'Pilih Kendaraan:',
@@ -252,15 +254,15 @@
                                                 data-options="remoteSort:false,multiSort:true"
                                                 nowrap="false"
                                                 pagination="false"
-                                                rownumbers="false" fitColumns="false" singleSelect="true">
+                                                rownumbers="false" fitColumns="true" singleSelect="true">
                
                                                 <thead>
                                                     <tr>
                                                         <th align="center" field="startTime" width="150" data-options="sortable:true" hidden >startTime</th> 
                                                         <th align="center" field="geofenceId" width="150" data-options="sortable:true">geofenceId</th>
-                                                        <th align="center" field="vehicleSclId" width="150" data-options="sortable:true">vehicleSclId</th>
+                                                        <!-- <th align="center" field="vehicleSclId" width="150" data-options="sortable:true">vehicleSclId</th> -->
                                                         <th align="center" field="vehicleUid" width="80" data-options="sortable:true">vehicleUid</th>
-                                                        <th align="center" field="duration" width="80" data-options="sortable:true">duration</th>
+                                                        <th align="center" field="duration" width="80" data-options="formatter:formathms,sortable:true">duration</th>
                 
                                                     </tr>
                                                 </thead>

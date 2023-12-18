@@ -183,13 +183,19 @@ async function view_distance_detail(){
     $('#distance_detail').show()
     $('#kembali1').show()
 
-    var start_date = $('#dari1').datebox('getValue')
-    var end_date = $('#sampai1').datebox('getValue')
-    var vehicleuid = $('#vehicle1').combogrid('getValue')
+    // var start_date = $('#dari1').datebox('getValue')
+    // var end_date = $('#sampai1').datebox('getValue')
+    var row = $('#dgDistance').datagrid('getSelected')
+
+    var start_date = row.period
+    var end_date = row.period
+    var g = $('#vehicle1').combogrid('grid')
+    var r = g.datagrid('getSelected')
+    var vehicleuid = r.vehicleSclId
     // var token = sessionStorage.getItem("token")
 
     var url ="/vehicle/read/segments/" + start_date +"/" + end_date +"/" + vehicleuid
-    // alert (url)
+    console.log ('url',url)
 
     const requestOptions = {
         method: 'POST',

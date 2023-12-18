@@ -90,7 +90,7 @@
                 </div>
 
             <!-- Content -->
-            <div id="cc_monitor" class="easyui-layout" style="width:98.5%;height:99%;background: white;border-radius: 8px;margin-top: 60px;margin-left:10px;position: fixed;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                <div id="cc_monitor" class="easyui-layout" style="width:98.5%;height:99%;background: white;border-radius: 8px;margin-top: 60px;margin-left:10px;position: fixed;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                 <div data-options="region:'west',split:false"  style="width:320px;background:white;border:none;">
                     <div class="easyui-panel" style="padding:5px;text-align: center;border:none;margin-bottom: 5px;position: fixed;">
                         <a id="Semua" href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1',plain:true,selected:true" style="height: 40px;width:60px;border:1px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);" onclick="semua()"> <p id="semua_value" style="margin-top: 10px;margin-bottom: 20px;"> 0  </p><p style="margin-top: -25px;height: 20px;font-size: 10px;"> Semua </p> </a>
@@ -107,26 +107,39 @@
                    </div>
 
                 </div>
+
+       
                 
                 <div data-options="region:'center'"  style="background-color: white;width:100%;height: 100%;border:none;">
                     <div id="googleMap" style="width: 100%;height: 100%;z-index:1"></div>
+                    <!-- panel group selection -->
+
                     <!-- Vehicle & Place -->
                     <div id="geofence_box" style="width: 350;height:40px;z-index:4;top:10;left:200;position:absolute;background: transparent;visibility: visible;overflow-y: auto;">
                         
                         <div style="margin-top: 0px;margin-left:0px;">
-                            <a id="toggle_vehicle" href="#" class="easyui-linkbutton" data-options="toggle:true,selected:true" style="height: 40px;width:100px;"><span style="font-size: 16px;">Vehicle</span></a>
+                            <a id="toggle_vehicle" href="#" class="easyui-linkbutton" data-options="toggle:true,selected:true" style="height: 40px;width:120px;"><span style="font-size: 16px;">Vehicle</span></a>
+                        </div>
+                 
+                        <div style="margin-top: -40px;margin-left:120px;height: 150px; position: absolute;">
                             <a id="toggle_place" href="#" class="easyui-linkbutton" data-options="toggle:true" style="height: 40px;width:100px;"><span style="font-size: 16px;">Place</span></a>   
                         </div>
-                        <div style="margin-top: -40px;margin-left:220px;">
-                            <a id="circle_place" href="#" class="easyui-linkbutton" data-options="toggle:true,plain:false,iconCls:'icon-circle'" style="height: 100%;width: 40px;"> </a>   
+
+                        <div style="margin-top: -40px;margin-left:220px;height: 150px; position: absolute;">
+                            <a id="circle_place" href="#" class="easyui-linkbutton" data-options="toggle:true,plain:false,iconCls:'icon-circle'" style="height: 40px;width: 40px;"> </a>   
                         </div>
                         <!-- <div style="margin-top: -40px;margin-left:260px;">
                             <a id="polygon_place" href="#" class="easyui-linkbutton" data-options="toggle:true,plain:false,iconCls:'icon-polygon'" style="height: 100%;width: 40px;"> </a>   
                         </div> -->
-                        <div style="margin-top: -40px;margin-left:260px;">
-                            <a id="list_place" href="#" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-tasklist-black'" style="height: 100%;width: 40px;"> </a>   
+                        <div style="margin-top: -40px;margin-left:260px;position: absolute;">
+                            <a id="list_place" href="#" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-tasklist-black'" style="height: 40px;width: 40px;"> </a>   
                         </div>
+
+                        
                     </div>
+
+
+
                     <!-- Create Place Box -->
                     <div id="place_box" style="width: 600px;height:100%;z-index:2;top:0%;right:0;position:absolute;background: #F5F8FFD9;float:right;visibility: hidden;">
                         <div id="title_geofence" style="margin:10 5px 0 10;width: 100%;height: 16px;font-size: 14px;font-weight: bolder;color: black;font-family: 'Poppins';">Create Geofence</div>
@@ -287,7 +300,15 @@
                     </div>
                     
                  
-
+                    <div id="w" class="easyui-window" data-options="border:'thin'" style="width:200px;height:205px;padding:0px;">
+                        <ul id="dl" class="easyui-datalist" lines="true" style="width:100%;height:205px">
+                            <li value="All">All</li>
+                            <li value="Sedan">Mazda 6 Sedan</li>
+                            <li value="Wagon">Mazda 6 Wagon</li>
+                            <li value="Max">Isuzu D-Max</li>
+                            <li value="Mux">Isuzu D-Mux</li>
+                        </ul>
+                    </div>
 
 
                 </div>
@@ -427,7 +448,7 @@
 
                 </div>
 
-    
+     
             
             </div>
 

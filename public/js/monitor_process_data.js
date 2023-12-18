@@ -3,13 +3,21 @@ var t1_all = null
 var t1_moving = null
 var t1_stop = null
 var t1_offline = null
+var t1_category = null
+
 var init_odometer
 
+var pnl_vehicles_data_length
 
 var t2 = null
 var t3 = null
 var t4 = null
 var tout = null
+
+var ctr_mux =0
+var ctr_max=0
+var ctr_mazda6_sedan=0
+var ctr_mazda6_wagon=0
 
 var read_speed_data= 500
 
@@ -158,6 +166,15 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                         AssetStatusCount(mode,search_mode,null,userid)
                     },30000)
               
+            }else if (mode== 'category'){
+                clearTimeout(t1_moving)
+                clearTimeout(t1_offline)
+                clearTimeout(t1_stop)
+
+                clearInterval(t1_all)
+                clearInterval(t1_moving)
+                clearInterval(t1_stop)
+                clearInterval(t1_offline)
             }
            
             
@@ -265,6 +282,13 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
             // console.log(asset_req_counter)
             // asset_req_counter++
             // alert(search_mode)
+            $('#dl').datalist('updateRow',{
+                index: 0,
+                row: {
+                    value: 'All',
+                    text: 'ALL (' + all +')'
+                }
+            })
 
             if (search_mode == false){
 
@@ -348,6 +372,7 @@ async function CreateData(userid){
     var data = res1
 
     var url1 = '/vehicle/read/all/'+ userid
+    console.log('url1',url1)
     const requestOptions = {
         method: 'POST',
         headers: { 
@@ -365,156 +390,175 @@ async function CreateData(userid){
     // alert(area)
 
     if (area == 'pusat'){
-        for (i=0;i<= data.length-1;i++){
 
-            var sclId = data[i].vehicleSclId
-            var deviceStatus = data[i].deviceStatus
-            var img
-            var status
-    
-            if (deviceStatus == 'offline'){
-                img = "/img/moving_offline.png"
-                status = 'offline'
-                status_offline++
-            }else if (deviceStatus == 'stopped'){
-                img = "/img/moving_stop.png"
-                status = 'diam'
-                status_diam++
-            }else if (deviceStatus == 'moving'){
-                img = "/img/moving.png"
-                status = 'bergerak'
-                status_bergerak++
-            }
-    
-            var licensePlate = data[i].vehicleLicensePlate
-            var vehicleUid = data[i].vehicleUid
-            var accountId = data[i].accountId
-            var validLatitude = data[i].validLatitude
-            var validLongitude = data[i].validLongitude
-            var heading = data[i].heading
-            var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit
-            var utcSeconds = data[i].updateTime;
-            // var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-            // d.setUTCSeconds(utcSeconds);
-            var strDate = FormatedDate(epoch_to_datetime(utcSeconds))
+        var data_vehicle = await res_vehicle.rows
+        console.log('data_vehicle',data_vehicle)
+        for (l=0;l<=data_vehicle.length-1;l++){
+            var vehicleid = data_vehicle[l].vehicleid
+            for (i=0;i<= data.length-1;i++){
+
+                var vehicleUid = data[i].vehicleUid
+
+                if (vehicleid == vehicleUid){
+
+                    var sclId = data[i].vehicleSclId
+                    var deviceStatus = data[i].deviceStatus
+                    var img
+                    var status
             
-            // var geocoder = new google.maps.Geocoder()
-            // console.log('validLatitude:' + validLatitude)
-            // console.log('validLongitude:' + validLongitude)
-    
-    
-            if(!validLatitude && !validLongitude){
-                // console.log('Null')
-            } else{
-               
-                var address= ''
-                  pnl += `
-                  <div id="pnl`+ i +`" name="`+ sclId +`" class="pnl" style="margin-bottom:10px;margin-left:5px;margin-top:0px;width:280px;height: 30px;background-color: white;border-color: transparent;border: 0px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);border-radius:5px;font-family:'Poppins'" > 
-                            
-                            <table class="info1" width="100%" style="border-collapse: collapse;font-size:10px;border-radius:5px;">
-                            <tbody>
-                            <tr id="title_row`+ i + `" onmouseover="changeColor(this)" onmouseout="restoreColor(this)" style="color:black;border-top-left-radius: 5px;border-top-right-radius: 5px;">
-                            <td style="border-top-left-radius: 5px;height:30px;width:24px;vertical-align: center;horizontal-align:center;align:center"><div style="margin-top:-3px;margin-left:3px;"><img id="img_pantau`+ i +`" src="`+ img +`" width="24" height="24"></div></td>
-                            <td style="height:30px;width:80%;font-weight:bold"><div id="v_uid`+ i +`"  style="margin-left:10px;cursor:pointer;" onClick="getClickedTitle(this)">`+ vehicleUid +`</div></td>
-                            <td id="td_arrow`+  i  +`" style="height:30px;width:24px;vertical-align: center;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"><div id="angle`+ i +`" name="`+ sclId +`" style="cursor:pointer;margin-left:5px;" onclick="getClicked(this)"><i  class="fa fa-angle-down fa-2x" aria-hidden="true" style="cursor:pointer;"></i></div></td>
-                            </tr>
-                            </tbody>
-                            </table>
-                            
-    
-                    <div id="img_location`+ i +`" style="margin-top:10px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/location.png" width="18" height="18"/></div>
-                    <div id="location`+ i +`" style="margin-top:-20px;margin-left:50px;width:200px;height:50px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + address + `</div>
-                    <div id="img_time`+ i +`" style="margin-top:20px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/clock.png" width="18" height="18"/></div>
-                    <div id="time`+ i +`" style="margin-top:-17px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + strDate + ` </div>
-    
-                    <div id="options`+ i +`" style="color:#436AAC;margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" class="info" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> &nbsp; | &nbsp;  <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" class="info" onclick="riwayat(this)">Riwayat</a>  &nbsp; | &nbsp;  <a href="#" id="chat`+ i +`" style="text-decoration: none;" class="info">Chat</a></div>
-                    <div id="lat` + i + `" style="visibility:hidden">` + validLatitude + `</div>
-                    <div id="lon` + i + `" style="visibility:hidden">` + validLongitude + `</div>
-                    <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
-                    <div id="heading` + i + `" style="visibility:hidden">` + heading + `</div>
-                    <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
-                  </div>
-                  `
-
-                  const requestOptions = {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json'
+                    if (deviceStatus == 'offline'){
+                        img = "/img/moving_offline.png"
+                        status = 'offline'
+                        status_offline++
+                    }else if (deviceStatus == 'stopped'){
+                        img = "/img/moving_stop.png"
+                        status = 'diam'
+                        status_diam++
+                    }else if (deviceStatus == 'moving'){
+                        img = "/img/moving.png"
+                        status = 'bergerak'
+                        status_bergerak++
                     }
-                };
-
-                //   var url1= '/vehicle/read/selected/vehicleuid/'+ vehicleUid
-                //     //   console.log('url1',url1)
-                //   var result = await fetch(url1,requestOptions)
-                //   .then(response => response.json()) 
-                //   .then(json => {
-                //         // console.log('json',json)
-                //         return json
-                //   })
-                //   .catch (function (error) {
-                //     // console.log('Request failed', error);
-                // });
-
-                //     console.log('result',result)
-                    var vehicle_type 
-                    // console.log('vehicleUid',vehicleUid.substr(0,2))
-
+            
+                    var licensePlate = data[i].vehicleLicensePlate
+                    var vehicleUid = data[i].vehicleUid
+                    var accountId = data[i].accountId
+                    var validLatitude = data[i].validLatitude
+                    var validLongitude = data[i].validLongitude
+                    var heading = data[i].heading
+                    var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit
+                    var vehicle_category = data_vehicle[l].vehicle_type
+                    // console.log('vehicle_category',vehicle_category)
+                    var utcSeconds = data[i].updateTime;
+                    // var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                    // d.setUTCSeconds(utcSeconds);
+                    var strDate = FormatedDate(epoch_to_datetime(utcSeconds))
                     
-
-                    // if (vehicleUid.substr(0,2)=='JM'){
-                    //     vehicle_type = 'sedan'
-                    // }
-
-                    var x_def = vehicleUid.substr(0,2)
-                    var x_def1 = vehicleUid.substr(0,4)
-
-                    // console.log('x_def',x_def)
-                    // console.log('x_def1',x_def1)
-
-                    if (x_def == 'MP'){
-
-                        if (x_def1 == 'MPAT'){
-                            vehicle_type = 'cabin'
-                        }
-    
-                        if (x_def1 == 'MPAU'){
-                            vehicle_type = 'wagon'
-                        }
-                    }else{
-                        vehicle_type = 'sedan'
+                    // var geocoder = new google.maps.Geocoder()
+                    // console.log('validLatitude:' + validLatitude)
+                    // console.log('validLongitude:' + validLongitude)
+            
+            
+                    if(!validLatitude && !validLongitude){
+                        // console.log('Null')
+                    } else{
+                       
+                        var address= ''
+                          pnl += `
+                          <div id="pnl`+ i +`" name="`+ sclId +`" class="pnl" style="margin-bottom:10px;margin-left:5px;margin-top:0px;width:280px;height: 30px;background-color: white;border-color: transparent;border: 0px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);border-radius:5px;font-family:'Poppins'" > 
+                                    
+                                    <table class="info1" width="100%" style="border-collapse: collapse;font-size:10px;border-radius:5px;">
+                                    <tbody>
+                                    <tr id="title_row`+ i + `" onmouseover="changeColor(this)" onmouseout="restoreColor(this)" style="color:black;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+                                    <td style="border-top-left-radius: 5px;height:30px;width:24px;vertical-align: center;horizontal-align:center;align:center"><div style="margin-top:-3px;margin-left:3px;"><img id="img_pantau`+ i +`" src="`+ img +`" width="24" height="24"></div></td>
+                                    <td style="height:30px;width:80%;font-weight:bold"><div id="v_uid`+ i +`"  style="margin-left:10px;cursor:pointer;" onClick="getClickedTitle(this)">`+ vehicleUid +`</div></td>
+                                    <td id="td_arrow`+  i  +`" style="height:30px;width:24px;vertical-align: center;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"><div id="angle`+ i +`" name="`+ sclId +`" style="cursor:pointer;margin-left:5px;" onclick="getClicked(this)"><i  class="fa fa-angle-down fa-2x" aria-hidden="true" style="cursor:pointer;"></i></div></td>
+                                    </tr>
+                                    </tbody>
+                                    </table>
+                                    
+            
+                            <div id="img_location`+ i +`" style="margin-top:10px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/location.png" width="18" height="18"/></div>
+                            <div id="location`+ i +`" style="margin-top:-20px;margin-left:50px;width:200px;height:50px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + address + `</div>
+                            <div id="img_time`+ i +`" style="margin-top:20px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/clock.png" width="18" height="18"/></div>
+                            <div id="time`+ i +`" style="margin-top:-17px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + strDate + ` </div>
+            
+                            <div id="options`+ i +`" style="color:#436AAC;margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" class="info" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> &nbsp; | &nbsp;  <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" class="info" onclick="riwayat(this)">Riwayat</a>  &nbsp; | &nbsp;  <a href="#" id="chat`+ i +`" style="text-decoration: none;" class="info">Chat</a></div>
+                            <div id="lat` + i + `" style="visibility:hidden">` + validLatitude + `</div>
+                            <div id="lon` + i + `" style="visibility:hidden">` + validLongitude + `</div>
+                            <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
+                            <div id="heading` + i + `" style="visibility:hidden">` + heading + `</div>
+                            <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
+                            <div id="v_type` + i + `" style="visibility:hidden">` + vehicle_category + `</div>
+                          </div>
+                          `
+        
+                          const requestOptions = {
+                            method: 'POST',
+                            headers: { 
+                                'Content-Type': 'application/json'
+                            }
+                        };
+        
+                        //   var url1= '/vehicle/read/selected/vehicleuid/'+ vehicleUid
+                        //     //   console.log('url1',url1)
+                        //   var result = await fetch(url1,requestOptions)
+                        //   .then(response => response.json()) 
+                        //   .then(json => {
+                        //         // console.log('json',json)
+                        //         return json
+                        //   })
+                        //   .catch (function (error) {
+                        //     // console.log('Request failed', error);
+                        // });
+        
+                        //     console.log('result',result)
+                            var vehicle_type 
+                            // console.log('vehicleUid',vehicleUid.substr(0,2))
+        
+                            
+        
+                            // if (vehicleUid.substr(0,2)=='JM'){
+                            //     vehicle_type = 'sedan'
+                            // }
+        
+                            var x_def = vehicleUid.substr(0,2)
+                            var x_def1 = vehicleUid.substr(0,4)
+        
+                            // console.log('x_def',x_def)
+                            // console.log('x_def1',x_def1)
+        
+                            if (x_def == 'MP'){
+        
+                                if (x_def1 == 'MPAT'){
+                                    vehicle_type = 'cabin'
+                                }
+            
+                                if (x_def1 == 'MPAU'){
+                                    vehicle_type = 'wagon'
+                                }
+                            }else{
+                                vehicle_type = 'sedan'
+                            }
+        
+        
+        
+        
+        
+                            var cars_info = {
+                                no:i,
+                                sclId:sclId,
+                                licensePlate : licensePlate,
+                                vehicleUid: vehicleUid,
+                                deviceStatus : status,
+                                speed: speed,
+                                heading:heading,
+                                last_update:strDate,
+                                type_kendaraan:vehicle_type,
+                                category_kendaraan: vehicle_category
+                            }
+            
+                            // console.log('validLatitude1:' + validLatitude)
+                            // console.log('validLongitude1:' + validLongitude)
+            
+                            CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
+                            var resp = await addMarker(CentralPark,heading,cars_info)
+            
+                            // console.log('resp: '+ resp)
+                            // map.setZoom(10)
+                            // console.log(resp[0])
+                            // var infowindow = resp[1]
+                            // infowindow.close()
+                            gmarkers.push(resp[0]);
                     }
 
+                }
 
-
-
-
-                    var cars_info = {
-                        no:i,
-                        sclId:sclId,
-                        licensePlate : licensePlate,
-                        vehicleUid: vehicleUid,
-                        deviceStatus : status,
-                        speed: speed,
-                        heading:heading,
-                        last_update:strDate,
-                        type_kendaraan:vehicle_type
-                    }
-    
-                    // console.log('validLatitude1:' + validLatitude)
-                    // console.log('validLongitude1:' + validLongitude)
-    
-                    CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
-                    var resp = await addMarker(CentralPark,heading,cars_info)
-    
-                    // console.log('resp: '+ resp)
-                    // map.setZoom(10)
-                    // console.log(resp[0])
-                    // var infowindow = resp[1]
-                    // infowindow.close()
-                    gmarkers.push(resp[0]);
+               
+        
             }
-    
         }
+
     }else{
         // alert('semua,filtered')
 
@@ -560,6 +604,8 @@ async function CreateData(userid){
                     var validLongitude = data[i].validLongitude
                     var heading = data[i].heading
                     var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit
+                    var res_vehicle_type = data_vehicle[l].vehicle_type
+                    console.log('res_vehicle_type',res_vehicle_type)
                     var utcSeconds = data[0].updateTime;
                     // var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
                     // d.setUTCSeconds(utcSeconds);
@@ -627,6 +673,7 @@ async function CreateData(userid){
                           <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
                           <div id="heading` + i + `" style="visibility:hidden">` + heading + `</div>
                           <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
+                          <div id="v_type` + i + `" style="visibility:hidden">` + vehicle_category + `</div>
                         </div>
                         `
                        
@@ -677,7 +724,15 @@ async function CreateData(userid){
 
     // new MarkerClusterer(map, gmarkers);
     $('#live_monitor').html(pnl);
-    
+    pnl_vehicles_data_length = data.length
+    // console.log(' pnl_vehicles_data_length', pnl_vehicles_data_length)
+    counter_vehicle_category()
+    console.log('selected_vehicle_category',selected_vehicle_category)
+    if (selected_vehicle_category!= '' && typeof selected_vehicle_category != 'undefined'){
+        filter_vehicle_by_category(selected_vehicle_category)
+    }else{
+        filter_vehicle_by_category('All')
+    }
 }
 
 
@@ -1866,3 +1921,114 @@ function doSetTimeout(i) {
 //     $(e).addClass("selected").siblings().removeClass("selected")
 
 //  }
+
+async function counter_vehicle_category(){
+
+    ctr_max=0
+    ctr_mux=0
+    ctr_mazda6_sedan=0
+    ctr_mazda6_wagon=0
+
+    for (i=0;i<=pnl_vehicles_data_length-1;i++){
+        var pnl = $('#pnl'+i).attr('id')
+        if(typeof pnl !== "undefined"){
+            console.log('pnl',pnl)
+            var obj_pnl = $('#pnl'+i)
+            var v_uid = $('#v_uid'+i).attr('id')
+            console.log('v_uid',v_uid)
+            var obj_vuid = $('#v_uid'+i)
+            console.log('v_uid',obj_vuid.text())
+            var obj_v_type = $('#v_type' + i)
+            // console.log('obj_v_type',obj_v_type)
+            console.log('v_type',obj_v_type.text())
+            
+            if (obj_v_type.text() == 'Mux'){
+                ctr_mux++
+            }else if(obj_v_type.text() == 'D-Max'){
+                ctr_max++
+            }else if(obj_v_type.text() == 'Mazda 6 Sedan' ){
+                ctr_mazda6_sedan++
+            }else if(obj_v_type.text() == 'Mazda 6 Wagon'){
+                ctr_mazda6_wagon++
+            }
+        }
+        
+    }
+
+    console.log('ctr_max',ctr_max)
+    console.log('ctr_mux',ctr_mux)
+    console.log('mazda 6 sedan',ctr_mazda6_sedan)
+    console.log('mazda 6 wagon',ctr_mazda6_wagon)
+
+    var all = ctr_max+ ctr_mux + ctr_mazda6_sedan + ctr_mazda6_wagon
+
+
+
+    $('#dl').datalist('updateRow',{
+        index: 0,
+        row: {
+            value: 'All',
+            text: 'ALL (' + all +')'
+        },
+        index: 1,
+        row: {
+            value: 'Sedan',
+            text: 'Mazda 6 Sedan (' + ctr_mazda6_sedan +')'
+        }
+    })
+   
+    $('#dl').datalist('updateRow',{
+        index: 2,
+        row: {
+            value: 'Wagon',
+            text: 'Mazda 6 Wagon (' + ctr_mazda6_wagon +')'
+        }
+    })
+
+    $('#dl').datalist('updateRow',{
+        index: 3,
+        row: {
+            value: 'Max',
+            text: 'Isuzu D-Max (' + ctr_max +')'
+        }
+    })
+
+    $('#dl').datalist('updateRow',{
+        index: 4,
+        row: {
+            value: 'Mux',
+            text: 'Isuzu D-Mux (' + ctr_mux +')'
+        }
+    })
+}
+
+async function filter_vehicle_by_category(category){
+//    var j =1
+//    alert(category)
+
+    console.log('category',category)
+
+   for (i=0;i<=pnl_vehicles_data_length-1;i++){
+        var pnl = $('#pnl'+i).attr('id')
+        if(typeof pnl !== "undefined"){
+            console.log('pnl',pnl) 
+            var obj_v_type = $('#v_type' + i)
+            console.log('v_type',obj_v_type.text())
+            var car_category = obj_v_type.text()
+            if (category!= 'All'){
+                if(car_category.indexOf(category)>=0){
+                    console.log('ada')
+                    $('#pnl'+i).show()
+                    gmarkers[i].setVisible(true)
+                }else{
+                    $('#pnl'+i).hide()
+                    gmarkers[i].setVisible(false)
+                }
+            }else{
+                $('#pnl'+i).show()
+                gmarkers[i].setVisible(true)
+            }
+           
+        }
+   }
+}
