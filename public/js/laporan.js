@@ -45,7 +45,13 @@ $(function(){
     });
 
     $('#export3').bind('click', function(){
-        $('#dgGeofence').datagrid('toExcel','geofence.xls');
+        var hidden = $('#div_geofence').is(':hidden')
+        if (hidden==false){
+            $('#dgGeofence').datagrid('toExcel','geofence.xls');
+        }else{
+            $('#dgGeofenceDetail').datagrid('toExcel','geofence_detail.xls');
+        }
+       
     });
 
     $('#kembali1').bind('click',function(){

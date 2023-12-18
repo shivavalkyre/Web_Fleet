@@ -296,7 +296,14 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
 
                 if (mode == 'semua'){
                     // console.log('create data')
-                    CreateData(userid)
+                    if (selected_vehicle_category=='All'){
+                        // alert('all')
+                        CreateData(userid)
+                    }else{
+                        alert(selected_vehicle_category)
+                        CreateDataCategory(userid,selected_vehicle_category)
+                    }
+                    
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
                     
                     // console.log('mode:' + mode)
@@ -391,15 +398,14 @@ async function CreateData(userid){
 
     if (area == 'pusat'){
 
-        var data_vehicle = await res_vehicle.rows
-        console.log('data_vehicle',data_vehicle)
-        for (l=0;l<=data_vehicle.length-1;l++){
-            var vehicleid = data_vehicle[l].vehicleid
+
+      
+          
             for (i=0;i<= data.length-1;i++){
 
-                var vehicleUid = data[i].vehicleUid
+               
 
-                if (vehicleid == vehicleUid){
+                
 
                     var sclId = data[i].vehicleSclId
                     var deviceStatus = data[i].deviceStatus
@@ -427,7 +433,8 @@ async function CreateData(userid){
                     var validLongitude = data[i].validLongitude
                     var heading = data[i].heading
                     var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit
-                    var vehicle_category = data_vehicle[l].vehicle_type
+                    // var vehicleUid = data[i].vehicleUid
+                    // var vehicle_category = data_vehicle[l].vehicle_type
                     // console.log('vehicle_category',vehicle_category)
                     var utcSeconds = data[i].updateTime;
                     // var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
@@ -469,7 +476,6 @@ async function CreateData(userid){
                             <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
                             <div id="heading` + i + `" style="visibility:hidden">` + heading + `</div>
                             <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
-                            <div id="v_type` + i + `" style="visibility:hidden">` + vehicle_category + `</div>
                           </div>
                           `
         
@@ -534,8 +540,7 @@ async function CreateData(userid){
                                 speed: speed,
                                 heading:heading,
                                 last_update:strDate,
-                                type_kendaraan:vehicle_type,
-                                category_kendaraan: vehicle_category
+                                type_kendaraan:vehicle_type
                             }
             
                             // console.log('validLatitude1:' + validLatitude)
@@ -552,12 +557,12 @@ async function CreateData(userid){
                             gmarkers.push(resp[0]);
                     }
 
-                }
+                
 
                
         
             }
-        }
+        
 
     }else{
         // alert('semua,filtered')
