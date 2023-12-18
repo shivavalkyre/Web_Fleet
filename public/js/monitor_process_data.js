@@ -728,11 +728,11 @@ async function CreateData(userid){
     // console.log(' pnl_vehicles_data_length', pnl_vehicles_data_length)
     counter_vehicle_category()
     console.log('selected_vehicle_category',selected_vehicle_category)
-    if (selected_vehicle_category!= '' && typeof selected_vehicle_category != 'undefined'){
-        filter_vehicle_by_category(selected_vehicle_category)
-    }else{
-        filter_vehicle_by_category('All')
-    }
+    // if (selected_vehicle_category!= '' && typeof selected_vehicle_category != 'undefined'){
+    //     filter_vehicle_by_category(selected_vehicle_category)
+    // }else{
+    //     filter_vehicle_by_category('All')
+    // }
 }
 
 
