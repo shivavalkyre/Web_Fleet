@@ -736,6 +736,410 @@ async function CreateData(userid){
 }
 
 
+async function CreateDataCategory(userid,category){
+
+
+
+ 
+    var token = sessionStorage.getItem("token")
+    var pnl=''
+    
+    var status_bergerak=0
+    var status_diam=0
+    var status_offline=0
+    var status_total=0
+    // console.log(token)
+
+    const config = {
+        headers:{
+          'token': token
+        },
+        timeout: 10000
+      };
+
+      var postData = {
+       
+      };
+
+    var url = "http://147.139.144.120:3002/api/patern/latest_status"
+    // var url = "http://localhost:3002/api/patern/latest_status"
+    let res1 = await axios.post(url,postData,config)
+    .then((response) => {
+        // console.log(response.data)
+        var status = response.data.status
+        var data = response.data.data
+        if (status == true){
+            return data
+        }
+
+    }).catch((error) => {
+        // $.messager.alert('Error','Error Loading Data Timeout','info');
+        console.error(error)
+        // AssetStatusCount()
+    });
+
+    var data = res1
+
+    var url1 = '/vehicle/read/all/'+ userid
+    console.log('url1',url1)
+    const requestOptions = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+    };
+
+    const res_vehicle = await fetch(url1,requestOptions)
+    .then(response => response.json()) 
+    .then(json => {
+        // alert (json)
+    return json
+    })
+
+    // alert(area)
+
+    if (area == 'pusat'){
+
+        var data_vehicle = await res_vehicle.rows
+        console.log('data_vehicle',data_vehicle)
+        for (l=0;l<=data_vehicle.length-1;l++){
+            var vehicleid = data_vehicle[l].vehicleid
+            for (i=0;i<= data.length-1;i++){
+
+                var vehicleUid = data[i].vehicleUid
+
+                if (vehicleid == vehicleUid){
+
+                    var sclId = data[i].vehicleSclId
+                    var deviceStatus = data[i].deviceStatus
+                    var img
+                    var status
+            
+                    if (deviceStatus == 'offline'){
+                        img = "/img/moving_offline.png"
+                        status = 'offline'
+                        status_offline++
+                    }else if (deviceStatus == 'stopped'){
+                        img = "/img/moving_stop.png"
+                        status = 'diam'
+                        status_diam++
+                    }else if (deviceStatus == 'moving'){
+                        img = "/img/moving.png"
+                        status = 'bergerak'
+                        status_bergerak++
+                    }
+            
+                    var licensePlate = data[i].vehicleLicensePlate
+                    var vehicleUid = data[i].vehicleUid
+                    var accountId = data[i].accountId
+                    var validLatitude = data[i].validLatitude
+                    var validLongitude = data[i].validLongitude
+                    var heading = data[i].heading
+                    var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit
+                    var vehicle_category = data_vehicle[l].vehicle_type
+                    // console.log('vehicle_category',vehicle_category)
+                    var utcSeconds = data[i].updateTime;
+                    // var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                    // d.setUTCSeconds(utcSeconds);
+                    var strDate = FormatedDate(epoch_to_datetime(utcSeconds))
+                    
+                    // var geocoder = new google.maps.Geocoder()
+                    // console.log('validLatitude:' + validLatitude)
+                    // console.log('validLongitude:' + validLongitude)
+            
+            
+                    if(!validLatitude && !validLongitude){
+                        // console.log('Null')
+                    } else{
+                       
+                        var address= ''
+                          pnl += `
+                          <div id="pnl`+ i +`" name="`+ sclId +`" class="pnl" style="margin-bottom:10px;margin-left:5px;margin-top:0px;width:280px;height: 30px;background-color: white;border-color: transparent;border: 0px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);border-radius:5px;font-family:'Poppins'" > 
+                                    
+                                    <table class="info1" width="100%" style="border-collapse: collapse;font-size:10px;border-radius:5px;">
+                                    <tbody>
+                                    <tr id="title_row`+ i + `" onmouseover="changeColor(this)" onmouseout="restoreColor(this)" style="color:black;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+                                    <td style="border-top-left-radius: 5px;height:30px;width:24px;vertical-align: center;horizontal-align:center;align:center"><div style="margin-top:-3px;margin-left:3px;"><img id="img_pantau`+ i +`" src="`+ img +`" width="24" height="24"></div></td>
+                                    <td style="height:30px;width:80%;font-weight:bold"><div id="v_uid`+ i +`"  style="margin-left:10px;cursor:pointer;" onClick="getClickedTitle(this)">`+ vehicleUid +`</div></td>
+                                    <td id="td_arrow`+  i  +`" style="height:30px;width:24px;vertical-align: center;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"><div id="angle`+ i +`" name="`+ sclId +`" style="cursor:pointer;margin-left:5px;" onclick="getClicked(this)"><i  class="fa fa-angle-down fa-2x" aria-hidden="true" style="cursor:pointer;"></i></div></td>
+                                    </tr>
+                                    </tbody>
+                                    </table>
+                                    
+            
+                            <div id="img_location`+ i +`" style="margin-top:10px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/location.png" width="18" height="18"/></div>
+                            <div id="location`+ i +`" style="margin-top:-20px;margin-left:50px;width:200px;height:50px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + address + `</div>
+                            <div id="img_time`+ i +`" style="margin-top:20px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/clock.png" width="18" height="18"/></div>
+                            <div id="time`+ i +`" style="margin-top:-17px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + strDate + ` </div>
+            
+                            <div id="options`+ i +`" style="color:#436AAC;margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" class="info" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> &nbsp; | &nbsp;  <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" class="info" onclick="riwayat(this)">Riwayat</a>  &nbsp; | &nbsp;  <a href="#" id="chat`+ i +`" style="text-decoration: none;" class="info">Chat</a></div>
+                            <div id="lat` + i + `" style="visibility:hidden">` + validLatitude + `</div>
+                            <div id="lon` + i + `" style="visibility:hidden">` + validLongitude + `</div>
+                            <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
+                            <div id="heading` + i + `" style="visibility:hidden">` + heading + `</div>
+                            <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
+                            <div id="v_type` + i + `" style="visibility:hidden">` + vehicle_category + `</div>
+                          </div>
+                          `
+        
+                          const requestOptions = {
+                            method: 'POST',
+                            headers: { 
+                                'Content-Type': 'application/json'
+                            }
+                        };
+        
+                        //   var url1= '/vehicle/read/selected/vehicleuid/'+ vehicleUid
+                        //     //   console.log('url1',url1)
+                        //   var result = await fetch(url1,requestOptions)
+                        //   .then(response => response.json()) 
+                        //   .then(json => {
+                        //         // console.log('json',json)
+                        //         return json
+                        //   })
+                        //   .catch (function (error) {
+                        //     // console.log('Request failed', error);
+                        // });
+        
+                        //     console.log('result',result)
+                            var vehicle_type 
+                            // console.log('vehicleUid',vehicleUid.substr(0,2))
+        
+                            
+        
+                            // if (vehicleUid.substr(0,2)=='JM'){
+                            //     vehicle_type = 'sedan'
+                            // }
+        
+                            var x_def = vehicleUid.substr(0,2)
+                            var x_def1 = vehicleUid.substr(0,4)
+        
+                            // console.log('x_def',x_def)
+                            // console.log('x_def1',x_def1)
+        
+                            if (x_def == 'MP'){
+        
+                                if (x_def1 == 'MPAT'){
+                                    vehicle_type = 'cabin'
+                                }
+            
+                                if (x_def1 == 'MPAU'){
+                                    vehicle_type = 'wagon'
+                                }
+                            }else{
+                                vehicle_type = 'sedan'
+                            }
+        
+        
+        
+        
+        
+                            var cars_info = {
+                                no:i,
+                                sclId:sclId,
+                                licensePlate : licensePlate,
+                                vehicleUid: vehicleUid,
+                                deviceStatus : status,
+                                speed: speed,
+                                heading:heading,
+                                last_update:strDate,
+                                type_kendaraan:vehicle_type,
+                                category_kendaraan: vehicle_category
+                            }
+            
+                            // console.log('validLatitude1:' + validLatitude)
+                            // console.log('validLongitude1:' + validLongitude)
+            
+                            CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
+                            var resp = await addMarker(CentralPark,heading,cars_info)
+            
+                            // console.log('resp: '+ resp)
+                            // map.setZoom(10)
+                            // console.log(resp[0])
+                            // var infowindow = resp[1]
+                            // infowindow.close()
+                            gmarkers.push(resp[0]);
+                    }
+
+                }
+
+               
+        
+            }
+        }
+
+    }else{
+        // alert('semua,filtered')
+
+        // get list kendaraan
+        // alert('userid: ' + userid)
+      
+
+        var data_vehicle = await res_vehicle.rows
+        // console.log('data_vehicle',data_vehicle)
+
+        for (l=0;l<=data_vehicle.length-1;l++){
+
+            var vehicleid = data_vehicle[l].vehicleid
+
+            for (i=0;i<= data.length-1;i++){
+
+                var vehicleUid = data[i].vehicleUid
+
+                if (vehicleid == vehicleUid){
+
+                    var sclId = data[i].vehicleSclId
+                    var deviceStatus = data[i].deviceStatus
+                    var img
+                    var status
+            
+                    if (deviceStatus == 'offline'){
+                        img = "/img/moving_offline.png"
+                        status = 'offline'
+                        status_offline++
+                    }else if (deviceStatus == 'stopped'){
+                        img = "/img/moving_stop.png"
+                        status = 'diam'
+                        status_diam++
+                    }else if (deviceStatus == 'moving'){
+                        img = "/img/moving.png"
+                        status = 'bergerak'
+                        status_bergerak++
+                    }
+            
+                    var licensePlate = data[i].vehicleLicensePlate
+                    var accountId = data[i].accountId
+                    var validLatitude = data[i].validLatitude
+                    var validLongitude = data[i].validLongitude
+                    var heading = data[i].heading
+                    var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit
+                    var res_vehicle_type = data_vehicle[l].vehicle_type
+                    console.log('res_vehicle_type',res_vehicle_type)
+                    var utcSeconds = data[0].updateTime;
+                    // var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+                    // d.setUTCSeconds(utcSeconds);
+                    var strDate = FormatedDate(epoch_to_datetime(utcSeconds))
+                    
+                    // var geocoder = new google.maps.Geocoder()
+                    // console.log('validLatitude:' + validLatitude)
+                    // console.log('validLongitude:' + validLongitude)
+            
+            
+                    if(!validLatitude && !validLongitude){
+                        // console.log('Null')
+                    } else{
+                       
+                        var address= ''
+                        //   pnl += `
+                        //   <div id="pnl`+ i +`" name="`+ sclId +`" style="margin-bottom:10px;margin-left:5px;margin-top:0px;width:280px;height: 40px;background-color: white;border-color: transparent;border: 0px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);border-radius:5px;font-family:'Poppins'" > 
+                               
+                        //             <table border="1" width="100%" style="border-collapse: collapse;font-size:10px;">
+                        //             <tbody>
+                        //             <tr>
+                        //             <td style="height:30px;width:24px;vertical-align: center;horizontal-align:center"><img id="img_pantau`+ i +`" src="`+ img +`" width="24" height="24"></td>
+                        //             <td style="height:30px;width:80%;font-weight:bold">`+ vehicleUid +`</td>
+                        //             <td style="height:30px;width:24px;vertical-align: center;"><div id="angle`+ i +`" name="`+ sclId +`" style="cursor:pointer" onclick="getClicked(this)"><i  class="fa fa-angle-down fa-2x" aria-hidden="true" style="cursor:pointer;"></i></div></td>
+                        //             </tr>
+                        //             </tbody>
+                        //             </table>
+            
+                        //     <div id="img_location`+ i +`" style="margin-top:10px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/location.png" width="18" height="18"/></div>
+                        //     <div id="location`+ i +`" style="margin-top:-20px;margin-left:50px;width:200px;height:50px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + address + `</div>
+                        //     <div id="img_time`+ i +`" style="margin-top:50px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/clock.png" width="18" height="18"/></div>
+                        //     <div id="time`+ i +`" style="margin-top:-17px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + strDate + ` </div>
+            
+                        //     <div id="options`+ i +`" style="margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> | <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" onclick="riwayat(this)">Riwayat</a> | <a href="#" id="chat`+ i +`" style="text-decoration: none;">Chat</a></div>
+                        //     <div id="lat` + i + `" style="visibility:hidden">` + validLatitude + `</div>
+                        //     <div id="lon` + i + `" style="visibility:hidden">` + validLongitude + `</div>
+                        //     <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
+                        //     <div id="heading` + i + `" style="visibility:hidden">` + heading + `</div>
+                        //     <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
+                        //   </div>
+                        //   `
+                        
+                        pnl += `
+                        <div id="pnl`+ i +`" name="`+ sclId +`" class="pnl" style="margin-bottom:10px;margin-left:5px;margin-top:0px;width:280px;height: 30px;background-color: white;border-color: transparent;border: 0px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);border-radius:5px;font-family:'Poppins'" > 
+                                  
+                            <table class="info1" width="100%" style="border-collapse: collapse;font-size:10px;border-radius:5px;">
+                            <tbody>
+                            <tr id="title_row`+ i + `" onmouseover="changeColor(this)" onmouseout="restoreColor(this)" style="color:black;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+                            <td style="border-top-left-radius: 5px;height:30px;width:24px;vertical-align: center;horizontal-align:center;align:center"><div style="margin-top:-3px;margin-left:3px;"><img id="img_pantau`+ i +`" src="`+ img +`" width="24" height="24"></div></td>
+                            <td style="height:30px;width:80%;font-weight:bold"><div id="v_uid`+ i +`"  style="margin-left:10px;cursor:pointer;" onClick="getClickedTitle(this)">`+ vehicleUid +`</div></td>
+                            <td id="td_arrow`+  i  +`" style="height:30px;width:24px;vertical-align: center;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"><div id="angle`+ i +`" name="`+ sclId +`" style="cursor:pointer;margin-left:5px;" onclick="getClicked(this)"><i  class="fa fa-angle-down fa-2x" aria-hidden="true" style="cursor:pointer;"></i></div></td>
+                            </tr>
+                            </tbody>
+                            </table>
+                                    
+          
+                          <div id="img_location`+ i +`" style="margin-top:10px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/location.png" width="18" height="18"/></div>
+                          <div id="location`+ i +`" style="margin-top:-20px;margin-left:50px;width:200px;height:50px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + address + `</div>
+                          <div id="img_time`+ i +`" style="margin-top:20px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/clock.png" width="18" height="18"/></div>
+                          <div id="time`+ i +`" style="margin-top:-17px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + strDate + ` </div>
+          
+                          <div id="options`+ i +`" style="color:#436AAC;margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" class="info" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> &nbsp; | &nbsp;  <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" class="info" onclick="riwayat(this)">Riwayat</a>  &nbsp; | &nbsp;  <a href="#" id="chat`+ i +`" style="text-decoration: none;" class="info">Chat</a></div>
+                          <div id="lat` + i + `" style="visibility:hidden">` + validLatitude + `</div>
+                          <div id="lon` + i + `" style="visibility:hidden">` + validLongitude + `</div>
+                          <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
+                          <div id="heading` + i + `" style="visibility:hidden">` + heading + `</div>
+                          <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
+                          <div id="v_type` + i + `" style="visibility:hidden">` + vehicle_category + `</div>
+                        </div>
+                        `
+                       
+            
+                            var cars_info = {
+                                no:i,
+                                sclId:sclId,
+                                licensePlate : licensePlate,
+                                vehicleUid: vehicleUid,
+                                deviceStatus : status,
+                                speed: speed,
+                                heading:heading,
+                                last_update:strDate
+                            }
+            
+                            // console.log('validLatitude1:' + validLatitude)
+                            // console.log('validLongitude1:' + validLongitude)
+            
+                            CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
+                            var resp = await addMarker(CentralPark,heading,cars_info)
+            
+                            // console.log('resp: '+ resp)
+                            // map.setZoom(10)
+                            // console.log(resp[0])
+                            // var infowindow = resp[1]
+                            // infowindow.close()
+                            gmarkers.push(resp[0]);
+                    }
+
+                }
+
+        
+            }
+        }
+    }
+
+
+
+    // var markerCluster = new MarkerClusterer(map, gmarkers);
+    // console.log(gmarkers.length)
+    status_total = status_bergerak + status_diam + status_offline
+    // alert(status_total)
+
+    $('#bergerak_value').text(status_bergerak)
+    $('#diam_value').text(status_diam)
+    $('#offline_value').text(status_offline)
+    $('#semua_value').text(status_total)
+
+    // new MarkerClusterer(map, gmarkers);
+    $('#live_monitor').html(pnl);
+    pnl_vehicles_data_length = data.length
+    // console.log(' pnl_vehicles_data_length', pnl_vehicles_data_length)
+    counter_vehicle_category()
+    console.log('selected_vehicle_category',selected_vehicle_category)
+
+}
+
 // create Data Selected =====================================================================
 
 async function CreateDataSelected(mode){

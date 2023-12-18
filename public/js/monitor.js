@@ -539,7 +539,7 @@ var userid =  sessionStorage.getItem("id");
 					onClickRow: function(index,row){
 						console.log(row)
 						selected_vehicle_category = row.value
-						filter_vehicle_by_category(selected_vehicle_category)
+						// filter_vehicle_by_category(selected_vehicle_category)
 						$('#w').window('close')
 					}
 				})
