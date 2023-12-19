@@ -115,15 +115,15 @@ async function loadDataDetail(){
                     var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit;
                     // console.log(updateTime,batteryVoltage,vehicleName,vehicleUid,heading,location)
                     
-                    if(data[i].validLatitude!='null' && data[i].validLongitude!='null'){
-                        var location={
-                            lat: data[i].validLatitude,
-                            lng: data[i].validLongitude
-                        }
+                    // if(data[i].validLatitude!='null' && data[i].validLongitude!='null'){
+                    //     var location={
+                    //         lat: data[i].validLatitude,
+                    //         lng: data[i].validLongitude
+                    //     }
                         
-                        var address = getAddress1(location)
-                        console.log('address',address)
-                    }
+                    //     var address = getAddress1(location)
+                    //     console.log('address',address)
+                    // }
                     
                     detail_rows.push({"updateTime":updateTime,"tgl":updateDate,"vehicleName":vehicleName,"vehicleUid":vehicleUid,"vehicleSclId":vehicleSclId,"batteryVoltage":batteryVoltage,"location":location,"speed":speed})
                     vehicle_rows.push({"vehicleSclId":vehicleSclId,"vehicleUid":vehicleUid,"vehicleName":vehicleName})
