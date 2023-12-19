@@ -175,6 +175,8 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                 clearInterval(t1_moving)
                 clearInterval(t1_stop)
                 clearInterval(t1_offline)
+
+                AssetStatusCount(mode,search_mode,null,userid)
             }
            
             
@@ -300,7 +302,7 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
                         // alert('all')
                         CreateData(userid)
                     }else{
-                        alert(selected_vehicle_category)
+                        console.log('category',selected_vehicle_category)
                         CreateDataCategory(userid,selected_vehicle_category)
                     }
                     
@@ -331,6 +333,91 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
     });
 }
 
+
+function AssetStatusCountCategory(mode,search_mode,search_param,userid){
+    var token = sessionStorage.getItem("token")
+    // console.log(token)
+
+    const config = {
+        headers:{
+          'token': token
+        },
+        timeout: 10000
+      };
+
+      var postData = {
+       
+      };
+
+      var url = "http://147.139.144.120:3002/api/patern/status_count"
+    // var url = "http://localhost:3002/api/patern/status_count"
+
+    axios.post(url,postData,config)
+    .then((response) => {
+
+
+        if (response.data.status == true){
+            var res = response.data.data
+            var moving = res.moving
+            var stopped = res.stopped
+            var offline = res.offline
+            var all = moving + stopped + offline
+            // $('#bergerak_value').text(moving)
+            // $('#diam_value').text(stopped)
+            // $('#offline_value').text(offline)
+            // $('#semua_value').text(all)
+            // console.log(response)
+            // console.log(asset_req_counter)
+            // asset_req_counter++
+            // alert(search_mode)
+            $('#dl').datalist('updateRow',{
+                index: 0,
+                row: {
+                    value: 'All',
+                    text: 'ALL (' + all +')'
+                }
+            })
+
+            if (search_mode == false){
+
+                
+
+                if (mode == 'semua'){
+                    // console.log('create data')
+                    if (selected_vehicle_category=='All'){
+                        // alert('all')
+                        CreateData(userid)
+                    }else{
+                        console.log('category',selected_vehicle_category)
+                        CreateDataCategory(userid,selected_vehicle_category)
+                    }
+                    
+                    // var markerCluster = new MarkerClusterer(map, gmarkers);
+                    
+                    // console.log('mode:' + mode)
+                } else{
+                    // alert(mode)
+                    // console.log('start create data selected')
+      
+                    CreateDataSelected(mode)
+                    // var markerCluster = new MarkerClusterer(map, gmarkers);
+                    // console.log('mode:' + mode)
+                }
+            }else{
+                CreateDataSearch(search_param)
+            }
+           
+           
+            // processing_data(current_section)
+        }
+        // console.log(response)
+        
+    }).catch((error) => {
+        // $.messager.alert('Error','Error Loading Data Timeout','info');
+        console.error(error)
+        // AssetStatusCount()
+    });  
+}
 
 // Create Data ============================================================================================================
 
@@ -1413,8 +1500,7 @@ var getAddress = async (location) => {
 
       
   var url = "http://147.139.144.120:3002/api/patern/asset_address/"+lat +"/" + lng
-//   var url = "http://localhost:3002/api/patern/asset_address/"+lat +"/" + lng
-    // console.log(url)
+  console.log('url',url)
   var resp =  await axios.get(url,config)
     .then((response) => { 
         var status = response.data.status

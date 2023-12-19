@@ -113,7 +113,17 @@ async function loadDataDetail(){
                     var heading = data[i].heading;
                     var location = data[i].validLatitude + ',' +  data[i].validLongitude;
                     var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit;
-                    console.log(updateTime,batteryVoltage,vehicleName,vehicleUid,heading,location)
+                    // console.log(updateTime,batteryVoltage,vehicleName,vehicleUid,heading,location)
+                    
+                    if(data[i].validLatitude!='null' && data[i].validLongitude!='null'){
+                        var location={
+                            lat: data[i].validLatitude,
+                            lng: data[i].validLongitude
+                        }
+                        
+                        var address = getAddress1(location)
+                        console.log('address',address)
+                    }
                     
                     detail_rows.push({"updateTime":updateTime,"tgl":updateDate,"vehicleName":vehicleName,"vehicleUid":vehicleUid,"vehicleSclId":vehicleSclId,"batteryVoltage":batteryVoltage,"location":location,"speed":speed})
                     vehicle_rows.push({"vehicleSclId":vehicleSclId,"vehicleUid":vehicleUid,"vehicleName":vehicleName})
@@ -394,6 +404,65 @@ async function getKMDriven(AssetUid,vehicleUid,start_date,end_date) {
 
 }
 
+// getAddress
+
+async function getAddress1(location)  {
+
+    var lat = location.lat
+    var lng = location.lng
+    console.log(lat,lng)
+    var token = sessionStorage.getItem("token")
+    // console.log(token)
+
+    const config = {
+        headers:{
+          'token': token
+        },
+        timeout: 20000
+      };
+
+
+      
+  var url = "http://147.139.144.120:3002/api/patern/asset_address/"+lat +"/" + lng
+//   var url = "http://localhost:3002/api/patern/asset_address/"+lat +"/" + lng
+    // console.log(url)
+//   var resp =  await axios.get(url,config)
+//     .then((response) => { 
+//         // var status = response.data.status
+//         // var data = response.data.data
+//         // if (status == true){
+//         //     return data
+//         // }
+//         // // console.log(response)
+//         // // $('#location'+ no).text(address)
+        
+
+//     }).catch((error) => {
+//     // $.messager.alert('Error','Error Loading Data Timeout','info');
+//         console.error(error)
+//     // AssetStatusCount()
+// });
+    var resp =  await axios.get(url,config)
+    .then((response) => {
+        var status = response.data.status
+        var data = response.data.data
+        if (status == true){
+            return data
+        }else{
+            return data 
+        }
+    })
+    .catch((error) => {
+        console.error(error)
+    });
+
+    return await resp
+
+}
+
+
+
+
 
 // epoch ======================================================================================
 
@@ -510,6 +579,8 @@ function FormatedDate1(d){
     return tgl_baru
 }
 
+
+
 function FormatedDate2(d){
 
     var  tahun = d.getFullYear()
@@ -568,6 +639,8 @@ function formatepoch(val,row){
     console.log('dt',dt)
     return dt
 }
+
+
 
 function formathms(val,row){
    return msToHMS(val) 

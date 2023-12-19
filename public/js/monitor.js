@@ -540,6 +540,7 @@ var userid =  sessionStorage.getItem("id");
 						console.log(row)
 						selected_vehicle_category = row.value
 						// filter_vehicle_by_category(selected_vehicle_category)
+						processing_data('category',null,'semua',false,null,userid)
 						$('#w').window('close')
 					}
 				})
