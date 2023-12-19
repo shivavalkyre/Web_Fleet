@@ -561,6 +561,14 @@ function FormatedDate2(d){
     return tgl_baru
 }
 
+function formatepoch(val,row){
+    var epoch_dt = String(epoch_to_datetime(val))
+    var GMT_pos = epoch_dt.indexOf('GMT+')
+    var dt = epoch_dt.substr(0,GMT_pos)
+    console.log('dt',dt)
+    return dt
+}
+
 function formathms(val,row){
    return msToHMS(val) 
 }
