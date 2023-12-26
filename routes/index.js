@@ -322,6 +322,13 @@ router.post('/vehicle/read/all',async function(req,res){
     res.send(resp)
 })
 
+router.post('/vehicle/read/categories',async function(req,res){
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ READ BODY ] | INFO ' + util.inspect(req.body));
+    var resp = await Vehicle.read_categories(req,res)
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESP] | INFO ' + util.inspect(resp)); 
+    res.send(resp)
+})
+
 router.post('/vehicle/read/all/:createdby',function(req,res){
     Vehicle.read_all(req,res)
 })

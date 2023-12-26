@@ -1,9 +1,13 @@
 var t1 = null
 var t1_all = null
+var t1_all_category = null
 var t1_moving = null
+var t1_moving_category = null
 var t1_stop = null
+var t1_stop_category = null
 var t1_offline = null
-var t1_category = null
+var t1_offline_category = null
+
 
 var init_odometer
 
@@ -26,8 +30,8 @@ var arr_drivingPath =[]
 
 var is_play = false
 
-function processing_data (current_section,sclId,mode,search_mode,search_param,userid,vehicleUid){
-    // console.log('current section: '+ current_section)
+function processing_data (current_section,sclId,mode,search_mode,search_param,userid,vehicleUid,vehicle_category){
+    console.log('current section: '+ current_section)
     if (current_section == 'pantau'){
 
         ReInitializeMap(map,gmarkers)
@@ -50,6 +54,8 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
             if (mode == 'bergerak'){
 
                     // console.log('bergerak')
+                   
+
                     clearTimeout(t1_all)
                     clearTimeout(t1_offline)
                     clearTimeout(t1_stop)
@@ -59,24 +65,60 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearInterval(t1_stop)
                     clearInterval(t1_offline)
 
+                    clearTimeout(t1_all_category)
+                    clearTimeout(t1_offline_category)
+                    clearTimeout(t1_stop_category)
+    
+                    clearInterval(t1_all_category)
+                    clearInterval(t1_moving_category)
+                    clearInterval(t1_stop_category)
+                    clearInterval(t1_offline_category)
+
 
                     $('#toggle_place').linkbutton({
                         selected:false
                     })
 
                     // deleteMarkers()
-                    AssetStatusCount(mode,search_mode,null)  
+                    
+                    // alert('selected_vehicle_category: '+selected_vehicle_category)
+
+                    if (selected_vehicle_category == 'All'){
+                        AssetStatusCount(mode,search_mode,null)  
                 
-                    t1_moving = setInterval(function(){
-                        // console.log('Interval reached')
-                        // console.log('start delete markers')
-                        deleteMarkers()
-                        // console.log('markers deleted')
-                        // console.log('markers: '  + gmarkers.length)
-                        // console.log('search mode', search_mode)
-                        // console.log('asset status count')
-                        AssetStatusCount(mode,search_mode,null)
-                    },30000)
+                        t1_moving = setInterval(function(){
+                            // console.log('Interval reached')
+                            // console.log('start delete markers')
+                            deleteMarkers()
+                            // console.log('markers deleted')
+                            // console.log('markers: '  + gmarkers.length)
+                            // console.log('search mode', search_mode)
+                            // console.log('asset status count')
+                            AssetStatusCount(mode,search_mode,null)
+                        },30000)
+                    }else{
+
+                        if (selected_vehicle_category == 'Sedan'){
+                            var category = 'Mazda 6 Sedan'
+                        }else if(selected_vehicle_category == 'Wagon'){
+                            var category = 'Mazda 6 Wagon'
+                        }
+
+                        // alert('Category Terpilih: '+ category)
+
+                        AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        t1_moving_category = setInterval(function(){
+                            // console.log('Interval reached')
+                            // console.log('start delete markers')
+                            deleteMarkers()
+                            // console.log('markers deleted')
+                            // console.log('markers: '  + gmarkers.length)
+                            // console.log('search mode', search_mode)
+                            // console.log('asset status count')
+                            AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        },30000)
+                    }
+                   
                
 
             }else if (mode == 'diam'){
@@ -91,24 +133,57 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearInterval(t1_moving)
                     clearInterval(t1_stop)
                     clearInterval(t1_offline)
+
+                    clearTimeout(t1_all_category)
+                    clearTimeout(t1_offline_category)
+                    clearTimeout(t1_stop_category)
+    
+                    clearInterval(t1_all_category)
+                    clearInterval(t1_moving_category)
+                    clearInterval(t1_stop_category)
+                    clearInterval(t1_offline_category)
                     
                     $('#toggle_place').linkbutton({
                         selected:false
                     })
 
-                    AssetStatusCount(mode,search_mode,null)  
+                    if (selected_vehicle_category == 'All'){
+                        AssetStatusCount(mode,search_mode,null)  
                     
                     
-                    t1_stop = setInterval(function(){
-                        // console.log('Interval reached')
-                        // console.log('start delete markers')
-                        deleteMarkers()
-                        // console.log('markers deleted')
-                        // console.log('markers: '  + gmarkers.length)
-                        AssetStatusCount(mode,search_mode,null)
-                        
-                        // var markerCluster = new MarkerClusterer(map, gmarkers);
-                    },30000)
+                        t1_stop = setInterval(function(){
+                            // console.log('Interval reached')
+                            // console.log('start delete markers')
+                            deleteMarkers()
+                            // console.log('markers deleted')
+                            // console.log('markers: '  + gmarkers.length)
+                            AssetStatusCount(mode,search_mode,null)
+                            
+                            // var markerCluster = new MarkerClusterer(map, gmarkers);
+                        },30000)
+                    }else{
+                        if (selected_vehicle_category == 'Sedan'){
+                            var category = 'Mazda 6 Sedan'
+                        }else if(selected_vehicle_category == 'Wagon'){
+                            var category = 'Mazda 6 Wagon'
+                        }
+
+                        // alert('Category Terpilih: '+ category)
+
+                        AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        t1_moving_category = setInterval(function(){
+                            // console.log('Interval reached')
+                            // console.log('start delete markers')
+                            deleteMarkers()
+                            // console.log('markers deleted')
+                            // console.log('markers: '  + gmarkers.length)
+                            // console.log('search mode', search_mode)
+                            // console.log('asset status count')
+                            AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        },30000)
+                    }
+
+                    
                
 
             }else if (mode == 'offline'){
@@ -122,23 +197,57 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearInterval(t1_stop)
                     clearInterval(t1_offline)
 
-                    AssetStatusCount(mode,search_mode,null)  
+                    clearTimeout(t1_all_category)
+                    clearTimeout(t1_offline_category)
+                    clearTimeout(t1_stop_category)
+    
+                    clearInterval(t1_all_category)
+                    clearInterval(t1_moving_category)
+                    clearInterval(t1_stop_category)
+                    clearInterval(t1_offline_category)
+
+                     
 
                     $('#toggle_place').linkbutton({
                         selected:false
                     })
 
-                    t1_offline = setInterval(function(){
-                        // console.log('Interval reached')
-                        // console.log('start delete markers')
-                        deleteMarkers()
-                        // console.log('markers deleted')
-                        // console.log('markers: '  + gmarkers.length)
+                    if (selected_vehicle_category == 'All'){
                         AssetStatusCount(mode,search_mode,null)
-                    },30000)
+
+                        t1_offline = setInterval(function(){
+                            // console.log('Interval reached')
+                            // console.log('start delete markers')
+                            deleteMarkers()
+                            // console.log('markers deleted')
+                            // console.log('markers: '  + gmarkers.length)
+                            AssetStatusCount(mode,search_mode,null)
+                        },30000)
+                    }else{
+                        if (selected_vehicle_category == 'Sedan'){
+                            var category = 'Mazda 6 Sedan'
+                        }else if(selected_vehicle_category == 'Wagon'){
+                            var category = 'Mazda 6 Wagon'
+                        }
+
+                        // alert('Category Terpilih: '+ category)
+
+                        AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        t1_moving_category = setInterval(function(){
+                            // console.log('Interval reached')
+                            // console.log('start delete markers')
+                            deleteMarkers()
+                            // console.log('markers deleted')
+                            // console.log('markers: '  + gmarkers.length)
+                            // console.log('search mode', search_mode)
+                            // console.log('asset status count')
+                            AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        },30000)
+                    }
+                   
                 
             }else if (mode == 'semua'){
-                //alert('semua')
+                    // alert('semua')
                     // console.log('semua')
                     // deleteMarkers()
                     clearTimeout(t1_moving)
@@ -150,23 +259,49 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     clearInterval(t1_stop)
                     clearInterval(t1_offline)
 
+                    clearTimeout(t1_all_category)
+                    clearTimeout(t1_offline_category)
+                    clearTimeout(t1_stop_category)
+    
+                    clearInterval(t1_all_category)
+                    clearInterval(t1_moving_category)
+                    clearInterval(t1_stop_category)
+                    clearInterval(t1_offline_category)
+
                     $('#toggle_place').linkbutton({
                         selected:false
                     })
 
-                    AssetStatusCount(mode,search_mode,null,userid)  
-                    // var markerCluster = new MarkerClusterer(map, gmarkers);
-                    t1_all = setInterval(function(){
-                        // console.log('Interval reached')
-                        // console.log('start delete markers')
-                        // deleteMarkers()
-                        deleteMarkersMoving()
-                        // console.log('markers deleted')
-                        // console.log('markers: '  + gmarkers.length)
-                        AssetStatusCount(mode,search_mode,null,userid)
-                    },30000)
+                    if(selected_vehicle_category === undefined || selected_vehicle_category =='All'){
+                        AssetStatusCount(mode,search_mode,null,userid)  
+                        // var markerCluster = new MarkerClusterer(map, gmarkers);
+                        t1_all = setInterval(function(){
+                            // console.log('Interval reached')
+                            // console.log('start delete markers')
+                            // deleteMarkers()
+                            deleteMarkersMoving()
+                            // console.log('markers deleted')
+                            // console.log('markers: '  + gmarkers.length)
+                            AssetStatusCount(mode,search_mode,null,userid)
+                        },30000)
+                    }else{
+                        AssetStatusCountCategory(mode,search_mode,null,userid,selected_vehicle_category)  
+                        // var markerCluster = new MarkerClusterer(map, gmarkers);
+                        t1_all_category = setInterval(function(){
+                            // console.log('Interval reached')
+                            // console.log('start delete markers')
+                            // deleteMarkers()
+                            deleteMarkersMoving()
+                            // console.log('markers deleted')
+                            // console.log('markers: '  + gmarkers.length)
+                            AssetStatusCountCategory(mode,search_mode,null,userid,selected_vehicle_category)
+                        },30000)
+                    }
+
+                    
               
             }else if (mode== 'category'){
+
                 clearTimeout(t1_moving)
                 clearTimeout(t1_offline)
                 clearTimeout(t1_stop)
@@ -175,6 +310,15 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                 clearInterval(t1_moving)
                 clearInterval(t1_stop)
                 clearInterval(t1_offline)
+
+                clearTimeout(t1_all_category)
+                clearTimeout(t1_offline_category)
+                clearTimeout(t1_stop_category)
+
+                clearInterval(t1_all_category)
+                clearInterval(t1_moving_category)
+                clearInterval(t1_stop_category)
+                clearInterval(t1_offline_category)
 
                 AssetStatusCount(mode,search_mode,null,userid)
             }
@@ -188,6 +332,15 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
             clearInterval(t1_all)
             clearInterval(t3)
             clearInterval(t4)
+
+            clearTimeout(t1_all_category)
+            clearTimeout(t1_offline_category)
+            clearTimeout(t1_stop_category)
+
+            clearInterval(t1_all_category)
+            clearInterval(t1_moving_category)
+            clearInterval(t1_stop_category)
+            clearInterval(t1_offline_category)
 
             $('#toggle_place').linkbutton({
                 selected:false
@@ -213,6 +366,15 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
  
          clearInterval(t2)
          clearInterval(t4)
+
+         clearTimeout(t1_all_category)
+         clearTimeout(t1_offline_category)
+         clearTimeout(t1_stop_category)
+
+         clearInterval(t1_all_category)
+         clearInterval(t1_moving_category)
+         clearInterval(t1_stop_category)
+         clearInterval(t1_offline_category)
  
          deleteMarkers()
  
@@ -235,6 +397,15 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
          clearInterval(t2)
          clearInterval(t3)
          clearInterval(t4)
+
+         clearTimeout(t1_all_category)
+         clearTimeout(t1_offline_category)
+         clearTimeout(t1_stop_category)
+
+         clearInterval(t1_all_category)
+         clearInterval(t1_moving_category)
+         clearInterval(t1_stop_category)
+         clearInterval(t1_offline_category)
  
          // $('#geofence_box').css("visibility","hidden")
          $('#geofence_box').hide()
@@ -242,6 +413,207 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
          deleteMarkers()
          process_riwayat(sclId)
  
+     }else if (current_section == 'category'){
+        // alert('here')
+
+        ReInitializeMap(map,gmarkers)
+
+        clearInterval(t2)
+        clearInterval(t3)
+        clearInterval(t4)
+
+        // console.log('modenya:'+ mode)
+        prev_mode = mode
+
+        if (mode == 'bergerak'){
+
+                // console.log('bergerak')
+                clearTimeout(t1_all)
+                clearTimeout(t1_offline)
+                clearTimeout(t1_stop)
+
+                clearInterval(t1_all)
+                clearInterval(t1_moving)
+                clearInterval(t1_stop)
+                clearInterval(t1_offline)
+
+                clearTimeout(t1_all_category)
+                clearTimeout(t1_offline_category)
+                clearTimeout(t1_stop_category)
+
+                clearInterval(t1_all_category)
+                clearInterval(t1_moving_category)
+                clearInterval(t1_stop_category)
+                clearInterval(t1_offline_category)
+
+
+                $('#toggle_place').linkbutton({
+                    selected:false
+                })
+
+                // deleteMarkers()
+                AssetStatusCountCategory(mode,search_mode,null)  
+            
+                t1_moving_category = setInterval(function(){
+                    // console.log('Interval reached')
+                    // console.log('start delete markers')
+                    deleteMarkers()
+                    // console.log('markers deleted')
+                    // console.log('markers: '  + gmarkers.length)
+                    // console.log('search mode', search_mode)
+                    // console.log('asset status count')
+                    AssetStatusCountCategory(mode,search_mode,null)
+                },30000)
+           
+
+        }else if (mode == 'diam'){
+            // console.log('diam')
+            //alert('diam')
+                // deleteMarkers()
+                clearTimeout(t1_moving)
+                clearTimeout(t1_offline)
+                clearTimeout(t1_all)
+
+                clearInterval(t1_all)
+                clearInterval(t1_moving)
+                clearInterval(t1_stop)
+                clearInterval(t1_offline)
+
+                clearTimeout(t1_all_category)
+                clearTimeout(t1_offline_category)
+                clearTimeout(t1_stop_category)
+
+                clearInterval(t1_all_category)
+                clearInterval(t1_moving_category)
+                clearInterval(t1_stop_category)
+                clearInterval(t1_offline_category)
+                
+                $('#toggle_place').linkbutton({
+                    selected:false
+                })
+
+                AssetStatusCountCategory(mode,search_mode,null)  
+                
+                
+                t1_stop_category = setInterval(function(){
+                    // console.log('Interval reached')
+                    // console.log('start delete markers')
+                    deleteMarkers()
+                    // console.log('markers deleted')
+                    // console.log('markers: '  + gmarkers.length)
+                    AssetStatusCountCategory(mode,search_mode,null)
+                    
+                    // var markerCluster = new MarkerClusterer(map, gmarkers);
+                },30000)
+           
+
+        }else if (mode == 'offline'){
+
+                // deleteMarkers()
+                clearTimeout(t1_moving)
+                clearTimeout(t1_stop)
+
+                clearInterval(t1_all)
+                clearInterval(t1_moving)
+                clearInterval(t1_stop)
+                clearInterval(t1_offline)
+
+                clearTimeout(t1_all_category)
+                clearTimeout(t1_offline_category)
+                clearTimeout(t1_stop_category)
+
+                clearInterval(t1_all_category)
+                clearInterval(t1_moving_category)
+                clearInterval(t1_stop_category)
+                clearInterval(t1_offline_category)
+
+                AssetStatusCountCategory(mode,search_mode,null)  
+
+                $('#toggle_place').linkbutton({
+                    selected:false
+                })
+
+                t1_offline_category = setInterval(function(){
+                    // console.log('Interval reached')
+                    // console.log('start delete markers')
+                    deleteMarkers()
+                    // console.log('markers deleted')
+                    // console.log('markers: '  + gmarkers.length)
+                    AssetStatusCountCategory(mode,search_mode,null)
+                },30000)
+            
+        }else if (mode == 'semua'){
+                
+                // console.log('semua')
+                // deleteMarkers()
+                clearTimeout(t1_moving)
+                clearTimeout(t1_offline)
+                clearTimeout(t1_stop)
+
+                clearInterval(t1_all)
+                clearInterval(t1_moving)
+                clearInterval(t1_stop)
+                clearInterval(t1_offline)
+
+                clearTimeout(t1_all_category)
+                clearTimeout(t1_offline_category)
+                clearTimeout(t1_stop_category)
+
+                clearInterval(t1_all_category)
+                clearInterval(t1_moving_category)
+                clearInterval(t1_stop_category)
+                clearInterval(t1_offline_category)
+
+                $('#toggle_place').linkbutton({
+                    selected:false
+                })
+
+                console.log('vehicle_category',vehicle_category)
+                // alert(vehicle_category)
+
+                if(vehicle_category == 'All'){
+                    
+                    
+                    AssetStatusCountCategory(mode,search_mode,null,userid,vehicle_category)  
+                    // var markerCluster = new MarkerClusterer(map, gmarkers);
+                    t1_all_category = setInterval(function(){
+                        // console.log('Interval reached')
+                        // console.log('start delete markers')
+                        // deleteMarkers()
+                        deleteMarkersMoving()
+                        // console.log('markers deleted')
+                        // console.log('markers: '  + gmarkers.length)
+                        AssetStatusCountCategory(mode,search_mode,null,userid,vehicle_category)
+                    },30000)
+                }else {
+
+                    if(vehicle_category == 'Sedan'){
+                        var category = 'Mazda 6 Sedan'
+                    }else if(vehicle_category == 'Wagon'){
+                        var category = 'Mazda 6 Wagon'
+                    }else if(vehicle_category =='D-max'){
+                        var category = 'D-Max'
+                    }else if(vehicle_category == 'Mux'){
+                        var category = 'Mux'
+                    }
+
+                    AssetStatusCountCategory(mode,search_mode,null,userid,category) 
+                    t1_all_category = setInterval(function(){
+                        // console.log('Interval reached')
+                        // console.log('start delete markers')
+                        // deleteMarkers()
+                        deleteMarkersMoving()
+                        // console.log('markers deleted')
+                        // console.log('markers: '  + gmarkers.length)
+                        AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                    },30000)
+                }
+
+               
+          
+        }
+        
+
      }
 }
 
@@ -297,18 +669,9 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
                 
 
                 if (mode == 'semua'){
-                    // console.log('create data')
-                    if (selected_vehicle_category=='All'){
-                        // alert('all')
+                   
                         CreateData(userid)
-                    }else{
-                        console.log('category',selected_vehicle_category)
-                        CreateDataCategory(userid,selected_vehicle_category)
-                    }
-                    
-                    // var markerCluster = new MarkerClusterer(map, gmarkers);
-                    
-                    // console.log('mode:' + mode)
+                   
                 } else{
                     // alert(mode)
                     // console.log('start create data selected')
@@ -334,89 +697,17 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
 }
 
 
-function AssetStatusCountCategory(mode,search_mode,search_param,userid){
-    var token = sessionStorage.getItem("token")
-    // console.log(token)
-
-    const config = {
-        headers:{
-          'token': token
-        },
-        timeout: 10000
-      };
-
-      var postData = {
-       
-      };
-
-      var url = "http://147.139.144.120:3002/api/patern/status_count"
-    // var url = "http://localhost:3002/api/patern/status_count"
-
-    axios.post(url,postData,config)
-    .then((response) => {
-
-
-        if (response.data.status == true){
-            var res = response.data.data
-            var moving = res.moving
-            var stopped = res.stopped
-            var offline = res.offline
-            var all = moving + stopped + offline
-            // $('#bergerak_value').text(moving)
-            // $('#diam_value').text(stopped)
-            // $('#offline_value').text(offline)
-            // $('#semua_value').text(all)
-            // console.log(response)
-            // console.log(asset_req_counter)
-            // asset_req_counter++
-            // alert(search_mode)
-            $('#dl').datalist('updateRow',{
-                index: 0,
-                row: {
-                    value: 'All',
-                    text: 'ALL (' + all +')'
-                }
-            })
-
-            if (search_mode == false){
-
-                
-
-                if (mode == 'semua'){
-                    // console.log('create data')
-                    if (selected_vehicle_category=='All'){
-                        // alert('all')
-                        CreateData(userid)
-                    }else{
-                        console.log('category',selected_vehicle_category)
-                        CreateDataCategory(userid,selected_vehicle_category)
-                    }
-                    
-                    // var markerCluster = new MarkerClusterer(map, gmarkers);
-                    
-                    // console.log('mode:' + mode)
-                } else{
-                    // alert(mode)
-                    // console.log('start create data selected')
-      
-                    CreateDataSelected(mode)
-                    // var markerCluster = new MarkerClusterer(map, gmarkers);
-                    // console.log('mode:' + mode)
-                }
-            }else{
-                CreateDataSearch(search_param)
-            }
-           
-           
-            // processing_data(current_section)
-        }
-        // console.log(response)
-        
-    }).catch((error) => {
-        // $.messager.alert('Error','Error Loading Data Timeout','info');
-        console.error(error)
-        // AssetStatusCount()
-    });  
+function AssetStatusCountCategory(mode,search_mode,search_param,userid,vehicle_category){
+    console.log('vehicle_category',vehicle_category)
+    // alert('vehicle category: ' + vehicle_category)
+    // alert('mode: ' + mode)
+    if (mode == 'semua'){
+        CreateDataCategory(userid,vehicle_category)
+    }else{
+        // CreateDataSelected
+        CreateDataSelectedCategory(mode)
+    }
+    
 }
 
 // Create Data ============================================================================================================
@@ -485,8 +776,63 @@ async function CreateData(userid){
 
     if (area == 'pusat'){
 
+             var url2 = '/vehicle/read/categories'
+             const requestOptions = {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+            };
+             const res_vehicle_category = await fetch(url2,requestOptions)
+            .then(response => response.json()) 
+            .then(json => {
+                // alert (json)
+                return json
+            })
+           
+            console.log('res_vehicle_category',res_vehicle_category)
 
-      
+            $('#dl').datalist('updateRow',{
+                index: 0,
+                row: {
+                    value: 'All',
+                    text: 'ALL (' + res_vehicle_category.all +')'
+                },
+               
+            })
+
+            $('#dl').datalist('updateRow',{
+                index: 1,
+                row: {
+                    value: 'Sedan',
+                    text: 'Mazda 6 Sedan (' + res_vehicle_category.sedan +')'
+                }
+             })
+           
+            $('#dl').datalist('updateRow',{
+                index: 2,
+                row: {
+                    value: 'Wagon',
+                    text: 'Mazda 6 Wagon (' + res_vehicle_category.wagon +')'
+                }
+            })
+        
+            $('#dl').datalist('updateRow',{
+                index: 3,
+                row: {
+                    value: 'D-Max',
+                    text: 'Isuzu D-Max (' + res_vehicle_category.dmax +')'
+                }
+            })
+        
+            $('#dl').datalist('updateRow',{
+                index: 4,
+                row: {
+                    value: 'Mux',
+                    text: 'Isuzu D-Mux (' + res_vehicle_category.dmux +')'
+                }
+            })
+
           
             for (i=0;i<= data.length-1;i++){
 
@@ -817,8 +1163,8 @@ async function CreateData(userid){
     // new MarkerClusterer(map, gmarkers);
     $('#live_monitor').html(pnl);
     pnl_vehicles_data_length = data.length
-    // console.log(' pnl_vehicles_data_length', pnl_vehicles_data_length)
-    counter_vehicle_category()
+    console.log('pnl_vehicles_data_length', pnl_vehicles_data_length)
+    // counter_vehicle_category()
     console.log('selected_vehicle_category',selected_vehicle_category)
     // if (selected_vehicle_category!= '' && typeof selected_vehicle_category != 'undefined'){
     //     filter_vehicle_by_category(selected_vehicle_category)
@@ -830,8 +1176,9 @@ async function CreateData(userid){
 
 async function CreateDataCategory(userid,category){
 
-
-
+    // alert('here1')
+    // alert('category: '+ category)
+    console.log('category',category)
  
     var token = sessionStorage.getItem("token")
     var pnl=''
@@ -840,6 +1187,7 @@ async function CreateDataCategory(userid,category){
     var status_diam=0
     var status_offline=0
     var status_total=0
+    var data
     // console.log(token)
 
     const config = {
@@ -853,24 +1201,54 @@ async function CreateDataCategory(userid,category){
        
       };
 
-    var url = "http://147.139.144.120:3002/api/patern/latest_status"
-    // var url = "http://localhost:3002/api/patern/latest_status"
-    let res1 = await axios.post(url,postData,config)
-    .then((response) => {
-        // console.log(response.data)
-        var status = response.data.status
-        var data = response.data.data
-        if (status == true){
-            return data
+    if (category == 'All'){
+        var url = "http://147.139.144.120:3002/api/patern/latest_status"
+        // var url = "http://localhost:3002/api/patern/latest_status"
+        let res1 = await axios.post(url,postData,config)
+        .then((response) => {
+            // console.log(response.data)
+            var status = response.data.status
+            var data = response.data.data
+            if (status == true){
+                return data
+            }
+    
+        }).catch((error) => {
+            // $.messager.alert('Error','Error Loading Data Timeout','info');
+            console.error(error)
+            // AssetStatusCount()
+        });
+
+        data = res1
+
+    }else{
+
+        if (category == 'Sedan'){
+            category = 'Mazda 6 Sedan'
         }
 
-    }).catch((error) => {
-        // $.messager.alert('Error','Error Loading Data Timeout','info');
-        console.error(error)
-        // AssetStatusCount()
-    });
+        var url = "http://147.139.144.120:3002/api/patern/vehicles/selected/category/" + category
+        console.log('url category',url)
+        // var url = "http://localhost:3002/api/patern/latest_status"
+        let res1 = await axios.get(url,config)
+        .then((response) => {
+            // console.log(response.data)
+            var status = response.data.status
+            var data = response.data.data
+            if (status == true){
+                return data
+            }
+    
+        }).catch((error) => {
+            // $.messager.alert('Error','Error Loading Data Timeout','info');
+            console.error(error)
+            // AssetStatusCount()
+        });
 
-    var data = res1
+        data = res1
+        
+    }
+
 
     var url1 = '/vehicle/read/all/'+ userid
     console.log('url1',url1)
@@ -887,6 +1265,11 @@ async function CreateDataCategory(userid,category){
         // alert (json)
     return json
     })
+
+    
+
+    
+
 
     // alert(area)
 
@@ -1227,7 +1610,7 @@ async function CreateDataCategory(userid,category){
     $('#live_monitor').html(pnl);
     pnl_vehicles_data_length = data.length
     // console.log(' pnl_vehicles_data_length', pnl_vehicles_data_length)
-    counter_vehicle_category()
+    // counter_vehicle_category()
     console.log('selected_vehicle_category',selected_vehicle_category)
 
 }
@@ -1282,6 +1665,303 @@ async function CreateDataSelected(mode){
 
                 var status = response.data.status
                 // console.log('status',status)
+                var data = response.data.data
+                // console.log('data',data)
+                
+                // ReInitializeMap
+
+                // console.log('gmarkers awal length:', gmarkers.length)
+                // console.log('status',status)
+
+                if (status == true){
+
+                    if (mode == 'bergerak'){
+                        selected_mode ='moving'
+                    }else if( mode == 'diam'){
+                        selected_mode = 'stopped'
+                    }else if (mode == 'offline'){
+                        selected_mode = 'offline'
+                    }
+
+                      // get list kendaraan
+                      var url1 = '/vehicle/read/all/'+ userid
+                      const requestOptions = {
+                          method: 'POST',
+                          headers: { 
+                              'Content-Type': 'application/json'
+                          },
+                      };
+      
+                      const res_vehicle = await fetch(url1,requestOptions)
+                      .then(response => response.json()) 
+                      .then(json => {
+                          // alert (json)
+                        return json
+                      })
+
+                      if (area == 'pusat')
+                      {
+                            var ctr_vehicle_moving = 0;
+                            var ctr_vehicle_stop = 0;
+                            var ctr_vehicle_offline = 0;
+                            var ctr_vehicle_all = 0;
+
+                            for (i=0;i<= data.length-1;i++)
+                            {
+                                var vehicleUid = data[i].vehicleUid
+                                var sclId = data[i].vehicleSclId
+                                var deviceStatus = data[i].deviceStatus
+                                var img
+                                var status
+                                if (deviceStatus == 'offline'){
+                                    img = "/img/moving_offline.png"
+                                    status = 'offline'
+                                    status_offline++
+                                }else if (deviceStatus == 'stopped'){
+                                    img = "/img/moving_stop.png"
+                                    status = 'diam'
+                                    status_diam++
+                                }else if (deviceStatus == 'moving'){
+                                    img = "/img/moving.png"
+                                    status = 'bergerak'
+                                    status_bergerak++
+                                }
+
+                                var licensePlate = data[i].vehicleLicensePlate
+                                var accountId = data[i].accountId
+                                var validLatitude = data[i].validLatitude
+                                var validLongitude = data[i].validLongitude
+                                var heading = data[i].heading
+                                var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit
+                                var utcSeconds = data[i].updateTime;
+                                var strDate = FormatedDate(epoch_to_datetime(utcSeconds))
+
+                                if (deviceStatus == selected_mode)
+                                {
+                                    if(!validLatitude && !validLongitude)
+                                    {
+                                                // console.log('Null')
+                                    }else
+                                    {
+                                        var address= ''
+                                                   
+                                        pnl += `<div id="pnl`+ i +`" name="`+ sclId +`" class="pnl" style="margin-bottom:10px;margin-left:5px;margin-top:0px;width:280px;height: 30px;background-color: white;border-color: transparent;border: 0px solid lightgrey;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);border-radius:5px;font-family:'Poppins'" >     
+                                            <table class="info1" width="100%" style="border-collapse: collapse;font-size:10px;border-radius:5px;">
+                                            <tbody>
+                                            <tr id="title_row`+ i + `" onmouseover="changeColor(this)" onmouseout="restoreColor(this)" style="color:black;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+                                            <td style="border-top-left-radius: 5px;height:30px;width:24px;vertical-align: center;horizontal-align:center;align:center"><div style="margin-top:-3px;margin-left:3px;"><img id="img_pantau`+ i +`" src="`+ img +`" width="24" height="24"></div></td>
+                                            <td style="height:30px;width:80%;font-weight:bold"><div id="v_uid`+ i +`"  style="margin-left:10px;cursor:pointer;" onClick="getClickedTitle(this)">`+ vehicleUid +`</div></td>
+                                            <td id="td_arrow`+  i  +`" style="height:30px;width:24px;vertical-align: center;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"><div id="angle`+ i +`" name="`+ sclId +`" style="cursor:pointer;margin-left:5px;" onclick="getClicked(this)"><i  class="fa fa-angle-down fa-2x" aria-hidden="true" style="cursor:pointer;"></i></div></td>
+                                            </tr>
+                                            </tbody>
+                                            </table>
+                                                  
+                          
+                                            <div id="img_location`+ i +`" style="margin-top:10px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/location.png" width="18" height="18"/></div>
+                                            <div id="location`+ i +`" style="margin-top:-20px;margin-left:50px;width:200px;height:50px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + address + `</div>
+                                            <div id="img_time`+ i +`" style="margin-top:20px;margin-left:26px;width:18;height:18;visibility:hidden;"><img src="/img/clock.png" width="18" height="18"/></div>
+                                            <div id="time`+ i +`" style="margin-top:-17px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;text-align:justify; text-justify: inter-word;visibility:hidden;font-family: 'Poppins';">` + strDate + ` </div>
+                            
+                                            <div id="options`+ i +`" style="color:#436AAC;margin-top:0px;margin-left:50px;width:200px;height:20px; border: 0px solid red;font-size:10px;font-weight:900;text-align:justify; text-justify: inter-word;visibility:hidden;"><a href="#" id="live`+ i +`" class="info" style="text-decoration: none;" onclick="live_tracking(this)">Live Tracking</a> &nbsp; | &nbsp;  <a href="#" id="riwayat`+ i +`" style="text-decoration: none;" class="info" onclick="riwayat(this)">Riwayat</a>  &nbsp; | &nbsp;  <a href="#" id="chat`+ i +`" style="text-decoration: none;" class="info">Chat</a></div>
+                                            <div id="lat` + i + `" style="visibility:hidden">` + validLatitude + `</div>
+                                            <div id="lon` + i + `" style="visibility:hidden">` + validLongitude + `</div>
+                                            <div id="deviceStatus` + i + `" style="visibility:hidden">` + status + `</div>
+                                            <div id="heading` + i + `" style="visibility:hidden">` + heading + `</div>
+                                            <div id="speed` + i + `" style="visibility:hidden">` + speed + `</div>
+                                            </div>`
+
+                                            var vehicle_type 
+                                            // console.log('vehicleUid',vehicleUid.substr(0,2))
+
+                                             
+                                            if (vehicleUid.substr(0,2)=='JM'){
+                                                vehicle_type = 'sedan'
+                                            }
+                        
+                                            if (vehicleUid.substr(0,4)== 'MPAT'){
+                                                vehicle_type = 'cabin'
+                                            }
+                        
+                                            if (vehicleUid.substr(0,4)== 'MPAU'){
+                                                vehicle_type = 'wagon'
+                                            }
+                        
+
+                                            var cars_info = {
+                                                no: i,
+                                                sclId:sclId,
+                                                licensePlate : licensePlate,
+                                                vehicleUid : vehicleUid,
+                                                deviceStatus : status,
+                                                last_update:strDate,
+                                                speed: speed,
+                                                heading:heading,
+                                                type_kendaraan: vehicle_type
+                                            }
+
+                                            CentralPark = new google.maps.LatLng(validLatitude,validLongitude);
+                                            
+                                            if (deviceStatus == 'moving'){
+                                                ctr_vehicle_moving++
+                                                // console.log('cars info '+ ctr_vehicle_moving ,cars_info)
+                                            }
+        
+                                            if (deviceStatus == 'stopped'){
+                                                ctr_vehicle_stop++
+                                                // console.log('cars info '+ ctr_vehicle_stop ,cars_info)
+                                            }
+        
+                                            if(deviceStatus == 'offline'){
+                                                ctr_vehicle_offline++
+                                                // console.log('cars info '+ ctr_vehicle_offline ,cars_info)
+                                            }
+
+                                            
+                                            var resp = await addMarker(CentralPark,heading,cars_info)
+                                            // console.log ('resp marker', resp[0])
+                                            gmarkers.push(resp[0]);
+
+                                    }
+                                }
+                                else
+                                {
+                                    if (deviceStatus == 'moving'){
+                                        ctr_vehicle_moving++
+                                    }
+
+                                    if (deviceStatus == 'stopped'){
+                                        ctr_vehicle_stop++
+                                    }
+
+                                    if(deviceStatus == 'offline'){
+                                        ctr_vehicle_offline++
+                                    }
+
+                                }
+
+                            }
+
+                            ctr_vehicle_all = ctr_vehicle_moving + ctr_vehicle_stop + ctr_vehicle_offline
+                            // console.log('ctr_vehicle_moving', ctr_vehicle_moving)
+                            // console.log('ctr_vehicle_stoped', ctr_vehicle_stop)
+                            // console.log('ctr_vehicle_offline', ctr_vehicle_offline)
+                            // console.log('ctr_vehicle_all', ctr_vehicle_all)
+
+                            $('#bergerak_value').text(ctr_vehicle_moving)
+                            $('#diam_value').text(ctr_vehicle_stop)
+                            $('#offline_value').text(ctr_vehicle_offline)
+                            $('#semua_value').text(ctr_vehicle_all)
+
+                            // AssetStatusCount(selected_mode,false,null,userid)
+
+                      }
+                }
+
+                // console.log('gmarkers akhir length:', gmarkers.length)
+
+                $('#live_monitor').html(pnl);
+}
+
+async function CreateDataSelectedCategory(mode){
+
+    var token = sessionStorage.getItem("token")
+    var category = selected_vehicle_category
+    
+    // alert('selected')
+    // console.log('selected')
+    // deleteMarkers()
+
+    var status_bergerak=0
+    var status_diam=0
+    var status_offline=0
+    var status_total=0
+
+    var pnl=''
+    var selected_mode
+    var resp
+    // console.log(token)
+
+    
+
+    const config = {
+        headers:{
+          'token': token
+        },
+        timeout: 10000
+      };
+
+      var postData = {
+       
+      };
+
+    // var url = "http://147.139.144.120:3002/api/patern/latest_status"
+    // //   var url = "http://localhost:3002/api/patern/latest_status"
+    // var resp = await axios.post(url,postData,config)
+    //   .then((response) => {
+    //         return response
+    //   }).catch((error) => {
+    //       // $.messager.alert('Error','Error Loading Data Timeout','info');
+    //       console.error(error)
+    //       // AssetStatusCount()
+    //   });
+
+    if (category == 'All'){
+        var url = "http://147.139.144.120:3002/api/patern/latest_status"
+        // var url = "http://localhost:3002/api/patern/latest_status"
+        resp = await axios.post(url,postData,config)
+        .then((response) => {
+            // console.log(response.data)
+            return response
+    
+        }).catch((error) => {
+            // $.messager.alert('Error','Error Loading Data Timeout','info');
+            console.error(error)
+            // AssetStatusCount()
+        });
+
+        // data = res1
+
+    }else{
+        if (category == 'Sedan'){
+            category = 'Mazda 6 Sedan'
+        }else if(category == 'Wagon'){
+            category = 'Mazda 6 Wagon'
+        }else if(category == ' D-Max'){
+            category = 'D-Max'
+        }else if(category == 'Mux'){
+            category = 'Mux'
+        }
+
+        var url = "http://147.139.144.120:3002/api/patern/vehicles/selected/category/" + category
+        console.log('url category',url)
+        // var url = "http://localhost:3002/api/patern/latest_status"
+        resp = await axios.get(url,config)
+        .then((response) => {
+            // console.log(response.data)
+            // var status = response.data.status
+            // var data = response.data.data
+            // if (status == true){
+            //     return data
+            // }
+            return response;
+    
+        }).catch((error) => {
+            // $.messager.alert('Error','Error Loading Data Timeout','info');
+            console.error(error)
+            // AssetStatusCount()
+        });
+
+        // data = res1
+        
+    }
+
+
+
+                console.log('resp',resp)
+                var response = resp
+
+                var status = response.data.status
+                console.log('status',status)
                 var data = response.data.data
                 // console.log('data',data)
                 
@@ -2417,85 +3097,6 @@ function doSetTimeout(i) {
 
 //  }
 
-async function counter_vehicle_category(){
-
-    ctr_max=0
-    ctr_mux=0
-    ctr_mazda6_sedan=0
-    ctr_mazda6_wagon=0
-
-    for (i=0;i<=pnl_vehicles_data_length-1;i++){
-        var pnl = $('#pnl'+i).attr('id')
-        if(typeof pnl !== "undefined"){
-            console.log('pnl',pnl)
-            var obj_pnl = $('#pnl'+i)
-            var v_uid = $('#v_uid'+i).attr('id')
-            console.log('v_uid',v_uid)
-            var obj_vuid = $('#v_uid'+i)
-            console.log('v_uid',obj_vuid.text())
-            var obj_v_type = $('#v_type' + i)
-            // console.log('obj_v_type',obj_v_type)
-            console.log('v_type',obj_v_type.text())
-            
-            if (obj_v_type.text() == 'Mux'){
-                ctr_mux++
-            }else if(obj_v_type.text() == 'D-Max'){
-                ctr_max++
-            }else if(obj_v_type.text() == 'Mazda 6 Sedan' ){
-                ctr_mazda6_sedan++
-            }else if(obj_v_type.text() == 'Mazda 6 Wagon'){
-                ctr_mazda6_wagon++
-            }
-        }
-        
-    }
-
-    console.log('ctr_max',ctr_max)
-    console.log('ctr_mux',ctr_mux)
-    console.log('mazda 6 sedan',ctr_mazda6_sedan)
-    console.log('mazda 6 wagon',ctr_mazda6_wagon)
-
-    var all = ctr_max+ ctr_mux + ctr_mazda6_sedan + ctr_mazda6_wagon
-
-
-
-    $('#dl').datalist('updateRow',{
-        index: 0,
-        row: {
-            value: 'All',
-            text: 'ALL (' + all +')'
-        },
-        index: 1,
-        row: {
-            value: 'Sedan',
-            text: 'Mazda 6 Sedan (' + ctr_mazda6_sedan +')'
-        }
-    })
-   
-    $('#dl').datalist('updateRow',{
-        index: 2,
-        row: {
-            value: 'Wagon',
-            text: 'Mazda 6 Wagon (' + ctr_mazda6_wagon +')'
-        }
-    })
-
-    $('#dl').datalist('updateRow',{
-        index: 3,
-        row: {
-            value: 'Max',
-            text: 'Isuzu D-Max (' + ctr_max +')'
-        }
-    })
-
-    $('#dl').datalist('updateRow',{
-        index: 4,
-        row: {
-            value: 'Mux',
-            text: 'Isuzu D-Mux (' + ctr_mux +')'
-        }
-    })
-}
 
 async function filter_vehicle_by_category(category){
 //    var j =1

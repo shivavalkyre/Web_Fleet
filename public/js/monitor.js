@@ -537,10 +537,14 @@ var userid =  sessionStorage.getItem("id");
 
 				$('#dl').datalist({
 					onClickRow: function(index,row){
-						console.log(row)
+						console.log('row',row)
 						selected_vehicle_category = row.value
 						// filter_vehicle_by_category(selected_vehicle_category)
-						processing_data('category',null,'semua',false,null,userid)
+						// alert(selected_vehicle_category)
+						$('#Semua').linkbutton({
+							selected:true
+						})
+						processing_data('category',null,'semua',false,null,userid,null,selected_vehicle_category)
 						$('#w').window('close')
 					}
 				})

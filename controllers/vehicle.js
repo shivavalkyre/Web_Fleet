@@ -141,6 +141,8 @@ var readbyvehicleuid = async function(req,res){
    return result
 }
 
+
+
 var ReadOdometer = async function(req,res){
 
     var url = process.env.URL_READ_VEHICLE_KM_DRIVEN
@@ -627,6 +629,48 @@ var History = async function (req,res){
 
 }
 
+var read_categories = async function(req,res){
+
+    var url = process.env.URL_READ_VEHICLE_CATEGORIES
+    var token = process.env.TOKEN_APP
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ URL READ CATEGORIES ] | INFO ' + util.inspect(url));
+    futil.logger.debug('\n' + futil.shtm() + '- [ TOKEN ] | INFO ' + util.inspect(token));
+    futil.logger.debug('\n' + futil.shtm() + '- [ REQ BODYREAD CATEGORIES ] | INFO ' + util.inspect(req.body));
+
+    
+    const config = {
+        headers:{
+            token : token,
+        },
+      }
+
+      var result
+    result = await axios.get(url,config) 
+    .then(function (response) {
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE READ CATEGORIES ] | INFO ' + util.inspect(response.data)); 
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE READ CATEGORIES RAW ] | INFO ' + util.inspect(response.data.data)); 
+        response.data.data.status = response.status
+        var data = JSON.stringify(response.data.data)
+        return data
+
+    }).catch(function(error){
+        futil.logger.debug('\n' + futil.shtm() + '- [ RESPONSE ERROR] | INFO ' + util.inspect(error));
+        var data = {  
+            "status":false,
+            "message":"token is expired"
+         }
+
+         return data
+    })
+
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT STATUS ] | INFO ' + util.inspect(result.status)); 
+    futil.logger.debug('\n' + futil.shtm() + '- [ RESULT ] | INFO ' + util.inspect(result)); 
+    // res.send(result)
+    return result
+
+}
+
 
 
 module.exports = {
@@ -643,5 +687,6 @@ module.exports = {
     update,
     Delete,
     DeleteAll,
-    History
+    History,
+    read_categories,
 }
