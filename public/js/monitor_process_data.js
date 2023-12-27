@@ -698,9 +698,15 @@ function AssetStatusCount(mode,search_mode,search_param,userid){
 
 
 function AssetStatusCountCategory(mode,search_mode,search_param,userid,vehicle_category){
+
     console.log('vehicle_category',vehicle_category)
+    console.log('mode',mode)
     // alert('vehicle category: ' + vehicle_category)
     // alert('mode: ' + mode)
+    if (vehicle_category === undefined){
+        vehicle_category = selected_vehicle_category
+    }
+    
     if (mode == 'semua'){
         CreateDataCategory(userid,vehicle_category)
     }else{
@@ -1225,6 +1231,12 @@ async function CreateDataCategory(userid,category){
 
         if (category == 'Sedan'){
             category = 'Mazda 6 Sedan'
+        }else if(category == 'Wagon'){
+            category = 'Mazda 6 Wagon'
+        }else if(category == 'D-max'){
+            category = 'D-max'
+        }else if(category =='Mux'){
+            category = 'Mux'
         }
 
         var url = "http://147.139.144.120:3002/api/patern/vehicles/selected/category/" + category
