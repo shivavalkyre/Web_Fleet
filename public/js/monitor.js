@@ -544,6 +544,13 @@ var userid =  sessionStorage.getItem("id");
 						$('#Semua').linkbutton({
 							selected:true
 						})
+
+						$('#bergerak_value').text(0)
+						$('#diam_value').text(0)
+						$('#offline_value').text(0)
+						$('#semua_value').text(0)
+						$('#live_monitor').html('');
+
 						processing_data('category',null,'semua',false,null,userid,null,selected_vehicle_category)
 						$('#w').window('close')
 					}
