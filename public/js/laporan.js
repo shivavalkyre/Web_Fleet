@@ -92,7 +92,7 @@ async function loadDataDetail(){
     var url =  '/laporan/detail'
     await fetch(url,requestOptions)
         .then(response => response.json()) 
-        .then(json => {
+        .then(async function(json){
             console.log('data detail',json)
             var raw_data = json
             var data = raw_data.data
@@ -101,34 +101,52 @@ async function loadDataDetail(){
 
             if (resp=="success"){
                 console.log('data.length',data.length)
-                
-                var total = 0 
-                for (i=0;i<=data.length-1;i++){
-                    var updateTime = FormatedDate1(epoch_to_datetime(data[i].updateTime))
-                    var updateDate = FormatedDate2(epoch_to_datetime(data[i].updateTime))
-                    var batteryVoltage = parseInt(parseInt(data[i].batteryVoltage[1].value)/1000) + ' ' + data[i].batteryVoltage[1].unit;
-                    var vehicleName = data[i].vehicleName;
-                    var vehicleUid = data[i].vehicleUid;
-                    var vehicleSclId = data[i].vehicleSclId;
-                    var heading = data[i].heading;
-                    var location = data[i].validLatitude + ',' +  data[i].validLongitude;
-                    var speed = data[i].vehicleSpeed[0].value + ' ' + data[i].vehicleSpeed[0].unit;
-                    // console.log(updateTime,batteryVoltage,vehicleName,vehicleUid,heading,location)
-                    
-                    // if(data[i].validLatitude!='null' && data[i].validLongitude!='null'){
-                    //     var location={
-                    //         lat: data[i].validLatitude,
-                    //         lng: data[i].validLongitude
-                    //     }
+                var total=0
+                                
+                    $('#dgDetail').datagrid('options').loadMsg = 'Loading Data';  // change to other message
+                    $('#dgDetail').datagrid('loading');  // display loading message
+                    for (i=0;i<=data.length-1;i++){
+                        var updateTime = FormatedDate1(epoch_to_datetime(data[i].updateTime))
+                        var updateDate = FormatedDate2(epoch_to_datetime(data[i].updateTime))
+                        var batteryVoltage = (parseFloat(data[i].batteryVoltage[1].value)/1000).toFixed(2) + ' ' + data[i].batteryVoltage[1].unit;
+                        var vehicleName = data[i].vehicleName;
+                        var vehicleUid = data[i].vehicleUid;
+                        var vehicleSclId = data[i].vehicleSclId;
+                        var heading = data[i].heading;
+                        var location = data[i].validLatitude + ',' +  data[i].validLongitude;
+                        var speed = parseFloat(data[i].vehicleSpeed[0].value).toFixed(2) + ' ' + data[i].vehicleSpeed[0].unit;
+                        // console.log(updateTime,batteryVoltage,vehicleName,vehicleUid,heading,location)
                         
-                    //     var address = getAddress1(location)
-                    //     console.log('address',address)
-                    // }
-                    
-                    detail_rows.push({"updateTime":updateTime,"tgl":updateDate,"vehicleName":vehicleName,"vehicleUid":vehicleUid,"vehicleSclId":vehicleSclId,"batteryVoltage":batteryVoltage,"location":location,"speed":speed})
-                    vehicle_rows.push({"vehicleSclId":vehicleSclId,"vehicleUid":vehicleUid,"vehicleName":vehicleName})
-                    total++
-                }
+                       
+                               if(data[i].validLatitude!=null && data[i].validLongitude!=null){
+                                    var location={
+                                        lat: data[i].validLatitude,
+                                        lng: data[i].validLongitude
+                                    }
+                                    
+                                    var address = await getAddress1(location)
+                                    console.log('address',address)
+                                }
+                       
+                        // if(data[i].validLatitude!='null' && data[i].validLongitude!='null'){
+                        //     var location={
+                        //         lat: data[i].validLatitude,
+                        //         lng: data[i].validLongitude
+                        //     }
+                            
+                        //     var address = getAddress1(location)
+                        //     console.log('address',address)
+                        // }
+
+                        console.log('loop i',i)
+                        
+                        detail_rows.push({"updateTime":updateTime,"tgl":updateDate,"vehicleName":vehicleName,"vehicleUid":vehicleUid,"vehicleSclId":vehicleSclId,"batteryVoltage":batteryVoltage,"location":address,"speed":speed})
+                        vehicle_rows.push({"vehicleSclId":vehicleSclId,"vehicleUid":vehicleUid,"vehicleName":vehicleName})
+                        total++
+                    }
+               
+                
+ 
             }
 
             console.log('total',total)
@@ -147,6 +165,8 @@ async function loadDataDetail(){
             g.datagrid('loadData',cbg_data);	// get the selected row
 
             $('#dgDetail').datagrid('loadData',dg_data)
+            $('#dgDetail').datagrid('loaded');
+
             $('#dgAsset').datagrid('loadData',dg_data)
             
         }).catch (function (error) {
@@ -687,4 +707,8 @@ function compareStrings(a, b) {
     seconds = seconds % 60;
 //    return  hours+":"+minutes+":"+seconds;
 return  hours+" jam "+minutes+" menit "+seconds+ " detik";
+}
+
+function formatDouble(val,row){
+    return  parseFloat(val).toFixed(2)
 }

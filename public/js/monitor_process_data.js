@@ -2444,9 +2444,22 @@ function process_live_tracking(sclId){
                 var deviceStatus = ''
                 var heading = data[0].heading
                 var vehicle_voltage = parseFloat(data[0].batteryVoltage[1].value/1000).toFixed(1) + ' V' 
+                var vehicle_engine = data[0].engineState 
 
                 var operating_time = parseFloat(data[0].operatingTime[1].value).toFixed(0) + ' Jam';
                 var fuel_level = data[0].fuelPercent[0].value + ' %'
+
+                $('#vehicle_engine').text(vehicle_engine)
+
+                if (vehicle_engine == "OFF"){
+                    document.getElementById("vehicle_engine").style.color="white";
+                    document.getElementById("vehicle_engine_shape").style.background="red";
+                    // $('#vehicle_engine').attr('color','white')
+                    // $('#vehicle_engine_shape').attr('background','red')
+                }else{
+                    document.getElementById("vehicle_engine").style.color="#28A138";
+                    document.getElementById("vehicle_engine_shape").style.background="#C1F1C8";
+                }
 
                 $('#title_detail').text(vehicleUid);
                 $('#fuel_level').text(fuel_level)

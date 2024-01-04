@@ -288,5 +288,8 @@ async function view_geofence_detail(){
                 }
                 console.log("rows",rows)
                 $('#dgGeofenceDetail').datagrid('loadData',rows)
+                $('#dgGeofenceDetail').datagrid({
+                    fitColumns:true
+                })
            
 }
