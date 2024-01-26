@@ -266,3 +266,18 @@ background: #436AAC;
   
   .show {display: block;}
 
+  .btn {
+    background-color:  black; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 0px 0px; /* Some padding */
+    font-size: 10px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    width:30px;
+    height:30px;
+  }
+  
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color:  black;
+  }

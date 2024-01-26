@@ -77,7 +77,48 @@ $(function(){
     // setInterval(loadDataDetail(),1000)
 })
 
+function openfile(val,row){
+    //alert(row.id_access_card);
+    return '<button class="btn" onClick="getAddress()"><div title="Lihat Alamat" class="easyui-tooltip" style="margin-top:-3px;"><img src="/img/eye.png" width="20"  height="20" /></div></button>';
+}
 
+
+async function getAddress(){
+    var row = $('#dgDetail').datagrid('getSelected')
+    var rowIndex =  $('#dgDetail').datagrid('getRowIndex',row)
+    if(row){
+        console.log(row)
+        var loc = row.location
+        console.log('loc',loc)
+        var end_lat = loc.indexOf(",")
+        console.log('end_lat',end_lat)
+        var lat = loc.substring(0,end_lat)
+        console.log('lat',lat)
+
+        var lon = loc.substring(end_lat+1)
+        console.log('lon',lon)
+
+        if (lat != 'null' && lon != 'null'){
+            var location = {
+                lat: lat,
+                lng:lon
+            }
+            var address = await getAddress1(location)
+            console.log('address',address)
+
+            // row.location = address
+            console.log('rowIndex',rowIndex)
+            
+            $('#dgDetail').datagrid('updateRow',{
+                index: rowIndex,
+                row: {
+                    location: address,
+                }
+            });
+        }
+      
+    }
+}
 
 async function loadDataDetail(){
 
@@ -118,15 +159,15 @@ async function loadDataDetail(){
                         // console.log(updateTime,batteryVoltage,vehicleName,vehicleUid,heading,location)
                         
                        
-                               if(data[i].validLatitude!=null && data[i].validLongitude!=null){
-                                    var location={
-                                        lat: data[i].validLatitude,
-                                        lng: data[i].validLongitude
-                                    }
+                            //    if(data[i].validLatitude!=null && data[i].validLongitude!=null){
+                            //         var location={
+                            //             lat: data[i].validLatitude,
+                            //             lng: data[i].validLongitude
+                            //         }
                                     
-                                    var address = await getAddress1(location)
-                                    console.log('address',address)
-                                }
+                            //         var address = await getAddress1(location)
+                            //         console.log('address',address)
+                            //     }
                        
                         // if(data[i].validLatitude!='null' && data[i].validLongitude!='null'){
                         //     var location={
@@ -140,7 +181,7 @@ async function loadDataDetail(){
 
                         console.log('loop i',i)
                         
-                        detail_rows.push({"updateTime":updateTime,"tgl":updateDate,"vehicleName":vehicleName,"vehicleUid":vehicleUid,"vehicleSclId":vehicleSclId,"batteryVoltage":batteryVoltage,"location":address,"speed":speed})
+                        detail_rows.push({"updateTime":updateTime,"tgl":updateDate,"vehicleName":vehicleName,"vehicleUid":vehicleUid,"vehicleSclId":vehicleSclId,"batteryVoltage":batteryVoltage,"location":location,"speed":speed})
                         vehicle_rows.push({"vehicleSclId":vehicleSclId,"vehicleUid":vehicleUid,"vehicleName":vehicleName})
                         total++
                     }
