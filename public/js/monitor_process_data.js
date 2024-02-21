@@ -106,7 +106,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
                         // alert('Category Terpilih: '+ category)
 
-                        AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        // AssetStatusCountCategory(mode,search_mode,null,userid,category)
                         t1_moving_category = setInterval(function(){
                             // console.log('Interval reached')
                             // console.log('start delete markers')
@@ -115,7 +115,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                             // console.log('markers: '  + gmarkers.length)
                             // console.log('search mode', search_mode)
                             // console.log('asset status count')
-                            AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                            // AssetStatusCountCategory(mode,search_mode,null,userid,category)
                         },30000)
                     }
                    
@@ -170,7 +170,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
                         // alert('Category Terpilih: '+ category)
 
-                        AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        // AssetStatusCountCategory(mode,search_mode,null,userid,category)
                         t1_moving_category = setInterval(function(){
                             // console.log('Interval reached')
                             // console.log('start delete markers')
@@ -179,7 +179,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                             // console.log('markers: '  + gmarkers.length)
                             // console.log('search mode', search_mode)
                             // console.log('asset status count')
-                            AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                            // AssetStatusCountCategory(mode,search_mode,null,userid,category)
                         },30000)
                     }
 
@@ -232,7 +232,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
 
                         // alert('Category Terpilih: '+ category)
 
-                        AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        // AssetStatusCountCategory(mode,search_mode,null,userid,category)
                         t1_moving_category = setInterval(function(){
                             // console.log('Interval reached')
                             // console.log('start delete markers')
@@ -241,7 +241,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                             // console.log('markers: '  + gmarkers.length)
                             // console.log('search mode', search_mode)
                             // console.log('asset status count')
-                            AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                            // AssetStatusCountCategory(mode,search_mode,null,userid,category)
                         },30000)
                     }
                    
@@ -285,17 +285,17 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                             AssetStatusCount(mode,search_mode,null,userid)
                         },30000)
                     }else{
-                        AssetStatusCountCategory(mode,search_mode,null,userid,selected_vehicle_category)  
+                        // AssetStatusCountCategory(mode,search_mode,null,userid,selected_vehicle_category)  
                         // var markerCluster = new MarkerClusterer(map, gmarkers);
-                        t1_all_category = setInterval(function(){
-                            // console.log('Interval reached')
-                            // console.log('start delete markers')
-                            // deleteMarkers()
-                            deleteMarkersMoving()
-                            // console.log('markers deleted')
-                            // console.log('markers: '  + gmarkers.length)
-                            AssetStatusCountCategory(mode,search_mode,null,userid,selected_vehicle_category)
-                        },30000)
+                        // t1_all_category = setInterval(function(){
+                        //     // console.log('Interval reached')
+                        //     // console.log('start delete markers')
+                        //     // deleteMarkers()
+                        //     deleteMarkersMoving()
+                        //     // console.log('markers deleted')
+                        //     // console.log('markers: '  + gmarkers.length)
+                        //     // AssetStatusCountCategory(mode,search_mode,null,userid,selected_vehicle_category)
+                        // },30000)
                     }
 
                     
@@ -452,7 +452,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                 })
 
                 // deleteMarkers()
-                AssetStatusCountCategory(mode,search_mode,null)  
+                // AssetStatusCountCategory(mode,search_mode,null)  
             
                 t1_moving_category = setInterval(function(){
                     // console.log('Interval reached')
@@ -462,7 +462,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     // console.log('markers: '  + gmarkers.length)
                     // console.log('search mode', search_mode)
                     // console.log('asset status count')
-                    AssetStatusCountCategory(mode,search_mode,null)
+                    // AssetStatusCountCategory(mode,search_mode,null)
                 },30000)
            
 
@@ -492,7 +492,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     selected:false
                 })
 
-                AssetStatusCountCategory(mode,search_mode,null)  
+                // AssetStatusCountCategory(mode,search_mode,null)  
                 
                 
                 t1_stop_category = setInterval(function(){
@@ -501,7 +501,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     deleteMarkers()
                     // console.log('markers deleted')
                     // console.log('markers: '  + gmarkers.length)
-                    AssetStatusCountCategory(mode,search_mode,null)
+                    // AssetStatusCountCategory(mode,search_mode,null)
                     
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
                 },30000)
@@ -527,7 +527,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                 clearInterval(t1_stop_category)
                 clearInterval(t1_offline_category)
 
-                AssetStatusCountCategory(mode,search_mode,null)  
+                // AssetStatusCountCategory(mode,search_mode,null)  
 
                 $('#toggle_place').linkbutton({
                     selected:false
@@ -539,7 +539,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                     deleteMarkers()
                     // console.log('markers deleted')
                     // console.log('markers: '  + gmarkers.length)
-                    AssetStatusCountCategory(mode,search_mode,null)
+                    // AssetStatusCountCategory(mode,search_mode,null)
                 },30000)
             
         }else if (mode == 'semua'){
@@ -574,7 +574,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                 if(vehicle_category == 'All'){
                     
                     
-                    AssetStatusCountCategory(mode,search_mode,null,userid,vehicle_category)  
+                    // AssetStatusCountCategory(mode,search_mode,null,userid,vehicle_category)  
                     // var markerCluster = new MarkerClusterer(map, gmarkers);
                     t1_all_category = setInterval(function(){
                         // console.log('Interval reached')
@@ -583,7 +583,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                         deleteMarkersMoving()
                         // console.log('markers deleted')
                         // console.log('markers: '  + gmarkers.length)
-                        AssetStatusCountCategory(mode,search_mode,null,userid,vehicle_category)
+                        // AssetStatusCountCategory(mode,search_mode,null,userid,vehicle_category)
                     },30000)
                 }else {
 
@@ -597,7 +597,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                         var category = 'Mux'
                     }
 
-                    AssetStatusCountCategory(mode,search_mode,null,userid,category) 
+                    // AssetStatusCountCategory(mode,search_mode,null,userid,category) 
                     t1_all_category = setInterval(function(){
                         // console.log('Interval reached')
                         // console.log('start delete markers')
@@ -605,7 +605,7 @@ function processing_data (current_section,sclId,mode,search_mode,search_param,us
                         deleteMarkersMoving()
                         // console.log('markers deleted')
                         // console.log('markers: '  + gmarkers.length)
-                        AssetStatusCountCategory(mode,search_mode,null,userid,category)
+                        // AssetStatusCountCategory(mode,search_mode,null,userid,category)
                     },30000)
                 }
 
@@ -782,62 +782,62 @@ async function CreateData(userid){
 
     if (area == 'pusat'){
 
-             var url2 = '/vehicle/read/categories'
-             const requestOptions = {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json'
-                },
-            };
-             const res_vehicle_category = await fetch(url2,requestOptions)
-            .then(response => response.json()) 
-            .then(json => {
-                // alert (json)
-                return json
-            })
+            //  var url2 = '/vehicle/read/categories'
+            //  const requestOptions = {
+            //     method: 'POST',
+            //     headers: { 
+            //         'Content-Type': 'application/json'
+            //     },
+            // };
+            //  const res_vehicle_category = await fetch(url2,requestOptions)
+            // .then(response => response.json()) 
+            // .then(json => {
+            //     // alert (json)
+            //     return json
+            // })
            
-            console.log('res_vehicle_category',res_vehicle_category)
+            // console.log('res_vehicle_category',res_vehicle_category)
 
-            $('#dl').datalist('updateRow',{
-                index: 0,
-                row: {
-                    value: 'All',
-                    text: 'ALL (' + res_vehicle_category.all +')'
-                },
+            // $('#dl').datalist('updateRow',{
+            //     index: 0,
+            //     row: {
+            //         value: 'All',
+            //         text: 'ALL (' + res_vehicle_category.all +')'
+            //     },
                
-            })
+            // })
 
-            $('#dl').datalist('updateRow',{
-                index: 1,
-                row: {
-                    value: 'Sedan',
-                    text: 'Mazda 6 Sedan (' + res_vehicle_category.sedan +')'
-                }
-             })
+            // $('#dl').datalist('updateRow',{
+            //     index: 1,
+            //     row: {
+            //         value: 'Sedan',
+            //         text: 'Mazda 6 Sedan (' + res_vehicle_category.sedan +')'
+            //     }
+            //  })
            
-            $('#dl').datalist('updateRow',{
-                index: 2,
-                row: {
-                    value: 'Wagon',
-                    text: 'Mazda 6 Wagon (' + res_vehicle_category.wagon +')'
-                }
-            })
+            // $('#dl').datalist('updateRow',{
+            //     index: 2,
+            //     row: {
+            //         value: 'Wagon',
+            //         text: 'Mazda 6 Wagon (' + res_vehicle_category.wagon +')'
+            //     }
+            // })
         
-            $('#dl').datalist('updateRow',{
-                index: 3,
-                row: {
-                    value: 'D-Max',
-                    text: 'Isuzu D-Max (' + res_vehicle_category.dmax +')'
-                }
-            })
+            // $('#dl').datalist('updateRow',{
+            //     index: 3,
+            //     row: {
+            //         value: 'D-Max',
+            //         text: 'Isuzu D-Max (' + res_vehicle_category.dmax +')'
+            //     }
+            // })
         
-            $('#dl').datalist('updateRow',{
-                index: 4,
-                row: {
-                    value: 'Mux',
-                    text: 'Isuzu D-Mux (' + res_vehicle_category.dmux +')'
-                }
-            })
+            // $('#dl').datalist('updateRow',{
+            //     index: 4,
+            //     row: {
+            //         value: 'Mux',
+            //         text: 'Isuzu D-Mux (' + res_vehicle_category.dmux +')'
+            //     }
+            // })
 
           
             for (i=0;i<= data.length-1;i++){

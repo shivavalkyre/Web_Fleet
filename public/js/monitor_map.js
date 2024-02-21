@@ -341,7 +341,7 @@ function ReInitializeMap(map,gmarkers){
 
 // Add New Marker =====================================================================
 
-async function addMarker(location,heading,cars_info) {
+async function addMarker(location,heading,cars_info,show_label) {
    
     
     // console.log('Add Marker ==============================================================================')
@@ -394,6 +394,7 @@ async function addMarker(location,heading,cars_info) {
         url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon),
         scale: 2,
         anchor: new google.maps.Point(0, 0),
+        labelOrigin: new google.maps.Point(11, 50),
         // anchor: new google.maps.Point(16, 25)
       }
     // //   var $markerImage = document.querySelector('.markerImage'),
@@ -438,16 +439,32 @@ async function addMarker(location,heading,cars_info) {
     //     }
     // }
 
-
-    var marker = new google.maps.Marker({
-        position: location,
-        icon: homer,
-        map,
-        optimized: false,
-        title: cars_info.vehicleUid,
-        status:status,
-        category:cars_info.category_kendaraan
-    });
+    if (show_label==true){
+        var marker = new google.maps.Marker({
+            position: location,
+            icon: homer,
+            map,
+            optimized: false,
+            title: cars_info.vehicleUid,
+            label: {
+                color: 'black',
+                text: cars_info.vehicleUid
+              },
+            status:status,
+            category:cars_info.category_kendaraan
+        });
+    }  else{
+        var marker = new google.maps.Marker({
+            position: location,
+            icon: homer,
+            map,
+            optimized: false,
+            title: cars_info.vehicleUid,
+            status:status,
+            category:cars_info.category_kendaraan
+        });
+    }
+    
 
     marker.addListener("click", () => {
         infowindow.open({

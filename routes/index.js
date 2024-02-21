@@ -37,6 +37,9 @@ router.get('/dashboard',function (req, res, next) {
     res.render('dashboard')
 })
 
+router.get('/lupa_password/:param',function(req,res){
+    res.render('lupa_password')
+})
 
 router.get('/monitor',function (req, res, next) {
     res.render('monitor',{apikey:process.env.APIKEY,latitude:process.env.LATITUDE,longitude:process.env.LONGITUDE})

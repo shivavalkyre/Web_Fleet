@@ -416,6 +416,7 @@ async function generate_data(){
 
                         var vehicleUid = data[i].vehicleUid
                         var vehicleVin = data[i].vehicleVin
+                        var vehicleName = data[i].vehicleName
                         var vehicle_id = vehicleUid
                         var deviceId = data[i].deviceId
                         var deviceStatus = data[i].deviceStatus
@@ -452,6 +453,7 @@ async function generate_data(){
                             'assignment'    : assignment,
                             'tagging'       : tagging,
                             'vin'           : vehicleVin,
+                            'vehicle_name'  : vehicleName,
                             'init_odometer' : 0,
                             'deviceId'      : deviceId
                         }
