@@ -19,7 +19,7 @@ async function submitForm(){
                 data: param
             }
             //
-            var url='http://localhost:3003/api/pattern/change_password'
+            var url='http://147.139.144.120:3003/api/pattern/change_password'
             $.ajax({
                 url:url,
                 method:'POST',
